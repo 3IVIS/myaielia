@@ -2,7 +2,7 @@
 
 > Open-source AI agent that takes on real, multi-step work — research across a list, working through your files, drafting and sending messages — while an 11-layer harness controls what it may do, what it believes, and what a job may cost. The model proposes; the harness decides. Apache 2.0. Made by 3IVIS, built on Build A Harness (https://buildaharness.com).
 
-Aielia (`@buildaharness/aielia` on npm) is a general-purpose, everyday-use AI agent you can hand real, multi-step work to. Use it in a browser tab (https://myaielia.com/try — bring your own model key, nothing to install), in a terminal (`npx @buildaharness/aielia`), or as a native desktop app. All three front ends share one assistant class and one harness; they differ only in the storage backend (filesystem for CLI/desktop, IndexedDB for the browser). It is an early-stage public alpha (v0.3.1), not an audited security product.
+Aielia (`@buildaharness/aielia` on npm) is a general-purpose, everyday-use AI agent you can hand real, multi-step work to. Use it in a browser tab (https://myaielia.com/try — bring your own model key, nothing to install), in a terminal (install with `curl -fsSL https://myaielia.com/install.sh | sh`, or `irm https://myaielia.com/install.ps1 | iex` on Windows; or run `npx @buildaharness/aielia` if you have Node), or as a native desktop app. All three front ends share one assistant class and one harness; they differ only in the storage backend (filesystem for CLI/desktop, IndexedDB for the browser). It is an early-stage public alpha (v0.3.2), not an audited security product.
 
 ## What the harness controls
 

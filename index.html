@@ -102,7 +102,7 @@
       "applicationCategory": "UtilitiesApplication",
       "applicationSubCategory": "AI assistant",
       "operatingSystem": "macOS, Linux, Windows, Web",
-      "softwareVersion": "0.3.1",
+      "softwareVersion": "0.3.2",
       "releaseNotes": "Open-source AI agent that takes on multi-step work while an 11-layer harness controls its tool use, beliefs, budget and recovery. CLI, browser, and desktop.",
       "datePublished": "2026-09-04",
       "dateModified": "2026-09-21",
@@ -1253,10 +1253,8 @@ footer{
           Try Aielia in your browser →
         </a>
 
-        <button type="button" class="btn js-copy-cmd" data-copy="npx @buildaharness/aielia"
-          style="background:transparent;color:var(--ink);border-color:var(--line);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;cursor:pointer;">
-          npx @buildaharness/aielia
-        </button>
+        <button type="button" class="btn js-copy-cmd js-install-cmd" data-copy="curl -fsSL https://myaielia.com/install.sh | sh"
+          style="background:transparent;color:var(--ink);border-color:var(--line);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;cursor:pointer;">curl -fsSL https://myaielia.com/install.sh | sh</button>
       </div>
 
     </div>
@@ -1583,7 +1581,7 @@ footer{
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Do I need an account, and where does it run?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">There is no Aielia account. You bring your own model key (Anthropic, OpenAI, OpenRouter) or reuse a Claude CLI login in the terminal. It runs in a browser tab, in a terminal via <code style="font-size:13px">npx @buildaharness/aielia</code>, or as a desktop app — the same assistant and harness in all three.</p>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">There is no Aielia account. You bring your own model key (Anthropic, OpenAI, OpenRouter) or reuse a Claude CLI login in the terminal. It runs in a browser tab, in a terminal (<code style="font-size:13px">curl -fsSL https://myaielia.com/install.sh | sh</code> installs it, or <code style="font-size:13px">npx @buildaharness/aielia</code> if you already have Node), or as a desktop app — the same assistant and harness in all three.</p>
       </div>
       <div style="padding:24px 26px;background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Is it open source, and who makes it?</h3>
@@ -1623,7 +1621,7 @@ footer{
     {
       "@type": "Question",
       "name": "Do I need an account, and where does it run?",
-      "acceptedAnswer": { "@type": "Answer", "text": "There is no Aielia account. You bring your own model key (Anthropic, OpenAI, OpenRouter) or reuse a Claude CLI login in the terminal. It runs in a browser tab, in a terminal via npx @buildaharness/aielia, or as a desktop app — the same assistant and harness in all three." }
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no Aielia account. You bring your own model key (Anthropic, OpenAI, OpenRouter) or reuse a Claude CLI login in the terminal. It runs in a browser tab, in a terminal (curl -fsSL https://myaielia.com/install.sh | sh installs it, or npx @buildaharness/aielia if you already have Node), or as a desktop app — the same assistant and harness in all three." }
     },
     {
       "@type": "Question",
@@ -1708,6 +1706,17 @@ footer{
     .then(r=>r.ok?r.json():null)
     .then(d=>{if(!d||typeof d.stargazers_count!=="number")return;paint(d.stargazers_count);try{sessionStorage.setItem(CACHE_KEY,JSON.stringify({n:d.stargazers_count,t:Date.now()}));}catch(e){}})
     .catch(()=>{});
+})();
+</script>
+
+<script>
+(function(){
+  // Copy buttons default to the macOS/Linux one-liner; Windows visitors get PowerShell instead.
+  if(!/Windows/i.test(navigator.userAgent||''))return;
+  document.querySelectorAll('.js-install-cmd').forEach(function(b){
+    b.setAttribute('data-copy','irm https://myaielia.com/install.ps1 | iex');
+    b.textContent='irm https://myaielia.com/install.ps1 | iex';
+  });
 })();
 </script>
 

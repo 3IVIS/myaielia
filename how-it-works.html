@@ -102,7 +102,7 @@
       "applicationCategory": "UtilitiesApplication",
       "applicationSubCategory": "AI chat assistant built on an agent harness",
       "operatingSystem": "Web, macOS, Linux, Windows",
-      "softwareVersion": "0.3.1",
+      "softwareVersion": "0.3.2",
       "description": "Aielia is a general-purpose, everyday-use chat agent that walks the full 11-layer Build A Harness architecture on real conversation, skips it entirely for a one-shot fact lookup, and holds tool use, beliefs and cost to the harness's controls — with anything that can't be undone staged for explicit approval. Ships as a terminal CLI, a browser chat UI, and a native desktop app, all sharing one core.",
       "url": "https://myaielia.com/how-it-works",
       "downloadUrl": "https://www.npmjs.com/package/@buildaharness/aielia",
@@ -575,8 +575,8 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
 
     <div class="cta-row">
       <a class="btn" href="/try">Try in your browser →</a>
-      <button type="button" class="btn btn-ghost js-copy-cmd" data-copy="npx @buildaharness/aielia"
-        style="font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;">npx @buildaharness/aielia</button>
+      <button type="button" class="btn btn-ghost js-copy-cmd js-install-cmd" data-copy="curl -fsSL https://myaielia.com/install.sh | sh"
+        style="font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;">curl -fsSL https://myaielia.com/install.sh | sh</button>
       <a class="btn btn-ghost" href="#design">How it's built ↓</a>
     </div>
 
@@ -954,17 +954,17 @@ await assistant.turn('Summarize this into notes.md', {
     </div>
 
     <p style="margin-top:28px;">
-      The CLI keeps real files — transcripts, learned facts, reminders, and checkpoints persist under <code style="font-size:13px">~/.buildaharness/personal-assistant/</code> between runs. Skip the first-run prompt by setting the backend up front:
+      The CLI keeps real files — transcripts, learned facts, reminders, and checkpoints persist under <code style="font-size:13px">~/.buildaharness/personal-assistant/</code> between runs. Skip the first-run prompt by setting the backend up front (haven't installed it? Put <code style="font-size:13px">npx @buildaharness/aielia</code> where <code style="font-size:13px">aielia</code> appears below):
     </p>
 
     <div class="quickstart-box">
       <div class="quickstart-bar">shell</div>
       <pre><span style="color:var(--ink-3)"># No API key — shells out to an already-authenticated Claude Code session</span>
-ASSISTANT_LLM_BACKEND=claude-cli npx @buildaharness/aielia
+ASSISTANT_LLM_BACKEND=claude-cli aielia
 
 <span style="color:var(--ink-3)"># Or a direct provider API key</span>
 ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
-  npx @buildaharness/aielia</pre>
+  aielia</pre>
     </div>
 
     <p style="margin-top:28px;">
@@ -1045,8 +1045,8 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
       </div>
       <div class="cta-actions">
         <a class="btn" href="/try">Try in your browser →</a>
-        <button type="button" class="btn btn-ghost js-copy-cmd" data-copy="npx @buildaharness/aielia"
-          style="font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;">npx @buildaharness/aielia</button>
+        <button type="button" class="btn btn-ghost js-copy-cmd js-install-cmd" data-copy="curl -fsSL https://myaielia.com/install.sh | sh"
+          style="font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;">curl -fsSL https://myaielia.com/install.sh | sh</button>
         <a class="btn btn-ghost" href="https://buildaharness.com/harness-comparison">See the harness comparison →</a>
       </div>
     </div>
@@ -1071,6 +1071,17 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
     </div>
   </div>
 </footer>
+
+<script>
+(function(){
+  // Copy buttons default to the macOS/Linux one-liner; Windows visitors get PowerShell instead.
+  if(!/Windows/i.test(navigator.userAgent||''))return;
+  document.querySelectorAll('.js-install-cmd').forEach(function(b){
+    b.setAttribute('data-copy','irm https://myaielia.com/install.ps1 | iex');
+    b.textContent='irm https://myaielia.com/install.ps1 | iex';
+  });
+})();
+</script>
 
 <script>
 (function(){
