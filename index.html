@@ -1,0 +1,1705 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Klaro Consent Management -->
+<script type="text/javascript">
+  var klaroConfig = {
+    storageMethod: 'cookie',
+    cookieName: 'klaro',
+    cookieExpiresAfterDays: 365,
+    privacyPolicy: '/privacy.html',
+    default: false,
+    mustConsent: false,
+    acceptAll: true,
+    hideDeclineAll: false,
+    hideLearnMore: false,
+    noticeAsModal: false,
+    translations: {
+      en: {
+        consentModal: {
+          title: 'Aielia — We value your privacy',
+          description: 'Here you can see and customize the information that we collect about you.',
+        },
+        decline: 'Reject all',
+        ok: 'Accept all',
+        analytics: {
+          description: 'Collection of information about how visitors use our website.',
+        },
+        purposes: {
+          analytics: 'Analytics',
+        },
+      },
+    },
+    services: [
+      {
+        name: 'analytics',
+        title: 'Analytics & Tracking',
+        purposes: ['analytics'],
+        required: false,
+      },
+    ],
+  };
+</script>
+<script defer src="https://cdn.kiprotect.com/klaro/v0.7.18/klaro.js"></script>
+<!-- Google tag (gtag.js) — loaded only after analytics consent via Klaro above -->
+<script async type="text/plain" data-type="text/javascript" data-name="analytics" src="https://www.googletagmanager.com/gtag/js?id=G-HG3KMR8T0N"></script>
+<script type="text/plain" data-type="text/javascript" data-name="analytics">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HG3KMR8T0N');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aielia — An Open-Source AI Assistant That Asks Before It Acts</title>
+
+<meta name="description" content="Aielia is an open-source AI assistant that answers quick questions in one step and stops for your approval before it sends email, pays, or runs a command. Use it in your browser, terminal, or desktop app. Apache 2.0.">
+
+<link rel="canonical" href="https://myaielia.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://myaielia.com/">
+<meta property="og:site_name" content="Aielia">
+<meta property="og:title" content="Aielia — An Open-Source AI Assistant That Asks Before It Acts">
+<meta property="og:description" content="Aielia is an open-source AI assistant that answers quick questions in one step and stops for your approval before it sends email, pays, or runs a command. Use it in your browser, terminal, or desktop app. Apache 2.0.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aielia — An Open-Source AI Assistant That Asks Before It Acts">
+<meta name="twitter:description" content="Aielia is an open-source AI assistant that answers quick questions in one step and stops for your approval before it sends email, pays, or runs a command. Use it in your browser, terminal, or desktop app. Apache 2.0.">
+
+<meta property="og:locale" content="en_US">
+
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="3IVIS">
+<meta name="keywords" content="open source AI assistant, AI assistant with human approval, AI assistant that asks before acting, private AI assistant, self-hosted AI assistant, OpenClaw alternative, Hermes Agent alternative, Aielia">
+
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+<meta name="theme-color" content="#4F46E5">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://myaielia.com/#assistant",
+      "name": "Aielia",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "AI assistant",
+      "operatingSystem": "macOS, Linux, Windows, Web",
+      "softwareVersion": "0.3.1",
+      "releaseNotes": "Open-source AI assistant that runs an 11-layer harness every turn and stops for approval before it sends email, pays, or runs commands. CLI, browser, and desktop.",
+      "datePublished": "2026-09-04",
+      "dateModified": "2026-09-21",
+      "url": "https://myaielia.com/",
+      "downloadUrl": "https://www.npmjs.com/package/@buildaharness/aielia",
+      "installUrl": "https://myaielia.com/try",
+      "programmingLanguage": ["TypeScript"],
+      "license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "description": "Aielia is an open-source AI assistant that answers quick questions in one step and stops for your approval before it sends email, pays, or runs a command. Use it in your browser, terminal, or desktop app. Apache 2.0.",
+      "keywords": "open source AI assistant, AI assistant with approval, human-in-the-loop AI agent, OpenClaw alternative, Hermes Agent alternative, npx AI assistant",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@id": "https://myaielia.com/#org" },
+      "isBasedOn": { "@id": "https://buildaharness.com/#software" },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://buildaharness.com/#software",
+      "name": "Build A Harness",
+      "url": "https://buildaharness.com/",
+      "codeRepository": "https://github.com/3IVIS/buildaharness"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://myaielia.com/#org",
+      "name": "3IVIS",
+      "url": "https://github.com/3IVIS",
+      "sameAs": ["https://github.com/3IVIS/buildaharness"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://myaielia.com/#website",
+      "name": "Aielia",
+      "url": "https://myaielia.com/",
+      "dateModified": "2026-09-21",
+      "publisher": { "@id": "https://myaielia.com/#org" },
+      "description": "Open-source AI assistant that stops before it acts."
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --bg:oklch(.972 .008 270);
+  --bg-2:oklch(.948 .012 270);
+  --paper:oklch(.985 .008 270);
+  --ink:oklch(.19 .024 270);
+  --ink-2:oklch(.37 .02 270);
+  --ink-3:oklch(.55 .018 270);
+  --line:oklch(.84 .014 270);
+  --accent:oklch(.46 .16 268);
+  --accent-ink:oklch(.36 .16 270);
+  --green:oklch(.38 .12 148);
+  --green-tint:oklch(.93 .04 148);
+}
+
+*{box-sizing:border-box}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+body{
+  font-family:"IBM Plex Sans",sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 40px;
+}
+
+/* header */
+
+header{
+  border-bottom:1px solid var(--line);
+  background:var(--paper);
+  position:relative;
+}
+
+.site-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:var(--ink);
+}
+
+.brand .name{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:15px;
+  white-space:nowrap;
+}
+
+.nav{
+  display:flex;
+  gap:22px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:var(--ink-2);
+}
+
+.nav a:hover{
+  color:var(--ink);
+}
+
+.nav-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  padding:0;
+}
+
+.nav-toggle:hover{
+  border-color:var(--ink-2);
+}
+
+.hdr-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:6px;
+  text-decoration:none;
+  background:var(--ink);
+  color:white;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  border:1px solid var(--ink);
+}
+
+/* hero */
+
+.hero{
+  padding:72px 0 80px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:.16em;
+  color:var(--accent-ink);
+  margin-bottom:26px;
+}
+
+h1{
+  font-size:64px;
+  line-height:1.02;
+  letter-spacing:-.04em;
+  font-weight:300;
+  margin:0 0 28px;
+}
+
+h1 em{
+  font-family:"Instrument Serif",serif;
+  font-style:italic;
+  color:var(--accent-ink);
+  font-weight:400;
+}
+
+.hero-sub{
+  font-size:22px;
+  font-weight:300;
+  color:var(--ink);
+  letter-spacing:-.02em;
+  margin:0 0 20px;
+  line-height:1.3;
+}
+
+.lede{
+  font-size:18px;
+  color:var(--ink-2);
+  max-width:620px;
+  margin-bottom:28px;
+}
+
+.runtime-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.rt-pill{
+  padding:6px 12px;
+  border-radius:4px;
+  background:var(--green-tint);
+  color:var(--green);
+  border:1px solid oklch(.72 .09 148);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+}
+
+.hero-subnote{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--ink-3);
+  margin-bottom:28px;
+}
+
+.cta-row{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.cta-note{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--ink-3);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+/* hero diagram */
+
+.blueprint{
+  border-radius:6px;
+  border:1px solid var(--line);
+  background:var(--bg);
+  overflow:hidden;
+  height:500px;
+}
+
+.hd-root{
+  display:grid;
+  grid-template-columns:1fr 32px 1fr;
+  height:100%;
+  padding:18px 14px;
+}
+
+.hd-panel{
+  display:flex;
+  flex-direction:column;
+  padding:0 8px;
+  overflow:hidden;
+  min-width:0;
+}
+
+.hd-panel-head{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  text-align:center;
+  padding:5px 10px;
+  border-radius:4px;
+  margin-bottom:14px;
+  white-space:nowrap;
+}
+
+.hd-head-simple{
+  color:var(--ink-3);
+  background:var(--bg-2);
+  border:1px solid var(--line);
+}
+
+.hd-head-harness{
+  color:var(--accent-ink);
+  background:oklch(.94 .02 268);
+  border:1px solid var(--accent);
+}
+
+.hd-nodes{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  flex:1;
+  justify-content:center;
+}
+
+.hd-node{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:5px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--ink);
+  transition:background .25s,border-color .25s,box-shadow .25s;
+}
+
+.hd-node.hd-active{
+  background:oklch(.94 .02 268);
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px oklch(.94 .02 268 / .5);
+}
+
+.hd-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.hd-loop-tag{
+  font-size:9px;
+  color:var(--ink-3);
+  margin-left:auto;
+  letter-spacing:.06em;
+}
+
+.hd-arrow{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:16px;
+  flex-shrink:0;
+}
+
+.hd-arrow::before{
+  content:"";
+  flex:1;
+  width:1px;
+  background:var(--line);
+}
+
+.hd-arrow::after{
+  content:"";
+  border-left:3px solid transparent;
+  border-right:3px solid transparent;
+  border-top:4px solid var(--line);
+}
+
+.hd-layers{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  flex:1;
+  justify-content:center;
+}
+
+.hd-layer{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:5px 7px 5px 9px;
+  border-radius:4px;
+  border:1px solid var(--line);
+  border-left:3px solid var(--lc,var(--accent));
+  background:var(--paper);
+  transition:background .25s,box-shadow .25s;
+  min-width:0;
+}
+
+.hd-layer.hd-active{
+  background:oklch(.94 .02 268 / .35);
+  box-shadow:0 0 0 2px oklch(.94 .02 268 / .45);
+}
+
+.hd-layer-opt{
+  opacity:.6;
+  border-top-style:dashed;
+  border-right-style:dashed;
+  border-bottom-style:dashed;
+}
+
+.hd-layer-key{
+  border-left-width:4px;
+}
+
+.hd-ln{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  font-weight:500;
+  color:var(--ink);
+  flex-shrink:0;
+  white-space:nowrap;
+}
+
+.hd-ld{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:7.5px;
+  color:var(--ink-3);
+  margin-left:auto;
+  text-align:right;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.hd-key-badge{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:7px;
+  padding:1px 5px;
+  border-radius:3px;
+  background:oklch(.92 .04 280);
+  color:var(--accent-ink);
+  border:1px solid oklch(.74 .09 270);
+  flex-shrink:0;
+  margin-left:4px;
+}
+
+.hd-pair{
+  display:flex;
+  gap:3px;
+}
+
+.hd-pair .hd-layer{
+  flex:1;
+  min-width:0;
+}
+
+.hd-vs-col{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:24px;
+  padding-bottom:8px;
+}
+
+.hd-vs-line{
+  flex:1;
+  width:1px;
+  background:var(--line);
+}
+
+.hd-vs-badge{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:9px;
+  color:var(--ink-3);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:3px 5px;
+  background:var(--paper);
+  line-height:1;
+}
+
+.hd-footnote{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:8px;
+  color:var(--ink-3);
+  text-align:center;
+  margin-top:10px;
+  line-height:1.65;
+  letter-spacing:.06em;
+}
+
+@keyframes hd-in{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:none}
+}
+
+.hd-anim{
+  opacity:0;
+  animation:hd-in .4s ease forwards;
+  animation-delay:var(--d,0s);
+}
+
+@media(max-width:980px){
+  .hd-root{grid-template-columns:1fr;height:auto;padding:16px;gap:16px;}
+  .hd-vs-col{display:none;}
+  .blueprint{height:auto;}
+}
+
+/* sections */
+
+.section{
+  padding:72px 0;
+  border-top:1px solid var(--line);
+}
+
+.section-eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:var(--ink-3);
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-eyebrow::before{
+  content:"";
+  display:inline-block;
+  width:20px;
+  height:1px;
+  background:var(--accent-ink);
+  opacity:.5;
+  flex-shrink:0;
+}
+
+h2{
+  font-size:40px;
+  line-height:1.15;
+  letter-spacing:-.03em;
+  font-weight:300;
+  margin:0 0 18px;
+  max-width:760px;
+}
+
+h2 em{
+  font-family:"Instrument Serif",serif;
+  font-style:italic;
+  color:var(--accent-ink);
+}
+
+.section-lede{
+  max-width:720px;
+  font-size:17px;
+  color:var(--ink-2);
+  margin-bottom:42px;
+}
+
+/* cards */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.card{
+  padding:20px 28px 28px;
+  background:var(--paper);
+  border-right:1px solid var(--line);
+}
+
+.card:last-child{
+  border-right:none;
+}
+
+.card h3{
+  margin:0 0 12px;
+  font-size:20px;
+  font-weight:500;
+  padding-top:14px;
+  border-top:2px solid var(--accent);
+}
+
+.card p{
+  margin:0;
+  color:var(--ink-2);
+  font-size:15px;
+}
+
+/* flow */
+
+.flow-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:22px;
+}
+
+.code-card{
+  border:1px solid var(--line);
+  border-radius:6px;
+  overflow:hidden;
+  background:var(--paper);
+}
+
+.code-bar{
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  background:var(--bg-2);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+pre{
+  margin:0;
+  padding:18px;
+  overflow:auto;
+  font-size:12px;
+  line-height:1.7;
+  font-family:"IBM Plex Mono",monospace;
+}
+
+.feature-box{
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--paper);
+  padding:24px;
+}
+
+.feature-box h3{
+  margin-top:0;
+  margin-bottom:20px;
+  font-size:20px;
+}
+
+.feature-list{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.feature-item strong{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:6px;
+}
+.feature-item strong::before{
+  content:"";
+  display:inline-block;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--accent);
+  flex-shrink:0;
+}
+
+.feature-item p{
+  margin:0;
+  color:var(--ink-2);
+  font-size:15px;
+}
+
+/* runtimes */
+
+.runtime-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:30px;
+}
+
+.runtime-card{
+  border:1px solid var(--line);
+  border-top:2px solid var(--accent);
+  border-radius:6px;
+  background:var(--paper);
+  padding:26px;
+}
+
+.runtime-card h3{
+  margin:0 0 10px;
+}
+
+.runtime-card p{
+  margin:0;
+  color:var(--ink-2);
+}
+
+/* section alternation */
+.section.alt{
+  background:var(--bg);
+}
+
+/* langfuse */
+
+.obs-box{
+  border:1px solid oklch(.78 .06 148);
+  border-left:3px solid var(--green);
+  border-radius:6px;
+  padding:32px;
+  background:var(--green-tint);
+}
+
+/* footer */
+
+footer{
+  padding:32px 0;
+  border-top:1px solid var(--line);
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+}
+
+.footer-links a{
+  text-decoration:none;
+  color:var(--ink-2);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+}
+
+.footer-tag{
+  font-family:"Instrument Serif",serif;
+  color:var(--ink-3);
+  font-style:italic;
+}
+
+/* roadmap section */
+
+.roadmap-phases{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:28px;
+}
+
+.phase-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 13px;
+  border-radius:5px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--ink-2);
+}
+
+.phase-chip.active{
+  border-color:var(--accent);
+  background:oklch(.94 .02 268);
+  color:var(--accent-ink);
+}
+
+.phase-chip.done{
+  background:var(--green-tint);
+  border-color:oklch(.72 .09 148);
+  color:var(--green);
+}
+
+.phase-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.progress-bar-wrap{
+  height:4px;
+  background:var(--line);
+  border-radius:2px;
+  margin-bottom:28px;
+  overflow:hidden;
+}
+
+.progress-bar-fill{
+  height:100%;
+  border-radius:2px;
+  background:linear-gradient(90deg,var(--green),var(--accent));
+}
+
+.vision-box{
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:6px;
+  padding:26px 32px;
+  background:var(--paper);
+  margin-bottom:32px;
+}
+
+.harness-vs{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:24px;
+  align-items:start;
+  margin-top:32px;
+}
+
+.hv-col{
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--paper);
+  padding:22px 24px;
+}
+
+.hv-label{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--ink-3);
+  margin-bottom:14px;
+}
+
+.hv-layer{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 10px;
+  border-radius:4px;
+  border:1px solid var(--line);
+  margin-bottom:5px;
+  font-size:12px;
+}
+
+.hv-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.hv-name{
+  font-weight:500;
+  font-size:12px;
+}
+
+.hv-sub{
+  font-size:11px;
+  color:var(--ink-3);
+  margin-left:auto;
+}
+
+/* composability diagram */
+
+.compose-diagram{
+  margin-bottom:36px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.compose-top{
+  padding:11px 20px;
+  background:var(--bg-2);
+  border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:var(--ink-3);
+  text-align:center;
+}
+
+.compose-top b{
+  color:var(--ink-2);
+}
+
+.compose-cols{
+  display:grid;
+  grid-template-columns:1fr 28px 1fr;
+}
+
+.compose-col{
+  padding:16px 16px 18px;
+  background:var(--paper);
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}
+
+.compose-col-label{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--ink-3);
+  text-align:center;
+  padding:4px 8px;
+  border-radius:3px;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  margin-bottom:10px;
+}
+
+.compose-col-label.full{
+  color:var(--accent-ink);
+  background:oklch(.94 .02 268);
+  border-color:oklch(.82 .04 268);
+}
+
+.cnode{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:5px 10px;
+  border-radius:4px;
+  border:1px solid var(--line);
+  background:var(--bg);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  color:var(--ink);
+  flex-shrink:0;
+}
+
+.cnode-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.cnode-tag{
+  margin-left:auto;
+  font-size:8px;
+  color:var(--ink-3);
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+
+.cnode-opt{
+  opacity:.55;
+  border-style:dashed;
+}
+
+.cnode-pair{
+  display:flex;
+  gap:4px;
+}
+
+.cnode-pair .cnode{
+  flex:1;
+  min-width:0;
+}
+
+.carrow{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:11px;
+  flex-shrink:0;
+  margin:1px 0;
+}
+
+.carrow::before{
+  content:"";
+  flex:1;
+  width:1px;
+  background:var(--line);
+}
+
+.carrow::after{
+  content:"";
+  border-left:3px solid transparent;
+  border-right:3px solid transparent;
+  border-top:4px solid var(--line);
+}
+
+.compose-sep{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:var(--bg-2);
+  border-left:1px solid var(--line);
+  border-right:1px solid var(--line);
+  padding:12px 0;
+}
+
+.compose-sep-line{
+  flex:1;
+  width:1px;
+  background:var(--line);
+}
+
+.compose-sep-badge{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:8px;
+  color:var(--ink-3);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:3px 5px;
+  background:var(--paper);
+  line-height:1;
+  margin:4px 0;
+}
+
+.compose-bottom{
+  padding:9px 20px;
+  background:var(--bg-2);
+  border-top:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:9.5px;
+  color:var(--ink-3);
+  text-align:center;
+  letter-spacing:.05em;
+}
+
+/* mobile */
+
+@media(max-width:980px){
+
+  .hero-grid,
+  .flow-grid,
+  .cards,
+  .runtime-grid,
+  .harness-vs,
+  .compose-cols{
+    grid-template-columns:1fr;
+  }
+
+  .compose-sep{
+    display:none;
+  }
+
+  h1{
+    font-size:48px;
+  }
+
+  h2{
+    font-size:32px;
+  }
+
+  .nav{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    flex-direction:column;
+    gap:0;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    padding:6px 22px 16px;
+    z-index:50;
+  }
+
+  .nav.open{
+    display:flex;
+  }
+
+  .nav a{
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .nav a:last-child{
+    border-bottom:none;
+  }
+
+  .nav-toggle{
+    display:inline-flex;
+  }
+
+  .wrap{
+    padding:0 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap site-inner">
+
+    <a class="brand" href="/" aria-label="Aielia home">
+      <span class="name">Aielia</span>
+    </a>
+
+    <nav class="nav" id="siteNav">
+      <a href="/how-it-works">How it works</a>
+      <a href="/try">Try it</a>
+      <a href="https://buildaharness.com">For developers ↗</a>
+    </nav>
+
+    <div class="hdr-actions">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteNav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+
+      <a class="btn" href="https://github.com/3IVIS/buildaharness">
+        GitHub
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<section class="hero">
+
+  <div class="wrap hero-grid">
+
+    <div>
+
+      <div class="eyebrow">
+        OPEN SOURCE · APACHE 2.0 · SELF-HOSTED
+      </div>
+
+      <h1>
+        An AI assistant that<br>
+        <em>thinks before it acts.</em>
+      </h1>
+
+      <p class="hero-sub">
+        Meet Aielia — she answers a quick question in one step, and stops for your
+        approval before she sends an email, pays an invoice, or runs a command.
+      </p>
+
+      <p class="lede">
+        Behind every reply is a <strong>harness</strong> — eleven layers that check what Aielia
+        believes, what she's allowed to do, and whether her answer holds up before it reaches you.
+        It's all open source, and if you want to see how it works you can
+        <a href="https://buildaharness.com/build" style="color:var(--accent-ink);">build one yourself</a>.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn" href="/try">
+          Try Aielia in your browser →
+        </a>
+
+        <button type="button" class="btn js-copy-cmd" data-copy="npx @buildaharness/aielia"
+          style="background:transparent;color:var(--ink);border-color:var(--line);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;cursor:pointer;">
+          npx @buildaharness/aielia
+        </button>
+      </div>
+
+    </div>
+
+    <div class="blueprint">
+      <p class="sr-only">Diagram: a simple agent loop (input → LLM call → tool call → output) compared with a full Build A Harness — an 11-layer architecture across 27 nodes that adds caller state, a world model, reasoning, a 5-tier control layer, planning, execution, 9-layer verification, recovery, memory, optional learning, and an output reviewer pass.</p>
+      <div class="hd-root">
+
+        <!-- LEFT: simple agent loop -->
+        <div class="hd-panel">
+          <div class="hd-panel-head hd-head-simple hd-anim" style="--d:.05s">Simple Agent Loop</div>
+          <div class="hd-nodes">
+            <div class="hd-node hd-flow-node hd-anim" style="--d:.1s">
+              <span class="hd-dot" style="background:#0891b2"></span>Input / Caller
+            </div>
+            <div class="hd-arrow hd-anim" style="--d:.2s"></div>
+            <div class="hd-node hd-flow-node hd-anim" style="--d:.3s">
+              <span class="hd-dot" style="background:#7c3aed"></span>LLM Call
+            </div>
+            <div class="hd-arrow hd-anim" style="--d:.4s"></div>
+            <div class="hd-node hd-flow-node hd-anim" style="--d:.5s">
+              <span class="hd-dot" style="background:#d97706"></span>Tool Call<span class="hd-loop-tag">↺ loop</span>
+            </div>
+            <div class="hd-arrow hd-anim" style="--d:.6s"></div>
+            <div class="hd-node hd-flow-node hd-anim" style="--d:.7s">
+              <span class="hd-dot" style="background:#059669"></span>Output
+            </div>
+          </div>
+          <div class="hd-footnote hd-anim" style="--d:.9s">
+            prompt in → answer out<br>no world model · no control state · no verification
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="hd-vs-col">
+          <div class="hd-vs-line"></div>
+          <div class="hd-vs-badge">vs</div>
+          <div class="hd-vs-line"></div>
+        </div>
+
+        <!-- RIGHT: full harness -->
+        <div class="hd-panel">
+          <div class="hd-panel-head hd-head-harness hd-anim" style="--d:.05s">Full Harness — Implemented</div>
+          <div class="hd-layers">
+            <div class="hd-layer hd-anim" style="--d:.15s;--lc:#0891b2">
+              <span class="hd-ln">Caller State</span><span class="hd-ld">constraints · clarification · propagation</span>
+            </div>
+            <div class="hd-layer hd-anim" style="--d:.28s;--lc:#7c3aed">
+              <span class="hd-ln">World Model</span><span class="hd-ld">beliefs · contradictions · generation_id</span>
+            </div>
+            <div class="hd-layer hd-anim" style="--d:.41s;--lc:#16a34a">
+              <span class="hd-ln">Reasoning</span><span class="hd-ld">evidence · hypotheses (4 sources) · VOI</span>
+            </div>
+            <div class="hd-layer hd-layer-key hd-anim" style="--d:.54s;--lc:#a21caf">
+              <span class="hd-ln">Control</span><span class="hd-ld">5-tier resolver · deadlock detect</span><span class="hd-key-badge">key</span>
+            </div>
+            <div class="hd-layer hd-anim" style="--d:.67s;--lc:#2563eb">
+              <span class="hd-ln">Planning</span><span class="hd-ld">task graph (6-state) · parallel concurrency</span>
+            </div>
+            <div class="hd-pair hd-anim" style="--d:.8s">
+              <div class="hd-layer" style="--lc:#d97706">
+                <span class="hd-ln">Execution</span><span class="hd-ld">VOI · review gate</span>
+              </div>
+              <div class="hd-layer" style="--lc:#dc2626">
+                <span class="hd-ln">Verification</span><span class="hd-ld">9 layers</span>
+              </div>
+            </div>
+            <div class="hd-pair hd-anim" style="--d:.93s">
+              <div class="hd-layer" style="--lc:#ea580c">
+                <span class="hd-ln">Recovery</span><span class="hd-ld">6 strategies</span>
+              </div>
+              <div class="hd-layer" style="--lc:#65a30d">
+                <span class="hd-ln">Memory</span><span class="hd-ld">compression · journal</span>
+              </div>
+            </div>
+            <div class="hd-layer hd-layer-opt hd-anim" style="--d:1.06s;--lc:#64748b">
+              <span class="hd-ln">Learning</span><span class="hd-ld">experience store · warm start (optional)</span>
+            </div>
+            <div class="hd-layer hd-anim" style="--d:1.19s;--lc:#059669">
+              <span class="hd-ln">Output &amp; Reviewer Pass</span><span class="hd-ld">contract · 3-lens review</span>
+            </div>
+          </div>
+          <div class="hd-footnote hd-anim" style="--d:1.35s">
+            27 nodes · 11 layers · world model + 5-tier control · 9-layer verification
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section alt" id="assistant">
+
+  <div class="wrap">
+
+    <div class="section-eyebrow">
+      THE ASSISTANT · AIELIA
+    </div>
+
+    <h2>
+      Talk to it. It <em>stops before it acts.</em>
+    </h2>
+
+    <p class="section-lede">
+      Aielia is a general-purpose chat assistant that walks a full 11-layer harness on
+      every real turn. A quick fact lookup stays light.
+      Anything consequential — sending an email, paying, running a shell command, deleting a
+      file — pauses for your approval <em>before</em> a single token is spent.
+    </p>
+
+    <div class="flow-grid">
+
+      <div class="code-card">
+        <div class="code-bar">the risk gate, in practice</div>
+        <pre><code>&gt; What time zone is Tokyo in?
+Japan Standard Time (UTC+9).
+
+&gt; Send an email to my boss saying I quit.
+⚠ needs approval — this looks consequential (send).
+  Reply "approve" to proceed. No model call was made.</code></pre>
+      </div>
+
+      <div class="feature-box">
+        <h3>Why it's different</h3>
+        <div class="feature-list">
+          <div class="feature-item">
+            <strong>Per-tool-call control state</strong>
+            <p>Every read-only tool call is checked against a live 5-tier resolver before it runs — deterministic ALLOW / DENY / REQUIRE_APPROVAL, not an advisory hint.</p>
+          </div>
+          <div class="feature-item">
+            <strong>Fail-safe risk classification</strong>
+            <p>A classifier error resolves to "requires approval" — it never defaults to low-risk. Judged in any language, not just English.</p>
+          </div>
+          <div class="feature-item">
+            <strong>Staged effects</strong>
+            <p><code style="font-size:13px">write_file</code>, <code style="font-size:13px">run_shell_command</code>, and <code style="font-size:13px">send_email</code> stage the exact action for approval — no second model call can improvise a different one.</p>
+          </div>
+          <div class="feature-item">
+            <strong>Untrusted-content boundary</strong>
+            <p>Web results and shell output are wrapped as data the model is told never to obey, and survive a crash mid-turn via checkpoint resume.</p>
+          </div>
+        </div>
+        <div class="cta-row" style="margin-top:22px;">
+          <a class="btn" href="/try">Try Aielia in your browser →</a>
+          <a class="btn" href="/how-it-works" style="background:transparent;color:var(--ink);border-color:var(--line);">How it works →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="font-size:14px;color:var(--ink-3);margin-top:28px;font-family:'IBM Plex Mono',monospace;text-align:center;">
+      npx @buildaharness/aielia · CLI, browser, or desktop · one core, one harness · Apache 2.0
+    </p>
+
+  </div>
+
+</section>
+
+<section class="section" id="trust">
+
+  <div class="wrap">
+
+    <div class="section-eyebrow">
+      WHY YOU CAN TRUST IT
+    </div>
+
+    <h2>
+      Helpful by default, <em>careful by design.</em>
+    </h2>
+
+    <p class="section-lede">
+      The assistant proposes; the harness decides what happens next. That split is what lets
+      Aielia be quick about the easy things and firm about the ones that can't be undone.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Asks before it acts</h3>
+        <p>Sending, paying, deleting, or running a command pauses for your approval. The exact action is staged first, so nothing can be swapped in after you say yes.</p>
+      </div>
+      <div class="card">
+        <h3>Your keys, your machine</h3>
+        <p>No Aielia account. Bring your own model key — it stays in your browser or a local config file — or reuse a Claude CLI login and skip the key entirely.</p>
+      </div>
+      <div class="card">
+        <h3>Doesn't obey the web</h3>
+        <p>Web pages and command output are wrapped as untrusted data the model is told never to follow, so a page that says "ignore your instructions" is just text.</p>
+      </div>
+      <div class="card">
+        <h3>Picks up where it left off</h3>
+        <p>The harness checkpoints mid-turn. If something crashes halfway through a conversation, the interrupted turn resumes instead of starting over.</p>
+      </div>
+    </div>
+
+    <p style="font-size:14px;color:var(--ink-3);margin-top:28px;font-family:'IBM Plex Mono',monospace;text-align:center;">
+      11 layers · every real turn · approval before action · Apache 2.0
+    </p>
+
+  </div>
+
+</section>
+
+<section class="section alt" id="start">
+
+  <div class="wrap">
+
+    <div class="section-eyebrow">
+      GET STARTED
+    </div>
+
+    <h2>
+      Pick the way <em>that fits you.</em>
+    </h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>In your browser</h3>
+        <p>Nothing to install. Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste a model key in Settings, and start talking.</p>
+      </div>
+      <div class="card">
+        <h3>In your terminal</h3>
+        <p><code style="font-size:13px">npx @buildaharness/aielia</code> — nothing to clone. First run walks you through picking a model.</p>
+      </div>
+      <div class="card">
+        <h3>As a desktop app</h3>
+        <p>The same chat UI in a native window, with a folder picker for file access. Built from source today, and it needs a Rust toolchain.</p>
+      </div>
+    </div>
+
+    <div class="cta-row" style="margin-top:32px;">
+      <a class="btn" href="/try">Try Aielia in your browser →</a>
+      <a class="btn" href="/how-it-works#quickstart" style="background:transparent;color:var(--ink);border-color:var(--line);">All install options →</a>
+    </div>
+
+    <p style="font-size:14px;color:var(--ink-3);margin-top:24px;text-align:center;">
+      Aielia is in public alpha. Found something broken?
+      <a href="https://github.com/3IVIS/buildaharness/issues/new?template=bug_report.md" style="color:var(--accent-ink);">Tell us on GitHub</a>.
+    </p>
+
+  </div>
+
+</section>
+
+<section class="section" id="developers">
+
+  <div class="wrap">
+
+    <div class="section-eyebrow">
+      FOR DEVELOPERS
+    </div>
+
+    <h2>
+      Built on <em>Build A Harness.</em>
+    </h2>
+
+    <p class="section-lede">
+      Aielia is the reference application for Build A Harness — an open-source visual canvas
+      and runtime for the same 11 layers. Design your own agent harness, compile it to LangGraph,
+      CrewAI, Mastra, or Microsoft Agent Framework, and read how we measure which features earn their cost.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn" href="https://buildaharness.com">Visit Build A Harness →</a>
+      <a class="btn" href="https://buildaharness.com/harness-architecture" style="background:transparent;color:var(--ink);border-color:var(--line);">Inside one turn →</a>
+      <a class="btn" href="https://buildaharness.com/harness-evaluation" style="background:transparent;color:var(--ink);border-color:var(--line);">How we evaluate it →</a>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section alt" id="faq">
+
+  <div class="wrap">
+
+    <div class="section-eyebrow">
+      FAQ
+    </div>
+
+    <h2>
+      Questions, <em>answered.</em>
+    </h2>
+
+    <div style="border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:8px;">
+      <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What is Aielia?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">An open-source chat assistant that answers a quick question in one step and stops for your approval before it does anything consequential — sending an email, paying, deleting a file, or running a command. Every real turn runs through an 11-layer harness that checks the reply before it reaches you.</p>
+      </div>
+      <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What does it ask my approval for?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Anything that looks consequential — send, delete, pay, post — is caught before a model call is made, in any language. Writing a file, running a shell command, and sending an email always stage the exact action and wait for your explicit approval. If the safety check itself fails, it asks rather than assuming the request is harmless.</p>
+      </div>
+      <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Do I need an account?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">There is no Aielia account or sign-up. You bring your own model key — Anthropic, OpenAI, or OpenRouter — or reuse an existing Claude CLI login in the terminal. In the browser build the key stays in your browser; in the CLI and desktop app it sits in a local config file.</p>
+      </div>
+      <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Where does it run?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">In a browser tab (nothing to install), in a terminal via <code style="font-size:13px">npx @buildaharness/aielia</code>, or as a native desktop app. All three share the same assistant and the same harness — they differ only in where your data is stored.</p>
+      </div>
+      <div style="padding:24px 26px;background:var(--paper);">
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Is it open source, and who makes it?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Yes — Apache 2.0. Aielia is made by 3IVIS and built on <a href="https://buildaharness.com" style="color:var(--accent-ink);">Build A Harness</a>, the open-source framework for designing and running agent harnesses. It is an early-stage project (v0.3.1), not an audited security product.</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Aielia?",
+      "acceptedAnswer": { "@type": "Answer", "text": "An open-source chat assistant that answers a quick question in one step and stops for your approval before it does anything consequential — sending an email, paying, deleting a file, or running a command. Every real turn runs through an 11-layer harness that checks the reply before it reaches you." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it ask my approval for?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Anything that looks consequential — send, delete, pay, post — is caught before a model call is made, in any language. Writing a file, running a shell command, and sending an email always stage the exact action and wait for your explicit approval. If the safety check itself fails, it asks rather than assuming the request is harmless." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need an account?",
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no Aielia account or sign-up. You bring your own model key — Anthropic, OpenAI, or OpenRouter — or reuse an existing Claude CLI login in the terminal. In the browser build the key stays in your browser; in the CLI and desktop app it sits in a local config file." }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does it run?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In a browser tab (nothing to install), in a terminal via npx @buildaharness/aielia, or as a native desktop app. All three share the same assistant and the same harness — they differ only in where your data is stored." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it open source, and who makes it?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — Apache 2.0. Aielia is made by 3IVIS and built on Build A Harness, the open-source framework for designing and running agent harnesses. It is an early-stage project (v0.3.1), not an audited security product." }
+    }
+  ]
+}
+</script>
+
+<footer>
+
+  <div class="wrap footer-inner">
+
+    <div class="footer-links">
+      <a href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia">GitHub</a>
+      <a href="https://github.com/3IVIS/buildaharness/discussions">Discussions</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/try">Try it</a>
+      <a href="https://buildaharness.com">For developers</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/impressum.html">Impressum</a>
+      <a href="#" onclick="if(window.klaro)klaro.show();return false;">Cookie Settings</a>
+    </div>
+
+    <div class="footer-tag">
+      An assistant that asks before it acts.
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+(function(){
+  function ready(fn){document.readyState!=='loading'?fn():document.addEventListener('DOMContentLoaded',fn);}
+  ready(function(){
+    var flowNodes=document.querySelectorAll('.hd-flow-node');
+    var layers=document.querySelectorAll('.hd-layer');
+    if(!flowNodes.length)return;
+
+    // Simple loop: INPUT → LLM → TOOL → LLM (loop back) → OUTPUT, repeat
+    var loopSeq=[0,1,2,1,3];
+    var fi=0;
+    function tickFlow(){
+      flowNodes.forEach(function(n){n.classList.remove('hd-active');});
+      flowNodes[loopSeq[fi]].classList.add('hd-active');
+      fi=(fi+1)%loopSeq.length;
+    }
+
+    // Harness: cycle through all layers
+    var li=0;
+    function tickLayers(){
+      layers.forEach(function(l){l.classList.remove('hd-active');});
+      layers[li%layers.length].classList.add('hd-active');
+      li++;
+    }
+
+    // Start after initial fade-in completes
+    setTimeout(function(){
+      tickFlow();
+      setInterval(tickFlow,750);
+    },2000);
+    setTimeout(function(){
+      tickLayers();
+      setInterval(tickLayers,550);
+    },2300);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  const targets=document.querySelectorAll("[data-gh-stars]");
+  if(!targets.length)return;
+  const REPO="3IVIS/buildaharness",CACHE_KEY="gh-stars:"+REPO,CACHE_TTL=600000;
+  function format(n){return n>=1000?(n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,"")+"k":String(n);}
+  function paint(n){const l="★ "+format(n);targets.forEach(el=>{el.textContent=l;});}
+  try{const c=JSON.parse(sessionStorage.getItem(CACHE_KEY)||"null");if(c&&Date.now()-c.t<CACHE_TTL&&typeof c.n==="number"){paint(c.n);return;}}catch(e){}
+  fetch("https://api.github.com/repos/"+REPO,{headers:{"Accept":"application/vnd.github+json"}})
+    .then(r=>r.ok?r.json():null)
+    .then(d=>{if(!d||typeof d.stargazers_count!=="number")return;paint(d.stargazers_count);try{sessionStorage.setItem(CACHE_KEY,JSON.stringify({n:d.stargazers_count,t:Date.now()}));}catch(e){}})
+    .catch(()=>{});
+})();
+</script>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.js-copy-cmd');
+  if(!btns.length||!navigator.clipboard)return;
+  btns.forEach(function(btn){
+    var original=btn.textContent;
+    btn.addEventListener('click',function(){
+      navigator.clipboard.writeText(btn.getAttribute('data-copy')||original.trim()).then(function(){
+        btn.textContent='copied ✓';
+        setTimeout(function(){btn.textContent=original;},1600);
+      }).catch(function(){});
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var toggle=document.getElementById('navToggle');
+  var nav=document.getElementById('siteNav');
+  if(!toggle||!nav)return;
+  function close(){nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+  toggle.addEventListener('click',function(e){
+    e.stopPropagation();
+    var open=nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+  });
+  nav.addEventListener('click',function(e){
+    if(e.target.tagName==='A')close();
+  });
+  document.addEventListener('click',function(e){
+    if(!nav.contains(e.target)&&!toggle.contains(e.target))close();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape')close();
+  });
+})();
+</script>
+</body>
+</html>

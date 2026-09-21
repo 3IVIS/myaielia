@@ -1,0 +1,26 @@
+# Aielia
+
+> Open-source AI assistant that answers a quick question in one step and stops for your approval before it sends email, pays, or runs a command. Every real turn runs through an 11-layer harness. Apache 2.0. Made by 3IVIS, built on Build A Harness (https://buildaharness.com).
+
+Aielia (`@buildaharness/aielia` on npm) is a general-purpose, everyday-use chat assistant. Use it in a browser tab (https://myaielia.com/try — bring your own model key, nothing to install), in a terminal (`npx @buildaharness/aielia`), or as a native desktop app. All three front ends share one assistant class and one harness; they differ only in the storage backend (filesystem for CLI/desktop, IndexedDB for the browser). It is an early-stage public alpha (v0.3.1), not an audited security product.
+
+## How it decides what needs approval
+
+- One classification call every turn judges the message for consequential intent (send, delete, pay, post, ...) in any language, before the harness or any other model call runs. A classifier error resolves to "requires approval", never to low-risk.
+- `write_file`, `run_shell_command`, and `send_email` always stage the exact action as a pending proposal and only apply on explicit approval with the matching pending-action ID.
+- Every read-only tool call is checked against a live 5-tier control state (deterministic ALLOW / DENY / REQUIRE_APPROVAL) before it runs.
+- Content fetched from the web or a shell command is wrapped as untrusted data before it re-enters the conversation.
+- The harness checkpoints mid-turn, so a crash mid-conversation resumes the interrupted turn instead of restarting.
+
+## Pages
+
+- [How it works](https://myaielia.com/how-it-works): the eleven layers applied to a chat message, the risk gate, the trust boundary, crash resume, the three front ends, and every way to run it.
+- [Try it in your browser](https://myaielia.com/try): the hosted browser build. Your API key stays in your browser.
+
+## Accounts, keys, and privacy
+
+There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter) or reuse an existing `claude` CLI login in the terminal. Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI and desktop app.
+
+## For developers
+
+Aielia is the reference application for Build A Harness: an open-source visual canvas, FlowSpec (a runtime-neutral JSON format), four framework adapters (LangGraph, CrewAI, Mastra, Microsoft Agent Framework), and Langfuse observability. Architecture, the build-your-own guide, framework comparisons, and the published feature-evaluation results live at https://buildaharness.com. Source: https://github.com/3IVIS/buildaharness (assistant in `packages/aielia`).
