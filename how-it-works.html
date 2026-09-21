@@ -53,7 +53,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How Aielia Works — An Open-Source AI Assistant That Asks Before It Acts</title>
 
-<meta name="description" content="Aielia is an open-source, self-hosted AI assistant — a Hermes / OpenClaw / Kilo Code alternative that runs an 11-layer harness every turn and stops for your approval before it sends email, pays, or runs a command. CLI, browser, and desktop. Apache 2.0.">
+<meta name="description" content="Aielia is an open-source AI agent you can hand real, multi-step work to — with an 11-layer harness controlling what it may do, what it believes, and what it can spend. A Hermes / OpenClaw / Kilo Code alternative. CLI, browser, and desktop. Apache 2.0.">
 
 <link rel="canonical" href="https://myaielia.com/how-it-works">
 
@@ -61,16 +61,16 @@
 <meta property="og:url" content="https://myaielia.com/how-it-works">
 <meta property="og:site_name" content="Aielia">
 <meta property="og:title" content="How Aielia Works — An Open-Source AI Assistant That Asks Before It Acts">
-<meta property="og:description" content="Aielia is an open-source, self-hosted AI assistant — a Hermes / OpenClaw / Kilo Code alternative that runs an 11-layer harness every turn and stops for your approval before it sends email, pays, or runs a command. CLI, browser, and desktop. Apache 2.0.">
+<meta property="og:description" content="Aielia is an open-source AI agent you can hand real, multi-step work to — with an 11-layer harness controlling what it may do, what it believes, and what it can spend. A Hermes / OpenClaw / Kilo Code alternative. CLI, browser, and desktop. Apache 2.0.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How Aielia Works — An Open-Source AI Assistant That Asks Before It Acts">
-<meta name="twitter:description" content="Aielia is an open-source, self-hosted AI assistant — a Hermes / OpenClaw / Kilo Code alternative that runs an 11-layer harness every turn and stops for your approval before it sends email, pays, or runs a command. CLI, browser, and desktop. Apache 2.0.">
+<meta name="twitter:description" content="Aielia is an open-source AI agent you can hand real, multi-step work to — with an 11-layer harness controlling what it may do, what it believes, and what it can spend. A Hermes / OpenClaw / Kilo Code alternative. CLI, browser, and desktop. Apache 2.0.">
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
-<meta name="keywords" content="AI personal assistant, chat agent, agent harness, AI agent framework, risk gating, human in the loop, tool approval, LangGraph, CrewAI, Mastra, FlowSpec, open source, apache 2.0">
+<meta name="keywords" content="controlled AI agent, agent harness, AI agent guardrails, reliable AI assistant, tool permissions, agent budget, LangGraph, CrewAI, Mastra, FlowSpec, open source, apache 2.0">
 
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -95,7 +95,7 @@
       "applicationSubCategory": "AI chat assistant built on an agent harness",
       "operatingSystem": "Web, macOS, Linux, Windows",
       "softwareVersion": "0.3.1",
-      "description": "Aielia is a general-purpose, everyday-use chat agent that walks the full 11-layer Build A Harness architecture on real conversation, skips it entirely for a one-shot fact lookup, and gates a real email send or shell command behind explicit approval. Ships as a terminal CLI, a browser chat UI, and a native desktop app, all sharing one core.",
+      "description": "Aielia is a general-purpose, everyday-use chat agent that walks the full 11-layer Build A Harness architecture on real conversation, skips it entirely for a one-shot fact lookup, and holds tool use, beliefs and cost to the harness's controls — with anything that can't be undone staged for explicit approval. Ships as a terminal CLI, a browser chat UI, and a native desktop app, all sharing one core.",
       "url": "https://myaielia.com/how-it-works",
       "downloadUrl": "https://www.npmjs.com/package/@buildaharness/aielia",
       "installUrl": "https://myaielia.com/try",
@@ -105,14 +105,14 @@
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "isAccessibleForFree": true,
       "author": { "@id": "https://myaielia.com/#org" },
-      "keywords": "AI personal assistant, chat agent, agent harness, risk gating, human in the loop, tool approval, open source"
+      "keywords": "controlled AI agent, agent harness, AI agent guardrails, tool permissions, agent budget, open source"
     },
     {
       "@type": "WebPage",
       "@id": "https://myaielia.com/how-it-works#webpage",
       "url": "https://myaielia.com/how-it-works",
       "name": "How Aielia Works — An Open-Source AI Assistant That Asks Before It Acts",
-      "description": "Aielia is Build A Harness's own AI assistant — walks the full 11-layer harness on real conversation, gates risky actions behind approval, and shares one core across CLI, browser, and desktop.",
+      "description": "Aielia is Build A Harness's own AI assistant — takes on multi-step work under the control of the full 11-layer harness, stages irreversible actions for approval, and shares one core across CLI, browser, and desktop.",
       "datePublished": "2026-07-14",
       "dateModified": "2026-09-04",
       "publisher": { "@id": "https://myaielia.com/#org" },
@@ -139,7 +139,7 @@
         {
           "@type": "Question",
           "name": "What is Aielia?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Aielia is a general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it treats every chat message as one objective, one task — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and gating a consequential request like 'send that email' behind explicit approval." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Aielia is a general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it treats every chat message as one objective, one task — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and holding tool use, beliefs and cost to the harness's controls — with anything that can't be undone, like sending that email, staged for explicit approval." }
         },
         {
           "@type": "Question",
@@ -542,12 +542,12 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
     <div class="eyebrow">AIELIA · APACHE 2.0</div>
 
     <h1>
-      Aielia — a chat assistant with<br>
-      <em>an actual harness underneath.</em>
+      Aielia — an agent you can hand work to,<br>
+      <em>held in bounds by an actual harness.</em>
     </h1>
 
     <p class="hero-lede">
-      Aielia is Build A Harness's own assistant — an everyday chat agent that walks the full 11-layer harness on real conversation, skips the bookkeeping entirely for a one-shot fact lookup, and stops to ask before it actually sends that email.
+      Aielia is Build A Harness's own agent — it takes on multi-step work (research across a list, going through your files, drafting and sending the update) while the full 11-layer harness decides, in code, what it may do next, what it may believe, and what a job may cost. The model proposes; the harness decides.
     </p>
 
     <div class="stat-row" role="list">
@@ -571,6 +571,29 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
         style="font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;">npx @buildaharness/aielia</button>
       <a class="btn btn-ghost" href="#design">How it's built ↓</a>
     </div>
+
+  </div>
+</section>
+
+
+<section class="section alt" id="control">
+  <div class="wrap prose">
+
+    <div class="section-label">CONTROL</div>
+    <h2>The model proposes. <em>The harness decides.</em></h2>
+
+    <p>
+      A prompt is a request; a harness is enforcement. On every real turn Aielia's model can only <em>propose</em> — a search, a file read, a reply — and code around it decides whether that happens. Six things are held in place that way:
+    </p>
+
+    <ul style="margin:0 0 20px;padding-left:22px;display:grid;gap:10px;">
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may do, right now.</strong> Every tool call is checked against a live control state (normal, cautious, blocked) before it runs, and that state tightens as failures pile up. <a href="#layers" style="color:var(--accent-ink);">The eleven layers →</a></li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may believe.</strong> Model guesses are never promoted to lasting memory, each fact keeps its source, and fetched content is data, never instructions. <a href="#trust" style="color:var(--accent-ink);">Trust boundary →</a></li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Whether the answer holds up.</strong> Verification and a reviewer pass run before a reply goes out; tool-backed replies carry evidence and a status of verified, unverified, contradicted, or no evidence.</li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What a job may cost.</strong> Per-item budgets, dead-end detection, a confirmation step before a large batch, and a hard per-turn ceiling on tool calls.</li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What happens when it goes wrong.</strong> Classified failures, recovery strategies, and mid-turn checkpoints so a crash resumes the job. <a href="#resilience" style="color:var(--accent-ink);">Crash resume →</a></li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What can't be undone.</strong> File writes, shell commands and email are always staged as an exact action and applied only on your approval. <a href="#risk-gate" style="color:var(--accent-ink);">Approval gates →</a></li>
+    </ul>
 
   </div>
 </section>
@@ -729,11 +752,11 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
 <section class="section" id="risk-gate">
   <div class="wrap prose">
 
-    <div class="section-label">SAFETY</div>
-    <h2>Stops before it spends <em>a token or takes an action.</em></h2>
+    <div class="section-label">WHAT NEEDS YOU</div>
+    <h2>Where the harness stops <em>and hands back to you.</em></h2>
 
     <p>
-      Two independent gates decide what needs a human's sign-off — neither one trusts the model to decide for itself.
+      Most of what the harness controls happens without interrupting you — tool permissions, budgets, verification, recovery. Two independent gates are where it stops for a human's sign-off, and neither one trusts the model to decide for itself.
     </p>
 
     <p>
@@ -948,7 +971,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
       <div class="faq-item">
         <h3>What is Aielia?</h3>
-        <p>A general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it treats every chat message as one objective, one task — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and gating a consequential request like "send that email" behind explicit approval.</p>
+        <p>A general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it treats every chat message as one objective, one task — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and holding tool use, beliefs and cost to the harness's controls — with anything that can't be undone, like sending that email, staged for explicit approval.</p>
       </div>
 
       <div class="faq-item">
@@ -988,7 +1011,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
       <div class="cta-text">
         <div class="section-label">AIELIA</div>
         <h2>The harness, <em>talking back.</em></h2>
-        <p>A working assistant, not a demo — the same 11-layer harness architecture, risk gating, tool staging, and crash-safe checkpointing running on real everyday conversations. Apache 2.0. Runs from a terminal, a browser tab, or a native desktop app.</p>
+        <p>A working agent, not a demo — the same 11-layer harness, per-call tool control, budgets, staged effects, and crash-safe checkpointing running on real everyday work. Apache 2.0. Runs from a terminal, a browser tab, or a native desktop app.</p>
       </div>
       <div class="cta-actions">
         <a class="btn" href="/try">Try in your browser →</a>
@@ -1014,7 +1037,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
       <a href="#" onclick="if(window.klaro)klaro.show();return false;">Cookie Settings</a>
     </div>
     <div class="footer-tag">
-      An assistant that asks before it acts.
+      Real work, kept in bounds.
     </div>
   </div>
 </footer>

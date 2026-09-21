@@ -1,6 +1,6 @@
 # Aielia — website
 
-Static site for **Aielia**, the open-source AI assistant that asks before it acts.
+Static site for **Aielia**, the open-source AI agent you can hand real work to — kept in bounds by a harness.
 
 **Live site:** https://myaielia.com
 **Developer site:** https://buildaharness.com (Build A Harness — the framework Aielia is built on)
@@ -10,8 +10,8 @@ Static site for **Aielia**, the open-source AI assistant that asks before it act
 
 | Path | What |
 |---|---|
-| `index.html` | Home — what Aielia is, why it can be trusted, how to start |
-| `how-it-works.html` | `/how-it-works` — the 11 layers on a chat message, risk gate, install options |
+| `index.html` | Home — what Aielia does, how the harness controls it, how to start |
+| `how-it-works.html` | `/how-it-works` — what the harness controls, the 11 layers on a chat message, approval gates, install options |
 | `try/` | `/try` — the hosted browser build of Aielia. **Generated** — see below |
 | `privacy.html`, `impressum.html` | Legal pages (same controller as buildaharness.com) |
 | `llms.txt`, `sitemap.xml`, `robots.txt` | Crawler / LLM discovery |
