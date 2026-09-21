@@ -122,7 +122,7 @@
       "name": "How Aielia Works — An AI Agent Controlled by a Harness",
       "description": "Aielia is Build A Harness's own AI assistant — takes on multi-step work under the control of the full 11-layer harness, stages irreversible actions for approval, and shares one core across CLI, browser, and desktop.",
       "datePublished": "2026-07-14",
-      "dateModified": "2026-09-04",
+      "dateModified": "2026-09-21",
       "publisher": { "@id": "https://myaielia.com/#org" },
       "breadcrumb": { "@id": "https://myaielia.com/how-it-works#breadcrumb" }
     },
@@ -147,7 +147,7 @@
         {
           "@type": "Question",
           "name": "What is Aielia?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Aielia is a general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it treats every chat message as one objective, one task — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and holding tool use, beliefs and cost to the harness's controls — with anything that can't be undone, like sending that email, staged for explicit approval." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Aielia is a general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it keeps each chat message to one bounded harness run (one task by default, a small task graph only when the request names several steps) — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and holding tool use, beliefs and cost to the harness's controls — with anything that can't be undone, like sending that email, staged for explicit approval." }
         },
         {
           "@type": "Question",
@@ -157,7 +157,7 @@
         {
           "@type": "Question",
           "name": "How does it decide what needs approval?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Two independent gates. One consolidated classification call every turn flags consequential message content (send, delete, pay, post, ...) in any language, not just English — a HIGH-risk verdict, or a request that looks like it would create several reminders at once, returns needs_approval before the harness runs. Separately, any write_file or run_shell_command tool call always stages its effect as a pending action rather than executing inline, regardless of what the message looked like, and only applies once the caller replies with approved: true and the matching pending action ID." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Two independent gates. One consolidated classification call every turn flags consequential message content (send, delete, pay, post, ...) in any language, not just English — a HIGH-risk verdict, or a request that looks like it would create several reminders at once, returns needs_approval before the harness runs. Separately, any write_file or run_shell_command tool call stages its effect as a pending action rather than executing inline by default, regardless of what the message looked like, and only applies once the caller replies with approved: true and the matching pending action ID." }
         },
         {
           "@type": "Question",
@@ -172,7 +172,7 @@
         {
           "@type": "Question",
           "name": "What stops file and shell access from being dangerous?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; write_file always stages instead of executing. Shell access is gated on every single call with no 'safe subset', runs with an env allowlist (PATH/HOME/LANG only), a hard timeout, and output truncation. Tool output from the shell or the web is wrapped as untrusted content before it re-enters the conversation. None of that makes shell access risk-free — these mitigations make it safer, not a substitute for deciding whether to enable it at all. This is an early-stage project (package v0.3.1), not an independently audited security boundary." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; write_file stages instead of executing by default. Shell access is gated on every single call with no 'safe subset', runs with an env allowlist (PATH/HOME/LANG only), a hard timeout, and output truncation. Tool output from the shell or the web is wrapped as untrusted content before it re-enters the conversation. None of that makes shell access risk-free — these mitigations make it safer, not a substitute for deciding whether to enable it at all. This is an early-stage project (package v0.3.1), not an independently audited security boundary." }
         }
       ]
     }
@@ -596,11 +596,11 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
 
     <ul style="margin:0 0 20px;padding-left:22px;display:grid;gap:10px;">
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may do, right now.</strong> Every tool call is checked against a live control state (normal, cautious, blocked) before it runs, and that state tightens as failures pile up. <a href="#layers" style="color:var(--accent-ink);">The eleven layers →</a></li>
-      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may believe.</strong> Model guesses are never promoted to lasting memory, each fact keeps its source, and fetched content is data, never instructions. <a href="#trust" style="color:var(--accent-ink);">Trust boundary →</a></li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may believe.</strong> Only high-confidence model inferences reach lasting memory on their own (medium ones wait for your confirmation), each fact keeps its source, and fetched content is data, never instructions. <a href="#trust" style="color:var(--accent-ink);">Trust boundary →</a></li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Whether the answer holds up.</strong> Verification and a reviewer pass run before a reply goes out; tool-backed replies carry evidence and a status of verified, unverified, contradicted, or no evidence.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What a job may cost.</strong> Per-item budgets, dead-end detection, a confirmation step before a large batch, and a hard per-turn ceiling on tool calls.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What happens when it goes wrong.</strong> Classified failures, recovery strategies, and mid-turn checkpoints so a crash resumes the job. <a href="#resilience" style="color:var(--accent-ink);">Crash resume →</a></li>
-      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What can't be undone.</strong> File writes, shell commands and email are always staged as an exact action and applied only on your approval. <a href="#risk-gate" style="color:var(--accent-ink);">Approval gates →</a></li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What can't be undone.</strong> File writes, shell commands and email are staged as an exact action and applied only on your approval (unless you opt out). <a href="#risk-gate" style="color:var(--accent-ink);">Approval gates →</a></li>
     </ul>
 
   </div>
@@ -611,10 +611,10 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
   <div class="wrap prose">
 
     <div class="section-label">DESIGN</div>
-    <h2>One message, <em>one objective, one task.</em></h2>
+    <h2>One message, <em>one bounded run.</em></h2>
 
     <p>
-      Most autonomous agents decompose a goal into a multi-task plan — research, then draft, then revise, then send. Aielia deliberately doesn't do that. Every chat message is treated as <strong>one objective, one task</strong>, which keeps each turn's <code style="font-size:14px">HarnessRuntime.run()</code> bounded — the harness drives the model's tool-calling loop one proposed action at a time (<code style="font-size:14px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), rather than fanning out into a plan of its own — while still walking its full 11-layer sequence, World Model through Reviewer Pass (the exact breakdown is below), with context compression and cross-turn learning running alongside it.
+      Most autonomous agents decompose a goal into a long multi-task plan — research, then draft, then revise, then send — and let it run. Aielia keeps every chat message to <strong>one bounded harness run</strong>. By default a message is one task; when a request clearly names several steps, the classifier can split it into a small task graph for that turn. Either way each turn's <code style="font-size:14px">HarnessRuntime.run()</code> stays bounded — the harness drives the model's tool-calling loop one proposed action at a time (<code style="font-size:14px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), rather than fanning out into an open-ended plan of its own. A stricter, opt-in plan mode (<code style="font-size:14px">ASSISTANT_PLAN_MODE=gated</code>, off by default) drafts a durable plan for multi-step requests and runs nothing until you approve it. Every run still walks its full 11-layer sequence, World Model through Reviewer Pass (the exact breakdown is below), with context compression and cross-turn learning running alongside it.
     </p>
 
     <p>
@@ -650,7 +650,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
     <h2>The same eleven layers, <em>applied to a chat message.</em></h2>
 
     <p class="prose" style="margin-bottom:0;">
-      This is the exact 11-layer breakdown Aielia's own code tracks turn by turn — the same list its <code style="font-size:13px">/why</code> command and chat-ui's "Why?" panel render, collapsed down from about 25 individual harness nodes (see <code style="font-size:13px">node-display-names.ts</code>). Skipped entirely on a trivial fact-lookup turn; walked in full on everything else. For the clickable version — each layer's own internal flowchart, plus exactly what Aielia adds on top of the harness core — see <a href="https://buildaharness.com/harness-architecture" style="color:var(--accent-ink);">the interactive architecture page →</a>.
+      This is the exact 11-layer breakdown Aielia's own code tracks turn by turn — the same list its <code style="font-size:13px">/why</code> command and chat-ui's "Why?" panel render, collapsed down from about 25 individual runtime nodes (the Build A Harness canvas defines 27 node types; see <code style="font-size:13px">node-display-names.ts</code>). Skipped entirely on a trivial fact-lookup turn; walked in full on everything else. For the clickable version — each layer's own internal flowchart, plus exactly what Aielia adds on top of the harness core — see <a href="https://buildaharness.com/harness-architecture" style="color:var(--accent-ink);">the interactive architecture page →</a>.
     </p>
 
     <div class="layers-grid">
@@ -670,7 +670,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
       <div class="layer-card" style="border-left-color:oklch(.46 .18 310)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Hypothesis</span>
-        <span class="layer-desc">Candidate readings of an ambiguous message, generated and scored before a reply is drafted.</span>
+        <span class="layer-desc">Seed hypotheses drawn from four sources — the evidence gathered, current beliefs, known failure patterns and earlier eliminations — scored for diversity and pruned as evidence comes in.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.50 .1 25)">
@@ -694,7 +694,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
       <div class="layer-card" style="border-left-color:oklch(.46 .16 240)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Planning</span>
-        <span class="layer-desc">A trivial one-task graph, deliberately — not the multi-step decomposition a heavier autonomous agent would build.</span>
+        <span class="layer-desc">One task per message by default; a request that names several steps can be split into a small task graph. Durable, approval-gated plans are an opt-in mode — not the open-ended multi-step decomposition a heavier autonomous agent would build.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.46 .18 20)">
@@ -706,7 +706,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
       <div class="layer-card" style="border-left-color:oklch(.46 .12 205)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Verification</span>
-        <span class="layer-desc">The draft reply is checked before it's returned — not trusted on the model's first pass.</span>
+        <span class="layer-desc">The draft reply is checked before it's returned — not trusted on the model's first pass. Nine checks are defined; the ones that can be decided mechanically (consistency, evidence sufficiency, output contract) run, and the rest are reported as skipped rather than faked as passes.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.52 .14 40)">
@@ -772,7 +772,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);}
     </p>
 
     <p>
-      <strong>Tool-call staging.</strong> <code style="font-size:14px">write_file</code>, <code style="font-size:14px">run_shell_command</code>, and <code style="font-size:14px">send_email</code> never execute inline, regardless of what the message looked like — a request like "organize my notes into a summary file" doesn't trip the message-level gate, yet still performs a real write. Every call stages a proposal instead — the exact path and content, the exact command and working directory, or the exact recipient, subject, and body — and the turn returns <code style="font-size:14px">needs_approval</code> with a <code style="font-size:14px">pendingActionId</code>. Approving resumes by ID and applies the <em>exact</em> staged action directly, with no second LLM call able to improvise something different from what was shown for approval. <code style="font-size:14px">send_email</code> is transport-agnostic — the core package ships Resend (HTTP) and SMTP (nodemailer) reference senders, and the hosted <code style="font-size:13px">/try</code> build stages but never actually sends.
+      <strong>Tool-call staging.</strong> <code style="font-size:14px">write_file</code>, <code style="font-size:14px">run_shell_command</code>, and <code style="font-size:14px">send_email</code> never execute inline by default, regardless of what the message looked like — a request like "organize my notes into a summary file" doesn't trip the message-level gate, yet still performs a real write. Every call stages a proposal instead — the exact path and content, the exact command and working directory, or the exact recipient, subject, and body — and the turn returns <code style="font-size:14px">needs_approval</code> with a <code style="font-size:14px">pendingActionId</code>. Approving resumes by ID and applies the <em>exact</em> staged action directly, with no second LLM call able to improvise something different from what was shown for approval. <code style="font-size:14px">send_email</code> is transport-agnostic — the core package ships Resend (HTTP) and SMTP (nodemailer) reference senders, and email is wired up in the terminal CLI only — the browser build and desktop app don't expose a <code style="font-size:13px">send_email</code> tool yet.
     </p>
 
     <div class="quickstart-box">
@@ -794,6 +794,10 @@ await assistant.turn('Summarize this into notes.md', {
 
     <p style="margin-top:20px;font-size:14.5px;color:var(--ink-3);">
       These are real, load-bearing mitigations, not a marketing gloss — and also not a substitute for reviewing what you approve. Read what's staged before typing <code style="font-size:13px">approved: true</code>, the same way you'd review a shell command before running it yourself.
+    </p>
+
+    <p style="font-size:14.5px;color:var(--ink-3);">
+      <strong>One opt-out exists.</strong> Setting <code style="font-size:13px">dangerouslySkipPermissions</code> (a config key, or <code style="font-size:13px">ASSISTANT_DANGEROUSLY_SKIP_PERMISSIONS=1</code>) makes the message-level gate and staged file-write and shell actions resolve as if you'd already said yes. It is off by default and the CLI prints a warning banner while it's on. Only the ask is skipped — path checks, the network guard, the shell environment allowlist, the timeout and the output cap still apply.
     </p>
 
   </div>
@@ -885,7 +889,7 @@ await assistant.turn('Summarize this into notes.md', {
         </tr>
         <tr>
           <td>Browser chat UI</td>
-          <td>Any modern browser tab</td>
+          <td>Any modern browser tab — chat only: no file, shell or email tools</td>
           <td>IndexedDB / Dexie — best-effort persistence, survives a page reload</td>
         </tr>
         <tr>
@@ -921,7 +925,7 @@ await assistant.turn('Summarize this into notes.md', {
     </div>
 
     <p style="margin-top:28px;">
-      <strong>Browser — nothing to install.</strong> Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste a key in Settings (it stays in your browser), and go. To run the chat UI locally instead, clone the repo (<code style="font-size:13px">git clone https://github.com/3IVIS/buildaharness &amp;&amp; npm install</code>) and start its dev server — configure everything from the Settings screen, no <code style="font-size:13px">.env</code> file, no self-hosted proxy, no Rust toolchain needed.
+      <strong>Browser — nothing to install.</strong> Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste a key in Settings (it stays in your browser), and go. The browser tab is chat-only: file, shell and email tools need the terminal CLI or desktop app (email is CLI-only today), and web search from a plain tab needs a proxy because of browser CORS limits. To run the chat UI locally instead, clone the repo (<code style="font-size:13px">git clone https://github.com/3IVIS/buildaharness &amp;&amp; npm install</code>) and start its dev server — configure everything from the Settings screen, no <code style="font-size:13px">.env</code> file, no self-hosted proxy, no Rust toolchain needed.
     </p>
 
     <div class="quickstart-box">
@@ -958,11 +962,11 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
     <div class="tool-callout" style="margin-top:24px;">
       <div class="tool-callout-label">Before you paste a key in</div>
-      <p>Whichever path you pick, an API key you enter is stored in plaintext, not an OS keychain — <code style="font-size:12px">localStorage</code> in the browser build, a plain JSON config file for the CLI and desktop build. That's the same trust boundary this repo's own <code style="font-size:12px">.env</code> already has, not a new one, but it's worth knowing before you paste in a real Anthropic/OpenAI/OpenRouter key rather than a self-hosted proxy token. The <code style="font-size:12px">claude-cli</code> backend sidesteps this entirely — it needs no key of its own, only your host's already-authenticated <code style="font-size:12px">claude</code> session.</p>
+      <p>Treat any API key you enter as a secret on that machine. In the browser build it is stored in plaintext in <code style="font-size:12px">localStorage</code>; the CLI keeps it in a plain JSON config file. The desktop app instead moves the model API key into your OS keychain (macOS Keychain, Linux Secret Service via <code style="font-size:12px">secret-tool</code>, or a Windows DPAPI-protected file tied to your user account) — other settings, such as a Brave search key, stay in its config file. The plaintext paths are the same trust boundary this repo's own <code style="font-size:12px">.env</code> already has, not a new one, but it's worth knowing before you paste in a real Anthropic/OpenAI/OpenRouter key rather than a self-hosted proxy token. The <code style="font-size:12px">claude-cli</code> backend sidesteps this entirely — it needs no key of its own, only your host's already-authenticated <code style="font-size:12px">claude</code> session.</p>
     </div>
 
     <p style="margin-top:20px;">
-      Whichever one you pick: try a plain question first, then something with real consequence — "send an email to my boss saying I quit" — to see the risk gate return <code style="font-size:14px">needs_approval</code> before a single token is spent. This is an early-stage project (package v0.3.1), not an audited security product — see the file/shell access sections above for exactly what is and isn't gated before turning either on. Apache 2.0, provided as-is per the license. <a href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia" style="color:var(--accent-ink);">Full README on GitHub →</a>
+      Whichever one you pick: try a plain question first, then something with real consequence — "send an email to my boss saying I quit" — to see the risk gate return <code style="font-size:14px">needs_approval</code> before the assistant does any real work on it (only the short classification call is spent). This is an early-stage project (package v0.3.1), not an audited security product — see the file/shell access sections above for exactly what is and isn't gated before turning either on. Apache 2.0, provided as-is per the license. <a href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia" style="color:var(--accent-ink);">Full README on GitHub →</a>
     </p>
 
   </div>
@@ -979,7 +983,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
       <div class="faq-item">
         <h3>What is Aielia?</h3>
-        <p>A general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it treats every chat message as one objective, one task — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and holding tool use, beliefs and cost to the harness's controls — with anything that can't be undone, like sending that email, staged for explicit approval.</p>
+        <p>A general-purpose, everyday-use chat agent built on Build A Harness's own 11-layer harness runtime. Where a heavy autonomous agent decomposes an objective into a multi-task plan, it keeps each chat message to one bounded harness run (one task by default, a small task graph only when the request names several steps) — walking every harness layer for ordinary conversation, skipping the harness entirely for a one-shot fact lookup, and holding tool use, beliefs and cost to the harness's controls — with anything that can't be undone, like sending that email, staged for explicit approval.</p>
       </div>
 
       <div class="faq-item">
@@ -989,7 +993,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
       <div class="faq-item">
         <h3>How does it decide what needs approval?</h3>
-        <p>Two independent gates. One consolidated classification call every turn flags consequential message content before the harness runs — in any language, not just English — and a HIGH-risk verdict, or a request that looks like it would create several reminders at once, returns <code style="font-size:13px">needs_approval</code> immediately. Separately, any <code style="font-size:13px">write_file</code> or <code style="font-size:13px">run_shell_command</code> tool call always stages its effect as a pending action rather than executing inline, and only applies once the caller replies with <code style="font-size:13px">approved: true</code> and the matching pending action ID.</p>
+        <p>Two independent gates. One consolidated classification call every turn flags consequential message content before the harness runs — in any language, not just English — and a HIGH-risk verdict, or a request that looks like it would create several reminders at once, returns <code style="font-size:13px">needs_approval</code> immediately. Separately, any <code style="font-size:13px">write_file</code> or <code style="font-size:13px">run_shell_command</code> tool call stages its effect as a pending action rather than executing inline by default, and only applies once the caller replies with <code style="font-size:13px">approved: true</code> and the matching pending action ID.</p>
       </div>
 
       <div class="faq-item">
@@ -1004,7 +1008,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
       <div class="faq-item">
         <h3>What stops file and shell access from being dangerous?</h3>
-        <p>Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; <code style="font-size:13px">write_file</code> always stages instead of executing. Shell access is gated on every single call, runs with an environment allowlist, a hard timeout, and output truncation. Content fetched from the shell or the web is wrapped as untrusted before it re-enters the conversation, so it can't be mistaken for an instruction from the user. None of that makes shell access risk-free — it's a real trust decision these mitigations make <em>safer</em>, not a substitute for deciding whether to turn it on at all. This is an early-stage project (package v0.3.1), not an independently audited security boundary.</p>
+        <p>Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; <code style="font-size:13px">write_file</code> stages instead of executing by default. Shell access is gated on every single call, runs with an environment allowlist, a hard timeout, and output truncation. Content fetched from the shell or the web is wrapped as untrusted before it re-enters the conversation, so it can't be mistaken for an instruction from the user. None of that makes shell access risk-free — it's a real trust decision these mitigations make <em>safer</em>, not a substitute for deciding whether to turn it on at all. This is an early-stage project (package v0.3.1), not an independently audited security boundary.</p>
       </div>
 
     </div>

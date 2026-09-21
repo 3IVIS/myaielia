@@ -9,13 +9,13 @@ Aielia (`@buildaharness/aielia` on npm) is a general-purpose, everyday-use AI ag
 The harness is code that runs around the model on every real turn, so limits hold whatever the model wants to do — they are not instructions in a prompt.
 
 - **What it may do, right now.** Every read-only tool call is checked against a live control state (normal / cautious / blocked; a deterministic ALLOW / DENY / REQUIRE_APPROVAL) before it runs. The state tightens as tool failures accumulate.
-- **What it may believe.** A model's guess is never promoted to durable memory; each remembered fact keeps its source (user-asserted, model-inferred, observed, externally verified); contradictions are flagged. Content fetched from the web or a shell command is wrapped as untrusted data before it re-enters the conversation.
+- **What it may believe.** Only high-confidence model inferences reach durable memory on their own (medium ones wait for user confirmation, low ones stay session-only); each remembered fact keeps its source (user-asserted, model-inferred, observed, externally verified); contradictions are flagged. Content fetched from the web or a shell command is wrapped as untrusted data before it re-enters the conversation.
 - **Whether the answer holds up.** Verification and a reviewer pass run before a reply goes out. Replies that used tools carry evidence and a status: verified, unverified, contradicted, or no evidence.
 - **What a job may cost.** For an explicit list of items, each item gets its own bounded search (calibrated after the first items), three dead ends in a row stop that item, a large batch asks for confirmation before it runs, and a hard per-turn ceiling caps total tool calls. Every item ends found, not found, or truncated while still productive.
 - **What happens when it goes wrong.** Failures are classified and met with a recovery strategy; the harness checkpoints mid-turn, so a crash resumes the interrupted turn instead of restarting it.
-- **What can't be undone.** `write_file`, `run_shell_command`, and `send_email` always stage the exact action as a pending proposal and apply only on explicit approval with the matching pending-action ID. One classification call every turn also flags consequential messages (send, delete, pay, post) in any language before any model call is made; a classifier error resolves to "requires approval", never to low-risk.
+- **What can't be undone.** `write_file`, `run_shell_command`, and `send_email` stage the exact action as a pending proposal and apply only on explicit approval with the matching pending-action ID (an opt-in `dangerouslySkipPermissions` setting, off by default, removes the prompt). One classification call every turn also flags consequential messages (send, delete, pay, post) in any language before the harness or any tool runs (one short classification call is spent); a classifier error resolves to "requires approval", never to low-risk.
 
-File and shell access are opt-in and off by default. Web search needs your own search key.
+File and shell access are opt-in and off by default, and exist only in the CLI and desktop app; email sending exists only in the CLI. The browser build is chat-only. Web search needs your own search key.
 
 ## Pages
 
@@ -24,7 +24,7 @@ File and shell access are opt-in and off by default. Web search needs your own s
 
 ## Accounts, keys, and privacy
 
-There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter) or reuse an existing `claude` CLI login in the terminal. Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI and desktop app.
+There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter) or reuse an existing `claude` CLI login in the terminal. Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI. The desktop app stores the model API key in the OS keychain instead.
 
 ## For developers
 

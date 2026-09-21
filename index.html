@@ -1262,7 +1262,7 @@ footer{
     </div>
 
     <div class="blueprint">
-      <p class="sr-only">Diagram: a simple agent loop (input → LLM call → tool call → output) compared with a full Build A Harness — an 11-layer architecture across 27 nodes that adds caller state, a world model, reasoning, a 5-tier control layer, planning, execution, 9-layer verification, recovery, memory, optional learning, and an output reviewer pass.</p>
+      <p class="sr-only">Diagram: a simple agent loop (input → LLM call → tool call → output) compared with a full Build A Harness — an 11-layer architecture across 27 node types that adds caller state, a world model, reasoning, a 5-tier control layer, planning, execution, 9-layer verification, recovery, memory, optional learning, and an output reviewer pass.</p>
       <div class="hd-root">
 
         <!-- LEFT: simple agent loop -->
@@ -1340,7 +1340,7 @@ footer{
             </div>
           </div>
           <div class="hd-footnote hd-anim" style="--d:1.35s">
-            27 nodes · 11 layers · world model + 5-tier control · 9-layer verification
+            27 node types · 11 layers · world model + 5-tier control · 9-layer verification
           </div>
         </div>
 
@@ -1404,15 +1404,15 @@ footer{
           </div>
           <div class="feature-item">
             <strong>Work through your files</strong>
-            <p>Read and reason over a workspace folder you choose. Off by default; writes are always staged for your approval.</p>
+            <p>Read and reason over a workspace folder you choose. Off by default, and available in the terminal and desktop apps rather than the browser tab. Writes are staged for your approval.</p>
           </div>
           <div class="feature-item">
             <strong>Draft and send</strong>
-            <p>Compose the message, then stage the send. Email, file writes and shell commands never run on the model's say-so.</p>
+            <p>Compose the message, then stage the send (email is available in the terminal app today). Email, file writes and shell commands never run on the model's say-so; they wait for your approval.</p>
           </div>
           <div class="feature-item">
             <strong>Keep track</strong>
-            <p>Reminders for what's pending, a plan for a compound request, and memory of what you've told her — with the source of each fact recorded.</p>
+            <p>A reminder list for what's pending (notes for now; it doesn't alert you), a plan for a compound request, and memory of what you've told her — with the source of each fact recorded.</p>
           </div>
         </div>
         <div class="cta-row" style="margin-top:22px;">
@@ -1455,7 +1455,7 @@ footer{
       </div>
       <div class="card">
         <h3>What she may believe</h3>
-        <p>A model's guess is never promoted to lasting memory. Each fact keeps its source, contradictions are flagged, and web pages and command output are treated as data the model must never obey.</p>
+        <p>What the model merely infers is held to a higher bar: only high-confidence inferences reach lasting memory on their own, and medium ones wait for your confirmation. Each fact keeps its source, contradictions are flagged, and web pages and command output are treated as data the model must never obey.</p>
       </div>
       <div class="card">
         <h3>Whether the answer holds up</h3>
@@ -1471,7 +1471,7 @@ footer{
       </div>
       <div class="card">
         <h3>What can't be undone</h3>
-        <p>Writing a file, running a command, and sending an email are always staged as an exact action and applied only on your approval. A message that reads as consequential is stopped before any model call is made.</p>
+        <p>Writing a file, running a command, and sending an email are staged as an exact action and applied only on your approval, unless you deliberately switch that prompt off. A message that reads as consequential is stopped after one quick classification call, before the harness or any tool runs.</p>
       </div>
     </div>
 
@@ -1498,7 +1498,7 @@ footer{
     <div class="cards">
       <div class="card">
         <h3>In your browser</h3>
-        <p>Nothing to install. Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste a model key in Settings, and start talking.</p>
+        <p>Nothing to install. Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste a model key in Settings, and start talking. The browser tab is chat-only; file, shell and email tools live in the terminal and desktop apps.</p>
       </div>
       <div class="card">
         <h3>In your terminal</h3>
@@ -1575,7 +1575,7 @@ footer{
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Does it ever act without my approval?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Yes — that is the point of handing it work. Reading, searching and reasoning proceed on their own, each step gated by the harness's control state. What can't be undone is different: writing a file, running a shell command, and sending an email are always staged as an exact action and only applied on your explicit approval. File and shell access are opt-in, and web search needs your own search key.</p>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Yes — that is the point of handing it work. Reading, searching and reasoning proceed on their own, each step gated by the harness's control state. What can't be undone is different: writing a file, running a shell command, and sending an email are staged as an exact action and only applied on your explicit approval (unless you deliberately turn approvals off with an opt-in setting). File and shell access are opt-in, and web search needs your own search key.</p>
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What if it gets stuck or something fails?</h3>
@@ -1613,7 +1613,7 @@ footer{
     {
       "@type": "Question",
       "name": "Does it ever act without my approval?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — that is the point of handing it work. Reading, searching and reasoning proceed on their own, each step gated by the harness's control state. What can't be undone is different: writing a file, running a shell command, and sending an email are always staged as an exact action and only applied on your explicit approval. File and shell access are opt-in, and web search needs your own search key." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — that is the point of handing it work. Reading, searching and reasoning proceed on their own, each step gated by the harness's control state. What can't be undone is different: writing a file, running a shell command, and sending an email are staged as an exact action and only applied on your explicit approval (unless you deliberately turn approvals off with an opt-in setting). File and shell access are opt-in, and web search needs your own search key." }
     },
     {
       "@type": "Question",
