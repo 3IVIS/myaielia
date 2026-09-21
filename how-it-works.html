@@ -916,7 +916,25 @@ await assistant.turn('Summarize this into notes.md', {
     <h2>Run it — <em>pick the one that fits.</em></h2>
 
     <p>
-      <strong>Terminal — nothing to clone.</strong> The CLI is published to npm; <code style="font-size:13px">npx</code> fetches it and its dependencies (<code style="font-size:13px">@buildaharness/harness</code>, <code style="font-size:13px">@buildaharness/runtime</code>) for you. First run walks you through picking a model — reuse an existing <code style="font-size:13px">claude</code> CLI login with no API key, or paste an Anthropic / OpenAI / OpenRouter key.
+      <strong>Terminal — install the CLI.</strong> One command installs a single standalone binary; you don't need Node. It verifies a checksum before installing, replaces any older copy in place, and won't overwrite an unrelated file. Update later with <code style="font-size:13px">aielia update</code>.
+    </p>
+
+    <div class="quickstart-box">
+      <div class="quickstart-bar">macOS / Linux</div>
+      <pre>curl -fsSL https://myaielia.com/install.sh | sh</pre>
+    </div>
+
+    <div class="quickstart-box">
+      <div class="quickstart-bar">Windows (PowerShell)</div>
+      <pre>irm https://myaielia.com/install.ps1 | iex</pre>
+    </div>
+
+    <p>
+      The download is 90–130&nbsp;MB depending on your platform and isn't code-signed yet, so your OS may warn the first time. On macOS (Gatekeeper), right-click the file and choose Open. On Windows (SmartScreen), choose More info, then Run anyway.
+    </p>
+
+    <p style="margin-top:28px;">
+      <strong>Terminal — nothing to clone.</strong> If you already have Node, the CLI is also published to npm; <code style="font-size:13px">npx</code> fetches it and its dependencies (<code style="font-size:13px">@buildaharness/harness</code>, <code style="font-size:13px">@buildaharness/runtime</code>) for you. First run walks you through picking a model — reuse an existing <code style="font-size:13px">claude</code> CLI login with no API key, or paste an Anthropic / OpenAI / OpenRouter key.
     </p>
 
     <div class="quickstart-box">
