@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#D8D2EE" stroke-width="1"></path>
+    </pattern>
+    <pattern id="grid-strong" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M 200 0 L 0 0 0 200" fill="none" stroke="#C4BCE0" stroke-width="1"></path>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4F46E5"></path>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" fill="#F8F6FB"></rect>
+  <rect width="1200" height="630" fill="url(#grid)"></rect>
+  <rect width="1200" height="630" fill="url(#grid-strong)"></rect>
+
+  <text x="80" y="72" font-family="IBM Plex Mono, monospace" font-size="18" fill="#4F46E5" letter-spacing="3">AIELIA · OPEN SOURCE · APACHE 2.0</text>
+
+  <text x="80" y="160" font-family="IBM Plex Sans, sans-serif" font-weight="300" font-size="78" fill="#1E1A3D" letter-spacing="-1.5">Hand it real work.</text>
+  <text x="80" y="245" font-family="Instrument Serif, Times, serif" font-style="italic" font-size="82" fill="#3D2F8C">The harness keeps it in bounds.</text>
+
+  <text x="80" y="310" font-family="IBM Plex Mono, monospace" font-size="22" fill="#564E80">The model proposes. The harness decides.</text>
+
+  <g transform="translate(80, 372)">
+    <!-- model -->
+    <rect x="0" y="20" width="200" height="110" rx="6" fill="#FFFFFF" stroke="#7C72B5" stroke-width="1.5"></rect>
+    <text x="24" y="58" font-family="IBM Plex Mono, monospace" font-size="14" fill="#7C72B5" letter-spacing="2">MODEL</text>
+    <text x="24" y="98" font-family="IBM Plex Sans, sans-serif" font-size="30" fill="#1E1A3D">proposes</text>
+
+    <path d="M 204 75 L 256 75" fill="none" stroke="#4F46E5" stroke-width="2" marker-end="url(#arrow)"></path>
+
+    <!-- harness -->
+    <rect x="260" y="0" width="520" height="150" rx="6" fill="#EEEAFB" stroke="#4F46E5" stroke-width="2.5"></rect>
+    <text x="284" y="36" font-family="IBM Plex Mono, monospace" font-size="14" fill="#4F46E5" letter-spacing="2">HARNESS · 11 LAYERS</text>
+    <text x="284" y="76" font-family="IBM Plex Sans, sans-serif" font-size="30" fill="#1E1A3D">decides</text>
+    <g font-family="IBM Plex Mono, monospace" font-size="15" fill="#3D2F8C" text-anchor="middle">
+      <rect x="284" y="96" width="110" height="36" rx="4" fill="#FFFFFF" stroke="#9A90D6"></rect><text x="339" y="119">control</text>
+      <rect x="404" y="96" width="110" height="36" rx="4" fill="#FFFFFF" stroke="#9A90D6"></rect><text x="459" y="119">budget</text>
+      <rect x="524" y="96" width="110" height="36" rx="4" fill="#FFFFFF" stroke="#9A90D6"></rect><text x="579" y="119">verify</text>
+      <rect x="644" y="96" width="112" height="36" rx="4" fill="#FFFFFF" stroke="#9A90D6"></rect><text x="700" y="119">recover</text>
+    </g>
+
+    <path d="M 784 75 L 836 75" fill="none" stroke="#4F46E5" stroke-width="2" marker-end="url(#arrow)"></path>
+
+    <!-- effects -->
+    <rect x="840" y="20" width="200" height="110" rx="6" fill="#FFFFFF" stroke="#7C72B5" stroke-width="1.5"></rect>
+    <text x="864" y="58" font-family="IBM Plex Mono, monospace" font-size="14" fill="#7C72B5" letter-spacing="2">TOOLS</text>
+    <text x="864" y="92" font-family="IBM Plex Mono, monospace" font-size="16" fill="#1E1A3D">allow · deny</text>
+    <text x="864" y="114" font-family="IBM Plex Mono, monospace" font-size="16" fill="#1E1A3D">stage for you</text>
+  </g>
+
+  <text x="1120" y="596" font-family="IBM Plex Mono, monospace" font-size="20" fill="#564E80" text-anchor="end">myaielia.com</text>
+</svg>
