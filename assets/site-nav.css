@@ -125,6 +125,10 @@
   .nav-toggle{
     display:inline-flex;
   }
+
+  .full-nav{
+    display:none;
+  }
 }
 
 footer{
@@ -135,25 +139,40 @@ footer{
 .footer-inner{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:flex-start;
   flex-wrap:wrap;
-  gap:20px;
+  gap:32px;
 }
 
-.footer-links{
+.footer-cols{
   display:flex;
   flex-wrap:wrap;
-  gap:18px;
+  gap:32px;
 }
 
-.footer-links a{
+.footer-col{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-width:120px;
+}
+
+.footer-col-h{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--ink-3);
+}
+
+.footer-col a{
   text-decoration:none;
   color:var(--ink-2);
   font-family:"IBM Plex Mono",monospace;
   font-size:12px;
 }
 
-.footer-links a:hover{
+.footer-col a:hover{
   color:var(--ink);
 }
 
