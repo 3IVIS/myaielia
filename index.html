@@ -1,3 +1,5 @@
+---
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -210,59 +212,6 @@ header{
   font-family:"IBM Plex Mono",monospace;
   font-size:15px;
   white-space:nowrap;
-}
-
-.nav{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:0;
-  right:0;
-  flex-direction:column;
-  gap:0;
-  background:var(--paper);
-  border-bottom:1px solid var(--line);
-  padding:6px 22px 16px;
-  z-index:50;
-  font-family:"IBM Plex Mono",monospace;
-  font-size:12px;
-}
-
-.nav.open{
-  display:flex;
-}
-
-.nav a{
-  text-decoration:none;
-  color:var(--ink-2);
-  padding:10px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.nav a:last-child{
-  border-bottom:none;
-}
-
-.nav a:hover{
-  color:var(--ink);
-}
-
-.nav-toggle{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:36px;
-  height:36px;
-  border:1px solid var(--line);
-  border-radius:6px;
-  background:transparent;
-  color:var(--ink);
-  cursor:pointer;
-  padding:0;
-}
-
-.nav-toggle:hover{
-  border-color:var(--ink-2);
 }
 
 .hdr-actions{
@@ -829,40 +778,6 @@ pre{
   background:var(--green-tint);
 }
 
-/* footer */
-
-footer{
-  padding:32px 0;
-  border-top:1px solid var(--line);
-}
-
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:20px;
-}
-
-.footer-links{
-  display:flex;
-  flex-wrap:wrap;
-  gap:18px;
-}
-
-.footer-links a{
-  text-decoration:none;
-  color:var(--ink-2);
-  font-family:"IBM Plex Mono",monospace;
-  font-size:12px;
-}
-
-.footer-tag{
-  font-family:"Instrument Serif",serif;
-  color:var(--ink-3);
-  font-style:italic;
-}
-
 /* roadmap section */
 
 .roadmap-phases{
@@ -1177,37 +1092,12 @@ footer{
   }
 }
 </style>
+<link rel="stylesheet" href="/assets/site-nav.css">
 </head>
 
 <body>
 
-<header>
-  <div class="wrap site-inner">
-
-    <a class="brand" href="/" aria-label="Aielia home">
-      <span class="name">Aielia</span>
-    </a>
-
-    <nav class="nav" id="siteNav">
-      <a href="/how-it-works">How it works</a>
-      <a href="/try">Try it</a>
-      <a href="/harness-comparison">Comparison</a>
-      <a href="/harness-architecture">Architecture</a>
-      <a href="/harness-evaluation">Evaluation</a>
-      <a href="https://buildaharness.com">For developers ↗</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/impressum.html">Impressum</a>
-      <a href="#" onclick="if(window.klaro)klaro.show();return false;">Cookie Settings</a>
-    </nav>
-
-    <div class="hdr-actions">
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteNav">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-    </div>
-
-  </div>
-</header>
+{% include header.html %}
 
 <section class="hero">
 
@@ -1622,29 +1512,7 @@ footer{
 }
 </script>
 
-<footer>
-
-  <div class="wrap footer-inner">
-
-    <div class="footer-links">
-      <a href="/how-it-works">How it works</a>
-      <a href="/try">Try it</a>
-      <a href="/harness-comparison">Comparison</a>
-      <a href="/harness-architecture">Architecture</a>
-      <a href="/harness-evaluation">Evaluation</a>
-      <a href="https://buildaharness.com">For developers</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/impressum.html">Impressum</a>
-      <a href="#" onclick="if(window.klaro)klaro.show();return false;">Cookie Settings</a>
-    </div>
-
-    <div class="footer-tag">
-      Real work, kept in bounds.
-    </div>
-
-  </div>
-
-</footer>
+{% include footer.html %}
 
 
 <script>
@@ -1727,27 +1595,6 @@ footer{
 })();
 </script>
 
-<script>
-(function(){
-  var toggle=document.getElementById('navToggle');
-  var nav=document.getElementById('siteNav');
-  if(!toggle||!nav)return;
-  function close(){nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
-  toggle.addEventListener('click',function(e){
-    e.stopPropagation();
-    var open=nav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded',open?'true':'false');
-  });
-  nav.addEventListener('click',function(e){
-    if(e.target.tagName==='A')close();
-  });
-  document.addEventListener('click',function(e){
-    if(!nav.contains(e.target)&&!toggle.contains(e.target))close();
-  });
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape')close();
-  });
-})();
-</script>
+<script src="/assets/site-nav.js"></script>
 </body>
 </html>
