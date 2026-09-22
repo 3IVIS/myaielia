@@ -19,6 +19,5 @@
       if(e.key==='Escape')close();
     });
   }
-  setup('navToggle','siteNav');
   setup('fullNavToggle','fullNavMenu');
 })();

@@ -5,7 +5,7 @@
       <span class="name">Aielia</span>
     </a>
 
-    <nav class="nav" id="siteNav">
+    <nav class="nav">
       <a href="/how-it-works"{% if page.active_nav == "how-it-works" %} style="color:var(--accent-ink);"{% endif %}>How it works</a>
       <a href="/try">Try it</a>
       {% if page.nav_extended %}
@@ -37,10 +37,6 @@
           <a href="#" onclick="if(window.klaro)klaro.show();return false;">Cookie Settings</a>
         </nav>
       </div>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteNav">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
     </div>
 
   </div>

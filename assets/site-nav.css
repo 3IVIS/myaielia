@@ -1,9 +1,9 @@
-/* Shared header + footer chrome: the primary inline nav (collapses to a
-   hamburger below 760px), the always-on "full menu" button that mirrors
-   the footer links at every width, and the footer itself. Included on
-   every page that uses _includes/header.html and/or _includes/footer.html.
-   Relies on each page's own --ink/--ink-2/--ink-3/--paper/--line custom
-   properties. */
+/* Shared header + footer chrome: the plain inline nav (shown only above
+   760px, purely decorative — no toggle of its own), the always-on "full
+   menu" button that mirrors the footer links at every width, and the
+   footer itself. Included on every page that uses _includes/header.html
+   and/or _includes/footer.html. Relies on each page's own
+   --ink/--ink-2/--ink-3/--paper/--line custom properties. */
 
 .nav{
   display:flex;
@@ -19,24 +19,6 @@
 
 .nav a:hover{
   color:var(--ink);
-}
-
-.nav-toggle{
-  display:none;
-  align-items:center;
-  justify-content:center;
-  width:36px;
-  height:36px;
-  border:1px solid var(--line);
-  border-radius:6px;
-  background:transparent;
-  color:var(--ink);
-  cursor:pointer;
-  padding:0;
-}
-
-.nav-toggle:hover{
-  border-color:var(--ink-2);
 }
 
 .full-nav{
@@ -97,37 +79,6 @@
 @media(max-width:760px){
   .nav{
     display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    right:0;
-    flex-direction:column;
-    gap:0;
-    background:var(--paper);
-    border-bottom:1px solid var(--line);
-    padding:6px 22px 16px;
-    z-index:50;
-  }
-
-  .nav.open{
-    display:flex;
-  }
-
-  .nav a{
-    padding:10px 0;
-    border-bottom:1px solid var(--line);
-  }
-
-  .nav a:last-child{
-    border-bottom:none;
-  }
-
-  .nav-toggle{
-    display:inline-flex;
-  }
-
-  .full-nav{
-    display:none;
   }
 }
 
@@ -141,13 +92,7 @@ footer{
   justify-content:space-between;
   align-items:flex-start;
   flex-wrap:wrap;
-  gap:32px;
-}
-
-.footer-cols{
-  display:flex;
-  flex-wrap:wrap;
-  gap:32px;
+  gap:32px 24px;
 }
 
 .footer-col{
