@@ -1,0 +1,220 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<script>if(location.protocol==='http:'&&location.hostname==='myaielia.com'){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Use — Aielia</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://myaielia.com/terms.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#4F46E5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      oklch(.972 .008 270);
+  --paper:   oklch(.985 .008 270);
+  --ink:     oklch(.19 .024 270);
+  --ink-2:   oklch(.37 .02 270);
+  --ink-3:   oklch(.55 .018 270);
+  --line:    oklch(.84 .014 270);
+  --accent:  oklch(.46 .16 268);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+
+.site-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top:18px;padding-bottom:18px;
+}
+
+.brand {
+  text-decoration: none; color: var(--ink);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+}
+
+.content {
+  max-width: 640px;
+  margin: 64px auto;
+  padding: 0 40px;
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  letter-spacing: -.025em;
+  line-height: 1.1;
+  margin-bottom: 40px;
+}
+
+h1 em {
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.section {
+  border-top: 1px solid var(--line);
+  padding: 28px 0;
+}
+
+.section h2 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+
+.section p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.section p:last-child { margin-bottom: 0; }
+
+.section ul {
+  margin: 0 0 12px 20px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.section strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.section a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  height: 1px;
+  background: var(--line);
+  margin: 0;
+}
+
+footer {
+  margin-top: 64px;
+}
+
+@media (max-width: 640px) {
+  .wrap, .content { padding: 0 22px; }
+  h1 { font-size: 32px; }
+  .content { margin: 40px auto; }
+}
+</style>
+<link rel="stylesheet" href="/assets/site-nav.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap site-inner">
+    <a class="brand" href="/">Aielia</a>
+  </div>
+</header>
+
+<div class="content">
+  <p class="eyebrow">Legal</p>
+  <h1>Terms <em>of Use</em></h1>
+
+  <div class="section">
+    <h2>Who this applies to</h2>
+    <p>These terms cover your use of the website and app at myaielia.com, operated by <strong>3IVIS GmbH</strong> (see our <a href="/impressum.html">Impressum</a> for full company details). By browsing this site or using the Aielia app, you accept these terms. Last updated: 22 September 2026.</p>
+  </div>
+
+  <div class="section">
+    <h2>Alpha software</h2>
+    <p>Aielia is an early-stage, alpha-quality project (currently <code>v0.2.1</code>). It has not been independently audited for security. Expect rough edges, breaking changes between versions, and behavior that doesn't always match the documentation. Don't rely on it for anything where an incorrect, incomplete, or delayed response would cause you material harm.</p>
+  </div>
+
+  <div class="section">
+    <h2>No account, your own model provider</h2>
+    <p>There is no Aielia account and no 3IVIS-run backend. You bring your own model key (Anthropic, OpenAI, OpenRouter) or a local <code>claude</code> CLI login, and your conversations go directly from your device to the provider you choose, under that provider's own terms. See our <a href="/privacy.html">Privacy Policy</a> for how this affects your data. The software itself is open source (Apache 2.0) — see the <a href="https://github.com/3IVIS/buildaharness">GitHub repository</a> and its license for your rights to use, modify, and redistribute the code, independent of these terms.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Aielia is not</h2>
+    <p>Aielia is a general-purpose assistant. It is not a substitute for professional medical, legal, financial, or mental-health advice, and nothing it outputs should be treated as such — consult a qualified professional for decisions in those areas. Its "harness" layers are designed to reduce the chance of unreliable or unsafe behavior; they do not eliminate it, and outputs can still be wrong, incomplete, or misleading.</p>
+  </div>
+
+  <div class="section">
+    <h2>Actions taken on your behalf</h2>
+    <p>Depending on how you configure and run it, Aielia can read files, execute shell commands, and take other actions on your device — write actions are staged for your explicit approval before they run. You are responsible for reviewing what you approve and for the consequences of actions you authorize. Don't grant it access or permissions you aren't prepared to be accountable for.</p>
+  </div>
+
+  <div class="section">
+    <h2>No warranty</h2>
+    <p>The website, the app, and the software are provided "as is," without warranty of any kind, express or implied, including accuracy, availability, or fitness for a particular purpose. Comparative claims about third-party projects on this site reflect our own reading of publicly available sources at the time of writing and are not endorsed by those projects; we link our sources where a claim is specific and factual.</p>
+  </div>
+
+  <div class="section">
+    <h2>Limitation of liability</h2>
+    <p>To the extent permitted by applicable law, 3IVIS GmbH is not liable for damages arising from your use of this website, the app, or software obtained via links from it, except where liability arises from intent or gross negligence, or from injury to life, body, or health. This limitation does not affect any liability under the German Product Liability Act (Produkthaftungsgesetz) or other liability that cannot be excluded by law.</p>
+  </div>
+
+  <div class="section">
+    <h2>Third-party links and services</h2>
+    <p>This site links to third-party projects, model providers, and services. We don't control and aren't responsible for the content, availability, or behavior of third-party sites or services you choose to connect.</p>
+  </div>
+
+  <div class="section">
+    <h2>Changes to these terms</h2>
+    <p>We may update these terms as the site or software evolves. Material changes will update the "last updated" date above.</p>
+  </div>
+
+  <div class="section">
+    <h2>Governing law</h2>
+    <p>These terms are governed by the laws of Germany. Where legally permissible, the place of jurisdiction is Berlin, Germany.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <p>Questions about these terms: <a href="mailto:contact@3ivis.com">contact@3ivis.com</a>.</p>
+  </div>
+</div>
+
+{% include footer.html %}
+
+</body>
+</html>

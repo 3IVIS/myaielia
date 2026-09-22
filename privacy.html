@@ -235,6 +235,12 @@ footer {
     <h2>Your rights</h2>
     <p>Under the GDPR you have the right to access, rectify, or erase your personal data, to restrict or object to processing, and to data portability. To exercise these rights, or to lodge a complaint with a supervisory authority, contact us at <a href="mailto:contact@3ivis.com">contact@3ivis.com</a>.</p>
   </div>
+
+  <div class="section">
+    <h2>The Aielia app</h2>
+    <p>Aielia has no account and no 3IVIS-run backend that your conversations pass through. When you use the app — in the browser at <a href="/try">/try</a>, via the CLI, or as a desktop app — your messages go directly from your device to the model provider you configure (e.g. Anthropic, OpenAI, or OpenRouter, using a key you supply) or to a local <code>claude</code> CLI process already on your machine. That exchange is governed by your chosen provider's own terms and privacy policy, not this one — 3IVIS does not see, receive, or store the content of your conversations.</p>
+    <p>Memory the assistant builds up about you (facts it learns across turns) is stored locally in your browser's IndexedDB or in your local filesystem when run via the CLI/desktop app — not on a 3IVIS server. Clearing your browser's site data or uninstalling the CLI/desktop app removes it. If you enable an optional integration that talks to another third-party service (for example, sending an email on your behalf), that exchange is between your device and that third party under its own terms.</p>
+  </div>
 </div>
 
 {% include footer.html %}
