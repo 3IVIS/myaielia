@@ -42,32 +42,32 @@ active_nav: evaluation
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Does the harness work? We measure it — and turn off what doesn't earn its cost | Aielia</title>
+<title>Rebuilding our evaluation framework | Aielia</title>
 
-<meta name="description" content="Build A Harness runs a controlled benchmark on every reasoning feature in the assistant: state the hypothesis, toggle it, stress it, measure multi-seed, decide. Six features decided — one earns its keep, the rest don't clear that bar; each has its own case study. Every run is reproducible.">
+<meta name="description" content="Build A Harness's feature-value evaluation is being rebuilt with a harder, multi-step and multi-turn task corpus. Published results are offline while we redo the benchmark — check back soon.">
 
 <link rel="canonical" href="https://myaielia.com/harness-evaluation">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://myaielia.com/harness-evaluation">
 <meta property="og:site_name" content="Aielia">
-<meta property="og:title" content="Does the harness work? We measure it — and turn off what doesn't earn its cost">
-<meta property="og:description" content="A controlled benchmark on every reasoning feature in the assistant. Six features decided — one earns its keep, the rest don't clear that bar; each has its own case study. Every run reproducible.">
+<meta property="og:title" content="Rebuilding our evaluation framework">
+<meta property="og:description" content="Our feature-value benchmark is being rebuilt with a harder, multi-step and multi-turn task corpus. Published results are offline while we redo the benchmark.">
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Build A Harness — measuring whether each harness feature earns its cost.">
+<meta property="og:image:alt" content="Build A Harness — rebuilding the evaluation framework.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Does the harness work? We measure it — and turn off what doesn't earn its cost">
-<meta name="twitter:description" content="A controlled benchmark on every reasoning feature in the assistant. Six features decided — one earns its keep, the rest don't clear that bar; each has its own case study.">
+<meta name="twitter:title" content="Rebuilding our evaluation framework">
+<meta name="twitter:description" content="Our feature-value benchmark is being rebuilt with a harder, multi-step and multi-turn task corpus. Published results are offline while we redo the benchmark.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
-<meta name="twitter:image:alt" content="Build A Harness — measuring whether each harness feature earns its cost.">
+<meta name="twitter:image:alt" content="Build A Harness — rebuilding the evaluation framework.">
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
-<meta name="keywords" content="AI agent evaluation, harness ablation, agent benchmark, reproducible eval, feature value, LLM cost latency tradeoff, harness engineering, trajectory supervisor">
+<meta name="keywords" content="AI agent evaluation, harness ablation, agent benchmark, reproducible eval, feature value, LLM cost latency tradeoff, harness engineering">
 
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -86,10 +86,10 @@ active_nav: evaluation
     {
       "@type": "Article",
       "@id": "https://myaielia.com/harness-evaluation#article",
-      "headline": "Does the harness work? We measure it — and turn off what doesn't earn its cost",
-      "description": "A controlled benchmark on every reasoning feature in the Build A Harness assistant: state the hypothesis, toggle it, stress it, measure multi-seed, decide. Six features decided — one earns its keep, the rest don't clear that bar; each has its own case study.",
+      "headline": "Rebuilding our evaluation framework",
+      "description": "Build A Harness's feature-value evaluation is being rebuilt with a harder, multi-step and multi-turn task corpus. Published results are offline while we redo the benchmark.",
       "datePublished": "2026-09-07",
-      "dateModified": "2026-09-11",
+      "dateModified": "2026-09-23",
       "author": { "@id": "https://myaielia.com/#org" },
       "publisher": { "@id": "https://myaielia.com/#org" },
       "mainEntityOfPage": "https://myaielia.com/harness-evaluation"
@@ -108,36 +108,6 @@ active_nav: evaluation
       "name": "3IVIS",
       "url": "https://github.com/3IVIS",
       "sameAs": ["https://github.com/3IVIS/buildaharness", "https://designaloop.com"]
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Why publish negative results about your own product?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Because “11 layers, 27 node types, 3,400 tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a controlled benchmark that can come back negative — and when it does, we say so and switch the feature off." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does switching a feature off mean you delete the code?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. A feature that doesn't earn its cost stays merged and flag-gated OFF. The negative result is recorded, not overridden. If a later test on a different shape of task shows value, the flag can flip back on — but the default reflects the evidence we have." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Rule 6?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Rule 6 is the internal gate that every behaviour-changing change must clear: a measured delta on a fixed task corpus, multi-seed with a reported confidence interval, before the change becomes a default. A feature that shows no positive delta on its own stress slice does not ship on by default." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I reproduce these numbers?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The corpus, the grader, the arm definitions and the multi-seed runner are all in the open-source repo under packages/aielia/eval/. Each result links to its machine report JSON. One command re-runs the whole matrix." }
-        },
-        {
-          "@type": "Question",
-          "name": "What model are these run on?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The model id each run actually executed on, and the LLM judge's model, are both recorded in that run's machine report and shown on its transcript page — so a published number can be traced back to the model that produced it." }
-        }
-      ]
     }
   ]
 }
@@ -280,391 +250,37 @@ pre code{background:none;padding:0;color:inherit;}
       <a href="/">Aielia</a><span aria-hidden="true">/</span><span>Harness Evaluation</span>
     </nav>
 
-    <div class="eyebrow">EVALUATION · RULE 6 · EVERY RUN REPRODUCIBLE</div>
+    <div class="eyebrow">EVALUATION · REBUILDING</div>
 
-    <h1>We measure whether our own <em>features work.</em><br>And turn off the ones that don't.</h1>
+    <h1>We're rebuilding our <em>evaluation framework.</em></h1>
 
     <p class="hero-lede">
-      <a class="inline" href="/harness-architecture">The architecture page</a> shows every layer and backstop
-      we built. This one shows which of them we've <em>proven</em> earns its latency and token cost — and which
-      we've measured, found wanting, and switched off. Every result links to its own page with the
-      full story — what the feature does, why we tried it, and what we found.
+      Our first pass at this benchmark ran mostly single-turn, single-draft tasks. That's not the shape most of
+      the harness's reasoning layers — and the hierarchical planning and mid-task steering work we're building
+      now — are actually meant for. We're redoing the corpus with harder multi-step, multi-turn, and
+      recovery-under-failure tasks before we publish verdicts again. The previous results are offline while
+      this is in progress. Check back soon.
     </p>
-
-    <div class="stat-row" role="list">
-      <div class="stat" role="listitem">
-        <span class="stat-n">12 / 13</span>
-        <span class="stat-l">reasoning features on the bench audited so far</span>
-      </div>
-      <div class="stat" role="listitem">
-        <span class="stat-n" style="font-size:17px;">1 proven effective &middot; 2 effective, at more cost &middot; 9 not effective</span>
-        <span class="stat-l">by evidence — full breakdown in the table below</span>
-      </div>
-      <div class="stat" role="listitem">
-        <span class="stat-n">3 seeds</span>
-        <span class="stat-l">minimum per verdict — one pass on an LLM-driven feature is not evidence</span>
-      </div>
-    </div>
-
-    <div class="cta-row">
-      <a class="btn" href="#method">The method ↓</a>
-      <a class="btn btn-ghost" href="#results">The results ↓</a>
-      <a class="btn btn-ghost" href="#reproduce">Reproduce it ↓</a>
-    </div>
 
   </div>
 </section>
 
 
-<section class="section" id="why">
+<section class="section" id="status">
   <div class="wrap">
-    <div class="section-label">WHY</div>
-    <h2>"Eleven layers, 3,400 tests" proves we <em>built</em> something.<br>Not that it works.</h2>
+    <div class="section-label">STATUS</div>
+    <h2>What's happening</h2>
     <p class="prose">
-      A harness is a governance and reliability control plane wrapped around a model. Every layer it adds costs
-      latency and tokens on every turn. That cost is only worth paying if the layer actually changes outcomes —
-      catches a contradiction the free lexical check missed, recovers a run that would otherwise stall, stops a
-      wrong answer going out.
+      The method itself — state a hypothesis, toggle the feature behind a flag, build a stress corpus, measure
+      multi-seed, decide — hasn't changed. What we found is that a lot of the existing corpus was single-turn and
+      single-draft, which structurally can't show the value of layers designed for multi-step decomposition,
+      cross-turn memory, or recovering from mid-task failures. We're building that harder corpus now and will
+      re-run the full matrix before republishing results here.
     </p>
     <p class="prose">
-      The honest way to know is a controlled benchmark that is allowed to come back <strong>negative</strong>.
-      So we built one, and we run it against our own features. When a feature doesn't earn its cost, we say so
-      here and switch it off — the code stays, flag-gated, so a later test on a different task shape can flip it
-      back if the evidence changes.
+      <a class="inline" href="/harness-architecture">The architecture page</a> still describes every layer the
+      harness contains. This page will return once the rebuilt benchmark has produced verdicts we trust.
     </p>
-    <p class="prose">
-      Almost every candidate has the same shape: an expensive per-turn LLM call layered on top of a free
-      lexical or mechanical check, added on the bet that the cheap check misses real cases often enough to pay
-      for itself. That bet is exactly what the benchmark tests.
-    </p>
-  </div>
-</section>
-
-
-<section class="section alt" id="method">
-  <div class="wrap">
-    <div class="section-label">HOW WE DECIDE</div>
-    <h2>Six steps. <em>Same loop every time.</em></h2>
-    <p class="prose">Modelled on how ML systems are evaluated: a fixed dataset, a mechanical grader, an
-    isolated independent variable, and a confidence interval on the result.</p>
-
-    <div class="method-grid">
-      <div class="method-card">
-        <div class="mc-n">01 — HYPOTHESIS</div>
-        <h3>Name the bet</h3>
-        <p>Write, in one sentence, the belief the feature encodes — the thing that would have to be true for it
-        to be worth the cost.</p>
-      </div>
-      <div class="method-card">
-        <div class="mc-n">02 — ARM</div>
-        <h3>Toggle exactly it</h3>
-        <p>A benchmark arm that flips this one feature and nothing else. Everything else — model, corpus,
-        grader — is held fixed.</p>
-      </div>
-      <div class="method-card">
-        <div class="mc-n">03 — STRESS CORPUS</div>
-        <h3>Where it matters or nowhere</h3>
-        <p>A tagged set of tasks built so the feature should show its value here if it shows it anywhere. No
-        delta on its own stress slice means no value.</p>
-      </div>
-      <div class="method-card">
-        <div class="mc-n">04 — MEASURE</div>
-        <h3>Three seeds, judge on</h3>
-        <p>Run the matrix at least three times. Report Δ task success, recovery, overconfident-wrong answers,
-        cost, latency and tokens — each with a 95% confidence interval.</p>
-      </div>
-      <div class="method-card">
-        <div class="mc-n">05 — VERDICT</div>
-        <h3>Effective, or not — at what cost</h3>
-        <p><strong>Effective, similar or lower cost:</strong> positive delta on the stress slice, no
-        regression elsewhere, cost at or below budget. <strong>Effective, but costs more:</strong> a real
-        gain that comes at a real cost — worth it only if the gain clears the bar. <strong>Not
-        effective:</strong> no measurable gain, regardless of cost. <strong>Underpowered:</strong> too
-        little data to say either way — grow the corpus and re-run.</p>
-      </div>
-      <div class="method-card">
-        <div class="mc-n">06 — RECORD</div>
-        <h3>The whole story, either way</h3>
-        <p>Not just the number. Where the idea came from, what we expected, what actually happened, and why —
-        as an entry on this page, plus a row in the benchmark doc and the machine report JSON in the repo.
-        Negative results included.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section" id="results">
-  <div class="wrap">
-    <div class="section-label">RESULTS</div>
-    <h2>What we've decided <em>so far.</em></h2>
-    <p class="prose">Twelve features decided. This table grows as each audit lands, positive and negative alike.
-    The 11-layer harness vs. a bare loop, and the one-loop proposer, both had a first pass whose result we
-    <strong>withdrew</strong> — the failure-injection tasks were being applied to one arm and not the other —
-    and were re-run on a corrected corpus (below).</p>
-
-    <table class="cmp-table">
-      <caption style="caption-side:bottom;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.04em;padding:12px 4px 0;">
-        LLM judge on, 3 seeds minimum. Each run records the model it actually executed on — shown on its transcript page.
-      </caption>
-      <thead>
-        <tr>
-          <th style="width:26%">Feature</th>
-          <th style="width:34%">The bet it encodes</th>
-          <th style="width:12%">Verdict</th>
-          <th style="width:28%">Evidence</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <span class="feat">Trajectory Supervisor</span>
-            <span class="featref">HARNESS_TRAJECTORY_SUPERVISOR · <a href="/harness-architecture">Layers 7 &amp; 10</a></span>
-          </td>
-          <td>A stalled run recovers better with a meta-controller that reads the failure trajectory and issues
-          a targeted directive than by walking the deterministic strategy ladder.</td>
-          <td><span class="verdict cut">Worse results, at higher cost</span></td>
-          <td>3-seed, 18-task, judge-on. Task success <span style="color:var(--red);font-weight:600;">−3.7%</span>
-          (CI ±3.6%); latency <strong style="color:var(--red);">+34%</strong>, cost
-          <strong style="color:var(--red);">+32%</strong>, tokens <strong style="color:var(--red);">+48%</strong>;
-          zero extra stall recoveries.
-          <a href="/harness-evaluation/trajectory-supervisor/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Semantic contradiction backstop</span>
-            <span class="featref">+1 LLM call per belief batch · <a href="/harness-architecture">Layer 4</a></span>
-          </td>
-          <td>An LLM contradiction check catches paraphrased / cross-framing belief conflicts that the
-          always-on lexical negation-pair check provably can't — often enough to pay for the call.</td>
-          <td><span class="verdict keep">Better results, at higher cost</span></td>
-          <td>3-seed, 14-task, judge-on. Task success <strong style="color:var(--green);">+7.1%</strong>
-          (85.7% → 92.9%, CI clears 0); overconfident-and-wrong 12.8% → 7.7%; cost
-          <strong>+29%/turn</strong>, latency flat. The gain clears the cost.
-          <a href="/harness-evaluation/semantic-contradiction/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">LLM injection detection on tool output</span>
-            <span class="featref">+1 LLM call per fetched page / shell result</span>
-          </td>
-          <td>An LLM classifier on every tool output catches prompt-injection the deterministic pattern
-          pass misses, without over-flagging benign instruction-like content.</td>
-          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
-          <td>3-seed, 10-task, judge-on. <strong>No task-success delta</strong> (both 80%); hallucination
-          20% → 10% but cost <strong style="color:var(--red);">+21%/turn</strong> for no success gain.
-          Neutral with real cost. <a href="/harness-evaluation/llm-injection-detect/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Semantic failure-mode backstop</span>
-            <span class="featref">+1 LLM call per failure-library miss · <a href="/harness-architecture">Layer 10</a></span>
-          </td>
-          <td>An LLM matcher recognises known failure patterns described in different words often enough
-          to earn its per-miss call and improve recovery routing.</td>
-          <td><span class="verdict mixed">Better results, at higher cost</span></td>
-          <td>3-seed, 8-task, judge-on. Task-success delta <strong>+12.5% but CI ±28%</strong> — not
-          significant; cost <strong style="color:var(--red);">+48%/turn</strong>, latency
-          <strong style="color:var(--red);">+15%</strong>. Neutral with real cost.
-          <a href="/harness-evaluation/semantic-failure-match/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">The 11-layer harness</span>
-            <span class="featref">vs. a bare ReAct loop · <a href="/harness-architecture">whole subsystem</a></span>
-          </td>
-          <td>The full 11-layer harness (staging, control-state, verification, reviewer, memory) produces
-          materially better task outcomes than a bare ReAct loop — enough to justify running the whole
-          subsystem every turn.</td>
-          <td><span class="verdict mixed">Better results, at higher cost</span></td>
-          <td>3-seed, 76-task, judge-on. Task success <strong style="color:var(--green);">+16.2pt</strong>
-          (67.6% → 83.8%, CI ±25.6pt — includes 0, unproven); cost
-          <strong style="color:var(--red);">+77%/turn</strong>, latency <strong style="color:var(--red);">+88%</strong>.
-          Can't prove it helps; can prove it costs more.
-          <a href="/harness-evaluation/harness-vs-bare/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">One-loop proposer</span>
-            <span class="featref"><code>ASSISTANT_ONE_LOOP</code> · default since 2026-09-06</span>
-          </td>
-          <td>Letting the harness drive tool calls in-loop, one iteration at a time, beats post-hoc
-          bookkeeping over an already-finished reply — validating the 2026-09-06 default flip.</td>
-          <td><span class="verdict mixed">No measurable difference, but cheaper</span></td>
-          <td>3-seed, 76-task, judge-on. Task success <strong>+0.5pt</strong> (81.0% → 81.5%, CI ±2.6pt) —
-          flat; cost <strong style="color:var(--green);">−18%/turn</strong>, latency flat. Neither helps nor
-          hurts measurably; cheaper either way.
-          <a href="/harness-evaluation/one-loop/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Semantic criterion coverage</span>
-            <span class="featref">+1 LLM call per unmatched criterion · <a href="/harness-architecture">Layer 11</a></span>
-          </td>
-          <td>An LLM call recognises success criteria a reply satisfies in different words than the plan
-          states them, removing false "criterion not met" findings the reviewer's substring check raises.</td>
-          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
-          <td>3-seed, 8-task, judge-on. <strong>No task-success delta</strong> (both 75.0%, CI ±20pt); cost
-          <strong style="color:var(--red);">+25%/turn</strong> for no success gain. Neutral with real cost.
-          <a href="/harness-evaluation/semantic-criterion-coverage/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Semantic review-checker</span>
-            <span class="featref">+1 LLM call per proposed change · <a href="/harness-architecture">Layer 11</a></span>
-          </td>
-          <td>An LLM call catches proposed changes that conflict in meaning with a held high-confidence
-          belief, which the reviewer's lexical check misses.</td>
-          <td><span class="verdict cut">Worse results, no added cost</span></td>
-          <td>3-seed, 8-task, judge-on. Task success <span style="color:var(--red);font-weight:600;">−16.7%</span>
-          (66.7% → 50.0%, CI ±8.2%, clears 0); overconfident-and-wrong 13.3% → 40.0%; cost
-          <strong>+6%/turn</strong>. Regresses on its own stress slice, without even the excuse of extra cost.
-          <a href="/harness-evaluation/semantic-change-reviewer/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Model-inferred facts</span>
-            <span class="featref">never auto-promoted to memory</span>
-          </td>
-          <td>Facts the classifier infers from a message are recalled correctly on later turns often enough
-          to justify recording them, without a wrong-memory tax from hypotheticals and retracted statements.</td>
-          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
-          <td>3-seed, 8-task, judge-on. Task success <strong>+4.2% but CI ±16.3%</strong> — not significant;
-          cost <strong style="color:var(--red);">+55%/turn</strong>, latency
-          <strong style="color:var(--red);">+16%</strong>. Neutral with real cost.
-          <a href="/harness-evaluation/model-inferred-facts/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Up-front decomposition + task reframing</span>
-            <span class="featref"><a href="/harness-architecture">Layer 5</a></span>
-          </td>
-          <td>Decomposing a multi-part request into a task graph and reframing each task with an LLM call
-          completes more of the requested parts than treating the request as one task, at acceptable extra
-          cost.</td>
-          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
-          <td>3-seed, 8-task, judge-on. <strong>No task-success delta</strong> (both 100%); cost
-          <strong style="color:var(--red);">+82%/turn</strong>, latency
-          <strong style="color:var(--red);">+23%</strong> for no success gain. Neutral with real cost.
-          <a href="/harness-evaluation/decomposition-reframing/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">The verification layer</span>
-            <span class="featref"><a href="/harness-architecture">Layer 9</a> · 9 sub-checks</span>
-          </td>
-          <td>Always-on mechanical verification of every result catches defective or unsupported results
-          before they're accepted, cutting confidently-wrong replies enough to justify running on every turn.</td>
-          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
-          <td>3-seed, 8-task, judge-on. <strong>No task-success delta</strong> (95.8% both arms, CI ±11.6%);
-          cost <strong style="color:var(--red);">+25%/turn</strong> for no success gain. Neutral with real
-          cost. <a href="/harness-evaluation/verification-layer/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">The reviewer pass</span>
-            <span class="featref"><a href="/harness-architecture">Layer 11</a> · 3 lenses</span>
-          </td>
-          <td>The 3-lens reviewer pass finds real defects earlier layers miss and improves the final reply
-          often enough to justify its per-turn latency and second-round cost.</td>
-          <td><span class="verdict cut">Worse results, at higher cost</span></td>
-          <td>3-seed, 8-task, judge-on. Task success <span style="color:var(--red);font-weight:600;">−33.3%</span>
-          (75.0% → 41.7%, CI ±8.2%, clears 0); overconfident-and-wrong 0% → 58.3%; hallucination 0% → 12.5%;
-          cost <strong style="color:var(--red);">+20%/turn</strong>. Regresses on its own stress slice.
-          <a href="/harness-evaluation/reviewer-pass/">Read the actual runs →</a></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p class="prose" style="margin-top:24px;"><a class="inline" href="#bench">The rest of the roster is on the
-    bench ↓</a></p>
-  </div>
-</section>
-
-<section class="section" id="bench">
-  <div class="wrap">
-    <div class="section-label">ON THE BENCH</div>
-    <h2>The rest of the roster, <em>queued.</em></h2>
-    <p class="prose">Ordered by how much new scaffolding a verdict needs.</p>
-
-    <table class="cmp-table">
-      <thead>
-        <tr>
-          <th style="width:30%">Feature</th>
-          <th style="width:44%">Per-turn cost</th>
-          <th style="width:26%">Batch</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="feat">AnswerClaim attribution</span><span class="featref">evidence / confidence line</span></td>
-          <td>Cheap to compute — a UX surface. Its value is a trust question, not a benchmark one.</td>
-          <td><span class="verdict bench">Open — not benchmark-shaped</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-
-<section class="section alt" id="reproduce">
-  <div class="wrap">
-    <div class="section-label">REPRODUCE</div>
-    <h2>The whole benchmark is <em>open source.</em></h2>
-    <p class="prose">The task corpus, the mechanical grader, the arm definitions and the multi-seed runner all
-    live in the product repo under <code>packages/aielia/eval/</code>. Every result on this page
-    links to its machine report JSON, and each run records the model it executed on. One command re-runs the
-    supervisor matrix:</p>
-
-    <pre><code>npx tsx scripts/run-harness-benchmark.ts \
-  --arms=flagOn,supervisorOn \
-  --slice=supervisor_lookup,supervisor_pivot \
-  --seeds=3</code></pre>
-
-    <p class="prose" style="margin-top:20px;">
-      <a class="inline" href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia/eval">Benchmark harness on GitHub →</a><br>
-      <a class="inline" href="https://github.com/3IVIS/buildaharness/blob/main/docs/harness_comparative_benchmark.md">Comparative benchmark log →</a>
-    </p>
-  </div>
-</section>
-
-
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-label">FAQ</div>
-    <h2>Questions</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <h3>Why publish negative results about your own product?</h3>
-        <p>Because "11 layers, 27 node types, thousands of tests" proves we built something, not that it works.
-        A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a
-        benchmark that can come back negative — and when it does, we say so and switch the feature off.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Does switching a feature off mean you delete the code?</h3>
-        <p>No. A feature that doesn't earn its cost stays merged and flag-gated off. The negative result is
-        recorded, not overridden. If a later test on a different shape of task shows value, the flag can flip
-        back on — but the default reflects the evidence we actually have.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What is Rule 6?</h3>
-        <p>The internal gate every behaviour-changing change must clear: a measured delta on a fixed task
-        corpus, multi-seed with a reported confidence interval, before it becomes a default. A feature that
-        shows no positive delta on its own stress slice does not ship on by default.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What model are these run on?</h3>
-        <p>Each run writes the model id it actually executed on — and the LLM judge's model — into its machine
-        report, and every transcript page names both, so a published number can always be traced back to the
-        model that produced it.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How does this relate to the architecture page?</h3>
-        <p><a class="inline" href="/harness-architecture">The architecture page</a> is the map of everything
-        the harness contains, read straight out of the source. This page is the running record of which of
-        those parts we've put on the scale — and what the scale said.</p>
-      </div>
-    </div>
   </div>
 </section>
 
