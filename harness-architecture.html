@@ -683,7 +683,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="turn-diagram">
       <svg viewBox="0 0 1100 500" role="img" aria-labelledby="td-title td-desc">
         <title id="td-title">One turn with the one-loop proposer, mid-turn steering, the Trajectory Supervisor and the goal graph all enabled</title>
-        <desc id="td-desc">A swim-lane timeline. Goal threads come from the session's plan and from new-goal messages, and the Scheduler picks the active one at the start of the turn. Then the harness loop runs one iteration at a time, polling the steering channel at the start of each. A message sent mid-turn enters the steering channel and is classified at the next poll: corrections become notes for the next LLM call, everything else becomes a follow-up turn. If an iteration stalls, the Supervisor is consulted once and its directive re-queues the work. After a full turn, up to three next-step options appear under the reply; when a thread's last task completes its suggestions are saved for /goals.</desc>
+        <desc id="td-desc">A swim-lane timeline. The identity matcher attaches the message to the open goal it continues, or starts a new thread, and the Scheduler keeps one thread in focus. Then the harness loop runs one iteration at a time, polling the steering channel at the start of each. A message sent mid-turn enters the steering channel and is classified at the next poll: corrections become notes for the next LLM call, everything else becomes a follow-up turn. If an iteration stalls, the Supervisor is consulted once and its directive re-queues the work. After a full turn, up to three next-step options appear under the reply; when a thread's last task completes its suggestions are saved for /goals.</desc>
         <defs>
           <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
         </defs>
@@ -720,7 +720,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
         <text class="t-s" x="690" y="150">new goal · cancel · deferred task</text>
 
         <!-- Goal graph -->
-        <rect class="box assist" x="180" y="196" width="165" height="38" rx="6"/><text class="t" x="262" y="213" text-anchor="middle">threads from plans</text><text class="t-s" x="262" y="227" text-anchor="middle">+ new-goal messages</text>
+        <rect class="box assist" x="180" y="196" width="165" height="38" rx="6"/><text class="t" x="262" y="213" text-anchor="middle">match turn → thread</text><text class="t-s" x="262" y="227" text-anchor="middle">or start a new one</text>
         <rect class="box assist" x="360" y="196" width="150" height="38" rx="6"/><text class="t" x="435" y="219" text-anchor="middle">Scheduler → ACTIVE</text>
         <rect class="box assist" x="870" y="196" width="210" height="38" rx="6"/><text class="t" x="975" y="213" text-anchor="middle">thread DONE → suggestions saved</text><text class="t-s" x="975" y="227" text-anchor="middle">/goals shows the graph + next steps</text>
         <path class="ln" d="M240 72 V196" marker-end="url(#ah)"/>
@@ -784,7 +784,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <button class="ext-card" style="--nc:oklch(.46 .16 240)" data-target="xmodal-goalgraph">
         <span class="ext-pill">on by default</span>
         <span class="ext-name">Hierarchical goal graph</span>
-        <span class="ext-desc">Every root goal is a thread that persists across turns — paused, blocked or done — with one in focus at a time, finished threads keep their suggested next steps, and /goals shows the whole graph.</span>
+        <span class="ext-desc">Every goal is a thread that persists across turns — a follow-up returns to the thread it continues, a new topic starts its own — with one in focus at a time. Finished threads keep their suggested next steps, and /goals shows the whole graph.</span>
         <span class="ext-path">goalGraphMode · goalGraphSuggestMode</span>
         <span class="flow-open">view flow →</span>
       </button>
@@ -1479,14 +1479,14 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   </div>
   <div class="fm-body">
     <p class="fm-desc">A persistent goal graph across turns: each root goal is a thread, so concurrent goals, paused work and finished work stay inspectable instead of collapsing into a single plan.</p>
-    <div class="fm-files"><b>Files:</b> goal-graph-store.ts · goal-identity-matcher.ts · goal-thread-scheduler.ts · next-step-proposer.ts · goal-graph-service.ts</div>
-    <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Threads appear<span class="fm-sub">the session's plan is wrapped as the first thread; a new-goal steering message mints another</span></div><div class="fm-arrow">→</div><div class="fm-box">Scheduler pass, start of every turn<span class="fm-sub">sole writer of the ACTIVE pointer (INV-39); one ACTIVE thread (INV-38); FIFO among READY</span></div><div class="fm-arrow">→</div><div class="fm-box">Turn runs on the ACTIVE thread<span class="fm-sub">plan mode and drafting are scoped to that thread</span></div><div class="fm-arrow">→</div><div class="fm-box">Evidence synced back; DONE when every task completes<span class="fm-sub">the thread keeps its task graph and evidence between turns; finishing it triggers the next-step proposer</span></div></div></div></div>
+    <div class="fm-files"><b>Files:</b> goal-graph-store.ts · goal-thread-identity.ts · goal-identity-matcher.ts · goal-thread-scheduler.ts · next-step-proposer.ts · goal-graph-service.ts</div>
+    <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Turn classified as a full turn<span class="fm-sub">trivial one-liners and resumed turns (approvals, answers) skip everything below</span></div><div class="fm-arrow">→</div><div class="fm-box">Identity matcher: one LLM call<span class="fm-sub">does this continue an open thread? only asked when one exists; ambiguous never guesses</span></div><div class="fm-arrow">→</div><div class="fm-box">Attach, or start a thread<span class="fm-sub">a match brings that thread back into focus (the current one is paused, evidence kept); no match starts a new thread</span></div><div class="fm-arrow">→</div><div class="fm-box">Scheduler keeps one thread in focus<span class="fm-sub">sole writer of the ACTIVE pointer (INV-39); one ACTIVE thread (INV-38)</span></div><div class="fm-arrow">→</div><div class="fm-box">Turn runs on the ACTIVE thread<span class="fm-sub">plan mode and drafting are scoped to that thread</span></div><div class="fm-arrow">→</div><div class="fm-box">Evidence synced back; DONE when every task completes<span class="fm-sub">the thread keeps its task graph and evidence between turns; finishing it triggers the next-step proposer</span></div></div></div></div>
     <div class="fm-branches">
       <div class="fm-branch"><b>thread states</b> READY · ACTIVE · BLOCKED · PAUSED · DONE · ABANDONED. PAUSED keeps its partial state and evidence (INV-42); ABANDONED is kept for the audit trail, never deleted.</div>
       <div class="fm-branch"><b>never selectable</b> a thread still being drafted is never given focus (INV-40); a still-workable ACTIVE thread is never bumped just because others are waiting.</div>
       <div class="fm-branch"><b>/goals</b> the CLI command and the chat-ui panel show four buckets: freshly computed, carried over, done, and suggested-but-not-committed (drafting).</div>
       <div class="fm-branch"><b>next steps</b> when a thread reaches DONE, one bounded LLM call proposes follow-ups; high and medium confidence ones are saved on the thread and listed under it in /goals (low confidence is shown for the turn only). They are advice, never tasks.</div>
-      <div class="fm-branch"><b>built, not yet wired</b> a cross-turn identity matcher (attach a new message to an existing thread) is implemented and tested but not called by the runtime yet.</div>
+      <div class="fm-branch"><b>identity</b> open threads are the candidates (a finished goal is not reopened). A match on a blocked thread keeps it blocked. Ambiguity or a failed call starts a new thread rather than guess, since a missed match costs an extra thread but a wrong one puts work on the wrong goal.</div>
     </div>
     <div class="fm-verdict"><b>Status</b> on by default since 2026-09-23 (<code>ASSISTANT_GOAL_GRAPH=disabled</code> turns it off; with it off, behaviour is byte-identical to before, INV-43).</div>
   </div>
