@@ -482,6 +482,14 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 .turn-diagram svg{min-width:860px;}
 .diagram-key{position:sticky;left:0;}
 @media(max-width:600px){.tool-callout{flex-direction:column;gap:6px;}}
+.layer-diagram svg{min-width:980px;}
+.lnode{cursor:pointer;}
+.lnode.static{cursor:default;}
+.lnode:hover .box{stroke-width:2.6;}
+.lnode:focus-visible{outline:none;}
+.lnode:focus-visible .box{stroke-width:3;filter:drop-shadow(0 0 3px var(--accent));}
+.turn-diagram .badge{font:600 10px "IBM Plex Mono",monospace;fill:#fff;}
+.turn-diagram .ln.warn{stroke-dasharray:5 3;}
 /* ── Around the loop: turn timeline + extension cards ───────────────── */
 .turn-diagram{margin:26px 0 8px;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:14px 10px 6px;}
 .turn-diagram svg{display:block;width:100%;height:auto;}
@@ -503,7 +511,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 .diagram-key i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1.5px solid var(--accent);background:var(--paper);}
 .diagram-key i.a{border:1.5px dashed var(--assist-ink);background:var(--assist-tint);}
 .diagram-key i.r{border-color:oklch(.5 .17 25);background:oklch(.96 .025 25);}
-.ext-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
+.ext-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;}
 .ext-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;cursor:pointer;font:inherit;color:inherit;
   border:1px solid var(--line);border-top:4px solid var(--nc,var(--accent));border-radius:8px;background:var(--paper);padding:16px 18px;}
 .ext-card:hover{border-color:var(--nc,var(--accent));box-shadow:0 2px 10px rgba(0,0,0,.06);}
@@ -553,9 +561,9 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   <div class="wrap">
 
     <div class="section-label">THE LOOP</div>
-    <h2>Eleven layers, <em>one turn.</em></h2>
+    <h2>Eleven layers, <em>in the order they run.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      The chain below runs top to bottom on every turn that isn't a trivial one-shot lookup. Click a layer to open its own internal flowchart — five of the eleven decompose into tiers, parallel checks, or a named escalation chain; a few of those open a second popup per item for more depth. The dashed amber boxes aren't part of the harness itself — they're what <code style="font-size:13px">packages/aielia/src/*.ts</code> adds around it.
+      The chart follows one non-trivial turn in the order the harness actually executes it. Before the loop the assistant's <b>adaptive layer control</b> decides how much of the harness the turn needs, and the harness initializes its state. Then every iteration <b>thinks</b> (contradiction check, hypotheses, diagnostics, control state, planning), <b>acts</b> (the execution gate, the tool call, then the evidence and world model are updated from what came back) and <b>checks</b> (diagnostics and control state re-scored, verification, and recovery if the task failed), and repeats until every task is complete. The reviewer pass runs once after the loop, and again if it reopens a task; then the answer is validated. Layers keep the numbers used in the code and docs, drawn in execution order. Click any layer, or any 🤖 hook, for its own flowchart.
     </p>
 
     <div class="legend">
@@ -563,139 +571,100 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <span class="legend-item"><span class="legend-swatch assistant"></span>Added by Aielia — packages/aielia/src/*.ts</span>
     </div>
 
-    <div class="flowchart">
-
-      <button class="assist-node" data-target="amodal-gate">
-        <span class="assist-badge">A</span>
-        <span class="flow-name">Turn-intent classifier</span>
-        <span class="flow-desc">One consolidated call — risk, triviality, decomposition, plan-abandonment, template match.</span>
-        <span class="flow-open">assistant →</span>
-      </button>
-      <div class="branch-note-row"><span class="branch-note">↩ trivial one-liner → reply goes back immediately, harness never runs</span></div>
-      <div class="flow-arrow-down">↓ not trivial</div>
-
-      <div class="harness-core-box">
-        <div class="harness-core-label">Harness core — same 11 layers the canvas compiles to</div>
-
-        <button class="flow-node" style="--nc:oklch(.46 .18 290)" data-target="modal-1">
-          <span class="flow-num-badge">1</span>
-          <span class="flow-name">World Model</span>
-          <span class="flow-desc">Fresh, typed beliefs formed for this turn, stamped with a generation_id.</span>
-          <span class="flow-open">view flow →</span>
-        </button>
-        <button class="assist-hook" data-target="amodal-trust"><span class="ah-icon">🤖</span> + trust-tagging <span class="ah-note">— untrusted web content wrapped before it becomes a belief</span></button>
-        <div class="flow-arrow-down">↓</div>
-
-        <button class="flow-node" style="--nc:oklch(.46 .14 148)" data-target="modal-2">
-          <span class="flow-num-badge">2</span>
-          <span class="flow-name">Evidence &amp; Reasoning</span>
-          <span class="flow-desc">Evidence weighted by how reliable each tool's results have actually been.</span>
-          <span class="flow-open">view flow →</span>
-        </button>
-        <div class="flow-arrow-down">↓</div>
-
-        <button class="flow-node" style="--nc:oklch(.46 .18 310)" data-target="modal-3">
-          <span class="flow-num-badge">3</span>
-          <span class="flow-name">Hypothesis</span>
-          <span class="flow-desc">Candidate readings of an ambiguous message, scored before a reply is drafted.</span>
-          <span class="flow-open">view flow →</span>
-        </button>
-        <div class="flow-arrow-down">↓</div>
-
-        <button class="flow-node" style="--nc:oklch(.50 .1 25)" data-target="modal-4">
-          <span class="flow-num-badge">4</span>
-          <span class="flow-name">Contradiction</span>
-          <span class="flow-desc">Checks a new belief against ones already on record this session.</span>
-          <span class="flow-open">view flow →</span>
-        </button>
-        <button class="assist-hook" data-target="amodal-contradiction"><span class="ah-icon">🤖</span> + semantic backstop <span class="ah-note">— an LLM check for what the free lexical pass wouldn't catch</span></button>
-        <div class="flow-arrow-down">↓</div>
-
-        <button class="flow-node" style="--nc:oklch(.55 .1 90)" data-target="modal-5">
-          <span class="flow-num-badge">5</span>
-          <span class="flow-name">Diagnostics</span>
-          <span class="flow-desc">Ten health dimensions, normalised to 0–1, feeding Control State.</span>
-          <span class="flow-open">+10 dims →</span>
-        </button>
-        <div class="flow-arrow-down">↓</div>
-
-        <button class="flow-node" style="--nc:oklch(.52 .14 60)" data-target="modal-6">
-          <span class="flow-num-badge">6</span>
-          <span class="flow-name">Control State</span>
-          <span class="flow-desc">Five-tier resolver → NORMAL / CAUTIOUS / BLOCKED.</span>
-          <span class="flow-open">+5 tiers →</span>
-        </button>
-        <div class="flow-arrow-down">↓</div>
-
-        <div class="loop-wrap">
-          <span class="loop-pill top">↺ loop entry</span>
-
-          <button class="assist-hook" data-target="xmodal-steering"><span class="ah-icon">🤖</span> + mid-turn steering <span class="ah-note">— check_caller_updates drains messages sent while this turn runs, once per iteration</span></button>
-
-          <button class="flow-node" style="--nc:oklch(.46 .16 240)" data-target="modal-7">
-            <span class="flow-num-badge">7</span>
-            <span class="flow-name">Planning</span>
-            <span class="flow-desc">A task graph with six task states and dependency tracking.</span>
-            <span class="flow-open">view flow →</span>
-          </button>
-          <div class="flow-arrow-down">↓</div>
-
-          <button class="flow-node" style="--nc:oklch(.46 .18 20)" data-target="modal-8">
-            <span class="flow-num-badge">8</span>
-            <span class="flow-name">Execution</span>
-            <span class="flow-desc">Value-of-information (VOI) estimated, a five-dimension review gate runs, then the action fires.</span>
-            <span class="flow-open">+5 dims →</span>
-          </button>
-          <button class="assist-hook" data-target="amodal-approval"><span class="ah-icon">🤖</span> + pending-action approval <span class="ah-note">— a write/shell action is staged, not run, until approved</span></button>
-          <button class="assist-hook" data-target="amodal-toolpolicy"><span class="ah-icon">🤖</span> + tool-policy gate <span class="ah-note">— every read-only tool call checked against a live ControlState before it runs</span></button>
-          <div class="flow-arrow-down">↓</div>
-
-          <button class="flow-node" style="--nc:oklch(.46 .12 205)" data-target="modal-9">
-            <span class="flow-num-badge">9</span>
-            <span class="flow-name">Verification</span>
-            <span class="flow-desc">Nine independent checks the draft has to clear before it's trusted.</span>
-            <span class="flow-open">+9 checks →</span>
-          </button>
-          <div class="flow-arrow-down">↓</div>
-
-          <button class="flow-node" style="--nc:oklch(.52 .14 40)" data-target="modal-10">
-            <span class="flow-num-badge">10</span>
-            <span class="flow-name">Recovery</span>
-            <span class="flow-desc">Six named strategies in a fixed, escalating order.</span>
-            <span class="flow-open">+6 strategies →</span>
-          </button>
-          <button class="assist-hook" data-target="amodal-failure"><span class="ah-icon">🤖</span> + semantic failure-mode backstop <span class="ah-note">— matches symptoms to the pattern library by meaning</span></button>
-          <button class="assist-hook" data-target="xmodal-supervisor"><span class="ah-icon">🤖</span> + Trajectory Supervisor <span class="ah-note">— one LLM call at a stall edge (cannot_make_progress), never on a healthy iteration</span></button>
-          <div class="flow-arrow-down">↓</div>
-
-          <button class="flow-node" style="--nc:oklch(.46 .14 148)" data-target="modal-11">
-            <span class="flow-num-badge">11</span>
-            <span class="flow-name">Reviewer Pass</span>
-            <span class="flow-desc">Three-lens final check — can reopen a task and send it back through the loop.</span>
-            <span class="flow-open">+3 lenses →</span>
-          </button>
-          <button class="assist-hook" data-target="amodal-review"><span class="ah-icon">🤖</span> + semantic review-checker <span class="ah-note">— checks for a real logical conflict, not just topical overlap</span></button>
-
-          <span class="loop-pill bottom">↺ Recovery / Reviewer Pass reopen a task → back to Planning</span>
-        </div>
-
+    <div class="turn-diagram layer-diagram">
+      <svg viewBox="0 0 1100 780" role="group" aria-labelledby="ld-title ld-desc">
+        <title id="ld-title">The eleven harness layers in the order one turn runs them</title>
+        <desc id="ld-desc">A swim-lane timeline. Before the loop, the assistant's adaptive layer control decides how much of the harness the turn needs and the harness initializes its state. Each loop iteration thinks (contradiction check, hypotheses, diagnostics, control state, planning), acts (execution gate, the tool call, then evidence and the world model are updated from the result) and checks (diagnostics and control state re-scored, verification, and recovery if it failed), then repeats until every task is complete. After the loop the reviewer pass runs, and can reopen a task for a second pass, then the answer is validated and returned.</desc>
+        <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>
+<rect class="band" x="0" y="20" width="1100" height="115"/>
+        <text class="lane-l" x="14" y="52">Before the loop</text>
+        <text class="lane-s" x="14" y="68">once per turn</text>
+        <rect class="band alt" x="0" y="145" width="1100" height="125"/>
+        <text class="lane-l" x="14" y="177">Think</text>
+        <text class="lane-s" x="14" y="193">every iteration</text>
+        <rect class="band" x="0" y="280" width="1100" height="145"/>
+        <text class="lane-l" x="14" y="312">Act</text>
+        <text class="lane-s" x="14" y="328">every iteration</text>
+        <rect class="band alt" x="0" y="435" width="1100" height="145"/>
+        <text class="lane-l" x="14" y="467">Check</text>
+        <text class="lane-s" x="14" y="483">every iteration</text>
+        <rect class="band" x="0" y="590" width="1100" height="115"/>
+        <text class="lane-l" x="14" y="622">After the loop</text>
+        <text class="lane-s" x="14" y="638">once (twice if reopened)</text>
+        <rect class="band alt" x="0" y="715" width="1100" height="55"/>
+        <text class="lane-l" x="14" y="747">Around it all</text>
+        <g class="lnode" data-target="amodal-gate" tabindex="0" role="button" aria-label="Adaptive layer control"><rect class="box assist" x="170" y="38" width="200" height="54" rx="7"/><text class="t-a" x="270.0" y="58" text-anchor="middle">Adaptive layer control</text><text class="t-s" x="270.0" y="75" text-anchor="middle">picks how much harness</text><text class="t-s" x="270.0" y="88" text-anchor="middle">this turn needs</text></g>
+        <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="400" y="58" width="220" height="52" rx="7"/><text class="t" x="510.0" y="78" text-anchor="middle">Initialize the run</text><text class="t-s" x="510.0" y="95" text-anchor="middle">beliefs from your message + facts</text><text class="t-s" x="510.0" y="108" text-anchor="middle">task graph · control state</text></g>
+        <path class="ln" d="M370 84 H400" marker-end="url(#ah2)"/>
+        <path class="ln assist" d="M370 44 H700" marker-end="url(#ah2)"/>
+        <rect class="box assist" x="700" y="28" width="326" height="30" rx="15"/>
+        <text class="t-a" x="863" y="47" text-anchor="middle">trivial one-liner → reply, harness skipped</text>
+        <text class="t-s" x="385" y="36" text-anchor="start"></text>
+        <g class="lnode" data-target="xmodal-steering" tabindex="0" role="button" aria-label="poll for updates (mid-turn steering)"><rect class="box assist" x="170" y="162" width="96" height="60" rx="30"/><text class="t-a" x="218" y="188" text-anchor="middle" style="font-size:10.5px">poll for</text><text class="t-a" x="218" y="202" text-anchor="middle" style="font-size:10.5px">updates</text></g>
+        <g class="lnode" data-target="modal-4" tabindex="0" role="button" aria-label="Contradiction"><rect class="box" style="stroke:oklch(.50 .1 25)" x="278" y="162" width="140" height="60" rx="7"/><circle cx="292" cy="176" r="10" style="fill:oklch(.50 .1 25)"/><text class="badge" x="292" y="180" text-anchor="middle" style="font-size:10px">4</text><text class="t" x="307" y="180">Contradiction</text><text class="t-s" x="348.0" y="199" text-anchor="middle">new belief vs. the record</text></g>
+        <g class="lnode" data-target="modal-3" tabindex="0" role="button" aria-label="Hypothesis"><rect class="box" style="stroke:oklch(.46 .18 310)" x="430" y="162" width="140" height="60" rx="7"/><circle cx="444" cy="176" r="10" style="fill:oklch(.46 .18 310)"/><text class="badge" x="444" y="180" text-anchor="middle" style="font-size:10px">3</text><text class="t" x="459" y="180">Hypothesis</text><text class="t-s" x="500.0" y="199" text-anchor="middle">score readings of an</text><text class="t-s" x="500.0" y="212" text-anchor="middle">ambiguous ask</text></g>
+        <g class="lnode" data-target="modal-5" tabindex="0" role="button" aria-label="Diagnostics"><rect class="box" style="stroke:oklch(.55 .1 90)" x="582" y="162" width="140" height="60" rx="7"/><circle cx="596" cy="176" r="10" style="fill:oklch(.55 .1 90)"/><text class="badge" x="596" y="180" text-anchor="middle" style="font-size:10px">5</text><text class="t" x="611" y="180">Diagnostics</text><text class="t-s" x="652.0" y="199" text-anchor="middle">ten health dimensions</text><text class="t-a" x="714" y="215" text-anchor="end" style="font-size:9.5px">+10 dims</text></g>
+        <g class="lnode" data-target="modal-6" tabindex="0" role="button" aria-label="Control State"><rect class="box" style="stroke:oklch(.52 .14 60)" x="734" y="162" width="140" height="60" rx="7"/><circle cx="748" cy="176" r="10" style="fill:oklch(.52 .14 60)"/><text class="badge" x="748" y="180" text-anchor="middle" style="font-size:10px">6</text><text class="t" x="763" y="180">Control State</text><text class="t-s" x="804.0" y="199" text-anchor="middle">sets the run's mode</text><text class="t-a" x="866" y="215" text-anchor="end" style="font-size:9.5px">+5 tiers</text></g>
+        <g class="lnode" data-target="modal-7" tabindex="0" role="button" aria-label="Planning"><rect class="box" style="stroke:oklch(.46 .16 240)" x="886" y="162" width="140" height="60" rx="7"/><circle cx="900" cy="176" r="10" style="fill:oklch(.46 .16 240)"/><text class="badge" x="900" y="180" text-anchor="middle" style="font-size:10px">7</text><text class="t" x="915" y="180">Planning</text><text class="t-s" x="956.0" y="199" text-anchor="middle">task graph · 6 task</text><text class="t-s" x="956.0" y="212" text-anchor="middle">states, dependencies</text></g>
+        <g class="lnode" data-target="amodal-contradiction" tabindex="0" role="button" aria-label="+ semantic backstop"><rect class="box assist" x="278" y="228" width="140" height="20" rx="10"/><text class="t-a" x="348.0" y="242" text-anchor="middle" style="font-size:10px">+ semantic backstop</text></g>
+        <path class="ln" d="M266 192 H278" marker-end="url(#ah2)"/>
+        <path class="ln" d="M418 192 H430" marker-end="url(#ah2)"/>
+        <path class="ln" d="M570 192 H582" marker-end="url(#ah2)"/>
+        <path class="ln" d="M722 192 H734" marker-end="url(#ah2)"/>
+        <path class="ln" d="M874 192 H886" marker-end="url(#ah2)"/>
+        <path class="ln" d="M510 110 V124 H218 V162" marker-end="url(#ah2)"/>
+        <text class="t-s" x="300" y="120" text-anchor="start">each iteration starts here ↓</text>
+        <path class="ln" d="M956.0 222 V275 H240 V298" marker-end="url(#ah2)"/>
+        <g class="lnode" data-target="modal-8" tabindex="0" role="button" aria-label="Execution"><rect class="box" style="stroke:oklch(.46 .18 20)" x="170" y="298" width="160" height="60" rx="7"/><circle cx="184" cy="312" r="10" style="fill:oklch(.46 .18 20)"/><text class="badge" x="184" y="316" text-anchor="middle" style="font-size:10px">8</text><text class="t" x="199" y="316">Execution</text><text class="t-s" x="250.0" y="335" text-anchor="middle">VOI · review · action gate</text><text class="t-a" x="322" y="351" text-anchor="end" style="font-size:9.5px">+5 dims</text></g>
+        <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="352" y="298" width="120" height="60" rx="7"/><text class="t" x="412.0" y="318" text-anchor="middle">run the tool</text><text class="t-s" x="412.0" y="335" text-anchor="middle">the one real action</text></g>
+        <g class="lnode" data-target="modal-2" tabindex="0" role="button" aria-label="Evidence"><rect class="box" style="stroke:oklch(.46 .14 148)" x="484" y="298" width="150" height="60" rx="7"/><circle cx="498" cy="312" r="10" style="fill:oklch(.46 .14 148)"/><text class="badge" x="498" y="316" text-anchor="middle" style="font-size:10px">2</text><text class="t" x="513" y="316">Evidence</text><text class="t-s" x="559.0" y="335" text-anchor="middle">& reasoning, weighted</text><text class="t-s" x="559.0" y="348" text-anchor="middle">by tool reliability</text></g>
+        <g class="lnode" data-target="modal-1" tabindex="0" role="button" aria-label="World Model"><rect class="box" style="stroke:oklch(.46 .18 290)" x="646" y="298" width="150" height="60" rx="7"/><circle cx="660" cy="312" r="10" style="fill:oklch(.46 .18 290)"/><text class="badge" x="660" y="316" text-anchor="middle" style="font-size:10px">1</text><text class="t" x="675" y="316">World Model</text><text class="t-s" x="721.0" y="335" text-anchor="middle">updated after every</text><text class="t-s" x="721.0" y="348" text-anchor="middle">action</text></g>
+        <path class="ln" d="M330 328 H352" marker-end="url(#ah2)"/>
+        <path class="ln" d="M472 328 H484" marker-end="url(#ah2)"/>
+        <path class="ln" d="M634 328 H646" marker-end="url(#ah2)"/>
+        <g class="lnode" data-target="amodal-approval" tabindex="0" role="button" aria-label="+ pending-action approval"><rect class="box assist" x="170" y="366" width="160" height="20" rx="10"/><text class="t-a" x="250.0" y="380" text-anchor="middle" style="font-size:10px">+ pending-action approval</text></g>
+        <g class="lnode" data-target="amodal-toolpolicy" tabindex="0" role="button" aria-label="+ tool-policy gate"><rect class="box assist" x="170" y="390" width="160" height="20" rx="10"/><text class="t-a" x="250.0" y="404" text-anchor="middle" style="font-size:10px">+ tool-policy gate</text></g>
+        <g class="lnode" data-target="amodal-trust" tabindex="0" role="button" aria-label="+ trust-tagging"><rect class="box assist" x="646" y="366" width="150" height="20" rx="10"/><text class="t-a" x="721.0" y="380" text-anchor="middle" style="font-size:10px">+ trust-tagging</text></g>
+        <path class="ln" d="M796 328 H1035 V430 H240 V453" marker-end="url(#ah2)"/>
+        <g class="lnode" data-target="modal-5" tabindex="0" role="button" aria-label="Re-score"><rect class="box" style="stroke:oklch(.5 .1 70)" x="170" y="453" width="140" height="60" rx="7"/><circle cx="184" cy="467" r="10" style="fill:oklch(.5 .1 70)"/><text class="badge" x="184" y="471" text-anchor="middle" style="font-size:8px">5·6</text><text class="t" x="199" y="471">Re-score</text><text class="t-s" x="240.0" y="490" text-anchor="middle">Diagnostics → Control</text><text class="t-s" x="240.0" y="503" text-anchor="middle">State after the action</text></g>
+        <g class="lnode" data-target="modal-9" tabindex="0" role="button" aria-label="Verification"><rect class="box" style="stroke:oklch(.46 .12 205)" x="334" y="453" width="140" height="60" rx="7"/><circle cx="348" cy="467" r="10" style="fill:oklch(.46 .12 205)"/><text class="badge" x="348" y="471" text-anchor="middle" style="font-size:10px">9</text><text class="t" x="363" y="471">Verification</text><text class="t-s" x="404.0" y="490" text-anchor="middle">nine independent checks</text><text class="t-a" x="466" y="506" text-anchor="end" style="font-size:9.5px">+9 checks</text></g>
+        <g class="lnode" data-target="modal-10" tabindex="0" role="button" aria-label="Recovery"><rect class="box" style="stroke:oklch(.52 .14 40)" x="498" y="453" width="140" height="60" rx="7"/><circle cx="512" cy="467" r="10" style="fill:oklch(.52 .14 40)"/><text class="badge" x="512" y="471" text-anchor="middle" style="font-size:8px">10</text><text class="t" x="527" y="471">Recovery</text><text class="t-s" x="568.0" y="490" text-anchor="middle">rollback + replan on failure</text><text class="t-a" x="630" y="506" text-anchor="end" style="font-size:9.5px">+6 strategies</text></g>
+        <path class="ln" d="M310 483 H334" marker-end="url(#ah2)"/>
+        <path class="ln" d="M474 483 H498" marker-end="url(#ah2)"/>
+        <g class="lnode" data-target="amodal-failure" tabindex="0" role="button" aria-label="+ failure-mode backstop"><rect class="box assist" x="498" y="521" width="180" height="20" rx="10"/><text class="t-a" x="588.0" y="535" text-anchor="middle" style="font-size:10px">+ failure-mode backstop</text></g>
+        <g class="lnode" data-target="xmodal-supervisor" tabindex="0" role="button" aria-label="+ Trajectory Supervisor"><rect class="box assist" x="498" y="545" width="180" height="20" rx="10"/><text class="t-a" x="588.0" y="559" text-anchor="middle" style="font-size:10px">+ Trajectory Supervisor</text></g>
+        <text class="t-s" x="696" y="541" text-anchor="start">stalled? one LLM call,</text>
+        <text class="t-s" x="696" y="554" text-anchor="start">then the task is re-queued</text>
+        <path class="ln" d="M638 483 H1050 V124 H218" marker-end="url(#ah2)"/>
+        <text class="t-s" x="760" y="477" text-anchor="start">task left → next iteration ↑</text>
+        <path class="ln" d="M404 513 V585 H255 V606" marker-end="url(#ah2)"/>
+        <text class="t-s" x="268" y="583" text-anchor="start">all tasks complete → leave the loop</text>
+        <g class="lnode" data-target="modal-11" tabindex="0" role="button" aria-label="Reviewer Pass"><rect class="box" style="stroke:oklch(.46 .14 148)" x="170" y="606" width="200" height="60" rx="7"/><circle cx="184" cy="620" r="10" style="fill:oklch(.46 .14 148)"/><text class="badge" x="184" y="624" text-anchor="middle" style="font-size:8px">11</text><text class="t" x="199" y="624">Reviewer Pass</text><text class="t-s" x="270.0" y="643" text-anchor="middle">self-review · may reopen a task</text><text class="t-a" x="362" y="659" text-anchor="end" style="font-size:9.5px">+3 lenses</text></g>
+        <g class="lnode" data-target="amodal-review" tabindex="0" role="button" aria-label="+ semantic review-checker"><rect class="box assist" x="170" y="674" width="200" height="20" rx="10"/><text class="t-a" x="270.0" y="688" text-anchor="middle" style="font-size:10px">+ semantic review-checker</text></g>
+        <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="400" y="606" width="220" height="60" rx="7"/><text class="t" x="510.0" y="626" text-anchor="middle">Output validation</text><text class="t-s" x="510.0" y="643" text-anchor="middle">the answer must satisfy the</text><text class="t-s" x="510.0" y="656" text-anchor="middle">output contract</text></g>
+        <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="650" y="606" width="150" height="60" rx="7"/><text class="t" x="725.0" y="626" text-anchor="middle">reply</text><text class="t-s" x="725.0" y="643" text-anchor="middle">streamed to you</text></g>
+        <path class="ln" d="M370 636 H400" marker-end="url(#ah2)"/>
+        <path class="ln" d="M620 636 H650" marker-end="url(#ah2)"/>
+        <path class="ln warn" d="M300 606 V598 H1075 V192 H1026" marker-end="url(#ah2)"/>
+        <text class="t-s" x="560" y="593" text-anchor="start">reopened task → second pass through the loop ↑</text>
+        <g class="lnode" data-target="amodal-compression" tabindex="0" role="button" aria-label="Compression"><rect class="box assist" x="170" y="731" width="124" height="26" rx="13"/><text class="t-a" x="232" y="748" text-anchor="middle" style="font-size:10.5px">Compression</text></g>
+        <g class="lnode" data-target="amodal-planpersist" tabindex="0" role="button" aria-label="Plan persistence"><rect class="box assist" x="302" y="731" width="124" height="26" rx="13"/><text class="t-a" x="364" y="748" text-anchor="middle" style="font-size:10.5px">Plan persistence</text></g>
+        <g class="lnode" data-target="amodal-memory" tabindex="0" role="button" aria-label="Fact memory"><rect class="box assist" x="434" y="731" width="124" height="26" rx="13"/><text class="t-a" x="496" y="748" text-anchor="middle" style="font-size:10.5px">Fact memory</text></g>
+        <g class="lnode" data-target="amodal-spendcap" tabindex="0" role="button" aria-label="Spend cap"><rect class="box assist" x="566" y="731" width="124" height="26" rx="13"/><text class="t-a" x="628" y="748" text-anchor="middle" style="font-size:10.5px">Spend cap</text></g>
+        <g class="lnode" data-target="amodal-undo" tabindex="0" role="button" aria-label="Undo log"><rect class="box assist" x="698" y="731" width="124" height="26" rx="13"/><text class="t-a" x="760" y="748" text-anchor="middle" style="font-size:10.5px">Undo log</text></g>
+        <g class="lnode" data-target="xmodal-goalgraph" tabindex="0" role="button" aria-label="Goal graph"><rect class="box assist" x="830" y="731" width="124" height="26" rx="13"/><text class="t-a" x="892" y="748" text-anchor="middle" style="font-size:10.5px">Goal graph</text></g>
+        <g class="lnode" data-target="xmodal-nextsteps" tabindex="0" role="button" aria-label="Next steps"><rect class="box assist" x="962" y="731" width="124" height="26" rx="13"/><text class="t-a" x="1024" y="748" text-anchor="middle" style="font-size:10.5px">Next steps</text></g>
+      </svg>
+      <div class="diagram-key">
+        <span><i></i>harness core (packages/harness) — numbered as in the code</span>
+        <span><i class="a"></i>added by Aielia (packages/aielia)</span>
+        <span><i class="r"></i>reopen path</span>
       </div>
-
-      <div class="flow-arrow-down">↓</div>
-      <div class="scaffold-row">
-        <button class="scaffold-chip" data-target="amodal-compression">🤖 Context compression</button>
-        <button class="scaffold-chip" data-target="amodal-planpersist">🤖 Plan persistence</button>
-        <button class="scaffold-chip" data-target="amodal-memory">🤖 User-fact memory</button>
-        <button class="scaffold-chip" data-target="amodal-spendcap">🤖 Spend cap</button>
-        <button class="scaffold-chip" data-target="amodal-undo">🤖 Undo log</button>
-        <button class="scaffold-chip" data-target="xmodal-goalgraph">🤖 Goal graph</button>
-      </div>
-
     </div>
 
     <div class="tool-callout" style="margin-top:28px;">
       <div class="tool-callout-label">Skipped on trivial turns</div>
-      <p>A single consolidated classification call up front (risk, triviality, decomposition, plan-abandonment, plan-template matching) flags a genuinely self-contained factual one-liner as trivial — that reply returns directly and none of the eleven layers above run. Everything else walks the full loop. See <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">Aielia</a> for how this applies turn by turn in the reference chat agent.</p>
+      <p>A single consolidated call up front (adaptive layer control) (risk, triviality, decomposition, plan-abandonment, plan-template matching) flags a genuinely self-contained factual one-liner as trivial — that reply returns directly and none of the eleven layers above run. Everything else walks the full loop. See <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">Aielia</a> for how this applies turn by turn in the reference chat agent.</p>
     </div>
 
   </div>
@@ -708,13 +677,13 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="section-label">AROUND THE LOOP</div>
     <h2>One turn, <em>everything on.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      The eleven layers above run inside a single proposer loop (<code>ASSISTANT_ONE_LOOP</code>, on by default): the harness drives one tool-calling iteration at a time instead of reviewing a finished reply. Three mechanisms wrap that loop. The diagram shows one turn with all of them enabled: the goal graph decides which goal the turn belongs to, the steering channel is polled at the start of every iteration, and the Supervisor is consulted only if an iteration stalls. Click any card, or any 🤖 hook in the chain above, for its flow.
+      The eleven layers above run inside a single proposer loop (<code>ASSISTANT_ONE_LOOP</code>, on by default): the harness drives one tool-calling iteration at a time instead of reviewing a finished reply. Four mechanisms wrap that loop. The diagram shows one turn with all of them enabled: the goal graph decides which thread has focus, the steering channel is polled at the start of every iteration, the Supervisor is consulted only if an iteration stalls, and once the reply is out, up to three next-step options appear under it. Click any card, or any 🤖 hook in the chain above, for its flow.
     </p>
 
     <div class="turn-diagram">
       <svg viewBox="0 0 1100 500" role="img" aria-labelledby="td-title td-desc">
         <title id="td-title">One turn with the one-loop proposer, mid-turn steering, the Trajectory Supervisor and the goal graph all enabled</title>
-        <desc id="td-desc">A swim-lane timeline. The user's message is matched to a goal thread and the Scheduler picks the active one, then the harness loop runs one iteration at a time, polling the steering channel at the start of each. A message sent mid-turn enters the steering channel and is classified at the next poll: corrections become notes for the next LLM call, everything else becomes a follow-up turn. If an iteration stalls, the Supervisor is consulted once and its directive re-queues the work. When the thread is done, the next-step proposer adds suggested nodes.</desc>
+        <desc id="td-desc">A swim-lane timeline. Goal threads come from the session's plan and from new-goal messages, and the Scheduler picks the active one at the start of the turn. Then the harness loop runs one iteration at a time, polling the steering channel at the start of each. A message sent mid-turn enters the steering channel and is classified at the next poll: corrections become notes for the next LLM call, everything else becomes a follow-up turn. If an iteration stalls, the Supervisor is consulted once and its directive re-queues the work. After a full turn, up to three next-step options appear under the reply; when a thread's last task completes its suggestions are saved for /goals.</desc>
         <defs>
           <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
         </defs>
@@ -739,18 +708,21 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
         <rect class="box" x="180" y="38" width="120" height="34" rx="17"/><text class="t" x="240" y="60" text-anchor="middle">1 · message</text>
         <rect class="box assist" x="500" y="38" width="150" height="34" rx="17"/><text class="t-a" x="575" y="59" text-anchor="middle">mid-turn message</text>
         <rect class="box" x="790" y="38" width="90" height="34" rx="17"/><text class="t" x="835" y="60" text-anchor="middle">reply</text>
-        <rect class="box assist" x="930" y="38" width="140" height="34" rx="17"/><text class="t-a" x="1000" y="59" text-anchor="middle">follow-up turn</text>
+        <rect class="box assist" x="905" y="38" width="175" height="34" rx="17"/><text class="t-a" x="992" y="59" text-anchor="middle">next-step options</text>
+        <path class="ln assist" d="M880 55 H905" marker-end="url(#ah)"/>
 
         <!-- Steering -->
         <rect class="box assist" x="470" y="118" width="210" height="36" rx="6"/><text class="t" x="575" y="140" text-anchor="middle">queue absorbs it — no waiting</text>
         <path class="ln assist" d="M575 72 V118" marker-end="url(#ah)"/>
-        <path class="ln assist" d="M680 136 H1000 V74" marker-end="url(#ah)"/>
-        <text class="t-s" x="700" y="128">deferred asks: new goal · cancel · deferred task → next turn</text>
+        <rect class="box assist" x="930" y="118" width="150" height="36" rx="18"/><text class="t-a" x="1005" y="140" text-anchor="middle">runs as next turn</text>
+        <path class="ln assist" d="M680 136 H930" marker-end="url(#ah)"/>
+        <text class="t-s" x="700" y="128">deferred asks</text>
+        <text class="t-s" x="690" y="150">new goal · cancel · deferred task</text>
 
         <!-- Goal graph -->
-        <rect class="box assist" x="180" y="196" width="165" height="38" rx="6"/><text class="t" x="262" y="219" text-anchor="middle">match turn → thread</text>
+        <rect class="box assist" x="180" y="196" width="165" height="38" rx="6"/><text class="t" x="262" y="213" text-anchor="middle">threads from plans</text><text class="t-s" x="262" y="227" text-anchor="middle">+ new-goal messages</text>
         <rect class="box assist" x="360" y="196" width="150" height="38" rx="6"/><text class="t" x="435" y="219" text-anchor="middle">Scheduler → ACTIVE</text>
-        <rect class="box assist" x="870" y="196" width="210" height="38" rx="6"/><text class="t" x="975" y="213" text-anchor="middle">thread DONE → next-step</text><text class="t-s" x="975" y="227" text-anchor="middle">proposer adds SUGGESTED nodes</text>
+        <rect class="box assist" x="870" y="196" width="210" height="38" rx="6"/><text class="t" x="975" y="213" text-anchor="middle">thread DONE → suggestions saved</text><text class="t-s" x="975" y="227" text-anchor="middle">/goals shows the graph + next steps</text>
         <path class="ln" d="M240 72 V196" marker-end="url(#ah)"/>
         <path class="ln" d="M345 215 H360" marker-end="url(#ah)"/>
         <path class="ln" d="M435 234 V270" marker-end="url(#ah)"/>
@@ -789,7 +761,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 
     <div class="ext-grid">
       <button class="ext-card" style="--nc:var(--assist-ink)" data-target="xmodal-steering">
-        <span class="ext-pill">opt-in flag</span>
+        <span class="ext-pill">on by default</span>
         <span class="ext-name">Mid-turn steering</span>
         <span class="ext-desc">A message you send while a turn is running is absorbed into it — corrections change the answer being written, everything else is queued as its own turn. Nothing is dropped.</span>
         <span class="ext-path">goalGraphMode · ASSISTANT_GOAL_GRAPH</span>
@@ -802,10 +774,17 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
         <span class="ext-path">HARNESS_TRAJECTORY_SUPERVISOR</span>
         <span class="flow-open">view flow →</span>
       </button>
+      <button class="ext-card" style="--nc:oklch(.42 .12 175)" data-target="xmodal-nextsteps">
+        <span class="ext-pill">on by default</span>
+        <span class="ext-name">Next-step options</span>
+        <span class="ext-desc">After every full turn, up to three concrete next steps appear under the reply. Pick one to edit and send — or just type your own message.</span>
+        <span class="ext-path">goalGraphSuggestMode · ASSISTANT_GOAL_GRAPH_SUGGEST</span>
+        <span class="flow-open">view flow →</span>
+      </button>
       <button class="ext-card" style="--nc:oklch(.46 .16 240)" data-target="xmodal-goalgraph">
-        <span class="ext-pill">opt-in flag</span>
+        <span class="ext-pill">on by default</span>
         <span class="ext-name">Hierarchical goal graph</span>
-        <span class="ext-desc">Every root goal is a thread that persists across turns — paused, blocked, done or suggested — with one in focus at a time and a /goals view of the whole graph.</span>
+        <span class="ext-desc">Every root goal is a thread that persists across turns — paused, blocked or done — with one in focus at a time, finished threads keep their suggested next steps, and /goals shows the whole graph.</span>
         <span class="ext-path">goalGraphMode · goalGraphSuggestMode</span>
         <span class="flow-open">view flow →</span>
       </button>
@@ -813,7 +792,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 
     <div class="tool-callout" style="margin-top:28px;">
       <div class="tool-callout-label">What is on by default</div>
-      <p>The one-loop proposer and the Trajectory Supervisor are on by default in Aielia. Mid-turn steering and the goal graph are opt-in (<code>goalGraphMode</code>, <code>goalGraphSuggestMode</code>): with them unset, a message sent during a turn waits in line exactly as it always did, and no goal graph is kept. The diagram is the configuration with everything switched on.</p>
+      <p>All three are on by default in Aielia: the one-loop proposer (<code>ASSISTANT_ONE_LOOP</code>), the Trajectory Supervisor (<code>HARNESS_TRAJECTORY_SUPERVISOR</code>), and mid-turn steering with the goal graph (<code>ASSISTANT_GOAL_GRAPH</code>), and the next-step options (<code>ASSISTANT_GOAL_GRAPH_SUGGEST</code>). Each has an explicit <code>disabled</code> (or <code>0</code>) escape hatch. With steering and the goal graph disabled, a message sent during a turn waits in line exactly as it did before, and no goal graph is kept.</p>
     </div>
 
   </div>
@@ -1133,17 +1112,17 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 <dialog class="flow-modal sub" id="amodal-gate" style="--nc:var(--assist-ink)">
   <div class="fm-head">
     <span class="fm-badge">A</span>
-    <span class="fm-name">Turn-intent classifier</span>
+    <span class="fm-name">Adaptive layer control</span>
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">One consolidated LLM call, made before the harness ever runs, that classifies five things about the turn at once.</p>
-    <div class="fm-files"><b>Files:</b> turn-intent-classifier.ts</div>
+    <p class="fm-desc">One consolidated LLM call, made before the harness runs, that decides how much harness this turn gets — which layers engage and how deep they go — by classifying the turn (in the code, the turn-intent classifier). A greeting needs none of it; a risky multi-step request needs all of it.</p>
+    <div class="fm-files"><b>Files:</b> turn-intent-classifier.ts · turn-policy.ts · turn-interpreter.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>riskLevel</b> LOW / MEDIUM / HIGH, with a stated riskReason</div>
-      <div class="fm-branch"><b>isTrivial</b> only meaningful when riskLevel is LOW — true sends the reply straight back, skipping HarnessRuntime.run() entirely</div>
-      <div class="fm-branch"><b>decomposedTasks</b> a multi-step request broken into an ordered task list, or null</div>
-      <div class="fm-branch"><b>isAbandonRequest / matchedPlanTemplate</b> abandon judgment only asked when a plan is already active; template matching only attempted when it isn't</div>
+      <div class="fm-branch"><b>riskLevel</b> LOW / MEDIUM / HIGH, with a stated riskReason. Drives the approval gate and Control State, and the depth of the Reviewer Pass: its adversarial lens only runs on a non-LOW-risk or multi-task turn.</div>
+      <div class="fm-branch"><b>isTrivial</b> only meaningful when riskLevel is LOW — true turns every harness layer off: the reply goes straight back and HarnessRuntime.run() never runs (and no next-step options are proposed).</div>
+      <div class="fm-branch"><b>decomposedTasks</b> a multi-step request broken into an ordered task list, or null. Shapes Planning (Layer 7): one task per node instead of a single task.</div>
+      <div class="fm-branch"><b>plan flags</b> isAbandonRequest, matchedPlanTemplate and needsMultiStepPlan: abandon judgment is only asked when a plan is already active; template matching and the durable-plan check only when it isn't. Together they decide whether the turn runs under a tracked, user-approved plan.</div>
       <div class="fm-branch"><b>isReminderRequest / isBulkReminderRequest</b> folded into requiresApproval the same way</div>
     </div>
   </div>
@@ -1473,7 +1452,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="fm-files"><b>Files:</b> live-steering-channel.ts · scope-urgency-classifier.ts · goal-graph-reconcile.ts · agent-loop.ts (steering notes)</div>
     <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Message while a turn runs<span class="fm-sub">the CLI queue is bypassed; the chat-ui composer stays enabled</span></div><div class="fm-arrow">→</div><div class="fm-box">Steering channel<span class="fm-sub">a FIFO queue, one per session</span></div><div class="fm-arrow">→</div><div class="fm-box">check_caller_updates<span class="fm-sub">one poll per harness iteration</span></div><div class="fm-arrow">→</div><div class="fm-box">Scope × urgency classifier<span class="fm-sub">one bounded LLM call; on any doubt: same goal, new task, deferred (INV-41)</span></div></div></div>
     <div class="fm-branches"><div class="fm-branch"><b>SAME_TASK</b> a correction or refinement of what is being written. Becomes a steering note spliced into the proposer's next LLM call as a user turn, so the model applies it. Nothing is matched by keyword.</div><div class="fm-branch"><b>SAME_GOAL_NEW_TASK · immediate</b> the same: a note for the answer being written now.</div><div class="fm-branch"><b>SAME_GOAL_NEW_TASK · deferred</b> waits for the current task to finish, then runs as its own turn.</div><div class="fm-branch"><b>NEW_GOAL</b> pauses the current thread, mints a new READY one in the goal graph, and the ask runs as the next turn.</div><div class="fm-branch"><b>CANCEL_CURRENT</b> abandons the active thread and blocks the task graph. What you asked for instead (“never mind, just tell me…”) runs as the next turn.</div><div class="fm-branch"><b>never dropped</b> anything not applied in place, including a note classified after the last LLM call, is handed back to the caller and runs as an ordinary turn, in arrival order.</div></div>
-    <div class="fm-verdict"><b>Status</b> opt-in — off by default. Compared on 11 mid-turn scenarios against the queue-behind-the-turn baseline it matched it on task success at lower cost, so the default stays off until a harder scenario set can show a win. An earlier design pushed the raw message into the harness's lexically enforced constraint fields; it dropped asks and was replaced by the note-or-follow-up design above.</div>
+    <div class="fm-verdict"><b>Status</b> on by default since 2026-09-23 (<code>ASSISTANT_GOAL_GRAPH=disabled</code> restores the old queue-behind-the-turn behaviour). Compared on 11 mid-turn scenarios against that baseline it matched it on task success at lower cost. An earlier design pushed the raw message into the harness's lexically enforced constraint fields; it dropped asks and was replaced by the note-or-follow-up design above.</div>
   </div>
 </dialog>
 
@@ -1501,9 +1480,36 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   <div class="fm-body">
     <p class="fm-desc">A persistent goal graph across turns: each root goal is a thread, so concurrent goals, paused work and finished work stay inspectable instead of collapsing into a single plan.</p>
     <div class="fm-files"><b>Files:</b> goal-graph-store.ts · goal-identity-matcher.ts · goal-thread-scheduler.ts · next-step-proposer.ts · goal-graph-service.ts</div>
-    <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Turn arrives</div><div class="fm-arrow">→</div><div class="fm-box">Identity matcher<span class="fm-sub">a bounded LLM call: which thread is this turn about?</span></div><div class="fm-arrow">→</div><div class="fm-box">Scheduler<span class="fm-sub">sole writer of the ACTIVE pointer (INV-39); one ACTIVE thread (INV-38); FIFO among READY</span></div><div class="fm-arrow">→</div><div class="fm-box">Turn runs on the ACTIVE thread<span class="fm-sub">full decomposition reuses plan mode, scoped per thread</span></div><div class="fm-arrow">→</div><div class="fm-box">Thread DONE → next-step proposer<span class="fm-sub">adds SUGGESTED nodes</span></div></div></div>
-    <div class="fm-branches"><div class="fm-branch"><b>thread states</b> READY · ACTIVE · BLOCKED · PAUSED · DONE · ABANDONED. PAUSED keeps its partial state and evidence (INV-42); ABANDONED is kept for the audit trail, never deleted.</div><div class="fm-branch"><b>never selectable</b> a thread still being drafted is never given focus (INV-40); a still-workable ACTIVE thread is never bumped just because others are waiting.</div><div class="fm-branch"><b>suggestions</b> high confidence is promoted automatically, medium asks you to confirm, low is advisory for this turn only.</div><div class="fm-branch"><b>/goals</b> the CLI command and the chat-ui panel show four buckets: freshly computed, carried over, done, and suggested-but-not-committed.</div></div>
-    <div class="fm-verdict"><b>Status</b> opt-in — off by default (<code>goalGraphMode</code>; suggestions behind their own <code>goalGraphSuggestMode</code>). With both unset, behaviour is byte-identical to before (INV-43).</div>
+    <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Threads appear<span class="fm-sub">the session's plan is wrapped as the first thread; a new-goal steering message mints another</span></div><div class="fm-arrow">→</div><div class="fm-box">Scheduler pass, start of every turn<span class="fm-sub">sole writer of the ACTIVE pointer (INV-39); one ACTIVE thread (INV-38); FIFO among READY</span></div><div class="fm-arrow">→</div><div class="fm-box">Turn runs on the ACTIVE thread<span class="fm-sub">plan mode and drafting are scoped to that thread</span></div><div class="fm-arrow">→</div><div class="fm-box">Evidence synced back; DONE when every task completes<span class="fm-sub">the thread keeps its task graph and evidence between turns; finishing it triggers the next-step proposer</span></div></div></div></div>
+    <div class="fm-branches">
+      <div class="fm-branch"><b>thread states</b> READY · ACTIVE · BLOCKED · PAUSED · DONE · ABANDONED. PAUSED keeps its partial state and evidence (INV-42); ABANDONED is kept for the audit trail, never deleted.</div>
+      <div class="fm-branch"><b>never selectable</b> a thread still being drafted is never given focus (INV-40); a still-workable ACTIVE thread is never bumped just because others are waiting.</div>
+      <div class="fm-branch"><b>/goals</b> the CLI command and the chat-ui panel show four buckets: freshly computed, carried over, done, and suggested-but-not-committed (drafting).</div>
+      <div class="fm-branch"><b>next steps</b> when a thread reaches DONE, one bounded LLM call proposes follow-ups; high and medium confidence ones are saved on the thread and listed under it in /goals (low confidence is shown for the turn only). They are advice, never tasks.</div>
+      <div class="fm-branch"><b>built, not yet wired</b> a cross-turn identity matcher (attach a new message to an existing thread) is implemented and tested but not called by the runtime yet.</div>
+    </div>
+    <div class="fm-verdict"><b>Status</b> on by default since 2026-09-23 (<code>ASSISTANT_GOAL_GRAPH=disabled</code> turns it off; with it off, behaviour is byte-identical to before, INV-43).</div>
+  </div>
+</dialog>
+
+<dialog class="flow-modal sub" id="xmodal-nextsteps" style="--nc:oklch(.42 .12 175)">
+  <div class="fm-head">
+    <span class="fm-badge">🤖</span>
+    <span class="fm-name">Next-step options</span>
+    <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
+  </div>
+  <div class="fm-body">
+    <p class="fm-desc">After a full turn, Aielia proposes up to three concrete things you could do next and shows them under the reply, the way Claude Code offers prompt suggestions. They are shortcuts, never a required choice: you can always just type your own message.</p>
+    <div class="fm-files"><b>Files:</b> next-step-proposer.ts · assistant.ts · cli.ts · NextStepChips.tsx</div>
+    <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Full turn completes<span class="fm-sub">status ok, and not the trivial one-liner fast path</span></div><div class="fm-arrow">→</div><div class="fm-box">Proposer: one bounded LLM call<span class="fm-sub">your request + the reply in, at most three options out, most confident first</span></div><div class="fm-arrow">→</div><div class="fm-box">Shown under the reply<span class="fm-sub">CLI: a numbered list · chat-ui: chips under the newest reply</span></div><div class="fm-arrow">→</div><div class="fm-box">You choose, or don't<span class="fm-sub">pick one, or type anything else</span></div></div></div>
+    <div class="fm-branches">
+      <div class="fm-branch"><b>CLI</b> type <code>1</code>, <code>2</code> or <code>3</code> right after the reply to run that option. Any other input, including a command, drops the options.</div>
+      <div class="fm-branch"><b>chat-ui</b> clicking a chip only fills the composer with that text as an editable draft. It never sends by itself.</div>
+      <div class="fm-branch"><b>typing your own</b> always works, and the composer is never locked to the options.</div>
+      <div class="fm-branch"><b>no options</b> a trivial one-liner, a paused or escalated turn, or a turn with nothing concrete to follow up gets none, and makes no extra call.</div>
+      <div class="fm-branch"><b>cost</b> one extra LLM call per full turn, folded into the turn's usage and spend cap. If it fails, the turn is unaffected and simply shows no options.</div>
+    </div>
+    <div class="fm-verdict"><b>Status</b> on by default in the CLI and chat-ui since 2026-09-23 (<code>ASSISTANT_GOAL_GRAPH_SUGGEST=disabled</code> turns it off). The assistant library itself defaults it off, so embedders and benchmarks make no extra call.</div>
   </div>
 </dialog>
 
@@ -1535,6 +1541,11 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       e.stopPropagation();
       var dlg=document.getElementById(btn.getAttribute('data-target'));
       if(dlg)dlg.showModal();
+    });
+  });
+  document.querySelectorAll('g.lnode[data-target]').forEach(function(g){
+    g.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();var d=document.getElementById(g.getAttribute('data-target'));if(d)d.showModal();}
     });
   });
   document.querySelectorAll('dialog.flow-modal').forEach(function(dlg){
