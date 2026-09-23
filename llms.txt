@@ -22,7 +22,7 @@ File and shell access are opt-in and off by default, and exist only in the CLI a
 - [How it works](https://myaielia.com/how-it-works): the eleven layers applied to a chat message, the risk gate, the trust boundary, crash resume, the three front ends, and every way to run it.
 - [Try it in your browser](https://myaielia.com/try): the hosted browser build. Your API key stays in your browser.
 - [Harness comparison](https://myaielia.com/harness-comparison): OpenClaw, Hermes Agent and Kilo Code compared feature by feature against a harness-first assistant, including what each one lacks.
-- [Harness architecture](https://myaielia.com/harness-architecture): the 11-layer control loop in detail — world model, control state, verification, recovery and cross-run learning.
+- [Harness architecture](https://myaielia.com/harness-architecture): the 11-layer control loop in detail — world model, control state, verification, recovery and cross-run learning — plus the one-loop proposer with mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph.
 - [Harness evaluation](https://myaielia.com/harness-evaluation): controlled benchmarks of each reasoning feature, published whether the result is positive or negative, with the actual run transcripts.
 
 ## Accounts, keys, and privacy
