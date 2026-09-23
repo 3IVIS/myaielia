@@ -293,11 +293,11 @@ pre code{background:none;padding:0;color:inherit;}
 
     <div class="stat-row" role="list">
       <div class="stat" role="listitem">
-        <span class="stat-n">6 / 13</span>
+        <span class="stat-n">12 / 13</span>
         <span class="stat-l">reasoning features on the bench audited so far</span>
       </div>
       <div class="stat" role="listitem">
-        <span class="stat-n" style="font-size:17px;">1 proven effective &middot; 2 effective, at more cost &middot; 3 not effective</span>
+        <span class="stat-n" style="font-size:17px;">1 proven effective &middot; 2 effective, at more cost &middot; 9 not effective</span>
         <span class="stat-l">by evidence — full breakdown in the table below</span>
       </div>
       <div class="stat" role="listitem">
@@ -398,7 +398,7 @@ pre code{background:none;padding:0;color:inherit;}
   <div class="wrap">
     <div class="section-label">RESULTS</div>
     <h2>What we've decided <em>so far.</em></h2>
-    <p class="prose">Six features decided. This table grows as each audit lands, positive and negative alike.
+    <p class="prose">Twelve features decided. This table grows as each audit lands, positive and negative alike.
     The 11-layer harness vs. a bare loop, and the one-loop proposer, both had a first pass whose result we
     <strong>withdrew</strong> — the failure-injection tasks were being applied to one arm and not the other —
     and were re-run on a corrected corpus (below).</p>
@@ -496,6 +496,83 @@ pre code{background:none;padding:0;color:inherit;}
           hurts measurably; cheaper either way.
           <a href="/harness-evaluation/one-loop/">Read the actual runs →</a></td>
         </tr>
+        <tr>
+          <td>
+            <span class="feat">Semantic criterion coverage</span>
+            <span class="featref">+1 LLM call per unmatched criterion · <a href="/harness-architecture">Layer 11</a></span>
+          </td>
+          <td>An LLM call recognises success criteria a reply satisfies in different words than the plan
+          states them, removing false "criterion not met" findings the reviewer's substring check raises.</td>
+          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
+          <td>3-seed, 8-task, judge-on. <strong>No task-success delta</strong> (both 75.0%, CI ±20pt); cost
+          <strong style="color:var(--red);">+25%/turn</strong> for no success gain. Neutral with real cost.
+          <a href="/harness-evaluation/semantic-criterion-coverage/">Read the actual runs →</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="feat">Semantic review-checker</span>
+            <span class="featref">+1 LLM call per proposed change · <a href="/harness-architecture">Layer 11</a></span>
+          </td>
+          <td>An LLM call catches proposed changes that conflict in meaning with a held high-confidence
+          belief, which the reviewer's lexical check misses.</td>
+          <td><span class="verdict cut">Worse results, no added cost</span></td>
+          <td>3-seed, 8-task, judge-on. Task success <span style="color:var(--red);font-weight:600;">−16.7%</span>
+          (66.7% → 50.0%, CI ±8.2%, clears 0); overconfident-and-wrong 13.3% → 40.0%; cost
+          <strong>+6%/turn</strong>. Regresses on its own stress slice, without even the excuse of extra cost.
+          <a href="/harness-evaluation/semantic-change-reviewer/">Read the actual runs →</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="feat">Model-inferred facts</span>
+            <span class="featref">never auto-promoted to memory</span>
+          </td>
+          <td>Facts the classifier infers from a message are recalled correctly on later turns often enough
+          to justify recording them, without a wrong-memory tax from hypotheticals and retracted statements.</td>
+          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
+          <td>3-seed, 8-task, judge-on. Task success <strong>+4.2% but CI ±16.3%</strong> — not significant;
+          cost <strong style="color:var(--red);">+55%/turn</strong>, latency
+          <strong style="color:var(--red);">+16%</strong>. Neutral with real cost.
+          <a href="/harness-evaluation/model-inferred-facts/">Read the actual runs →</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="feat">Up-front decomposition + task reframing</span>
+            <span class="featref"><a href="/harness-architecture">Layer 5</a></span>
+          </td>
+          <td>Decomposing a multi-part request into a task graph and reframing each task with an LLM call
+          completes more of the requested parts than treating the request as one task, at acceptable extra
+          cost.</td>
+          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
+          <td>3-seed, 8-task, judge-on. <strong>No task-success delta</strong> (both 100%); cost
+          <strong style="color:var(--red);">+82%/turn</strong>, latency
+          <strong style="color:var(--red);">+23%</strong> for no success gain. Neutral with real cost.
+          <a href="/harness-evaluation/decomposition-reframing/">Read the actual runs →</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="feat">The verification layer</span>
+            <span class="featref"><a href="/harness-architecture">Layer 9</a> · 9 sub-checks</span>
+          </td>
+          <td>Always-on mechanical verification of every result catches defective or unsupported results
+          before they're accepted, cutting confidently-wrong replies enough to justify running on every turn.</td>
+          <td><span class="verdict cut">No measurable improvement, at extra cost</span></td>
+          <td>3-seed, 8-task, judge-on. <strong>No task-success delta</strong> (95.8% both arms, CI ±11.6%);
+          cost <strong style="color:var(--red);">+25%/turn</strong> for no success gain. Neutral with real
+          cost. <a href="/harness-evaluation/verification-layer/">Read the actual runs →</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="feat">The reviewer pass</span>
+            <span class="featref"><a href="/harness-architecture">Layer 11</a> · 3 lenses</span>
+          </td>
+          <td>The 3-lens reviewer pass finds real defects earlier layers miss and improves the final reply
+          often enough to justify its per-turn latency and second-round cost.</td>
+          <td><span class="verdict cut">Worse results, at higher cost</span></td>
+          <td>3-seed, 8-task, judge-on. Task success <span style="color:var(--red);font-weight:600;">−33.3%</span>
+          (75.0% → 41.7%, CI ±8.2%, clears 0); overconfident-and-wrong 0% → 58.3%; hallucination 0% → 12.5%;
+          cost <strong style="color:var(--red);">+20%/turn</strong>. Regresses on its own stress slice.
+          <a href="/harness-evaluation/reviewer-pass/">Read the actual runs →</a></td>
+        </tr>
       </tbody>
     </table>
 
@@ -519,36 +596,6 @@ pre code{background:none;padding:0;color:inherit;}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><span class="feat">The reviewer pass</span><span class="featref"><a href="/harness-architecture">Layer 11</a> · 3 lenses</span></td>
-          <td>Consistency, adversarial and abstraction-fit review on every harness turn.</td>
-          <td><span class="verdict bench">Batch C</span></td>
-        </tr>
-        <tr>
-          <td><span class="feat">The verification layer</span><span class="featref"><a href="/harness-architecture">Layer 9</a> · 9 sub-checks</span></td>
-          <td>Always-on mechanical verification of every result before it's accepted.</td>
-          <td><span class="verdict bench">Batch C</span></td>
-        </tr>
-        <tr>
-          <td><span class="feat">Up-front decomposition + task reframing</span><span class="featref"><a href="/harness-architecture">Layer 5</a></span></td>
-          <td>Breaking a request into a task graph and rewriting each task to lead with its subject.</td>
-          <td><span class="verdict bench">Batch C</span></td>
-        </tr>
-        <tr>
-          <td><span class="feat">Model-inferred facts</span><span class="featref">never auto-promoted to memory</span></td>
-          <td>The classifier's free-form read of what the user implied — recorded for the session, never kept.</td>
-          <td><span class="verdict bench">Batch C</span></td>
-        </tr>
-        <tr>
-          <td><span class="feat">Semantic criterion coverage</span><span class="featref"><a href="/harness-architecture">Layer 11</a></span></td>
-          <td>+1 LLM call per plan success-criterion the reviewer's substring check couldn't match.</td>
-          <td><span class="verdict bench">Batch C</span></td>
-        </tr>
-        <tr>
-          <td><span class="feat">Semantic review-checker</span><span class="featref"><a href="/harness-architecture">Layer 11</a></span></td>
-          <td>+1 LLM call per proposed change, checking for a real conflict with a held belief.</td>
-          <td><span class="verdict bench">Batch C</span></td>
-        </tr>
         <tr>
           <td><span class="feat">AnswerClaim attribution</span><span class="featref">evidence / confidence line</span></td>
           <td>Cheap to compute — a UX surface. Its value is a trust question, not a benchmark one.</td>
