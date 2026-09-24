@@ -175,7 +175,7 @@ active_nav: how-it-works
         {
           "@type": "Question",
           "name": "What stops file and shell access from being dangerous?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; write_file stages instead of executing by default. Shell access is gated on every single call with no 'safe subset', runs with an env allowlist (PATH/HOME/LANG only), a hard timeout, and output truncation. Tool output from the shell or the web is wrapped as untrusted content before it re-enters the conversation. None of that makes shell access risk-free — these mitigations make it safer, not a substitute for deciding whether to enable it at all. This is an early-stage project (package v0.3.1), not an independently audited security boundary." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; write_file stages instead of executing by default. Shell access is gated on every single call with no 'safe subset', runs with an env allowlist (PATH/HOME/LANG only), a hard timeout, and output truncation. Tool output from the shell or the web is wrapped as untrusted content before it re-enters the conversation. None of that makes shell access risk-free — these mitigations make it safer, not a substitute for deciding whether to enable it at all. This is an early-stage project (package v0.3.x), not an independently audited security boundary." }
         }
       ]
     }
@@ -564,7 +564,7 @@ pre{
     <h2>One message, <em>one bounded run.</em></h2>
 
     <p>
-      Most autonomous agents decompose a goal into a long multi-task plan — research, then draft, then revise, then send — and let it run. Aielia keeps every chat message to <strong>one bounded harness run</strong>. By default a message is one task; when a request clearly names several steps, the classifier can split it into a small task graph for that turn. Either way each turn's <code style="font-size:14px">HarnessRuntime.run()</code> stays bounded — the harness drives the model's tool-calling loop one proposed action at a time (<code style="font-size:14px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), rather than fanning out into an open-ended plan of its own. A stricter, opt-in plan mode (<code style="font-size:14px">ASSISTANT_PLAN_MODE=gated</code>, off by default) drafts a durable plan for multi-step requests and runs nothing until you approve it. Every run still walks its full 11-layer sequence, World Model through Reviewer Pass (the exact breakdown is below), with context compression and cross-turn learning running alongside it.
+      Most autonomous agents decompose a goal into a long multi-task plan — research, then draft, then revise, then send — and let it run. Aielia keeps every chat message to <strong>one bounded harness run</strong>. By default a message is one task; when a request clearly names several steps, the classifier can split it into a small task graph for that turn. Either way each turn's <code style="font-size:14px">HarnessRuntime.run()</code> stays bounded — the harness drives the model's tool-calling loop one proposed action at a time (<code style="font-size:14px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), rather than fanning out into an open-ended plan of its own. A stricter, opt-in plan mode (<code style="font-size:14px">ASSISTANT_PLAN_MODE=gated</code>, off by default) drafts a durable plan for multi-step requests and runs nothing until you approve it. Every run still walks its full 11-layer sequence, World Model through Reviewer Pass (the exact breakdown is below), with context compression and cross-turn learning running alongside it. Four mechanisms wrap that loop, all on by default since 2026-09-23 (each has a <code>disabled</code> escape hatch): a hierarchical goal graph that keeps each goal as its own thread across turns, mid-turn steering that absorbs a message you send while a turn is running, a Trajectory Supervisor that makes one bounded LLM call to pick a way out when the loop stalls, and up to three next-step options shown under a reply. <a href="/harness-architecture#around-the-loop">See them on the architecture page →</a>
     </p>
 
     <p>
@@ -600,7 +600,7 @@ pre{
     <h2>The same eleven layers, <em>applied to a chat message.</em></h2>
 
     <p class="prose" style="margin-bottom:0;">
-      This is the exact 11-layer breakdown Aielia's own code tracks turn by turn — the same list its <code style="font-size:13px">/why</code> command and chat-ui's "Why?" panel render, collapsed down from about 25 individual runtime nodes (the Build A Harness canvas defines 27 node types; see <code style="font-size:13px">node-display-names.ts</code>). Skipped entirely on a trivial fact-lookup turn; walked in full on everything else. For the clickable version — each layer's own internal flowchart, plus exactly what Aielia adds on top of the harness core — see <a href="https://buildaharness.com/harness-architecture" style="color:var(--accent-ink);">the interactive architecture page →</a>.
+      This is the exact 11-layer breakdown Aielia's own code tracks turn by turn — the same list its <code style="font-size:13px">/why</code> command and chat-ui's "Why?" panel render, collapsed down from about 25 individual runtime nodes (the Build A Harness canvas defines 27 node types; see <code style="font-size:13px">node-display-names.ts</code>). Skipped entirely on a trivial fact-lookup turn; walked in full on everything else. For the clickable version — each layer's own internal flowchart, plus exactly what Aielia adds on top of the harness core — see <a href="/harness-architecture" style="color:var(--accent-ink);">the interactive architecture page →</a>.
     </p>
 
     <div class="layers-grid">
@@ -644,7 +644,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.46 .16 240)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Planning</span>
-        <span class="layer-desc">One task per message by default; a request that names several steps can be split into a small task graph. Durable, approval-gated plans are an opt-in mode — not the open-ended multi-step decomposition a heavier autonomous agent would build.</span>
+        <span class="layer-desc">One task per message by default; a request that names several steps can be split into a small task graph. Durable, approval-gated plans are an opt-in mode, and a goal graph keeps each goal as a thread across turns — not the open-ended multi-step decomposition a heavier autonomous agent would build.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.46 .18 20)">
@@ -662,7 +662,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.52 .14 40)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Recovery</span>
-        <span class="layer-desc">A rollback-and-replan path exists if something in the loop fails, instead of the whole turn crashing out.</span>
+        <span class="layer-desc">A rollback-and-replan path exists if something in the loop fails, instead of the whole turn crashing out; a Trajectory Supervisor steps in at the stall edge.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.46 .14 148)">
@@ -679,14 +679,14 @@ pre{
 
     <div class="tool-callout" style="margin-top:28px;background:var(--paper);">
       <div class="tool-callout-label">vs. the most-used open agents</div>
-      <p>The <a href="https://buildaharness.com/harness-comparison" style="color:var(--accent-ink);">harness comparison</a> maps Hermes Agent, Kilo Code, and OpenClaw against this architecture. None of the three ships both a tiered Control State resolver and a reviewer/output gate. Aielia ships both, plus:</p>
+      <p>The <a href="/harness-comparison" style="color:var(--accent-ink);">harness comparison</a> maps Hermes Agent, Kilo Code, OpenClaw and Pi against this architecture. None of the four ships both a tiered Control State resolver and a reviewer/output gate. Aielia ships both, plus:</p>
     </div>
 
     <div class="compare-grid">
       <div class="compare-card">
-        <h3>Hermes · Kilo · OpenClaw</h3>
+        <h3>Hermes · Kilo · OpenClaw · Pi</h3>
         <ul>
-          <li>Tool runs when the model decides to; approval, where it exists, is a coarse allow-list</li>
+          <li>Tool runs when the model decides to; approval, where it exists, is a coarse allow-list (Pi has none, by design)</li>
           <li>No formal tiered Control State resolver</li>
           <li>No output/reviewer-pass quality gate before a reply goes out</li>
           <li>Risk handling is best-effort; a classifier failure is not a defined state</li>
@@ -934,7 +934,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
     </div>
 
     <p style="margin-top:20px;">
-      Whichever one you pick: try a plain question first, then something with real consequence — "send an email to my boss saying I quit" — to see the risk gate return <code style="font-size:14px">needs_approval</code> before the assistant does any real work on it (only the short classification call is spent). This is an early-stage project (package v0.3.1), not an audited security product — see the file/shell access sections above for exactly what is and isn't gated before turning either on. Apache 2.0, provided as-is per the license. <a href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia" style="color:var(--accent-ink);">Full README on GitHub →</a>
+      Whichever one you pick: try a plain question first, then something with real consequence — "send an email to my boss saying I quit" — to see the risk gate return <code style="font-size:14px">needs_approval</code> before the assistant does any real work on it (only the short classification call is spent). This is an early-stage project (package v0.3.x), not an audited security product — see the file/shell access sections above for exactly what is and isn't gated before turning either on. Apache 2.0, provided as-is per the license. <a href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia" style="color:var(--accent-ink);">Full README on GitHub →</a>
     </p>
 
   </div>
@@ -976,7 +976,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
       <div class="faq-item">
         <h3>What stops file and shell access from being dangerous?</h3>
-        <p>Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; <code style="font-size:13px">write_file</code> stages instead of executing by default. Shell access is gated on every single call, runs with an environment allowlist, a hard timeout, and output truncation. Content fetched from the shell or the web is wrapped as untrusted before it re-enters the conversation, so it can't be mistaken for an instruction from the user. None of that makes shell access risk-free — it's a real trust decision these mitigations make <em>safer</em>, not a substitute for deciding whether to turn it on at all. This is an early-stage project (package v0.3.1), not an independently audited security boundary.</p>
+        <p>Both are opt-in and off by default. File tools are scoped to one sandboxed workspace root with path-traversal and symlink-escape checks; <code style="font-size:13px">write_file</code> stages instead of executing by default. Shell access is gated on every single call, runs with an environment allowlist, a hard timeout, and output truncation. Content fetched from the shell or the web is wrapped as untrusted before it re-enters the conversation, so it can't be mistaken for an instruction from the user. None of that makes shell access risk-free — it's a real trust decision these mitigations make <em>safer</em>, not a substitute for deciding whether to turn it on at all. This is an early-stage project (package v0.3.x), not an independently audited security boundary.</p>
       </div>
 
     </div>
@@ -997,7 +997,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
         <a class="btn" href="/try">Try in your browser →</a>
         <button type="button" class="btn btn-ghost js-copy-cmd js-install-cmd" data-copy="curl -fsSL https://myaielia.com/install.sh | sh"
           style="font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;">curl -fsSL https://myaielia.com/install.sh | sh</button>
-        <a class="btn btn-ghost" href="https://buildaharness.com/harness-comparison">See the harness comparison →</a>
+        <a class="btn btn-ghost" href="/harness-comparison">See the harness comparison →</a>
       </div>
     </div>
   </div>
