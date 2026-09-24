@@ -436,7 +436,7 @@ pre code{background:none;padding:0;color:inherit;}
           </td>
           <td>A message sent while a long turn runs (correction, extra ask, new goal, cancel) is handled at least as well as queueing it, with less wasted work.</td>
           <td><span class="verdict mixed">Not exercised: no mid-turn absorption</span></td>
-          <td>Success 91.7% queued vs 79.2% live (12.5 pts, CI &plusmn;18: within noise); cost &minus;23%, latency &minus;22%. <strong>In 0 of 24 runs was the message absorbed inside the running turn</strong>: on the keyless CLI backend a whole tool chain runs in one model call, so the channel is never polled mid-flight.
+          <td>Success 95.8% (23 of 24) both queued and live (CI &plusmn;12); cost &minus;23%, latency &minus;22%. <strong>In 0 of 24 runs was the message absorbed inside the running turn</strong>: on the keyless CLI backend a whole tool chain runs in one model call, so the channel is never polled mid-flight. Five replies were re-graded after a grader fix (correct answers labelled &ldquo;Step 3&rdquo; or &ldquo;the third one&rdquo; had been marked wrong); the run page says which.
           <a href="/harness-evaluation/steering-live/">Read the actual runs →</a></td>
         </tr>
         <tr>

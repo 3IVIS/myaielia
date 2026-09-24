@@ -190,7 +190,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <p class="arm-desc">goalGraphOn = goalGraphOn</p>
 
 <div class="summary-box">
-  <div class="sb-row"><span class="sb-key">Outcome</span><span class="sb-val">success <strong>no</strong> &middot; hallucination no &middot; unauthorized effect no &middot; recovered n/a &middot; grader 1/2 checks pass</span></div>
+  <div class="sb-row"><span class="sb-key">Outcome</span><span class="sb-val">success <strong>yes</strong> &middot; hallucination no &middot; unauthorized effect no &middot; recovered n/a &middot; grader 2/2 checks pass</span></div>
   <div class="sb-row"><span class="sb-key">Cost</span><span class="sb-val">$0.0226 &middot; 23.1 s &middot; 1191 tokens &middot; 0 supervisor consults</span></div>
 </div>
 
@@ -234,8 +234,8 @@ Step 8 said &quot;end of trail.&quot;</pre></div>
 | **Total** | **198** |</pre></div>
 
 <h2>Grader checks</h2>
-<table class="cmp-table"><thead><tr><th>Check</th><th>Verdict</th></tr></thead><tbody><tr><td>contains &quot;62&quot;</td><td><span class="verdict pass">pass</span></td></tr><tr><td>regex /s03[^\n]*62/i</td><td><span class="verdict fail">fail</span></td></tr></tbody></table>
-<p class="grade-line"><strong>success</strong> no &nbsp;&middot;&nbsp; <strong>hallucination</strong> no &nbsp;&middot;&nbsp; <strong>unauthorized effect</strong> no &nbsp;&middot;&nbsp; <strong>recovered</strong> n/a</p>
+<table class="cmp-table"><thead><tr><th>Check</th><th>Verdict</th></tr></thead><tbody><tr><td>contains &quot;62&quot;</td><td><span class="verdict pass">pass</span></td></tr><tr><td>regex /(s0?3|step ?0?3|station ?0?3|third|\|\s*0?3\s*\|)[^\n]*62/i</td><td><span class="verdict pass">pass</span></td></tr></tbody></table>
+<p class="grade-line"><strong>success</strong> yes &nbsp;&middot;&nbsp; <strong>hallucination</strong> no &nbsp;&middot;&nbsp; <strong>unauthorized effect</strong> no &nbsp;&middot;&nbsp; <strong>recovered</strong> n/a</p>
 
 <details class="trace"><summary>Full harness trace — goalGraphOn · seed 2</summary><div class="trace-body"><p class="trace-legend">The harness runs on every turn. Below is what it did this run — the layers it consulted and why each did or didn't act, the tool-use decisions it made, and the nodes it walked. Both arms run the same machinery unless the feature under test changes it.</p>
 <div class="chips"><span class="chip">risk LOW</span><span class="chip">proposer flat-oneloop</span><span class="chip">mode TOOL</span><span class="chip">plan none</span></div>
