@@ -44,7 +44,7 @@ active_nav: evaluation
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Does it work? Measured results for mid-turn steering, the Trajectory Supervisor, next-step options and the goal graph | Aielia</title>
 
-<meta name="description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph come out inconclusive. Every run is published.">
+<meta name="description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.">
 
 <link rel="canonical" href="https://myaielia.com/harness-evaluation">
 
@@ -52,7 +52,7 @@ active_nav: evaluation
 <meta property="og:url" content="https://myaielia.com/harness-evaluation">
 <meta property="og:site_name" content="Aielia">
 <meta property="og:title" content="Does it work? Four Aielia features, measured">
-<meta property="og:description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph come out inconclusive. Every run is published.">
+<meta property="og:description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.">
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -61,7 +61,7 @@ active_nav: evaluation
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Does it work? Four Aielia features, measured">
-<meta name="twitter:description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph come out inconclusive. Every run is published.">
+<meta name="twitter:description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
 <meta name="twitter:image:alt" content="Build A Harness — measuring whether each harness feature earns its cost.">
 
@@ -87,7 +87,7 @@ active_nav: evaluation
       "@type": "Article",
       "@id": "https://myaielia.com/harness-evaluation#article",
       "headline": "Does it work? Four Aielia features, measured",
-      "description": "Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph come out inconclusive. Every run is published.",
+      "description": "Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.",
       "datePublished": "2026-09-07",
       "dateModified": "2026-09-24",
       "author": { "@id": "https://myaielia.com/#org" },
@@ -115,12 +115,12 @@ active_nav: evaluation
         {
           "@type": "Question",
           "name": "Why publish results that aren't flattering?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Because “11 layers, thousands of tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a benchmark that can come back negative or inconclusive, and we publish it either way." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Because “11 layers, thousands of tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a benchmark that can come back negative or unproven, and we publish it either way." }
         },
         {
           "@type": "Question",
-          "name": "Why are three of the four inconclusive?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Each has a different reason, and each is on its result page. Mid-turn steering never actually got to absorb a message in flight on the keyless CLI backend we can run without an API key. The goal graph scored 100% with and without it, so the corpus could not separate them. Next-step options landed between our pre-set KEEP and CUT thresholds. Inconclusive means what it says: not enough to keep it on by default with confidence, not enough to cut." }
+          "name": "Why are three of the four not yet proven?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Each has a different reason, and each is on its result page. Mid-turn steering never actually got to absorb a message in flight on the keyless CLI backend we can run without an API key. The goal graph scored 100% with and without it, so the corpus could not separate them. Next-step options landed between our pre-set KEEP and CUT thresholds. “Not yet proven” means what it says: not enough to keep it on by default with confidence, not enough to cut." }
         },
         {
           "@type": "Question",
@@ -303,7 +303,7 @@ pre code{background:none;padding:0;color:inherit;}
         <span class="stat-l">features measured on new multi-turn corpora (8 tasks each)</span>
       </div>
       <div class="stat" role="listitem">
-        <span class="stat-n" style="font-size:17px;">1 effective, at more cost &middot; 3 inconclusive</span>
+        <span class="stat-n" style="font-size:17px;">1 effective, at more cost &middot; 3 not yet proven</span>
         <span class="stat-l">by the evidence — details in the table below</span>
       </div>
       <div class="stat" role="listitem">
@@ -402,7 +402,7 @@ pre code{background:none;padding:0;color:inherit;}
     <h2>What the runs <em>showed.</em></h2>
     <p class="prose">Four features, each measured against the same assistant without it, three seeds, Claude Sonnet 5
     as both the assistant and the judge. Verdicts come from fixed rules: a gain has to clear its confidence band to
-    count, and a gain that costs more has to be big enough to justify it. Inconclusive means we can neither keep a
+    count, and a gain that costs more has to be big enough to justify it. “Not yet proven” means we can neither keep a
     feature on by default with confidence nor cut it. Each result page holds the case study, the numbers and every
     run's transcript.</p>
 
@@ -435,8 +435,8 @@ pre code{background:none;padding:0;color:inherit;}
             <span class="featref">live steering channel · <a href="/harness-architecture">Loop</a></span>
           </td>
           <td>A message sent while a long turn runs (correction, extra ask, new goal, cancel) is handled at least as well as queueing it, with less wasted work.</td>
-          <td><span class="verdict mixed">Inconclusive</span></td>
-          <td>Success 91.7% queued vs 79.2% live (12.5 pts, CI &plusmn;18: within noise); cost &minus;23%, latency &minus;22%. <strong>In 0 of 24 runs was the message absorbed inside the running turn</strong>: on the keyless CLI backend a whole tool chain runs in one model call, so the channel is never polled mid-flight.
+          <td><span class="verdict mixed">Not exercised: no mid-turn absorption</span></td>
+          <td>Success 95.8% (23 of 24) both queued and live (CI &plusmn;12); cost &minus;23%, latency &minus;22%. <strong>In 0 of 24 runs was the message absorbed inside the running turn</strong>: on the keyless CLI backend a whole tool chain runs in one model call, so the channel is never polled mid-flight.
           <a href="/harness-evaluation/steering-live/">Read the actual runs →</a></td>
         </tr>
         <tr>
@@ -445,7 +445,7 @@ pre code{background:none;padding:0;color:inherit;}
             <span class="featref">+1 LLM call per turn · <a href="/harness-architecture">Loop</a></span>
           </td>
           <td>The options under a finished turn name the continuation a person would want, and stay silent when nothing follows.</td>
-          <td><span class="verdict mixed">Inconclusive</span></td>
+          <td><span class="verdict mixed">Short of our bar (61% vs 70%)</span></td>
           <td>Graded on the options themselves (thresholds set in advance). Named the expected next step in 11 of 18 runs (<strong>61%</strong>; KEEP needs 70%, CUT is under 40%). False positives <span style="color:var(--green);font-weight:600;">0 of 6</span>. Reply correctness unchanged. Cost <strong style="color:var(--red);font-weight:600;">+76%</strong> per turn (under half a cent).
           <a href="/harness-evaluation/next-step-options/">Read the actual runs →</a></td>
         </tr>
@@ -537,11 +537,11 @@ node scripts/run-audit-parallel.mjs \
     <div class="faq-list">
       <div class="faq-item">
         <h3>Why publish results that aren't flattering?</h3>
-        <p>Because “11 layers, thousands of tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a benchmark that can come back negative or inconclusive, and we publish it either way.</p>
+        <p>Because “11 layers, thousands of tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a benchmark that can come back negative or unproven, and we publish it either way.</p>
       </div>
       <div class="faq-item">
-        <h3>Why are three of the four inconclusive?</h3>
-        <p>Each has a different reason, and each is on its result page. Mid-turn steering never actually got to absorb a message in flight on the keyless CLI backend we can run without an API key. The goal graph scored 100% with and without it, so the corpus could not separate them. Next-step options landed between our pre-set KEEP and CUT thresholds. Inconclusive means what it says: not enough to keep it on by default with confidence, not enough to cut.</p>
+        <h3>Why are three of the four not yet proven?</h3>
+        <p>Each has a different reason, and each is on its result page. Mid-turn steering never actually got to absorb a message in flight on the keyless CLI backend we can run without an API key. The goal graph scored 100% with and without it, so the corpus could not separate them. Next-step options landed between our pre-set KEEP and CUT thresholds. “Not yet proven” means what it says: not enough to keep it on by default with confidence, not enough to cut.</p>
       </div>
       <div class="faq-item">
         <h3>Why not an A/B test for next-step options?</h3>
