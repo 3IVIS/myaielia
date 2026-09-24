@@ -1140,7 +1140,7 @@ pre{
     </div>
 
     <div class="blueprint">
-      <p class="sr-only">Diagram: a simple agent loop (input → LLM call → tool call → output) compared with a full Build A Harness — an 11-layer architecture across 27 node types that adds caller state, a world model, reasoning, a 5-tier control layer, planning, execution, 9-layer verification, recovery, memory, optional learning, and an output reviewer pass.</p>
+      <p class="sr-only">Diagram: a simple agent loop (input → LLM call → tool call → output) compared with a full Build A Harness — an 11-layer architecture across 27 node types that adds caller state, a world model, reasoning, a 5-tier control layer, planning, execution, 9 verification checks, recovery, memory, optional learning, and an output reviewer pass.</p>
       <div class="hd-root">
 
         <!-- LEFT: simple agent loop -->
@@ -1199,7 +1199,7 @@ pre{
                 <span class="hd-ln">Execution</span><span class="hd-ld">VOI · review gate</span>
               </div>
               <div class="hd-layer" style="--lc:#dc2626">
-                <span class="hd-ln">Verification</span><span class="hd-ld">9 layers</span>
+                <span class="hd-ln">Verification</span><span class="hd-ld">9 checks</span>
               </div>
             </div>
             <div class="hd-pair hd-anim" style="--d:.93s">
@@ -1218,7 +1218,7 @@ pre{
             </div>
           </div>
           <div class="hd-footnote hd-anim" style="--d:1.35s">
-            27 node types · 11 layers · world model + 5-tier control · 9-layer verification
+            27 node types · 11 layers · world model + 5-tier control · 9 verification checks
           </div>
         </div>
 
@@ -1290,7 +1290,7 @@ pre{
           </div>
           <div class="feature-item">
             <strong>Keep track</strong>
-            <p>A reminder list for what's pending (notes for now; it doesn't alert you), a plan for a compound request, and memory of what you've told her — with the source of each fact recorded.</p>
+            <p>A reminder list for what's pending (notes for now; it doesn't alert you), a plan for a compound request, a goal graph that keeps each goal as its own thread across turns, and memory of what you've told her — with the source of each fact recorded.</p>
           </div>
         </div>
         <div class="cta-row" style="margin-top:22px;">
@@ -1345,7 +1345,7 @@ pre{
       </div>
       <div class="card">
         <h3>What happens when it goes wrong</h3>
-        <p>Failures are classified and met with a recovery strategy rather than a blind retry. The harness checkpoints mid-turn, so a crash resumes the same job instead of restarting it.</p>
+        <p>Failures are classified and met with a recovery strategy rather than a blind retry. When a job stalls, a Trajectory Supervisor picks a way out — redirect, reframe, gather evidence, ask you, or stop. The harness checkpoints mid-turn, so a crash resumes the same job instead of restarting it.</p>
       </div>
       <div class="card">
         <h3>What can't be undone</h3>
@@ -1417,13 +1417,13 @@ pre{
     <p class="section-lede">
       Aielia is the reference application for Build A Harness — an open-source visual canvas
       and runtime for the same control layers. Design your own agent harness, compile it to LangGraph,
-      CrewAI, Mastra, or Microsoft Agent Framework, and read how we measure which features earn their cost.
+      CrewAI, Mastra, or Microsoft Agent Framework, and follow how we're rebuilding the benchmark that measures which features earn their cost.
     </p>
 
     <div class="cta-row">
       <a class="btn" href="https://buildaharness.com">Visit Build A Harness →</a>
-      <a class="btn" href="https://buildaharness.com/harness-architecture" style="background:transparent;color:var(--ink);border-color:var(--line);">Inside one turn →</a>
-      <a class="btn" href="https://buildaharness.com/harness-evaluation" style="background:transparent;color:var(--ink);border-color:var(--line);">How we evaluate it →</a>
+      <a class="btn" href="/harness-architecture" style="background:transparent;color:var(--ink);border-color:var(--line);">Inside one turn →</a>
+      <a class="btn" href="/harness-evaluation" style="background:transparent;color:var(--ink);border-color:var(--line);">How we evaluate it →</a>
     </div>
 
   </div>
@@ -1457,7 +1457,7 @@ pre{
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What if it gets stuck or something fails?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Failures are classified and met with a recovery strategy rather than a blind retry. A job that stops finding anything useful stops itself, per-item and per-turn budgets cap what it can spend, and the harness checkpoints mid-turn, so a crash resumes the interrupted job. This is an early-stage project (v0.3.1) — not an audited security product.</p>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Failures are classified and met with a recovery strategy rather than a blind retry. A job that stops finding anything useful stops itself, per-item and per-turn budgets cap what it can spend, and the harness checkpoints mid-turn, so a crash resumes the interrupted job. This is an early-stage project (v0.3.x) — not an audited security product.</p>
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Do I need an account, and where does it run?</h3>
@@ -1496,7 +1496,7 @@ pre{
     {
       "@type": "Question",
       "name": "What if it gets stuck or something fails?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Failures are classified and met with a recovery strategy rather than a blind retry. A job that stops finding anything useful stops itself, per-item and per-turn budgets cap what it can spend, and the harness checkpoints mid-turn, so a crash resumes the interrupted job. This is an early-stage project (v0.3.1) — not an audited security product." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Failures are classified and met with a recovery strategy rather than a blind retry. A job that stops finding anything useful stops itself, per-item and per-turn budgets cap what it can spend, and the harness checkpoints mid-turn, so a crash resumes the interrupted job. This is an early-stage project (v0.3.x) — not an audited security product." }
     },
     {
       "@type": "Question",
