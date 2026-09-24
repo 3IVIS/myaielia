@@ -67,7 +67,7 @@ active_nav: comparison
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
-<meta name="keywords" content="harness comparison, Hermes Agent, Kilo Code, OpenClaw, Pi coding agent, pi.dev, Pi coding agent, pi.dev, AI agent harness, agent loop, harness engineering, agent architecture">
+<meta name="keywords" content="harness comparison, Hermes Agent, Kilo Code, OpenClaw, Pi coding agent, pi.dev, AI agent harness, agent loop, harness engineering, agent architecture">
 
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -233,9 +233,12 @@ strong{color:var(--ink);font-weight:600;}
 .cmp-table td.row-label{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);background:var(--bg-2);white-space:nowrap;}
 .cmp-table td{color:var(--ink-2);line-height:1.55;}
 .cmp-table td.cell{white-space:normal;}
+.cmp-table th, .cmp-table td{min-width:190px;}
+.cmp-table th:first-child, .cmp-table td:first-child{min-width:150px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .cmp-table td.cell .cell-text{display:inline-block;width:calc(100% - 26px);vertical-align:top;font-size:12.5px;line-height:1.5;}
 
-.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:24px;}
 .steps-card{border:1px solid var(--line);border-radius:6px;background:var(--paper);border-top:3px solid var(--line);}
 .steps-card summary{cursor:pointer;padding:16px 18px;font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;color:var(--ink);list-style:none;display:flex;align-items:center;justify-content:space-between;}
 .steps-card summary::-webkit-details-marker{display:none;}
@@ -244,7 +247,7 @@ strong{color:var(--ink);font-weight:600;}
 .steps-card ol{margin:0;padding:4px 18px 18px 34px;display:flex;flex-direction:column;gap:8px;}
 .steps-card li{font-size:12.5px;color:var(--ink-2);line-height:1.55;}
 
-.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
+.quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:24px;}
 .quote-card{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:6px;background:var(--bg);padding:18px 20px;}
 .quote-card p{font-size:13.5px;font-style:italic;color:var(--ink-2);margin-bottom:10px;}
 .quote-card p:last-child{margin-bottom:0;}
@@ -280,7 +283,8 @@ strong{color:var(--ink);font-weight:600;}
   .stat{border-right:none;border-bottom:1px solid var(--line);}
   .stat:last-child{border-bottom:none;}
   .cmp-table{font-size:12px;}
-  .cmp-table th, .cmp-table td{padding:10px;}
+  .cmp-table th, .cmp-table td{padding:10px;min-width:180px;}
+  .cmp-table th:first-child, .cmp-table td:first-child{min-width:130px;}
   .cta-inner{flex-direction:column;}
   .bar-label{width:110px;font-size:11px;}
 }
@@ -422,7 +426,7 @@ strong{color:var(--ink);font-weight:600;}
       <span><span class="glyph glyph-absent">○</span> not described in public docs</span>
     </div>
 
-    <div style="overflow-x:auto;">
+    <div class="table-scroll">
     <table class="cmp-table" style="margin-top:20px;">
       <thead>
         <tr>
@@ -528,13 +532,13 @@ strong{color:var(--ink);font-weight:600;}
     </div>
 
     <div class="matrix-callout">
-      <p><strong>Reading the pattern:</strong> Across the four agents, Execution, Memory, and Learning are the only layers where any reaches full coverage — Kilo's checkpoints, and Hermes's persistent memory and self-improving skills, respectively. Pi reaches full coverage on none, deliberately. Reasoning and Output &amp; Reviewer Pass get zero coverage from all four. Of the remaining layers, none is built out to full coverage by any of the four — they're a patchwork of static substitutes, partial mechanisms, and outright gaps, with World Model and Recovery the only two where all three have at least something, thin as it is. Which is a fair description of where most production agents are today, popular or not. The <span style="border-bottom:2px solid var(--series-aielia);">Aielia</span> column is the reference point — Build A Harness's own assistant, included to show what the thin layers look like when something actually ships them (Reasoning, Control State and the Reviewer Pass at full coverage; Verification is partial — only three of its nine checks run in a chat turn); it is the newest and least battle-tested of the five.</p>
+      <p><strong>Reading the pattern:</strong> Across the four agents, Execution, Memory, and Learning are the only layers where any reaches full coverage — Kilo's checkpoints, and Hermes's persistent memory and self-improving skills, respectively. Pi reaches full coverage on none, deliberately. Reasoning and Output &amp; Reviewer Pass get zero coverage from all four. Of the remaining layers, none is built out to full coverage by any of the four — they're a patchwork of static substitutes, partial mechanisms, and outright gaps, with World Model and Recovery the only two where all four have at least something, thin as it is. Which is a fair description of where most production agents are today, popular or not. The <span style="border-bottom:2px solid var(--series-aielia);">Aielia</span> column is the reference point — Build A Harness's own assistant, included to show what the thin layers look like when something actually ships them (Reasoning, Control State and the Reviewer Pass at full coverage; Verification is partial — only three of its nine checks run in a chat turn); it is the newest and least battle-tested of the five.</p>
     </div>
 
     <h2 style="margin-top:48px;">What it's actually like <em>to run one.</em></h2>
     <p class="prose" style="margin-bottom:0;">Beyond the layer-by-layer mapping, each project reads differently in practice:</p>
 
-    <div style="overflow-x:auto;">
+    <div class="table-scroll">
     <table class="cmp-table" style="margin-top:20px;">
       <thead>
         <tr>
@@ -605,9 +609,9 @@ strong{color:var(--ink);font-weight:600;}
 <section class="section" id="the-loop">
   <div class="wrap">
     <div class="section-label">THE LOOP</div>
-    <h2>Same commodity loop, <em>underneath all three.</em></h2>
+    <h2>Same commodity loop, <em>underneath all four.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      Every layer above wraps around a loop that, on its own, isn't a differentiator — a point the projects' architecture docs and independent write-ups broadly agree on. Mapped against the same <a href="https://designaloop.com/loop-engineering#anatomy" style="color:var(--accent-ink);">seven-stage loop</a>, the pattern is clear. Pi is not mapped stage by stage here: its public docs describe its tools and extension points rather than a step-level loop.
+      Every layer above wraps around a loop that, on its own, isn't a differentiator — a point the projects' architecture docs and independent write-ups broadly agree on. Mapped against the same <a href="https://designaloop.com/loop-engineering#anatomy" style="color:var(--accent-ink);">seven-stage loop</a>, the pattern is clear. Pi's public docs describe its tools and extension points rather than a step-level loop, so its column is read from those, and no step list is given for it below.
     </p>
 
     <div class="coverage-legend">
@@ -616,7 +620,7 @@ strong{color:var(--ink);font-weight:600;}
       <span><span class="glyph glyph-absent">○</span> not described</span>
     </div>
 
-    <div style="overflow-x:auto;">
+    <div class="table-scroll">
     <table class="cmp-table" style="margin-top:20px;">
       <thead>
         <tr>
@@ -624,6 +628,7 @@ strong{color:var(--ink);font-weight:600;}
           <th><span class="agent-label"><span class="dot" style="background:var(--series-hermes);"></span>Hermes Agent</span></th>
           <th><span class="agent-label"><span class="dot" style="background:var(--series-kilo);"></span>Kilo Code</span></th>
           <th><span class="agent-label"><span class="dot" style="background:var(--series-openclaw);"></span>OpenClaw</span></th>
+          <th><span class="agent-label"><span class="dot" style="background:var(--series-pi);"></span>Pi</span></th>
         </tr>
       </thead>
       <tbody>
@@ -632,9 +637,11 @@ strong{color:var(--ink);font-weight:600;}
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Session history + static profile/identity config; no typed beliefs</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Static Memory Bank files</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Static bootstrap/persona files</span></td>
+          <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">AGENTS.md / SYSTEM.md context files plus the session tree</span></td>
         </tr>
         <tr>
           <td class="row-label">2. Reason</td>
+          <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
@@ -644,37 +651,42 @@ strong{color:var(--ink);font-weight:600;}
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Dangerous-command approval gate; no risk-tiering</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Binary human-approval gate</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Queueing, not risk-tiering</span></td>
+          <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Explicitly omitted — no permission prompts by design</span></td>
         </tr>
         <tr>
           <td class="row-label">4. Act</td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Concurrent dispatch; binary dangerous-command gate only</span></td>
           <td class="cell"><span class="glyph glyph-present">●</span><span class="cell-text">Git checkpoint before every edit</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Broad device/OS action surface</span></td>
+          <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">4 core tools (read / write / edit / bash); unrestricted by default</span></td>
         </tr>
         <tr>
           <td class="row-label">5. Verify</td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Informal check + diff-repair</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Cosmetic reply shaping only</span></td>
+          <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
         </tr>
         <tr>
           <td class="row-label">6. Recover</td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Fallback provider, iteration budget</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Checkpoint rollback, diff-repair</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Auto-compaction retry + provider fallback</span></td>
+          <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Session-tree rewind and automatic compaction</span></td>
         </tr>
         <tr>
           <td class="row-label">7. Learn &amp; Repeat</td>
           <td class="cell"><span class="glyph glyph-present">●</span><span class="cell-text">Persistent memory + self-improving skills</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Memory Bank persists across sessions</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Static — explicitly no self-improvement</span></td>
+          <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described (extensions can edit the agent itself)</span></td>
         </tr>
       </tbody>
     </table>
     </div>
 
     <div class="matrix-callout">
-      <p><strong>Reading the pattern:</strong> Execution and Memory/Learning are the only two stages where any agent reaches full (●) coverage — Kilo's checkpoints and Hermes's persistent memory, respectively. Reasoning is not described by any of the three. This isn't a knock on any one project; it's a reasonably faithful reading of what's in their own public documentation, and it's exactly the gap the <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">eleven-layer harness</a> above is meant to close.</p>
+      <p><strong>Reading the pattern:</strong> Execution and Memory/Learning are the only two stages where any agent reaches full (●) coverage — Kilo's checkpoints and Hermes's persistent memory, respectively. Reasoning is not described by any of the four, and Pi's column is read from its tools and extension points rather than a published loop. This isn't a knock on any one project; it's a reasonably faithful reading of what's in their own public documentation, and it's exactly the gap the <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">eleven-layer harness</a> above is meant to close.</p>
     </div>
 
     <details class="steps-card" style="margin-top:32px;border-top-color:var(--line);">
@@ -717,6 +729,10 @@ strong{color:var(--ink);font-weight:600;}
             <li>Persist &amp; emit — write transcript to JSONL, emit lifecycle:end</li>
           </ol>
         </div>
+        <div>
+          <div class="agent-label" style="margin-bottom:10px;"><span class="dot" style="background:var(--series-pi);"></span>Pi — no step list published</div>
+          <p style="font-size:12.5px;line-height:1.55;">Pi's docs describe four core tools (<code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code>), JSONL session trees, compaction and extension hooks, not a numbered step-level loop, so none is reconstructed here.</p>
+        </div>
       </div>
     </details>
 
@@ -732,6 +748,10 @@ strong{color:var(--ink);font-weight:600;}
       <div class="quote-card" style="border-left-color:var(--series-openclaw);">
         <div class="agent-label" style="margin-bottom:10px;font-size:11.5px;"><span class="dot" style="background:var(--series-openclaw);"></span>OpenClaw</div>
         <p>Independent architecture write-ups describe OpenClaw's runtime as "just a ReAct loop, a filesystem, sessions, and plain API calls" — the simplicity is deliberate, and by broad agreement the loop is not where its traction comes from.</p>
+      </div>
+      <div class="quote-card" style="border-left-color:var(--series-pi);">
+        <div class="agent-label" style="margin-bottom:10px;font-size:11.5px;"><span class="dot" style="background:var(--series-pi);"></span>Pi</div>
+        <p>Pi doesn't pretend the loop is special. It keeps it as small as it can, with four tools and a system prompt under 1,000 tokens, and treats permissions, planning and sub-agents as optional extensions rather than core.</p>
       </div>
     </div>
 
