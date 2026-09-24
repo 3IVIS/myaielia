@@ -1159,7 +1159,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <div class="fm-branch"><b>semantic pass (assistant)</b> one LLM call, only for candidates the lexical pass wouldn't confidently classify</div>
       <div class="fm-branch"><b>all-lexical turn</b> if every new belief already looks lexically structured, the LLM call is skipped entirely — no cost</div>
     </div>
-    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;B. Does the semantic pass catch enough conflicts the lexical check misses to pay for the call? <a href="/harness-evaluation#bench">See the audit →</a></p>
+    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;B. Does the semantic pass catch enough conflicts the lexical check misses to pay for the call? <a href="/harness-evaluation">See the audit →</a></p>
   </div>
 </dialog>
 
@@ -1222,7 +1222,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <p class="fm-desc">Matches observed symptoms against the curated failure-pattern library by meaning, not exact wording — e.g. "the request took too long and timed out" matches a curated "request timed out" symptom.</p>
     <div class="fm-files"><b>Files:</b> failure-mode-matcher.ts</div>
     <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Layered on top of Recovery (Layer 10)'s own pattern-library match — one LLM call, only reached when the lexical match doesn't already resolve it.</p>
-    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;B. The exact-string match "almost never" hits on free-text symptoms; the open question is whether the semantic match then changes any outcome. <a href="/harness-evaluation#bench">See the audit →</a></p>
+    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;B. The exact-string match "almost never" hits on free-text symptoms; the open question is whether the semantic match then changes any outcome. <a href="/harness-evaluation">See the audit →</a></p>
   </div>
 </dialog>
 
@@ -1236,7 +1236,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <p class="fm-desc">Checks whether a proposed action genuinely conflicts with a high-confidence belief or an active hypothesis's predicted observation — a real logical conflict, not just topical overlap.</p>
     <div class="fm-files"><b>Files:</b> review-checker.ts</div>
     <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Layered on top of Reviewer Pass (Layer 11)'s own three lenses.</p>
-    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;C. <a href="/harness-evaluation#bench">See the audit →</a></p>
+    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;C. <a href="/harness-evaluation">See the audit →</a></p>
   </div>
 </dialog>
 
