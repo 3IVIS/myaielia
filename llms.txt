@@ -23,7 +23,7 @@ File and shell access are opt-in and off by default, and exist only in the CLI a
 - [Try it in your browser](https://myaielia.com/try): the hosted browser build. Your API key stays in your browser.
 - [Harness comparison](https://myaielia.com/harness-comparison): OpenClaw, Hermes Agent, Kilo Code and Pi compared layer by layer against a harness-first assistant, including what each one lacks (Pi is minimal by design), with references.
 - [Harness architecture](https://myaielia.com/harness-architecture): the 11-layer control loop in detail — world model, control state, verification, recovery and cross-run learning — plus the one-loop proposer with mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph.
-- [Harness evaluation](https://myaielia.com/harness-evaluation): measured results for four features on purpose-built multi-turn corpora (3 seeds, Claude Sonnet 5): the Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run has its own transcript page.
+- [Harness evaluation](https://myaielia.com/harness-evaluation): measured results for the Trajectory Supervisor on a purpose-built multi-turn corpus (3 seeds, Claude Sonnet 5): it recovers stalled runs, at higher cost. Every run has its own transcript page.
 
 ## Accounts, keys, and privacy
 

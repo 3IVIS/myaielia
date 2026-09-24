@@ -42,17 +42,17 @@ active_nav: evaluation
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Does it work? Measured results for mid-turn steering, the Trajectory Supervisor, next-step options and the goal graph | Aielia</title>
+<title>Does it work? Measured results for the Trajectory Supervisor | Aielia</title>
 
-<meta name="description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.">
+<meta name="description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.">
 
 <link rel="canonical" href="https://myaielia.com/harness-evaluation">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://myaielia.com/harness-evaluation">
 <meta property="og:site_name" content="Aielia">
-<meta property="og:title" content="Does it work? Four Aielia features, measured">
-<meta property="og:description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.">
+<meta property="og:title" content="Does it work? The Trajectory Supervisor, measured">
+<meta property="og:description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.">
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -60,14 +60,14 @@ active_nav: evaluation
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Does it work? Four Aielia features, measured">
-<meta name="twitter:description" content="Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.">
+<meta name="twitter:title" content="Does it work? The Trajectory Supervisor, measured">
+<meta name="twitter:description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
 <meta name="twitter:image:alt" content="Build A Harness — measuring whether each harness feature earns its cost.">
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
-<meta name="keywords" content="AI agent evaluation, harness ablation, agent benchmark, reproducible eval, feature value, LLM cost latency tradeoff, harness engineering, trajectory supervisor, mid-turn steering, next-step options, goal graph, multi-turn benchmark">
+<meta name="keywords" content="AI agent evaluation, harness ablation, agent benchmark, reproducible eval, feature value, LLM cost latency tradeoff, harness engineering, trajectory supervisor, stall recovery, multi-turn benchmark">
 
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -86,8 +86,8 @@ active_nav: evaluation
     {
       "@type": "Article",
       "@id": "https://myaielia.com/harness-evaluation#article",
-      "headline": "Does it work? Four Aielia features, measured",
-      "description": "Four Aielia features measured on purpose-built multi-turn corpora: 3 seeds, Claude Sonnet 5, LLM judge on. The Trajectory Supervisor recovers stalled runs at higher cost; mid-turn steering, next-step options and the goal graph are not yet proven either way. Every run is published.",
+      "headline": "Does it work? The Trajectory Supervisor, measured",
+      "description": "The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.",
       "datePublished": "2026-09-07",
       "dateModified": "2026-09-24",
       "author": { "@id": "https://myaielia.com/#org" },
@@ -116,16 +116,6 @@ active_nav: evaluation
           "@type": "Question",
           "name": "Why publish results that aren't flattering?",
           "acceptedAnswer": { "@type": "Answer", "text": "Because “11 layers, thousands of tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a benchmark that can come back negative or unproven, and we publish it either way." }
-        },
-        {
-          "@type": "Question",
-          "name": "Why are three of the four not yet proven?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Each has a different reason, and each is on its result page. Mid-turn steering never actually got to absorb a message in flight on the keyless CLI backend we can run without an API key. The goal graph scored 100% with and without it, so the corpus could not separate them. Next-step options landed between our pre-set KEEP and CUT thresholds. “Not yet proven” means what it says: not enough to keep it on by default with confidence, not enough to cut." }
-        },
-        {
-          "@type": "Question",
-          "name": "Why not an A/B test for next-step options?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Without the feature there are no options to compare. Comparing task success would be meaningless, so we graded the options themselves: how often they named the expected continuation, and how often they appeared where nothing should follow. The thresholds (KEEP at 70% hits with at most 25% false positives, CUT under 40% hits) were fixed before the runs." }
         },
         {
           "@type": "Question",
@@ -288,27 +278,27 @@ pre code{background:none;padding:0;color:inherit;}
 
     <div class="eyebrow">EVALUATION · RULE 6 · EVERY RUN PUBLISHED</div>
 
-    <h1>We measure whether our own <em>features work.</em><br>Four of them, on corpora built for the job.</h1>
+    <h1>We measure whether our own <em>features work.</em><br>Starting with the Trajectory Supervisor.</h1>
 
     <p class="hero-lede">
-      Mid-turn steering, the Trajectory Supervisor, next-step options and the goal graph are the newest
-      parts of <a class="inline" href="/harness-architecture">the harness</a>, and none of them can be judged on a
-      one-shot question. Each one below was run on a purpose-built multi-turn corpus, with the result decided by
-      rules fixed in advance. One earns its cost. Three don't yet show it. Every run has its own page.
+      The Trajectory Supervisor is one of the newest parts of <a class="inline" href="/harness-architecture">the harness</a>,
+      and it cannot be judged on a one-shot question: it needs a stall with work already behind it. It was run on a
+      purpose-built multi-turn corpus, with the result decided by rules fixed in advance. It recovers stalled runs,
+      at a real cost. Every run has its own page.
     </p>
 
     <div class="stat-row" role="list">
       <div class="stat" role="listitem">
-        <span class="stat-n">4 / 4</span>
-        <span class="stat-l">features measured on new multi-turn corpora (8 tasks each)</span>
+        <span class="stat-n">8 tasks</span>
+        <span class="stat-l">on a multi-turn corpus built for stalls, including two clean controls</span>
       </div>
       <div class="stat" role="listitem">
-        <span class="stat-n" style="font-size:17px;">1 effective, at more cost &middot; 3 not yet proven</span>
+        <span class="stat-n" style="font-size:17px;">Effective, at more cost</span>
         <span class="stat-l">by the evidence — details in the table below</span>
       </div>
       <div class="stat" role="listitem">
         <span class="stat-n">3 seeds</span>
-        <span class="stat-l">24 runs per arm and feature, Claude Sonnet 5, LLM judge on</span>
+        <span class="stat-l">24 runs per arm, Claude Sonnet 5, LLM judge on</span>
       </div>
     </div>
 
@@ -329,15 +319,12 @@ pre code{background:none;padding:0;color:inherit;}
     <h2>"Eleven layers, thousands of tests" proves we <em>built</em> something.<br>Not that it works.</h2>
     <p class="prose">
       A harness is a governance and reliability layer wrapped around a model. Everything it adds costs latency and
-      tokens on every turn, and is only worth paying for if it changes outcomes: a stalled run that recovers, a
-      correction that lands, a goal that keeps its own evidence.
+      tokens on every turn, and is only worth paying for if it changes outcomes: a stalled run that recovers.
     </p>
     <p class="prose">
-      Our first pass at this benchmark ran mostly single-turn tasks. That is not the shape these four features
-      are for: steering needs a turn that is still running, the supervisor needs a stall with context behind it,
-      the goal graph needs several goals in flight, and next-step options need a finished piece of work to follow
-      up on. So we took the results down, rebuilt the corpus, and re-ran. This page is the rebuilt result, and it
-      is allowed to come back negative.
+      Our first pass at this benchmark ran mostly single-turn tasks. That is not the shape the supervisor is for: it
+      needs a stall with context behind it. So we took the results down, rebuilt the corpus, and re-ran. This page is
+      the rebuilt result, and it is allowed to come back negative.
     </p>
   </div>
 </section>
@@ -400,15 +387,14 @@ pre code{background:none;padding:0;color:inherit;}
   <div class="wrap">
     <div class="section-label">RESULTS</div>
     <h2>What the runs <em>showed.</em></h2>
-    <p class="prose">Four features, each measured against the same assistant without it, three seeds, Claude Sonnet 5
-    as both the assistant and the judge. Verdicts come from fixed rules: a gain has to clear its confidence band to
-    count, and a gain that costs more has to be big enough to justify it. “Not yet proven” means we can neither keep a
-    feature on by default with confidence nor cut it. Each result page holds the case study, the numbers and every
-    run's transcript.</p>
+    <p class="prose">The Trajectory Supervisor, measured against the same assistant without it, three seeds, Claude Sonnet 5
+    as both the assistant and the judge. The verdict comes from fixed rules: a gain has to clear its confidence band to
+    count, and a gain that costs more has to be big enough to justify it. The result page holds the case study, the
+    numbers and every run's transcript.</p>
 
     <table class="cmp-table">
       <caption style="caption-side:bottom;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.04em;padding:12px 4px 0;">
-        LLM judge on, 3 seeds, 8 tasks per feature. Model: Claude Sonnet 5 (assistant and judge), recorded in every machine report.
+        LLM judge on, 3 seeds, 8 tasks. Model: Claude Sonnet 5 (assistant and judge), recorded in every machine report.
       </caption>
       <thead>
         <tr>
@@ -429,36 +415,6 @@ pre code{background:none;padding:0;color:inherit;}
           <td>8 tasks, 3 seeds. Task success 37.5% &rarr; 62.5% (<span style="color:var(--green);font-weight:600;">+25 pts</span>). Two stalled tasks recovered only with it; three recovered by neither. Cost <strong style="color:var(--red);font-weight:600;">+43%</strong>, latency <strong style="color:var(--red);font-weight:600;">+33%</strong>. Never consulted on the two clean controls. Stalls are injected, not organic.
           <a href="/harness-evaluation/trajectory-supervisor-midtask/">Read the actual runs →</a></td>
         </tr>
-        <tr>
-          <td>
-            <span class="feat">Mid-turn steering</span>
-            <span class="featref">live steering channel · <a href="/harness-architecture">Loop</a></span>
-          </td>
-          <td>A message sent while a long turn runs (correction, extra ask, new goal, cancel) is handled at least as well as queueing it, with less wasted work.</td>
-          <td><span class="verdict mixed">Not exercised: no mid-turn absorption</span></td>
-          <td>Success 95.8% (23 of 24) both queued and live (CI &plusmn;12); cost &minus;23%, latency &minus;22%. <strong>In 0 of 24 runs was the message absorbed inside the running turn</strong>: on the keyless CLI backend a whole tool chain runs in one model call, so the channel is never polled mid-flight.
-          <a href="/harness-evaluation/steering-live/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Next-step options</span>
-            <span class="featref">+1 LLM call per turn · <a href="/harness-architecture">Loop</a></span>
-          </td>
-          <td>The options under a finished turn name the continuation a person would want, and stay silent when nothing follows.</td>
-          <td><span class="verdict mixed">Short of our bar (61% vs 70%)</span></td>
-          <td>Graded on the options themselves (thresholds set in advance). Named the expected next step in 11 of 18 runs (<strong>61%</strong>; KEEP needs 70%, CUT is under 40%). False positives <span style="color:var(--green);font-weight:600;">0 of 6</span>. Reply correctness unchanged. Cost <strong style="color:var(--red);font-weight:600;">+76%</strong> per turn (under half a cent).
-          <a href="/harness-evaluation/next-step-options/">Read the actual runs →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="feat">Hierarchical goal graph</span>
-            <span class="featref">goal threads across turns · <a href="/harness-architecture">Loop</a></span>
-          </td>
-          <td>Tracking each goal as its own thread keeps the right evidence and constraints on the right goal when several goals interleave.</td>
-          <td><span class="verdict mixed">No measurable difference</span></td>
-          <td>8 interleaved-goal sessions, 3 seeds. <strong>100% with and without it.</strong> Cost &minus;7%, latency and tokens identical. A ceiling effect: plain conversation history was enough at this session length, so the corpus could not separate the arms.
-          <a href="/harness-evaluation/goal-graph-threads/">Read the actual runs →</a></td>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -468,18 +424,11 @@ pre code{background:none;padding:0;color:inherit;}
 <section class="section alt" id="corpora">
   <div class="wrap">
     <div class="section-label">THE CORPORA</div>
-    <h2>Built for <em>each mechanism.</em></h2>
-    <p class="prose">Eight tasks per feature, including controls where the feature should do nothing. The tasks are
+    <h2>Built for <em>the mechanism.</em></h2>
+    <p class="prose">Eight tasks, including controls where the feature should do nothing. The tasks are
     small on purpose, so a grader can check them without a model's opinion. What makes them relevant is their shape.</p>
 
-    <div class="method-grid two">
-      <div class="method-card">
-        <div class="mc-n">MID-TURN STEERING</div>
-        <h3>Pointer chains, with a message mid-way</h3>
-        <p>Eight tasks where each file names the next, so the turn has to keep going. A message arrives while it
-        runs: two corrections, two extra asks, two unrelated questions and two cancels. The control queues the
-        message as the next turn, which is what happens with the feature off.</p>
-      </div>
+    <div class="method-grid">
       <div class="method-card">
         <div class="mc-n">TRAJECTORY SUPERVISOR</div>
         <h3>Stalls that arrive late</h3>
@@ -487,25 +436,7 @@ pre code{background:none;padding:0;color:inherit;}
         that only points elsewhere, nested lookups, a stale answer overridden by a newer file, and a turn where the
         user must supply a detail. Two clean sessions check it stays quiet.</p>
       </div>
-      <div class="method-card">
-        <div class="mc-n">NEXT-STEP OPTIONS</div>
-        <h3>Finished work with an obvious sequel</h3>
-        <p>Open TODO items, failing tests, pending release steps, a missing attachment, a flagged outlier and a
-        config that has a prod twin. Two closed questions are the false-positive controls. There is no arm that
-        produces options without the feature, so the options themselves are graded.</p>
-      </div>
-      <div class="method-card">
-        <div class="mc-n">GOAL GRAPH</div>
-        <h3>Goals that interleave</h3>
-        <p>Sessions of three to seven turns: return to a goal after a detour, three similar projects updated out of
-        order, format constraints that belong to one topic, a correction that must survive a detour, and a linear
-        control. No mid-turn messages, so thread tracking is separated from steering.</p>
-      </div>
     </div>
-    <p class="prose" style="margin-top:20px;">Two things we changed along the way, both on the result pages. The first
-    steering corpus read independent files, which the assistant batched into one step, so we rebuilt it as chains
-    and kept the superseded reports in the repo. And a first scoring of the next-step run wrongly counted missed
-    options as reply failures, which we fixed before publishing.</p>
   </div>
 </section>
 
@@ -516,11 +447,11 @@ pre code{background:none;padding:0;color:inherit;}
     <h2>The whole benchmark is <em>open source.</em></h2>
     <p class="prose">The task corpus, the mechanical grader, the arm definitions and the runner live in the product repo
     under <code>packages/aielia/eval/</code>. Every result links to its per-run transcripts, and each run records the
-    model it executed on. The four features run in parallel, one process per feature and seed:</p>
+    model it executed on. The supervisor run, one process per seed:</p>
 
     <pre><code>cd packages/aielia
 node scripts/run-audit-parallel.mjs \
-  --features=steering-live,trajectory-supervisor-midtask,next-step-options,goal-graph-threads \
+  --features=trajectory-supervisor-midtask \
   --seeds=3 --concurrency=6</code></pre>
 
     <p class="prose" style="margin-top:20px;">
@@ -538,14 +469,6 @@ node scripts/run-audit-parallel.mjs \
       <div class="faq-item">
         <h3>Why publish results that aren't flattering?</h3>
         <p>Because “11 layers, thousands of tests” proves we built something, not that it works. A harness is only worth its latency and token cost if it changes outcomes. The honest way to know is a benchmark that can come back negative or unproven, and we publish it either way.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Why are three of the four not yet proven?</h3>
-        <p>Each has a different reason, and each is on its result page. Mid-turn steering never actually got to absorb a message in flight on the keyless CLI backend we can run without an API key. The goal graph scored 100% with and without it, so the corpus could not separate them. Next-step options landed between our pre-set KEEP and CUT thresholds. “Not yet proven” means what it says: not enough to keep it on by default with confidence, not enough to cut.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Why not an A/B test for next-step options?</h3>
-        <p>Without the feature there are no options to compare. Comparing task success would be meaningless, so we graded the options themselves: how often they named the expected continuation, and how often they appeared where nothing should follow. The thresholds (KEEP at 70% hits with at most 25% false positives, CUT under 40% hits) were fixed before the runs.</p>
       </div>
       <div class="faq-item">
         <h3>Does a feature that doesn't earn its cost get deleted?</h3>
