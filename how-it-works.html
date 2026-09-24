@@ -110,7 +110,7 @@ active_nav: how-it-works
       "url": "https://myaielia.com/how-it-works",
       "downloadUrl": "https://www.npmjs.com/package/@buildaharness/aielia",
       "installUrl": "https://myaielia.com/try",
-      "softwareRequirements": "Node.js (CLI/browser); Rust toolchain only for building the native desktop app",
+      "softwareRequirements": "Node.js (CLI/browser only); the desktop installers need nothing else",
       "programmingLanguage": ["TypeScript"],
       "license": "https://www.apache.org/licenses/LICENSE-2.0",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -918,14 +918,23 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
     </div>
 
     <p style="margin-top:28px;">
-      <strong>Native desktop app — a real window, not a browser tab.</strong> Same chat UI, wrapped in Tauri, built from a clone of the repo. This one needs an actual Rust toolchain (<a href="https://rustup.rs" style="color:var(--accent-ink);">rustup</a>; Tauri 2.11 needs <code style="font-size:13px">rustc &gt;= 1.88</code>) — the browser and CLI paths above don't.
+      <strong>Native desktop app — a real window, not a browser tab.</strong> Same chat UI, wrapped in Tauri, with a native folder picker for the file-tools workspace root. Download an installer from the <a href="https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.2" style="color:var(--accent-ink);">latest desktop release</a>; no Node or Rust needed.
+    </p>
+
+    <ul>
+      <li><strong>macOS</strong> (universal, Intel and Apple silicon): <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.2/buildaharness-assistant_0.1.2_universal.dmg" style="color:var(--accent-ink);">.dmg</a></li>
+      <li><strong>Windows</strong>: <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.2/buildaharness-assistant_0.1.2_x64-setup.exe" style="color:var(--accent-ink);">setup .exe</a> or <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.2/buildaharness-assistant_0.1.2_x64_en-US.msi" style="color:var(--accent-ink);">.msi</a></li>
+      <li><strong>Linux</strong> (x86_64): <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.2/buildaharness-assistant_0.1.2_amd64.AppImage" style="color:var(--accent-ink);">.AppImage</a>, <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.2/buildaharness-assistant_0.1.2_amd64.deb" style="color:var(--accent-ink);">.deb</a> or <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.2/buildaharness-assistant-0.1.2-1.x86_64.rpm" style="color:var(--accent-ink);">.rpm</a></li>
+    </ul>
+
+    <p>
+      The installers aren't code-signed yet, so your OS may warn the first time. On macOS (Gatekeeper), right-click the app and choose Open. On Windows (SmartScreen), choose More info, then Run anyway. To build it yourself instead, clone the repo; that needs a Rust toolchain (<a href="https://rustup.rs" style="color:var(--accent-ink);">rustup</a>; Tauri 2.11 needs <code style="font-size:13px">rustc &gt;= 1.88</code>):
     </p>
 
     <div class="quickstart-box">
       <div class="quickstart-bar">shell</div>
       <pre>npm run dev:desktop
-<span style="color:var(--ink-3)"># opens a native window against the same chat UI — Settings works the same way,
-# plus a native folder picker for the file-tools workspace root.</span></pre>
+<span style="color:var(--ink-3)"># opens a native window against the same chat UI — Settings works the same way.</span></pre>
     </div>
 
     <div class="tool-callout" style="margin-top:24px;">
