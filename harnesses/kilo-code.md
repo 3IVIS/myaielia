@@ -4,15 +4,15 @@
 > [myaielia.com/harness-comparison](https://myaielia.com/harness-comparison),
 > which is the canonical, maintained version — figures there take precedence over this file.
 
-Kilo Code is an open source, end-to-end AI coding agent, forked from Roo Code (itself a fork of Cline) and launched in March 2025. It works across VS Code, JetBrains, a standalone CLI, a cloud agent, and mobile apps, and routes to 500+ models across 60+ providers through its own model gateway. By mid-2026 it reported 1.5M+ users, 3M+ "Kilo Coders," 40T+ tokens processed, and an $8M seed round.
+Kilo Code is an open source, end-to-end AI coding agent, launched in March 2025 as a fork of Roo Code (itself a fork of Cline); since April 2026 its VS Code extension and CLI are rebuilt on an OpenCode-based core. It works across VS Code, JetBrains, a standalone CLI, a cloud agent, and mobile apps, and routes to 500+ models across 60+ providers through its own model gateway. By mid-2026 it reported 1.5M+ users, 3M+ "Kilo Coders," 40T+ tokens processed, and an $8M seed round.
 
 ## Architecture Overview
 
 - **Agents (modes)** — code (default, full tool access), ask (read-only), plan (read-only plus plan-file editing), and debug (full access, methodical troubleshooting). Orchestrator mode is deprecated; subagent delegation is now built into the other agents directly.
-- **Context management** — an automatic context scan pulls in only files relevant to the task, `@`-mentions let the user point at specific files/functions, and a Memory Bank (`context.md`, `brief.md`, `history.md` under `.kilocode/rules/memory-bank`) is read at the start of every task to restore project-level memory across sessions.
+- **Context management** — an automatic context scan pulls in only files relevant to the task, `@`-mentions let the user point at specific files/functions, and the Memory Bank feature is now deprecated in favor of `AGENTS.md`; legacy memory-bank rules still work.
 - **Model gateway** — 500+ models across 60+ providers, zero markup on top of provider rates (BYOK or Kilo credits), with $20 free credits on signup and an optional Kilo Pass subscription.
 - **Tool system** — read/edit/bash/webfetch/MCP tools, plus task delegation to isolated subagents for codebase exploration or autonomous subtasks.
-- **Checkpoints** — every agent turn that edits files creates an automatic, git-based snapshot with a one-click revert to the state before that turn.
+- **Checkpoints** — git-based snapshots are captured automatically at the boundaries of each model call within a turn; the revert UI works per user message ("Revert to here").
 - **Context condensing** — conversation history is automatically summarized as it approaches the model's context window limit.
 - **Tool-call parsing** — supports both XML-tag tool calls and native function-calling, with a translation/fallback layer between them. This matters because raw XML tool-call parsing fails on the order of 10% of the time even on top-tier models, and Roo Code's own issue tracker cites over 15% failure rates for the `apply_diff` file-edit tool specifically — a problem that's worse the more models (including weak or local ones) the harness has to support.
 

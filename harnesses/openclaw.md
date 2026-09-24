@@ -4,7 +4,7 @@
 > [myaielia.com/harness-comparison](https://myaielia.com/harness-comparison),
 > which is the canonical, maintained version — figures there take precedence over this file.
 
-OpenClaw (originally released as Clawdbot in November 2025, briefly renamed Moltbot, then OpenClaw) is a free and open-source autonomous AI agent built by Austrian developer Peter Steinberger, distributed under the MIT license. It runs locally and connects to an external LLM (Claude, GPT, DeepSeek, or a local model), with messaging apps as its primary interface. As of March 2026 the project had roughly 247,000 GitHub stars and 47,700 forks, with an estimated half a million installs worldwide. On February 14, 2026, Steinberger announced he was joining OpenAI, with future stewardship of OpenClaw moving to a non-profit foundation.
+OpenClaw (first released as Warelay in November 2025, then renamed Clawdbot, Moltbot and finally OpenClaw in January 2026) is a free and open-source autonomous AI agent built by Austrian developer Peter Steinberger, distributed under the MIT license. It runs locally and connects to an external LLM (Claude, GPT, DeepSeek, or a local model), with messaging apps as its primary interface. As of March 2026 the project had roughly 247,000 GitHub stars and 47,700 forks, with an estimated half a million installs worldwide. On February 14, 2026, Steinberger announced he was joining OpenAI, with future stewardship of OpenClaw moving to a non-profit foundation.
 
 ## The Agent Loop
 
@@ -34,11 +34,11 @@ The differentiation is in what's built around the loop, not the loop itself:
 
 **A large skills marketplace (ClawHub)** for extending capability without touching code.
 
-By comparison, a rival harness ("Hermes") is often described as the "brain" to OpenClaw's "body": Hermes has a genuine self-improving skill/learning loop and pluggable memory backends, while OpenClaw's skills are static, authored files with no self-improvement — its edge is presence (voice, canvas, desktop/mobile control) rather than cognition.
+By comparison, a rival harness ("Hermes") is often described as the "brain" to OpenClaw's "body": Hermes has a genuine self-improving skill/learning loop and pluggable memory backends, while OpenClaw's skills were originally static authored files; recent releases add Skill Workshop / self-learning (auto mode by default) — its edge is presence (voice, canvas, desktop/mobile control) rather than cognition.
 
 **Popularity was mostly timing and narrative, not technology.** Steinberger built in public as a well-known indie developer; a viral case study (a 60-year-old brewer running an automated brewing business off a WhatsApp bot) and meme-friendly lobster branding drove attention; an AI-only social network (Moltbook) built around OpenClaw agents generated significant press; and Chinese tech firms (Tencent, Z.ai) built OpenClaw-based services and adapted it for domestic models and messaging super-apps.
 
-**The same popularity outpaced its security posture.** OpenClaw requires broad permissions (email, calendar, messaging, files) to be useful, which drew scrutiny from security researchers; it has a known RCE CVE (CVSS 8.8), a marketplace incident involving over a thousand malicious third-party skills, and is susceptible to prompt injection. In March 2026, Chinese regulators restricted state agencies, state-owned enterprises, and banks from running it, citing security risk and energy usage, even as local tech hubs subsidized its adoption.
+**The same popularity outpaced its security posture.** OpenClaw requires broad permissions (email, calendar, messaging, files) to be useful, which drew scrutiny from security researchers; it has a known RCE CVE (CVSS 8.8), a marketplace incident (Koi Security disclosed 341 malicious ClawHub skills in Feb 2026; later counts are higher), and is susceptible to prompt injection. In March 2026, Chinese regulators restricted state agencies, state-owned enterprises, and banks from running it, citing security risk and energy usage, even as local tech hubs subsidized its adoption.
 
 ## Sources
 
