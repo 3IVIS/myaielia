@@ -67,7 +67,7 @@ active_nav: evaluation
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
-<meta name="keywords" content="AI agent evaluation, harness ablation, agent benchmark, reproducible eval, feature value, LLM cost latency tradeoff, harness engineering, trajectory supervisor, stall recovery, multi-turn benchmark">
+<meta name="keywords" content="AI agent evaluation, harness ablation, agent benchmark, feature value, LLM cost latency tradeoff, harness engineering, trajectory supervisor, stall recovery, multi-turn benchmark">
 
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -125,7 +125,7 @@ active_nav: evaluation
         {
           "@type": "Question",
           "name": "What model are these run on?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Claude Sonnet 5, with Claude Sonnet 5 as the LLM judge. Both ids are written into every machine report and named on every transcript page." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Claude Sonnet 5, with Claude Sonnet 5 as the LLM judge. Both ids are named on every transcript page." }
         },
         {
           "@type": "Question",
@@ -306,7 +306,7 @@ pre code{background:none;padding:0;color:inherit;}
       <a class="btn" href="#method">The method ↓</a>
       <a class="btn btn-ghost" href="#results">The results ↓</a>
       <a class="btn btn-ghost" href="#corpora">The corpora ↓</a>
-      <a class="btn btn-ghost" href="#reproduce">Reproduce it ↓</a>
+      <a class="btn btn-ghost" href="#transparency">What is published ↓</a>
     </div>
 
   </div>
@@ -375,7 +375,7 @@ pre code{background:none;padding:0;color:inherit;}
         <div class="mc-n">06 — RECORD</div>
         <h3>The whole story, either way</h3>
         <p>Not just the number. Where the idea came from, what we expected, what actually happened, and why —
-        as an entry on this page, plus a row in the benchmark doc and the machine report JSON in the repo.
+        as an entry on this page, with every run's turn-by-turn transcript published alongside it.
         Negative results included.</p>
       </div>
     </div>
@@ -394,7 +394,7 @@ pre code{background:none;padding:0;color:inherit;}
 
     <table class="cmp-table">
       <caption style="caption-side:bottom;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.04em;padding:12px 4px 0;">
-        LLM judge on, 3 seeds, 8 tasks. Model: Claude Sonnet 5 (assistant and judge), recorded in every machine report.
+        LLM judge on, 3 seeds, 8 tasks. Model: Claude Sonnet 5 (assistant and judge), named on every transcript page.
       </caption>
       <thead>
         <tr>
@@ -441,18 +441,14 @@ pre code{background:none;padding:0;color:inherit;}
 </section>
 
 
-<section class="section alt" id="reproduce">
+<section class="section alt" id="transparency">
   <div class="wrap">
-    <div class="section-label">REPRODUCE</div>
-    <h2>The whole benchmark is <em>open source.</em></h2>
-    <p class="prose">The task corpus, the mechanical grader, the arm definitions and the runner live in the product repo
-    under <code>packages/aielia/eval/</code>. Every result links to its per-run transcripts, and each run records the
-    model it executed on. The supervisor run, one process per seed:</p>
-
-    <pre><code>cd packages/aielia
-node scripts/run-audit-parallel.mjs \
-  --features=trajectory-supervisor-midtask \
-  --seeds=3 --concurrency=6</code></pre>
+    <div class="section-label">WHAT IS PUBLISHED</div>
+    <h2>Every run is <em>on the record.</em></h2>
+    <p class="prose">Every result on this page links to its per-run transcripts: the full turn-by-turn conversation for each
+    task, arm and seed, with the model it executed on and the judge's verdict and reasoning. The assistant and harness
+    under test are the open-source code in the product repo. The benchmark corpus, grader and runner are maintained
+    privately, so what we publish is the result and the evidence behind every run.</p>
 
     <p class="prose" style="margin-top:20px;">
       <a class="inline" href="https://github.com/3IVIS/buildaharness/tree/main/packages/aielia">Aielia on GitHub →</a>
@@ -476,7 +472,7 @@ node scripts/run-audit-parallel.mjs \
       </div>
       <div class="faq-item">
         <h3>What model are these run on?</h3>
-        <p>Claude Sonnet 5, with Claude Sonnet 5 as the LLM judge. Both ids are written into every machine report and named on every transcript page.</p>
+        <p>Claude Sonnet 5, with Claude Sonnet 5 as the LLM judge. Both ids are named on every transcript page.</p>
       </div>
       <div class="faq-item">
         <h3>How does this relate to the architecture page?</h3>
