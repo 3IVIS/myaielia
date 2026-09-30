@@ -547,7 +547,7 @@ pre{
     <ul style="margin:0 0 20px;padding-left:22px;display:grid;gap:10px;">
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may do, right now.</strong> Every tool call is checked against a live control state (normal, cautious, blocked) before it runs, and that state tightens as failures pile up. <a href="#layers" style="color:var(--accent-ink);">The eleven layers →</a></li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may believe.</strong> Only high-confidence model inferences reach lasting memory on their own (medium ones wait for your confirmation), each fact keeps its source, and fetched content is data, never instructions. <a href="#trust" style="color:var(--accent-ink);">Trust boundary →</a></li>
-      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Whether the answer holds up.</strong> Verification and a reviewer pass run before a reply goes out; tool-backed replies carry evidence and a status of verified, unverified, contradicted, or no evidence.</li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Whether the answer holds up.</strong> Verification and a reviewer pass run before a reply goes out; tool-backed replies carry evidence and a status of verified, unverified, contradicted, or no evidence — and <i>verified</i> requires one LLM call to confirm the reply matches the raw tool output.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What a job may cost.</strong> Per-item budgets, dead-end detection, a confirmation step before a large batch, and a hard per-turn ceiling on tool calls.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What happens when it goes wrong.</strong> Classified failures, recovery strategies, and mid-turn checkpoints so a crash resumes the job. <a href="#resilience" style="color:var(--accent-ink);">Crash resume →</a></li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What can't be undone.</strong> File writes, shell commands and email are staged as an exact action and applied only on your approval (unless you opt out). <a href="#risk-gate" style="color:var(--accent-ink);">Approval gates →</a></li>
@@ -564,7 +564,7 @@ pre{
     <h2>One message, <em>one bounded run.</em></h2>
 
     <p>
-      Most autonomous agents decompose a goal into a long multi-task plan — research, then draft, then revise, then send — and let it run. Aielia keeps every chat message to <strong>one bounded harness run</strong>. By default a message is one task; when a request clearly names several steps, the classifier can split it into a small task graph for that turn. Either way each turn's <code style="font-size:14px">HarnessRuntime.run()</code> stays bounded — the harness drives the model's tool-calling loop one proposed action at a time (<code style="font-size:14px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), rather than fanning out into an open-ended plan of its own. A stricter, opt-in plan mode (<code style="font-size:14px">ASSISTANT_PLAN_MODE=gated</code>, off by default) drafts a durable plan for multi-step requests and runs nothing until you approve it. Every run still walks its full 11-layer sequence, World Model through Reviewer Pass (the exact breakdown is below), with context compression and cross-turn learning running alongside it. Four mechanisms wrap that loop, all on by default since 2026-09-23 (each has a <code>disabled</code> escape hatch): a hierarchical goal graph that keeps each goal as its own thread across turns, mid-turn steering that absorbs a message you send while a turn is running, a Trajectory Supervisor that makes one bounded LLM call to pick a way out when the loop stalls, and up to three next-step options shown under a reply. <a href="/harness-architecture#around-the-loop">See them on the architecture page →</a>
+      Most autonomous agents decompose a goal into a long multi-task plan — research, then draft, then revise, then send — and let it run. Aielia keeps every chat message to <strong>one bounded harness run</strong>. By default a message is one task; when a request clearly names several steps, the classifier can split it into a small task graph for that turn. Either way each turn's <code style="font-size:14px">HarnessRuntime.run()</code> stays bounded — the harness drives the model's tool-calling loop one proposed action at a time (<code style="font-size:14px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), rather than fanning out into an open-ended plan of its own. A stricter, opt-in plan mode (<code style="font-size:14px">ASSISTANT_PLAN_MODE=gated</code>, off by default) drafts a durable plan for multi-step requests and runs nothing until you approve it. Every run still walks its full 11-layer sequence, World Model through Reviewer Pass (the exact breakdown is below), with context compression running alongside it. Four mechanisms wrap that loop, all on by default since 2026-09-23 (each has a <code>disabled</code> escape hatch): a hierarchical goal graph that keeps each goal as its own thread across turns, mid-turn steering that absorbs a message you send while a turn is running, a Trajectory Supervisor that makes one bounded LLM call to pick a way out when the loop stalls, and up to three next-step options shown under a reply. <a href="/harness-architecture#around-the-loop">See them on the architecture page →</a>
     </p>
 
     <p>
@@ -574,7 +574,7 @@ pre{
     <ul style="margin:0 0 18px;padding-left:20px;display:flex;flex-direction:column;gap:10px;">
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Conversation history</strong> — kept in a memory adapter and fed to the model directly, the same transcript across every turn's fresh harness run.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Risk classification</strong> — one consolidated classification call every turn judges risk, triviality, decomposition, plan-abandonment, and plan-template matching together, in any language — not a chain of separately keyword-gated calls (see <code style="font-size:13px">turn-intent-classifier.ts</code>). Its approval-requirement and plan-abandonment guesses are never trusted directly, though: a deterministic policy layer (<code style="font-size:13px">turn-policy.ts</code>) always recomputes those two consequential decisions from structural signals, taking the classifier's guess as one input, not the decision — the same shape the per-tool-call gate below already used.</li>
-      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Cross-turn learning</strong> — strategy weights, learned decompositions, and recovery sequences accumulate in an experience store that outlives any single turn.</li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Cross-turn learning</strong> — an experience store that outlives any single turn. Today it records each run, but learning from those records (strategy weights and failure-class priors that reorder recovery) is opt-in and off by default (<code style="font-size:14px">AUDIT_EXPERIENCE_LEARNING=1</code>); learned decompositions and workflows are not loaded yet.</li>
     </ul>
 
     <p>
@@ -582,7 +582,7 @@ pre{
     </p>
 
     <p>
-      Net effect: the harness run is where the reply gets built. <code style="font-size:13px">driveMainLoop</code> calls the model once per tool-use iteration through a proposer, and verification, control state, and the reviewer pass run around those calls rather than after a finished draft. Every turn also spends one consolidated classification call up front, deciding risk, triviality, decomposition, plan-abandonment, and plan-template matching together — in any language, not just English — and checking long tool output for injected instructions is still its own separately-gated check outside that call. The one path that skips even the classification call is a request to cancel a single step of an already-active plan, handled deterministically before it ever runs. Setting <code style="font-size:13px">ASSISTANT_ONE_LOOP=disabled</code> restores the older design — the tool loop finishes first, then the harness runs once as synchronous bookkeeping over the result — kept as an escape hatch for one rollout window. Either way, every layer of the harness is genuinely exercised on every turn that reaches it — not skipped past by a thin wrapper that calls itself a harness.
+      Net effect: the harness run is where the reply gets built. <code style="font-size:13px">driveMainLoop</code> calls the model once per tool-use iteration through a proposer, and verification, control state, and the reviewer pass run around those calls rather than after a finished draft. Every turn also spends one consolidated classification call up front, deciding risk, triviality, decomposition, plan-abandonment, and plan-template matching together — in any language, not just English — and checking tool output for injected instructions is still its own separate LLM check outside that call. The one path that skips even the classification call is a request to cancel a single step of an already-active plan, handled deterministically before it ever runs. Setting <code style="font-size:13px">ASSISTANT_ONE_LOOP=disabled</code> restores the older design — the tool loop finishes first, then the harness runs once as synchronous bookkeeping over the result — kept as an escape hatch for one rollout window. Either way, every layer of the harness is genuinely exercised on every turn that reaches it — not skipped past by a thin wrapper that calls itself a harness.
     </p>
 
     <p>
@@ -620,7 +620,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.46 .18 310)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Hypothesis</span>
-        <span class="layer-desc">Seed hypotheses drawn from four sources — the evidence gathered, current beliefs, known failure patterns and earlier eliminations — scored for diversity and pruned as evidence comes in.</span>
+        <span class="layer-desc">Template hypotheses seeded from four sources and pruned for diversity — bookkeeping by default, nothing reads them while the reply is written. An opt-in mode (<code style="font-size:13px">AUDIT_SEMANTIC_HYPOTHESES</code>, off) has the model propose competing explanations for an underdetermined request and weighs them as evidence arrives.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.50 .1 25)">
@@ -632,7 +632,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.55 .1 90)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Diagnostics</span>
-        <span class="layer-desc">Health vectors — confidence, granularity, entropy — computed from the turn so far and fed into Control State.</span>
+        <span class="layer-desc">Ten health dimensions — belief freshness, consistency and support, coverage, verification, progress, recurrence and oscillation — each normalised to 0–1, computed from the turn so far and fed into Control State.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.52 .14 60)">
@@ -650,7 +650,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.46 .18 20)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Execution</span>
-        <span class="layer-desc">Risk and value-of-information estimated, a review gate runs, then — and only then — the action executes.</span>
+        <span class="layer-desc">Value-of-information estimated, a review gate runs, then — and only then — the action executes. (Risk gating itself comes from the turn classifier and approval staging, not from this layer.)</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.46 .12 205)">
@@ -668,13 +668,13 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.46 .14 148)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Reviewer Pass</span>
-        <span class="layer-desc">A final pass checks the proposed change before it leaves the harness — and can run a second time if an earlier layer sends the turn back through it.</span>
+        <span class="layer-desc">A final three-lens review before the answer leaves the harness. Its verdict feeds Control State; a reviewer finding that names a finished task reopens it for a second pass.</span>
       </div>
 
     </div>
 
     <p class="prose" style="margin-top:20px;margin-bottom:0;">
-      Two more mechanisms run alongside these 11, on every turn that reaches the harness at all: <strong>context compression</strong> (keeps a long conversation inside the model's context window instead of silently truncating it) and the <strong>experience store</strong> (carries strategy weights and learned decompositions across turns). They're real and always-on, just not among the 11 layers above — <code style="font-size:13px">node-display-names.ts</code>'s own comment calls them "loop scaffolding," deliberately excluded from that count.
+      Two more mechanisms run alongside these 11, on every turn that reaches the harness at all: <strong>context compression</strong> (keeps a long conversation inside the model's context window; by default older messages are cut to their first 200 characters, and an opt-in LLM summary, <code style="font-size:13px">AUDIT_SEMANTIC_COMPACTION</code>, keeps the details instead) and the <strong>experience store</strong> (records each run; learning from those records is opt-in, <code style="font-size:13px">AUDIT_EXPERIENCE_LEARNING</code>). Neither is among the 11 layers above — <code style="font-size:13px">node-display-names.ts</code>'s own comment calls them "loop scaffolding," deliberately excluded from that count.
     </p>
 
     <div class="tool-callout" style="margin-top:28px;background:var(--paper);">
@@ -696,7 +696,7 @@ pre{
         <h3>Aielia</h3>
         <ul>
           <li>Every read-only tool call is checked against a per-turn ControlState before it runs — deterministic ALLOW / DENY / REQUIRE_APPROVAL</li>
-          <li>Reviewer Pass — 3-lens review + output-contract validation on the way out</li>
+          <li>Reviewer Pass — 3-lens review before the reply goes out, plus a grounding check before a tool-backed reply is called verified</li>
           <li>Fail-safe classification — a classifier error requires approval, never defaults to low-risk</li>
           <li>Web results and shell output are wrapped as data the model is told never to obey</li>
         </ul>
@@ -761,7 +761,7 @@ await assistant.turn('Summarize this into notes.md', {
     <h2>Fetched content is <em>never mistaken for an instruction.</em></h2>
 
     <p>
-      Anything the assistant pulls in from outside the conversation — a web search result, a fetched page, the output of an approved shell command — is content it does not vouch for. Before it re-enters the transcript, it's wrapped in an explicit <code style="font-size:14px">&lt;untrusted_external_content&gt;</code> boundary, with a warning prefix added if a heuristic flags instruction-shaped text inside it. A later turn reading that content back sees it clearly marked as data, not as something to obey.
+      Anything the assistant pulls in from outside the conversation — a web search result, a fetched page, the output of an approved shell command — is content it does not vouch for. Before it re-enters the transcript, it's wrapped in an explicit <code style="font-size:14px">&lt;untrusted_external_content&gt;</code> boundary, with a warning prefix added if an LLM check flags instruction-shaped text inside it. A later turn reading that content back sees it clearly marked as data, not as something to obey.
     </p>
 
     <p>
@@ -965,7 +965,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
       <div class="faq-item">
         <h3>Does every chat message really run the full harness?</h3>
-        <p>Every turn except a narrow one: one consolidated classification call every turn (risk, triviality, decomposition, plan-abandonment, and plan-template matching together, in any language) flags a genuinely self-contained factual one-liner as trivial, and that reply returns directly, skipping <code style="font-size:13px">HarnessRuntime.run()</code>. Everything else — ordinary conversation, anything worth decomposing, anything consequential — walks World Model, Evidence &amp; Reasoning, Hypothesis, Contradiction, Diagnostics, Control State, Planning, Execution, Verification, Recovery, and the Reviewer Pass. The harness itself drives that reply's tool-calling loop — <code style="font-size:13px">driveMainLoop</code> calls the model once per tool-use iteration through a proposer (<code style="font-size:13px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), so verification, control state, and the reviewer pass run around those calls rather than after a finished draft. Each read-only tool call is checked first against a live <code style="font-size:13px">ControlState</code> built from the turn's own tool-call outcomes so far, folded with the harness's own — a deterministic ALLOW/DENY/REQUIRE_APPROVAL decision, not just advisory — so a developing failure pattern can trip a real deny mid-turn. Every turn also spends the one classification call up front, and long tool output is checked for injected instructions as a separate, still narrowly-gated check. (<code style="font-size:13px">ASSISTANT_ONE_LOOP=disabled</code> restores the older design — the tool loop finishes first, the harness then runs once as bookkeeping over the result — kept as an escape hatch for one rollout window.)</p>
+        <p>Every turn except a narrow one: one consolidated classification call every turn (risk, triviality, decomposition, plan-abandonment, and plan-template matching together, in any language) flags a genuinely self-contained factual one-liner as trivial, and that reply returns directly, skipping <code style="font-size:13px">HarnessRuntime.run()</code>. Everything else — ordinary conversation, anything worth decomposing, anything consequential — walks World Model, Evidence &amp; Reasoning, Hypothesis, Contradiction, Diagnostics, Control State, Planning, Execution, Verification, Recovery, and the Reviewer Pass. The harness itself drives that reply's tool-calling loop — <code style="font-size:13px">driveMainLoop</code> calls the model once per tool-use iteration through a proposer (<code style="font-size:13px">ASSISTANT_ONE_LOOP</code>, on by default since 2026-09-06), so verification, control state, and the reviewer pass run around those calls rather than after a finished draft. Each read-only tool call is checked first against a live <code style="font-size:13px">ControlState</code> built from the turn's own tool-call outcomes so far, folded with the harness's own — a deterministic ALLOW/DENY/REQUIRE_APPROVAL decision, not just advisory — so a developing failure pattern can trip a real deny mid-turn. Every turn also spends the one classification call up front, and tool output is checked for injected instructions as a separate LLM check. (<code style="font-size:13px">ASSISTANT_ONE_LOOP=disabled</code> restores the older design — the tool loop finishes first, the harness then runs once as bookkeeping over the result — kept as an escape hatch for one rollout window.)</p>
       </div>
 
       <div class="faq-item">

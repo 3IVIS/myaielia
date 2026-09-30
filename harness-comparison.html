@@ -522,7 +522,7 @@ strong{color:var(--ink);font-weight:600;}
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Skill Workshop / self-learning drafts and patches skills from corrections and successful work; auto mode by default, propose-only mode optional</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described (extensions can edit the agent itself)</span></td>
-          <td class="cell col-aielia"><span class="glyph glyph-partial">◐</span><span class="cell-text">ExperienceStore tunes strategy weights / decompositions / recovery sequences — internal, not authored skills</span></td>
+          <td class="cell col-aielia"><span class="glyph glyph-partial">◐</span><span class="cell-text">ExperienceStore records each run; tuning recovery strategy weights from it is opt-in and off by default (<code>AUDIT_EXPERIENCE_LEARNING</code>) — internal, not authored skills</span></td>
         </tr>
         <tr>
           <td class="row-label">11. Output &amp; Reviewer Pass</td>
@@ -530,7 +530,7 @@ strong{color:var(--ink);font-weight:600;}
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described — human review substitutes</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Reply shaping is cosmetic, not a quality gate</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
-          <td class="cell col-aielia"><span class="glyph glyph-present">●</span><span class="cell-text">3-lens reviewer (implementer, reviewer, adversarial) + abstraction-fit check + output-contract validation before a reply leaves</span></td>
+          <td class="cell col-aielia"><span class="glyph glyph-present">●</span><span class="cell-text">3-lens reviewer (implementer, reviewer, adversarial) + abstraction-fit check before a reply leaves, plus a grounding check on tool-backed replies</span></td>
         </tr>
       </tbody>
     </table>

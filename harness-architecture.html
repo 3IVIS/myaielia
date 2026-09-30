@@ -641,7 +641,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
         <text class="t-s" x="268" y="583" text-anchor="start">all tasks complete → leave the loop</text>
         <g class="lnode" data-target="modal-11" tabindex="0" role="button" aria-label="Reviewer Pass"><rect class="box" style="stroke:oklch(.46 .14 148)" x="170" y="606" width="200" height="60" rx="7"/><circle cx="184" cy="620" r="10" style="fill:oklch(.46 .14 148)"/><text class="badge" x="184" y="624" text-anchor="middle" style="font-size:8px">11</text><text class="t" x="199" y="624">Reviewer Pass</text><text class="t-s" x="270.0" y="643" text-anchor="middle">self-review · may reopen a task</text><text class="t-a" x="362" y="659" text-anchor="end" style="font-size:9.5px">+3 lenses</text></g>
         <g class="lnode" data-target="amodal-review" tabindex="0" role="button" aria-label="+ semantic review-checker"><rect class="box assist" x="170" y="674" width="200" height="20" rx="10"/><text class="t-a" x="270.0" y="688" text-anchor="middle" style="font-size:10px">+ semantic review-checker</text></g>
-        <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="400" y="606" width="220" height="60" rx="7"/><text class="t" x="510.0" y="626" text-anchor="middle">Output validation</text><text class="t-s" x="510.0" y="643" text-anchor="middle">the answer must satisfy the</text><text class="t-s" x="510.0" y="656" text-anchor="middle">output contract</text></g>
+        <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="400" y="606" width="220" height="60" rx="7"/><text class="t" x="510.0" y="626" text-anchor="middle">Output validation</text><text class="t-s" x="510.0" y="643" text-anchor="middle">checked against the caller's</text><text class="t-s" x="510.0" y="656" text-anchor="middle">contract, if one is set</text></g>
         <g class="lnode static"><rect class="box" style="stroke:var(--accent)" x="650" y="606" width="150" height="60" rx="7"/><text class="t" x="725.0" y="626" text-anchor="middle">reply</text><text class="t-s" x="725.0" y="643" text-anchor="middle">streamed to you</text></g>
         <path class="ln" d="M370 636 H400" marker-end="url(#ah2)"/>
         <path class="ln" d="M620 636 H650" marker-end="url(#ah2)"/>
@@ -793,6 +793,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="tool-callout" style="margin-top:28px;">
       <div class="tool-callout-label">What is on by default</div>
       <p>All three are on by default in Aielia: the one-loop proposer (<code>ASSISTANT_ONE_LOOP</code>), the Trajectory Supervisor (<code>HARNESS_TRAJECTORY_SUPERVISOR</code>), and mid-turn steering with the goal graph (<code>ASSISTANT_GOAL_GRAPH</code>), and the next-step options (<code>ASSISTANT_GOAL_GRAPH_SUGGEST</code>). Each has an explicit <code>disabled</code> (or <code>0</code>) escape hatch. With steering and the goal graph disabled, a message sent during a turn waits in line exactly as it did before, and no goal graph is kept.</p>
+      <p>Also on by default: the lexical checks under the semantic layers are <b>off</b> (<code>ASSISTANT_LEXICAL_MODE=disabled</code> since 2026-09-28, so contradiction, failure matching and injection detection run on the LLM check alone), the grounding check behind a <i>verified</i> label, and the semantic judge for caller constraints. Off by default, behind <code>AUDIT_*</code> flags: semantic hypotheses, reviewer revision, semantic transcript compaction, experience learning, source reliability and the per-step task-completion check.</p>
     </div>
 
   </div>
@@ -856,19 +857,21 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Candidate readings of an ambiguous message, generated and scored before a reply is drafted.</p>
-    <div class="fm-files"><b>Files:</b> hypothesis.py</div>
+    <p class="fm-desc">Candidate explanations kept alongside the beliefs, seeded from four sources and pruned for diversity. By default in Aielia this layer is bookkeeping: the seeds are fixed templates with no predicted observations, and nothing reads them while the reply is written.</p>
+    <div class="fm-files"><b>Files:</b> hypothesis.py · generate-update-hypotheses.ts · semantic-hypotheses.ts</div>
     <div class="fm-diagram">
       <div class="fm-chain">
-        <div class="fm-box">Evidence store</div><div class="fm-arrow">→</div>
-        <div class="fm-box">Generate candidate hypotheses</div><div class="fm-arrow">→</div>
-        <div class="fm-box">Score each against evidence</div><div class="fm-arrow">→</div>
-        <div class="fm-box">Best-scored hypothesis<span class="fm-sub">carried into drafting</span></div>
+        <div class="fm-box">Evidence + beliefs</div><div class="fm-arrow">→</div>
+        <div class="fm-box">Seed hypotheses<span class="fm-sub">symptom · counterfactual · failure library · analogy</span></div><div class="fm-arrow">→</div>
+        <div class="fm-box">Prune for diversity</div><div class="fm-arrow">→</div>
+        <div class="fm-box">Active set<span class="fm-sub">feeds the coverage dimensions (Layer 5)</span></div>
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>later</b> Reviewer Pass's <code>hypothesis_compatibility</code> checks the delivered reply still matches the hypothesis picked here</div>
+      <div class="fm-branch"><b>default</b> template seeds only; their empty <code>predicted_observations</code> mean the review gate's <code>hypothesis_compatibility</code> check has nothing to compare against</div>
+      <div class="fm-branch"><b>opt-in</b> <code>AUDIT_SEMANTIC_HYPOTHESES=1</code>: for an underdetermined request, one LLM call proposes 2–4 competing explanations with a separating check, the model sees them while drafting, and one call per execution rules out the ones new evidence contradicts</div>
     </div>
+    <p class="fm-verdict"><b>Evaluation:</b> suggestive, not proven — 9/10 vs 8/10 on a matched 10-seed run, at about 4× the cost. It stays off.</p>
   </div>
 </dialog>
 
@@ -922,7 +925,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <div class="fm-funnel">↓</div>
       <div class="fm-agg">Control State (Layer 6)</div>
     </div>
-    <p class="fm-caption">Click any dimension for its exact type and definition. Each one below 0.2 maps to a specific recovery action class — that mapping is what Control State's Tier 2 and Recovery act on.</p>
+    <p class="fm-caption">Click any dimension for its exact type and definition. Each one below 0.2 maps to a specific recovery action class — that mapping is what Control State's Tier 2 and Recovery act on. The definitions shown are the Python ones; the TypeScript twin Aielia runs computes <code>oscillation_score</code> as failed/total tasks and <code>failure_recurrence</code> as failure-history length / 10, and keeps <code>progress_rate</code> and <code>oscillation_score</code> neutral until 3 tasks have been attempted.</p>
   </div>
 </dialog>
 
@@ -978,7 +981,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">A task graph with six task states and dependency tracking, so parallel work doesn't collide.</p>
+    <p class="fm-desc">A task graph with six task states and dependency tracking. Tasks that declare overlapping write domains are kept from running in parallel; Aielia's task graphs declare none, so its tasks run in dependency order.</p>
     <div class="fm-files"><b>Files:</b> task_graph.py · parallel_merge.py</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -1051,6 +1054,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="fm-branches">
       <div class="fm-branch"><b>no</b> draft trusted, turn continues</div>
       <div class="fm-branch"><b>yes</b> sent to Recovery (Layer 10)</div>
+      <div class="fm-branch"><b>in a chat turn</b> only consistency, evidence_sufficiency and output_contract_partial can run; the rest report SKIPPED</div>
+      <div class="fm-branch"><b>grounding check (Aielia)</b> before a tool-backed reply is labelled <i>verified</i>, one LLM call compares the reply against the raw tool output (<code>AUDIT_SEMANTIC_GROUNDING</code>, on by default)</div>
     </div>
     <p class="fm-caption">Click any check for what it specifically catches.</p>
   </div>
@@ -1075,7 +1080,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
         <div class="fm-box">6 · ESCALATE<span class="fm-sub">hand off to a human</span></div>
       </div>
     </div>
-    <p class="fm-caption">Past experience can bias which strategy is tried first, but always falls back to this fixed order when that experience store is unavailable (<code>INV-10</code>). A failure-mode pattern library gives advisory bias only — it never overrides a caller's own decision.</p>
+    <p class="fm-caption">Past experience can bias which strategy is tried first, but only when experience learning is switched on (<code>AUDIT_EXPERIENCE_LEARNING=1</code>, off by default). Otherwise nothing writes the strategy weights and this fixed order is always used, as it is whenever the experience store is unavailable (<code>INV-10</code>). A failure-mode pattern library gives advisory bias only — it never overrides a caller's own decision.</p>
   </div>
 </dialog>
 
@@ -1086,7 +1091,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">A final pass checks the proposed change before it leaves the harness — and can send the turn back through the loop.</p>
+    <p class="fm-desc">A final pass reviews the run before the answer leaves the harness. Its verdict feeds the next Control State resolve; in a narrow case it sends a finished task back through the loop.</p>
     <div class="fm-files"><b>Files:</b> reviewer.py</div>
     <div class="fm-diagram">
       <div class="fm-grid" style="grid-template-columns:repeat(3,1fr);max-width:460px;">
@@ -1097,11 +1102,12 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <div class="fm-funnel">findings merged</div>
       <div class="fm-agg">Propagation drain</div>
       <div class="fm-funnel">↓</div>
-      <div class="fm-agg">belief just invalidated?</div>
+      <div class="fm-agg">reviewer-lens finding names a finished task?</div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>no</b> output released</div>
-      <div class="fm-branch"><b>yes</b> reopens the affected COMPLETE task → loop back to Planning (never writes control_state directly — INV-06)</div>
+      <div class="fm-branch"><b>no</b> output released; the verdict is carried into the next Control State resolve</div>
+      <div class="fm-branch"><b>yes</b> reopens that COMPLETE task → loop back to Planning (never writes control_state directly — INV-06). Implementer findings quote a success criterion and never reopen a task; the generic default criterion is skipped.</div>
+      <div class="fm-branch"><b>opt-in</b> <code>AUDIT_REVIEWER_REVISION=1</code>: a HIGH verdict at the end of a run sends the last answer back once, with the finding, to be answered again. Tested, not yet run against a real model.</div>
     </div>
   </div>
 </dialog>
@@ -1116,14 +1122,16 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">One consolidated LLM call, made before the harness runs, that decides how much harness this turn gets — which layers engage and how deep they go — by classifying the turn (in the code, the turn-intent classifier). A greeting needs none of it; a risky multi-step request needs all of it.</p>
+    <p class="fm-desc">One consolidated LLM call, made before the harness runs, that classifies the turn (in the code, the turn-intent classifier). Its judgments decide whether the harness runs at all, how the turn is planned, whether it needs approval, and whether the Reviewer Pass's adversarial lens runs. A greeting needs none of it; a risky multi-step request needs all of it.</p>
     <div class="fm-files"><b>Files:</b> turn-intent-classifier.ts · turn-policy.ts · turn-interpreter.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>riskLevel</b> LOW / MEDIUM / HIGH, with a stated riskReason. Drives the approval gate and Control State, and the depth of the Reviewer Pass: its adversarial lens only runs on a non-LOW-risk or multi-task turn.</div>
+      <div class="fm-branch"><b>riskLevel</b> LOW / MEDIUM / HIGH, or UNKNOWN when the classifier call fails or can't be parsed (treated as HIGH and requires approval), with a stated riskReason. Drives the approval gate and Control State, and the depth of the Reviewer Pass: its adversarial lens only runs on a non-LOW-risk or multi-task turn.</div>
       <div class="fm-branch"><b>isTrivial</b> only meaningful when riskLevel is LOW — true turns every harness layer off: the reply goes straight back and HarnessRuntime.run() never runs (and no next-step options are proposed).</div>
       <div class="fm-branch"><b>decomposedTasks</b> a multi-step request broken into an ordered task list, or null. Shapes Planning (Layer 7): one task per node instead of a single task.</div>
       <div class="fm-branch"><b>plan flags</b> isAbandonRequest, matchedPlanTemplate and needsMultiStepPlan: abandon judgment is only asked when a plan is already active; template matching and the durable-plan check only when it isn't. Together they decide whether the turn runs under a tracked, user-approved plan.</div>
       <div class="fm-branch"><b>isReminderRequest / isBulkReminderRequest</b> folded into requiresApproval the same way</div>
+      <div class="fm-branch"><b>isPlanQuestion</b> a question about an active plan's state is answered from the recorded plan instead of re-running it (by default, only while a step has failed)</div>
+      <div class="fm-branch"><b>isUnderdetermined</b> read only when the opt-in semantic hypotheses are on (Layer 3)</div>
     </div>
   </div>
 </dialog>
@@ -1140,7 +1148,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="fm-branches">
       <div class="fm-branch"><b>web_search / fetch_url results</b> wrapped in an untrusted_external_content tag; the system prompt tells the model that tag is data, never instructions</div>
       <div class="fm-branch"><b>read_file / list_directory results</b> left untouched — file content is user-owned, not adversarial-by-default</div>
-      <div class="fm-branch"><b>detectInjectionLikelyWithLLM()</b> a secondary check for content that looks like it's trying to issue instructions</div>
+      <div class="fm-branch"><b>detectInjectionLikelyWithLLM()</b> an LLM check on tool output for content that looks like it's trying to issue instructions. Since the lexical checks were switched off by default (2026-09-28) it is the only check in the assistant itself, and it runs on every tool output, not just long ones; the claude-cli file server keeps its own regex check</div>
     </div>
   </div>
 </dialog>
@@ -1152,14 +1160,14 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">An LLM check layered on top of Contradiction (Layer 4)'s own lexical detector — and skipped whenever that lexical pass already had a fair shot.</p>
-    <div class="fm-files"><b>Files:</b> contradiction-checker.ts</div>
+    <p class="fm-desc">An LLM check that compares new beliefs against the ones already on record, by meaning rather than wording. Since 2026-09-28 it is the contradiction detector Aielia uses by default: the harness's lexical negation-pair detector is switched off in the CLI and desktop app.</p>
+    <div class="fm-files"><b>Files:</b> contradiction-checker.ts · lexical/lexical-mode.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>lexical pass (harness)</b> always-on, free — already covers boolean/system-state claims: build passed/failed, file exists/missing, service available/unavailable</div>
-      <div class="fm-branch"><b>semantic pass (assistant)</b> one LLM call, only for candidates the lexical pass wouldn't confidently classify</div>
-      <div class="fm-branch"><b>all-lexical turn</b> if every new belief already looks lexically structured, the LLM call is skipped entirely — no cost</div>
+      <div class="fm-branch"><b>semantic pass (default)</b> one LLM call per turn that forms new check-worthy beliefs; task-completion trail beliefs are never checked</div>
+      <div class="fm-branch"><b>lexical pass (opt back in)</b> <code>ASSISTANT_LEXICAL_MODE=enabled</code> restores the keyword detector (build passed/failed, file exists/missing…) and the skip that avoids the LLM call when every new belief is already lexically structured</div>
+      <div class="fm-branch"><b>severity</b> a found contradiction is recorded as MEDIUM; with <code>AUDIT_SEMANTIC_CONTRADICTION_SEVERITY=1</code> (off) the same call can grade it HIGH</div>
     </div>
-    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;B. Does the semantic pass catch enough conflicts the lexical check misses to pay for the call? <a href="/harness-evaluation">See the audit →</a></p>
+    <p class="fm-verdict"><b>Evaluation:</b> verified — on its layer conversation the turn passes with the check on and fails with it off, in 3 of 3 runs, and the check's own LLM call appears only in the ON arm.</p>
   </div>
 </dialog>
 
@@ -1221,8 +1229,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   <div class="fm-body">
     <p class="fm-desc">Matches observed symptoms against the curated failure-pattern library by meaning, not exact wording — e.g. "the request took too long and timed out" matches a curated "request timed out" symptom.</p>
     <div class="fm-files"><b>Files:</b> failure-mode-matcher.ts</div>
-    <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Layered on top of Recovery (Layer 10)'s own pattern-library match — one LLM call, only reached when the lexical match doesn't already resolve it.</p>
-    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;B. The exact-string match "almost never" hits on free-text symptoms; the open question is whether the semantic match then changes any outcome. <a href="/harness-evaluation">See the audit →</a></p>
+    <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Layered on Recovery (Layer 10)'s pattern library — one LLM call. By default it is the only matcher: the exact-substring match is switched off with the other lexical checks (<code>ASSISTANT_LEXICAL_MODE=enabled</code> restores it).</p>
+    <p class="fm-verdict"><b>Evaluation:</b> reachable on the proxy backend only. Under claude-cli the model's tool calls run inside the <code>claude</code> process and never reach the harness iteration this hook runs in, so there it never fires.</p>
   </div>
 </dialog>
 
@@ -1235,8 +1243,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   <div class="fm-body">
     <p class="fm-desc">Checks whether a proposed action genuinely conflicts with a high-confidence belief or an active hypothesis's predicted observation — a real logical conflict, not just topical overlap.</p>
     <div class="fm-files"><b>Files:</b> review-checker.ts</div>
-    <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Layered on top of Reviewer Pass (Layer 11)'s own three lenses.</p>
-    <p class="fm-verdict"><b>Evaluation:</b> on the bench — Batch&nbsp;C. <a href="/harness-evaluation">See the audit →</a></p>
+    <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Runs in Execution (Layer 8)'s review gate, next to its lexical dimensions, and is advisory.</p>
+    <p class="fm-verdict"><b>Evaluation:</b> fires and is wired end to end, but no benefit shown — across six pilots the model caught the conflict without it.</p>
   </div>
 </dialog>
 
@@ -1247,8 +1255,11 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Keeps a long conversation inside the model's context window instead of silently truncating it. Runs alongside every turn that reaches the harness — not one of the 11 counted layers, "loop scaffolding" by its own code comment.</p>
-    <div class="fm-files"><b>Files:</b> transcript-compaction.ts</div>
+    <p class="fm-desc">Keeps a long conversation inside the model's context window. Once the transcript passes 40 messages or 20,000 characters, everything but the last 10 messages is folded into one message. By default that message keeps only the first 200 characters of each older message, so a detail deep inside an early long message is lost. Not one of the 11 counted layers.</p>
+    <div class="fm-files"><b>Files:</b> transcript-compaction.ts · semantic-compaction.ts</div>
+    <div class="fm-branches">
+      <div class="fm-branch"><b>opt-in</b> <code>AUDIT_SEMANTIC_COMPACTION=1</code>: one LLM call summarizes the older part instead, keeping names, numbers, dates, decisions and constraints; any failure falls back to the truncated form. On one matched pair it kept a detail the default lost; cost and quality on messier sessions are unmeasured, so it stays off.</div>
+    </div>
   </div>
 </dialog>
 
@@ -1452,7 +1463,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="fm-files"><b>Files:</b> live-steering-channel.ts · scope-urgency-classifier.ts · goal-graph-reconcile.ts · agent-loop.ts (steering notes)</div>
     <div class="fm-diagram"><div class="fm-chain wrap"><div class="fm-box">Message while a turn runs<span class="fm-sub">the CLI queue is bypassed; the chat-ui composer stays enabled</span></div><div class="fm-arrow">→</div><div class="fm-box">Steering channel<span class="fm-sub">a FIFO queue, one per session</span></div><div class="fm-arrow">→</div><div class="fm-box">check_caller_updates<span class="fm-sub">one poll per harness iteration</span></div><div class="fm-arrow">→</div><div class="fm-box">Scope × urgency classifier<span class="fm-sub">one bounded LLM call; on any doubt: same goal, new task, deferred (INV-41)</span></div></div></div>
     <div class="fm-branches"><div class="fm-branch"><b>SAME_TASK</b> a correction or refinement of what is being written. Becomes a steering note spliced into the proposer's next LLM call as a user turn, so the model applies it. Nothing is matched by keyword.</div><div class="fm-branch"><b>SAME_GOAL_NEW_TASK · immediate</b> the same: a note for the answer being written now.</div><div class="fm-branch"><b>SAME_GOAL_NEW_TASK · deferred</b> waits for the current task to finish, then runs as its own turn.</div><div class="fm-branch"><b>NEW_GOAL</b> pauses the current thread, mints a new READY one in the goal graph, and the ask runs as the next turn.</div><div class="fm-branch"><b>CANCEL_CURRENT</b> abandons the active thread and blocks the task graph. What you asked for instead (“never mind, just tell me…”) runs as the next turn.</div><div class="fm-branch"><b>never dropped</b> anything not applied in place, including a note classified after the last LLM call, is handed back to the caller and runs as an ordinary turn, in arrival order.</div></div>
-    <div class="fm-verdict"><b>Status</b> on by default since 2026-09-23 (<code>ASSISTANT_GOAL_GRAPH=disabled</code> restores the old queue-behind-the-turn behaviour). Compared on 11 mid-turn scenarios against that baseline it matched it on task success at lower cost. An earlier design pushed the raw message into the harness's lexically enforced constraint fields; it dropped asks and was replaced by the note-or-follow-up design above.</div>
+    <div class="fm-verdict"><b>Status</b> on by default since 2026-09-23 (<code>ASSISTANT_GOAL_GRAPH=disabled</code> restores the old queue-behind-the-turn behaviour). A message is applied to the current answer only if it is classified before the model's next call: on its layer conversation an early correction produced the right answer in one turn, cheaper than queueing; a message that arrives while claude-cli's single model call is running becomes a follow-up turn. An earlier 11-scenario comparison was graded lexically and has not been reproduced. An earlier design pushed the raw message into the harness's lexically enforced constraint fields; it dropped asks and was replaced by the note-or-follow-up design above.</div>
   </div>
 </dialog>
 
