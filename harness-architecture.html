@@ -782,7 +782,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <button class="ext-card" style="--nc:oklch(.5 .17 25)" data-target="xmodal-supervisor">
         <span class="ext-pill">on by default</span>
         <span class="ext-name">Trajectory Supervisor</span>
-        <span class="ext-desc">When the loop cannot make progress, one bounded LLM call picks a way out — redirect, reframe, gather evidence, ask you, or stop. Never runs on a healthy iteration.</span>
+        <span class="ext-desc">When the loop cannot make progress, one bounded LLM call picks a way out — redirect, reframe, gather evidence, stop, or ask you when ask mode is on (off by default). Never runs on a healthy iteration.</span>
         <span class="ext-path">HARNESS_TRAJECTORY_SUPERVISOR</span>
         <span class="flow-open">view flow →</span>
       </button>
@@ -950,7 +950,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-dormant"><b>Where it bites in Aielia</b> the harness-level resolver is shown to work at the harness level (4 or fewer executions against 43 without it), but in the assistant its ratio inputs need 3 or more attempted tasks, which the eval notes say Aielia's graphs do not reach. Its effect is delivered instead by a turn-local copy behind the tool-policy gate (a retry loop is denied at the 8th counted failure) and by the stall rule and Trajectory Supervisor for executor failures.</p>
+    <p class="fm-dormant"><b>Where it bites in Aielia</b> the harness-level resolver is shown to work at the harness level (4 or fewer executions against 43 without it), but in the assistant its ratio inputs need 3 or more attempted tasks, which the eval notes say Aielia's graphs do not reach. Its effect is delivered instead by a turn-local copy behind the tool-policy gate (a retry loop is blocked once 8 failures are counted, so the 9th attempt is refused) and by the stall rule and Trajectory Supervisor for executor failures.</p>
     <p class="fm-desc">The sole control input for action selection (INV-06) — <code>resolve_control_state()</code> is the only function allowed to write it. Five tiers run in strict order; the first one that fires wins.</p>
     <div class="fm-files"><b>Files:</b> control_state.py · resolve-control-state.ts (TS twin)</div>
     <div class="fm-diagram">
