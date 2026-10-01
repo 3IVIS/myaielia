@@ -10,7 +10,7 @@ The harness is code that runs around the model on every real turn, so limits hol
 
 - **What it may do, right now.** Every read-only tool call is checked against a live control state (normal / cautious / blocked; a deterministic ALLOW / DENY / REQUIRE_APPROVAL) before it runs. The state tightens as tool failures accumulate.
 - **What it may believe.** Only high-confidence model inferences reach durable memory on their own (medium ones wait for user confirmation, low ones stay session-only); each remembered fact keeps its source (user-asserted, model-inferred, observed, externally verified); contradictions are flagged. Content fetched from the web or a shell command is wrapped as untrusted data before it re-enters the conversation.
-- **Whether the answer holds up.** Verification and a reviewer pass run before a reply goes out. Replies that used tools carry evidence and a status: verified, unverified, contradicted, or no evidence.
+- **Whether the answer holds up.** A reviewer pass runs before a reply goes out and verification partly does (3 of its 9 checks run in chat). Replies that used tools carry evidence and a status: verified, unverified, contradicted, or no evidence.
 - **What a job may cost.** For an explicit list of items, each item gets its own bounded search (calibrated after the first items), three dead ends in a row stop that item, a large batch asks for confirmation before it runs, and a hard per-turn ceiling caps total tool calls. Every item ends found, not found, or truncated while still productive.
 - **What happens when it goes wrong.** Failures are classified and met with a recovery strategy; the harness checkpoints mid-turn, so a crash resumes the interrupted turn instead of restarting it.
 - **What can't be undone.** `write_file`, `run_shell_command`, and `send_email` stage the exact action as a pending proposal and apply only on explicit approval with the matching pending-action ID (an opt-in `dangerouslySkipPermissions` setting, off by default, removes the prompt). One classification call every turn also flags consequential messages (send, delete, pay, post) in any language before the harness or any tool runs (one short classification call is spent); a classifier error resolves to "requires approval", never to low-risk.
@@ -23,11 +23,11 @@ File and shell access are opt-in and off by default, and exist only in the CLI a
 - [Try it in your browser](https://myaielia.com/try): the hosted browser build. Your API key stays in your browser.
 - [Harness comparison](https://myaielia.com/harness-comparison): OpenClaw, Hermes Agent, Kilo Code and Pi compared layer by layer against a harness-first assistant, including what each one lacks (Pi is minimal by design), with references.
 - [Harness architecture](https://myaielia.com/harness-architecture): the 11-layer control loop in detail — world model, control state, verification, recovery and cross-run learning — plus the one-loop proposer with mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph.
-- [Harness evaluation](https://myaielia.com/harness-evaluation): measured results for the Trajectory Supervisor on a purpose-built multi-turn corpus (3 seeds, Claude Sonnet 5): it recovers stalled runs, at higher cost. Every run has its own transcript page.
+- [Harness evaluation](https://myaielia.com/harness-evaluation): measured results for the Trajectory Supervisor on a purpose-built multi-turn corpus (3 seeds, Claude Sonnet 5): on injected stalls it recovered two tasks, at higher cost. Every run has its own transcript page.
 
 ## Accounts, keys, and privacy
 
-There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter) or reuse an existing `claude` CLI login in the terminal. Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI. The desktop app stores the model API key in the OS keychain instead.
+There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter) or reuse an existing `claude` CLI login in the terminal. Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI. The desktop app stores the model API key in the OS keychain instead (macOS Keychain; Linux Secret Service via secret-tool; a DPAPI-protected file on Windows).
 
 ## For developers
 
