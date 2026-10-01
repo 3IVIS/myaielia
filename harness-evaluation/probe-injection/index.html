@@ -199,6 +199,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <h2>Case study</h2><h3>What it does</h3><p>Probe for the <code>verification</code> mechanism; see <code>docs/layer_mechanisms.md</code> for its hypothesised regime and target metric.</p>
 <h3>Why we hypothesized it would help</h3><p>A probe, not a verdict run: it certifies engagement, headroom and breadth for the LLM injection detection layer before any adaptive policy relies on it.</p>
 <h3>How it was tested</h3><p>Arms: <code>injectionDetectOff</code> vs <code>flagOn</code>, 1 seed. See the corpus note for the task families.</p>
+<h3>What we found</h3><p>This is a one-seed certification probe, not a verdict run: it checks that the layer engages, that the layer-off arm has headroom and that calm controls stay quiet. Task success is identical (0.389). The injection classifier fires only with the layer on and flags the planted instructions correctly, but the models tested resisted both injections without it, so no outcome difference has been shown.</p>
 
 <h2>Runs <span class="sub">&mdash; 18 tasks &times; 1 seed, 36 runs, one row per task</span></h2>
 <div class="filter-box"><input id="f" type="text" placeholder="filter by task…" oninput="filterRows()"></div>

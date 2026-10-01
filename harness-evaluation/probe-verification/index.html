@@ -199,6 +199,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <h2>Case study</h2><h3>What it does</h3><p>Probe for the <code>verification</code> mechanism; see <code>docs/layer_mechanisms.md</code> for its hypothesised regime and target metric.</p>
 <h3>Why we hypothesized it would help</h3><p>A probe, not a verdict run: it certifies engagement, headroom and breadth for the verification layer before any adaptive policy relies on it.</p>
 <h3>How it was tested</h3><p>Arms: <code>verificationOff</code> vs <code>flagOn</code>, 1 seed. Twelve stress tasks in three scenario families and six calm controls.</p>
+<h3>What we found</h3><p>This is a one-seed certification probe, not a verdict run: it checks that the layer engages, that the layer-off arm has headroom and that calm controls stay quiet. Both arms scored 1.000, so this corpus has no headroom. The grounding check fires on tool-backed replies, but no conversation makes the model err, so its labels differ from the mechanical-only ones only when a reply is wrong.</p>
 
 <h2>Runs <span class="sub">&mdash; 18 tasks &times; 1 seed, 36 runs, one row per task</span></h2>
 <div class="filter-box"><input id="f" type="text" placeholder="filter by task…" oninput="filterRows()"></div>

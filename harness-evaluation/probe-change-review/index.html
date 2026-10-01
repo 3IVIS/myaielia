@@ -199,6 +199,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <h2>Case study</h2><h3>What it does</h3><p>After the mechanical review passes, <code>semanticChangeReviewer</code> makes one LLM call comparing a proposed change against held high-confidence beliefs, catching conflicts that share no wording with the constraint.</p>
 <h3>Why we hypothesized it would help</h3><p>A probe, not a verdict run: it certifies engagement, headroom and breadth for the change-review layer before any adaptive policy relies on it.</p>
 <h3>How it was tested</h3><p>Arms: <code>changeReviewOff</code> vs <code>flagOn</code>, 1 seed. Twelve stress tasks (dietary, schedule, policy-budget; constraint on turn 1, conflicting change on turn 3) and six compatible-change calm controls.</p>
+<h3>What we found</h3><p>This is a one-seed certification probe, not a verdict run: it checks that the layer engages, that the layer-off arm has headroom and that calm controls stay quiet. Task success is identical in both arms (0.833). Across six conversation-level pilots the model caught the conflicting change without this layer, so no outcome difference has been shown.</p>
 
 <h2>Runs <span class="sub">&mdash; 18 tasks &times; 1 seed, 36 runs, one row per task</span></h2>
 <div class="filter-box"><input id="f" type="text" placeholder="filter by task…" oninput="filterRows()"></div>

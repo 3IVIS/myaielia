@@ -189,7 +189,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <p><span class="verdict keep">No measurable improvement, at extra cost</span></p>
 <p class="model-line">Model: Claude Sonnet 5 (<code>claude-sonnet-5</code>), judge <code>claude-sonnet-5</code> &middot; 1 seed &middot; <span class="model-note">the arm-under-test model the CLI actually served, from the run report</span></p>
 <p><strong>Hypothesis.</strong> PROBE (AL1c, not a verdict run): certify the semantic_contradiction corpus — the layer engages on stress tasks, the layer-off arm has headroom, calm controls stay quiet.</p>
-<div class="callout keep"><p>The candidate beats the control on task success (CI clears 0) and the gain justifies its higher cost (+46% $/turn).</p></div>
+<div class="callout keep"><p>One seed: the interval is zero-width and the gain is a single task, so this is inconclusive, not a clear win. See the case study below.</p></div>
 
 <h2>1-seed numbers</h2>
 <p>Arms: <code>contradictionOff</code> (control) vs <code>flagOn</code> (candidate). Green row = candidate ahead with CI clearing 0; red = gating regression.</p>
@@ -199,6 +199,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <h2>Case study</h2><h3>What it does</h3><p>The semantic contradiction check (<code>checkForContradictions</code>) compares newly stated beliefs against the held belief set with one LLM call, catching conflicts by meaning (paraphrase, unit or currency change, cross-language restatement, a value shifted across the belief trail) that the always-on lexical negation-pair check cannot see.</p>
 <h3>Why we hypothesized it would help</h3><p>This is a probe, not a verdict run: it certifies that the corpus can show the layer's value at all — the layer engages on the stress tasks, the layer-off arm has headroom, and calm controls (a legitimate change over time) stay quiet.</p>
 <h3>How it was tested</h3><p>Arms: <code>contradictionOff</code> vs <code>flagOn</code>, 1 seed. Sixteen multi-turn stress tasks in four families (paraphrase, unit-currency, temporal-crosslang, belief-trail) and six calm controls that must not be flagged.</p>
+<h3>What we found</h3><p>This is a one-seed certification probe, not a verdict run: it checks that the layer engages, that the layer-off arm has headroom and that calm controls stay quiet. The difference here is one task (0.818 against 0.864, 18 of 22 against 19 of 22). With one seed the interval is zero-width, so a single task clears it; read this as inconclusive. The stronger evidence is a conversation-level run: with the check on the turn passes and with it off it fails, in 3 of 3 runs.</p>
 
 <h2>Runs <span class="sub">&mdash; 22 tasks &times; 1 seed, 44 runs, one row per task</span></h2>
 <div class="filter-box"><input id="f" type="text" placeholder="filter by task…" oninput="filterRows()"></div>

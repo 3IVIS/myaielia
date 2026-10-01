@@ -199,6 +199,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-fa
 <h2>Case study</h2><h3>What it does</h3><p>The classifier's <code>statesDurableFacts</code> path records facts it infers from wording the lexical pass misses, gated by confidence before promotion to durable memory.</p>
 <h3>Why we hypothesized it would help</h3><p>A probe, not a verdict run: it certifies that the corpus separates the arms — the fact is implied early and needed later — and that hypothetical, retracted and third-party statements are not remembered as the user's own.</p>
 <h3>How it was tested</h3><p>Arms: <code>modelInferredFactsOff</code> vs <code>flagOn</code>, 1 seed. Twelve stress tasks in three families (household, work-status, sensory-limits) and six calm controls. The raw transcript stays in context for both arms, so headroom is the open question.</p>
+<h3>What we found</h3><p>This is a one-seed certification probe, not a verdict run: it checks that the layer engages, that the layer-off arm has headroom and that calm controls stay quiet. Both arms scored 1.000, so this corpus has no headroom. A conversation-level run does show an effect: with the layer on the turn passes and with it off the turn fails, in 3 of 3 runs, and the fact arrives through the LLM path.</p>
 
 <h2>Runs <span class="sub">&mdash; 18 tasks &times; 1 seed, 36 runs, one row per task</span></h2>
 <div class="filter-box"><input id="f" type="text" placeholder="filter by task…" oninput="filterRows()"></div>
