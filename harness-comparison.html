@@ -498,7 +498,7 @@ strong{color:var(--ink);font-weight:600;}
           <td class="cell"><span class="glyph glyph-partial">◐</span><span class="cell-text">Informal completion check + diff-repair</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
           <td class="cell"><span class="glyph glyph-absent">○</span><span class="cell-text">Not described</span></td>
-          <td class="cell col-aielia"><span class="glyph glyph-partial">◐</span><span class="cell-text">9 checks defined, but only consistency, evidence sufficiency and output contract actually run in a chat turn; syntax / unit / integration / goal correctness always report SKIPPED, and requirements / assumptions skip unless a failure is mechanically detectable</span></td>
+          <td class="cell col-aielia"><span class="glyph glyph-partial">◐</span><span class="cell-text">9 checks defined, but only evidence sufficiency and output contract normally return a result in a chat turn; consistency, syntax, unit, integration and goal correctness report SKIPPED, and requirements / assumptions can only fail on an empty output</span></td>
         </tr>
         <tr>
           <td class="row-label">8. Recovery</td>
@@ -854,7 +854,7 @@ strong{color:var(--ink);font-weight:600;}
     <ul>
       <li><strong>Control State — full, not partial.</strong> Every read-only tool call is checked against a per-turn control state (built from that turn's tool outcomes) <em>before</em> it runs: deterministic ALLOW / DENY / REQUIRE_APPROVAL, not an advisory hint. A send / delete / pay / post request is classified as needing approval and pauses before the action runs; a classifier failure also resolves to approval-required.</li>
       <li><strong>Output &amp; Reviewer Pass — present, advisory.</strong> A 3-lens review (implementer, reviewer, adversarial), an abstraction-fit check and output-contract validation run before a reply leaves the harness.</li>
-      <li><strong>Verification — partial, and honest about it.</strong> Nine verification checks are defined, but only three actually run in a chat turn (consistency, evidence sufficiency, output contract). The others report SKIPPED rather than faking a pass — syntax, unit and integration have no execution boundary to check, and goal correctness needs model-level judgment.</li>
+      <li><strong>Verification — partial, and honest about it.</strong> Nine verification checks are defined, but only two normally return a result in a chat turn (evidence sufficiency and output contract). The others report SKIPPED rather than faking a pass — syntax, unit and integration have no execution boundary to check, consistency is handled by the contradiction layer instead, and goal correctness needs model-level judgment.</li>
       <li><strong>Fail-safe risk handling.</strong> A classifier error or unparseable response resolves to "requires approval", never a silent default to low-risk.</li>
       <li><strong>Untrusted-content boundary.</strong> Web results and shell output are wrapped as data the model is instructed never to follow as commands.</li>
       <li><strong>Crash-safe mid-turn.</strong> A turn that dies mid-flight resumes from its last checkpoint; a checkpoint that keeps crashing on replay is discarded automatically after two attempts.</li>
@@ -878,7 +878,7 @@ strong{color:var(--ink);font-weight:600;}
       <div class="cta-text">
         <div class="section-label">BUILD A HARNESS · PUBLIC ALPHA · APACHE 2.0</div>
         <h2>Build the layers<br>these four <em>leave thin.</em></h2>
-        <p>Reasoning (hypothesis generation opt-in), a tiered Control State, Verification (3 of 9 checks run in chat), and a formal Output &amp; Reviewer Pass — the layers where all four of these agents are thinnest — ship in Aielia today, and as drawable canvas nodes if you want to build your own. Apache 2.0.</p>
+        <p>Reasoning (hypothesis generation opt-in), a tiered Control State, Verification (2 of 9 checks return a result in chat), and a formal Output &amp; Reviewer Pass — the layers where all four of these agents are thinnest — ship in Aielia today, and as drawable canvas nodes if you want to build your own. Apache 2.0.</p>
       </div>
       <div class="cta-actions">
         <a class="btn" href="https://myaielia.com/try">Try Aielia →</a>
