@@ -547,7 +547,7 @@ pre{
     <ul style="margin:0 0 20px;padding-left:22px;display:grid;gap:10px;">
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may do, right now.</strong> Every tool call is checked against a live control state (normal, cautious, blocked) before it runs, and that state tightens as failures pile up. <a href="#layers" style="color:var(--accent-ink);">The eleven layers →</a></li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What it may believe.</strong> Only high-confidence model inferences reach lasting memory on their own (medium ones wait for your confirmation), each fact keeps its source, and fetched content is data, never instructions. <a href="#trust" style="color:var(--accent-ink);">Trust boundary →</a></li>
-      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Whether the answer holds up.</strong> A reviewer pass runs before a reply goes out and verification partly does (3 of its 9 checks run in chat); tool-backed replies carry evidence and a status of verified, unverified, contradicted, or no evidence — and <i>verified</i> requires one LLM call to confirm the reply matches the raw tool output.</li>
+      <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>Whether the answer holds up.</strong> A reviewer pass runs before a reply goes out and verification partly does (2 of its 9 checks return a result in chat); tool-backed replies carry evidence and a status of verified, unverified, contradicted, or no evidence — and <i>verified</i> requires one LLM call to confirm the reply matches the raw tool output.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What a job may cost.</strong> Per-item budgets, dead-end detection, a confirmation step before a large batch, and a hard per-turn ceiling on tool calls.</li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What happens when it goes wrong.</strong> Classified failures, recovery strategies, and mid-turn checkpoints so a crash resumes the job. <a href="#resilience" style="color:var(--accent-ink);">Crash resume →</a></li>
       <li style="font-size:16px;color:var(--ink-2);line-height:1.6;"><strong>What can't be undone.</strong> File writes, shell commands and email are staged as an exact action and applied only on your approval (unless you opt out). <a href="#risk-gate" style="color:var(--accent-ink);">Approval gates →</a></li>
@@ -656,7 +656,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.46 .12 205)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Verification</span>
-        <span class="layer-desc">The draft reply is checked before it's returned — not trusted on the model's first pass. Nine checks are defined; the ones that can be decided mechanically (consistency, evidence sufficiency, output contract) run, and the rest are reported as skipped rather than faked as passes.</span>
+        <span class="layer-desc">The draft reply is checked before it's returned — not trusted on the model's first pass. Nine checks are defined; the ones that can be decided mechanically in a chat turn (evidence sufficiency and output contract) return a result, and the rest are reported as skipped rather than faked as passes.</span>
       </div>
 
       <div class="layer-card" style="border-left-color:oklch(.52 .14 40)">
