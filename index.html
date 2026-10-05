@@ -1186,7 +1186,7 @@ pre{
               <span class="hd-ln">World Model</span><span class="hd-ld">beliefs · contradictions · generation_id</span>
             </div>
             <div class="hd-layer hd-anim" style="--d:.41s;--lc:#16a34a">
-              <span class="hd-ln">Reasoning</span><span class="hd-ld">evidence · hypotheses (4 sources) · VOI</span>
+              <span class="hd-ln">Reasoning</span><span class="hd-ld">evidence · hypotheses (opt-in; bookkeeping in chat) · VOI</span>
             </div>
             <div class="hd-layer hd-layer-key hd-anim" style="--d:.54s;--lc:#a21caf">
               <span class="hd-ln">Control</span><span class="hd-ld">5-tier resolver · deadlock detect</span><span class="hd-key-badge">key</span>
@@ -1199,7 +1199,7 @@ pre{
                 <span class="hd-ln">Execution</span><span class="hd-ld">VOI · review gate</span>
               </div>
               <div class="hd-layer" style="--lc:#dc2626">
-                <span class="hd-ln">Verification</span><span class="hd-ld">9 checks</span>
+                <span class="hd-ln">Verification</span><span class="hd-ld">9 defined, 2 return a result in chat</span>
               </div>
             </div>
             <div class="hd-pair hd-anim" style="--d:.93s">
@@ -1218,7 +1218,7 @@ pre{
             </div>
           </div>
           <div class="hd-footnote hd-anim" style="--d:1.35s">
-            27 node types · 11 layers · world model + 5-tier control · 9 verification checks
+            27 canvas node types · 11 layers · world model + 5-tier control · 9 verification checks defined (2 return a result in chat)
           </div>
         </div>
 
@@ -1337,7 +1337,7 @@ pre{
       </div>
       <div class="card">
         <h3>Whether the answer holds up</h3>
-        <p>Replies are checked and reviewed before they reach you, and ones that used tools carry their evidence with a plain status: verified, unverified, contradicted, or no evidence.</p>
+        <p>Replies are reviewed, and partly verified (2 of 9 checks return a result in chat), before they reach you, and ones that used tools carry their evidence with a plain status: verified, unverified, contradicted, or no evidence.</p>
       </div>
       <div class="card">
         <h3>What a job may cost</h3>
@@ -1345,7 +1345,7 @@ pre{
       </div>
       <div class="card">
         <h3>What happens when it goes wrong</h3>
-        <p>Failures are classified and met with a recovery strategy rather than a blind retry. When a job stalls, a Trajectory Supervisor picks a way out — redirect, reframe, gather evidence, ask you, or stop. The harness checkpoints mid-turn, so a crash resumes the same job instead of restarting it.</p>
+        <p>Failures are classified and met with a recovery strategy rather than a blind retry. When a job stalls, a Trajectory Supervisor picks a way out — redirect, reframe, gather evidence, or stop (asking you is available but off by default). The harness checkpoints mid-turn, so a crash resumes the same job instead of restarting it.</p>
       </div>
       <div class="card">
         <h3>What can't be undone</h3>
@@ -1354,7 +1354,7 @@ pre{
     </div>
 
     <p style="font-size:14px;color:var(--ink-3);margin-top:28px;font-family:'IBM Plex Mono',monospace;text-align:center;">
-      11 layers · every real turn · enforced in code, not in the prompt · Apache 2.0
+      11 layers · every real turn (self-contained one-liners skip the loop) · enforced in code, not in the prompt · Apache 2.0
     </p>
 
   </div>

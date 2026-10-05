@@ -44,7 +44,7 @@ active_nav: evaluation
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Does it work? Measured results for the Trajectory Supervisor | Aielia</title>
 
-<meta name="description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.">
+<meta name="description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. On injected stalls it recovered two tasks, at higher cost. Every run is published.">
 
 <link rel="canonical" href="https://myaielia.com/harness-evaluation">
 
@@ -52,7 +52,7 @@ active_nav: evaluation
 <meta property="og:url" content="https://myaielia.com/harness-evaluation">
 <meta property="og:site_name" content="Aielia">
 <meta property="og:title" content="Does it work? The Trajectory Supervisor, measured">
-<meta property="og:description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.">
+<meta property="og:description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. On injected stalls it recovered two tasks, at higher cost. Every run is published.">
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -61,7 +61,7 @@ active_nav: evaluation
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Does it work? The Trajectory Supervisor, measured">
-<meta name="twitter:description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.">
+<meta name="twitter:description" content="The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. On injected stalls it recovered two tasks, at higher cost. Every run is published.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
 <meta name="twitter:image:alt" content="Build A Harness — measuring whether each harness feature earns its cost.">
 
@@ -87,9 +87,9 @@ active_nav: evaluation
       "@type": "Article",
       "@id": "https://myaielia.com/harness-evaluation#article",
       "headline": "Does it work? The Trajectory Supervisor, measured",
-      "description": "The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. It recovers stalled runs, at higher cost. Every run is published.",
+      "description": "The Trajectory Supervisor measured on a purpose-built multi-turn corpus: 3 seeds, Claude Sonnet 5, LLM judge on. On injected stalls it recovered two tasks, at higher cost. Every run is published.",
       "datePublished": "2026-09-07",
-      "dateModified": "2026-09-24",
+      "dateModified": "2026-10-01",
       "author": { "@id": "https://myaielia.com/#org" },
       "publisher": { "@id": "https://myaielia.com/#org" },
       "mainEntityOfPage": "https://myaielia.com/harness-evaluation"
@@ -283,8 +283,8 @@ pre code{background:none;padding:0;color:inherit;}
     <p class="hero-lede">
       The Trajectory Supervisor is one of the newest parts of <a class="inline" href="/harness-architecture">the harness</a>,
       and it cannot be judged on a one-shot question: it needs a stall with work already behind it. It was run on a
-      purpose-built multi-turn corpus, with the result decided by rules fixed in advance. It recovers stalled runs,
-      at a real cost. Every run has its own page.
+      purpose-built multi-turn corpus, with the result decided by rules fixed in advance. On injected stalls it recovered
+      two tasks, at a real cost. Every run has its own page.
     </p>
 
     <div class="stat-row" role="list">
@@ -389,7 +389,7 @@ pre code{background:none;padding:0;color:inherit;}
     <h2>What the runs <em>showed.</em></h2>
     <p class="prose">The Trajectory Supervisor, measured against the same assistant without it, three seeds, Claude Sonnet 5
     as both the assistant and the judge. The verdict comes from fixed rules: a gain has to clear its confidence band to
-    count, and a gain that costs more has to be big enough to justify it. The result page holds the case study, the
+    count (here every seed agreed, so the band is zero-width), and a gain that costs more has to be big enough to justify it. The result page holds the case study, the
     numbers and every run's transcript.</p>
 
     <table class="cmp-table">
@@ -412,11 +412,12 @@ pre code{background:none;padding:0;color:inherit;}
           </td>
           <td>When a multi-turn task stalls after work is under way, a targeted directive (redirect, reframe, ask) recovers runs that would otherwise fail.</td>
           <td><span class="verdict keep">Better results, at higher cost</span></td>
-          <td>8 tasks, 3 seeds. Task success 37.5% &rarr; 62.5% (<span style="color:var(--green);font-weight:600;">+25 pts</span>). Two stalled tasks recovered only with it; three recovered by neither. Cost <strong style="color:var(--red);font-weight:600;">+43%</strong>, latency <strong style="color:var(--red);font-weight:600;">+33%</strong>. Never consulted on the two clean controls. Stalls are injected, not organic.
+          <td>8 tasks, 3 seeds. Task success 37.5% &rarr; 62.5% (<span style="color:var(--green);font-weight:600;">+25 pts</span>). Two stalled tasks recovered only with it; three recovered by neither. Cost <strong style="color:var(--red);font-weight:600;">+43%</strong>, latency <strong style="color:var(--red);font-weight:600;">+33%</strong>. Never consulted on the two clean controls. Stalls are injected, not organic. Both gains are identical across all 3 seeds, so the interval is zero: two tasks, not a distribution.
           <a href="/harness-evaluation/trajectory-supervisor-midtask/">Read the actual runs →</a></td>
         </tr>
       </tbody>
     </table>
+    <p class="prose" style="margin-top:20px;">The Trajectory Supervisor is the only feature measured at 3 seeds on a purpose-built corpus. Other layers have single-conversation, one-seed demonstrations, read turn by turn. Shown to change the outcome: semantic contradiction, model-inferred facts, semantic failure matching and its system-error retry, stuck-plan resume, the tool-policy gate (bounded work, not a better answer), mid-turn steering, next-step options, the structured ask-question mechanism and semantic compaction. Fires but shows no outcome difference, because the base model already does it: change review, source reliability, hypotheses, injection detection, verification, code plan templates and reviewer revision. Not demonstrable through the assistant: planning decomposition, diagnostics, and the harness-level control-state resolver. None of these has been run across 3 seeds.</p>
   </div>
 </section>
 
