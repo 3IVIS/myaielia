@@ -27,7 +27,7 @@ File and shell access are opt-in and off by default, and exist only in the CLI a
 
 ## Accounts, keys, and privacy
 
-There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter) or reuse an existing `claude` CLI login in the terminal. Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI. The desktop app stores the model API key in the OS keychain instead.
+There is no Aielia account. You bring your own key (Anthropic, OpenAI, OpenRouter). Keys are stored in plaintext — `localStorage` in the browser build, a local JSON config file for the CLI. The desktop app stores the model API key in the OS keychain instead.
 
 ## For developers
 

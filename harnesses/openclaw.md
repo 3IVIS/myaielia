@@ -30,7 +30,7 @@ The differentiation is in what's built around the loop, not the loop itself:
 
 **A persona/identity layer.** Bootstrap files (`SOUL.md`, `IDENTITY.md`, `AGENTS.md`) give each installation a distinct, persistent "character" that users name and grow attached to — a major driver of the project's cultural traction (in China, installing it is called "raising a lobster").
 
-**Open, self-hosted, provider-agnostic.** Works with Claude, GPT, DeepSeek, or local models, and can piggyback on an existing Claude Pro or ChatGPT subscription via OAuth instead of requiring separate API billing.
+**Open, self-hosted, provider-agnostic.** Works with Claude, GPT, DeepSeek, or local models.
 
 **A large skills marketplace (ClawHub)** for extending capability without touching code.
 

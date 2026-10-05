@@ -852,7 +852,7 @@ await assistant.turn('Summarize this into notes.md', {
 
     <div class="tool-callout" style="margin-top:24px;">
       <div class="tool-callout-label">Model choice</div>
-      <p>Five LLM backends in total: a self-hosted proxy, direct Anthropic/OpenAI/OpenRouter API keys, or shelling out to an already-authenticated <code style="font-size:12px">claude</code> CLI session with no API key at all. The CLI and native desktop app offer all five; a plain browser tab offers the four that don't require spawning a local <code style="font-size:12px">claude</code> process — there's no way to do that from a webpage. Switch models from a running session — no restart needed.</p>
+      <p>Four LLM backends in total: a self-hosted proxy, or direct Anthropic/OpenAI/OpenRouter API keys. The browser tab, the CLI and the native desktop app all offer the same four. Switch models from a running session — no restart needed.</p>
     </div>
 
   </div>
@@ -884,7 +884,7 @@ await assistant.turn('Summarize this into notes.md', {
     </p>
 
     <p style="margin-top:28px;">
-      <strong>Terminal — nothing to clone.</strong> If you already have Node, the CLI is also published to npm; <code style="font-size:13px">npx</code> fetches it and its dependencies (<code style="font-size:13px">@buildaharness/harness</code>, <code style="font-size:13px">@buildaharness/runtime</code>) for you. First run walks you through picking a model — reuse an existing <code style="font-size:13px">claude</code> CLI login with no API key, or paste an Anthropic / OpenAI / OpenRouter key.
+      <strong>Terminal — nothing to clone.</strong> If you already have Node, the CLI is also published to npm; <code style="font-size:13px">npx</code> fetches it and its dependencies (<code style="font-size:13px">@buildaharness/harness</code>, <code style="font-size:13px">@buildaharness/runtime</code>) for you. First run walks you through picking a model — paste an Anthropic / OpenAI / OpenRouter key.
     </p>
 
     <div class="quickstart-box">
@@ -909,10 +909,7 @@ await assistant.turn('Summarize this into notes.md', {
 
     <div class="quickstart-box">
       <div class="quickstart-bar">shell</div>
-      <pre><span style="color:var(--ink-3)"># No API key — shells out to an already-authenticated Claude Code session</span>
-ASSISTANT_LLM_BACKEND=claude-cli aielia
-
-<span style="color:var(--ink-3)"># Or a direct provider API key</span>
+      <pre><span style="color:var(--ink-3)"># A direct provider API key</span>
 ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
   aielia</pre>
     </div>
@@ -939,7 +936,7 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
     <div class="tool-callout" style="margin-top:24px;">
       <div class="tool-callout-label">Before you paste a key in</div>
-      <p>Treat any API key you enter as a secret on that machine. In the browser build it is stored in plaintext in <code style="font-size:12px">localStorage</code>; the CLI keeps it in a plain JSON config file. The desktop app instead moves the model API key into your OS keychain (macOS Keychain, Linux Secret Service via <code style="font-size:12px">secret-tool</code>, or a Windows DPAPI-protected file tied to your user account) — other settings, such as a Brave search key, stay in its config file. The plaintext paths are the same trust boundary this repo's own <code style="font-size:12px">.env</code> already has, not a new one, but it's worth knowing before you paste in a real Anthropic/OpenAI/OpenRouter key rather than a self-hosted proxy token. The <code style="font-size:12px">claude-cli</code> backend sidesteps this entirely — it needs no key of its own, only your host's already-authenticated <code style="font-size:12px">claude</code> session.</p>
+      <p>Treat any API key you enter as a secret on that machine. In the browser build it is stored in plaintext in <code style="font-size:12px">localStorage</code>; the CLI keeps it in a plain JSON config file. The desktop app instead moves the model API key into your OS keychain (macOS Keychain, Linux Secret Service via <code style="font-size:12px">secret-tool</code>, or a Windows DPAPI-protected file tied to your user account) — other settings, such as a Brave search key, stay in its config file. The plaintext paths are the same trust boundary this repo's own <code style="font-size:12px">.env</code> already has, not a new one, but it's worth knowing before you paste in a real Anthropic/OpenAI/OpenRouter key rather than a self-hosted proxy token.</p>
     </div>
 
     <p style="margin-top:20px;">
