@@ -1,26 +1,26 @@
 {
-  "tag": "aielia-v0.3.4",
-  "version": "0.3.4",
+  "tag": "aielia-v0.3.5",
+  "version": "0.3.5",
   "assets": {
     "darwin-arm64": {
-      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.4/aielia-darwin-arm64",
-      "sha256": "a7cf84316f6104a674396b9ca162472ef171cefd215ec4d6734b23c70f637f5e",
-      "size": 116118112
+      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.5/aielia-darwin-arm64",
+      "sha256": "f7c0afaf50630a11eb2d6b20f525565eb579ca1ee390cacecadab9ebba03eb77",
+      "size": 116528512
     },
     "darwin-x64": {
-      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.4/aielia-darwin-x64",
-      "sha256": "effc5ee8d645fb132547f403e4bcba219d5ef51e03db9ef07bd80e97d9a06be7",
-      "size": 119299536
+      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.5/aielia-darwin-x64",
+      "sha256": "ecdc20e6fb51639d85cb034afd32dbc22da87de4b8e1491b1979474e88316f54",
+      "size": 119712336
     },
     "linux-x64": {
-      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.4/aielia-linux-x64",
-      "sha256": "2651efe14549d5a8d96afa170bba12d6c44f05d7d9ecd8fabfb3f2b64969cd69",
-      "size": 128978112
+      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.5/aielia-linux-x64",
+      "sha256": "91dd2c53d1a5b4c5b57ca4fd176bed7963f910bb948f06809c7cf6fcd472e75f",
+      "size": 129371328
     },
     "win32-x64": {
-      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.4/aielia-win32-x64.exe",
-      "sha256": "1c709b500799159bd7dc03f213679e81d3bfc708ade9df9a4f8a61b7a1b91a8e",
-      "size": 91197952
+      "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.5/aielia-win32-x64.exe",
+      "sha256": "f7d5ecae0d80f625df44cf7d0f348ccc9580b21e92f313e3725ad5e222ccbeaa",
+      "size": 91584000
     }
   }
 }
