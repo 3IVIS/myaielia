@@ -668,7 +668,7 @@ pre{
       <div class="layer-card" style="border-left-color:oklch(.46 .14 148)">
         <span class="layer-num">Layer</span>
         <span class="layer-name">Reviewer Pass</span>
-        <span class="layer-desc">A final three-lens review before the answer leaves the harness. Its verdict feeds Control State; a reviewer finding that names a finished task reopens it for a second pass.</span>
+        <span class="layer-desc">A final review before the answer leaves the harness — implementer and reviewer lenses every turn, plus an adversarial lens on consequential or multi-step turns. Its verdict feeds Control State; a reviewer finding that names a finished task reopens it for a second pass.</span>
       </div>
 
     </div>
@@ -679,16 +679,16 @@ pre{
 
     <div class="tool-callout" style="margin-top:28px;background:var(--paper);">
       <div class="tool-callout-label">vs. the most-used open agents</div>
-      <p>The <a href="/harness-comparison" style="color:var(--accent-ink);">harness comparison</a> maps Hermes Agent, Kilo Code, OpenClaw and Pi against this architecture. None of the four ships both a tiered Control State resolver and a reviewer/output gate. Aielia ships both, plus:</p>
+      <p>The <a href="/harness-comparison" style="color:var(--accent-ink);">harness comparison</a> maps Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi against this architecture. None of the seven ships both a tiered Control State resolver and a built-in reviewer/output gate. Aielia ships both, plus:</p>
     </div>
 
     <div class="compare-grid">
       <div class="compare-card">
-        <h3>Hermes · Kilo · OpenClaw · Pi</h3>
+        <h3>Claude Code · Codex · Cline · Hermes · Kilo · OpenClaw · Pi</h3>
         <ul>
-          <li>Tool runs when the model decides to; approval, where it exists, is a coarse allow-list (Pi has none, by design)</li>
+          <li>Tool runs when the model decides to; approval, where it exists, is rule-, allow-list- or classifier-based (Pi has none, by design)</li>
           <li>No formal tiered Control State resolver</li>
-          <li>No output/reviewer-pass quality gate before a reply goes out</li>
+          <li>No built-in output/reviewer-pass quality gate before a reply goes out (Claude Code and Codex can be configured with a Stop hook)</li>
           <li>Risk handling is best-effort; a classifier failure is not a defined state</li>
         </ul>
       </div>
@@ -696,7 +696,7 @@ pre{
         <h3>Aielia</h3>
         <ul>
           <li>Every read-only tool call is checked against a per-turn ControlState before it runs — deterministic ALLOW / DENY / REQUIRE_APPROVAL</li>
-          <li>Reviewer Pass — 3-lens review before the reply goes out, plus a grounding check before a tool-backed reply is called verified</li>
+          <li>Reviewer Pass — a two-lens review (plus an adversarial lens on consequential or multi-step turns) before the reply goes out, plus a grounding check before a tool-backed reply is called verified</li>
           <li>Fail-safe classification — a classifier error requires approval, never defaults to low-risk</li>
           <li>Web results and shell output are wrapped as data the model is told never to obey</li>
         </ul>

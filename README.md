@@ -13,7 +13,7 @@ Static site for **Aielia**, the open-source AI agent you can hand real work to �
 | `index.html` | Home — what Aielia does, how the harness controls it, how to start |
 | `how-it-works.html` | `/how-it-works` — what the harness controls, the 11 layers on a chat message, approval gates, install options |
 | `harness-architecture.html` | `/harness-architecture` — the 11-layer control loop, each layer's popup, and the one-loop mechanisms around it (steering, Trajectory Supervisor, goal graph, next-step options) |
-| `harness-comparison.html`, `harnesses/` | `/harness-comparison` — OpenClaw, Hermes Agent, Kilo Code and Pi compared layer by layer; `harnesses/*.md` are the per-harness notes |
+| `harness-comparison.html`, `harnesses/` | `/harness-comparison` — Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi compared layer by layer; `harnesses/*.md` are the per-harness notes |
 | `harness-evaluation.html`, `harness-evaluation/` | `/harness-evaluation` — measured results and per-run transcript pages. **Generated** from the private eval tree (`eval/audit/`) — see below |
 | `install.sh`, `install.ps1`, `aielia-latest.json` | Installers and the product-scoped update manifest (produced by `scripts/generate-aielia-manifest.mjs` in the product repo) |
 | `_includes/` | Shared header and footer templates |
