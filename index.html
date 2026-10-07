@@ -56,7 +56,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aielia — An AI Agent You Can Hand Real Work, Kept in Bounds by a Harness</title>
 
-<meta name="description" content="Aielia is an open-source AI agent that takes on real, multi-step work — research across a list, working through your files, drafting and sending messages — while a harness controls what it may do, what it believes, and what it can spend. Browser, terminal, or desktop. Apache 2.0.">
+<meta name="description" content="Aielia is a free, open-source AI assistant that does real jobs for you — researching a list, going through your files, writing and sending messages — and always asks before doing anything you can't undo. Use it in your browser, terminal or desktop app.">
 
 <link rel="canonical" href="https://myaielia.com/">
 
@@ -64,17 +64,17 @@
 <meta property="og:url" content="https://myaielia.com/">
 <meta property="og:site_name" content="Aielia">
 <meta property="og:title" content="Aielia — An AI Agent You Can Hand Real Work, Kept in Bounds by a Harness">
-<meta property="og:description" content="Aielia is an open-source AI agent that takes on real, multi-step work — research across a list, working through your files, drafting and sending messages — while a harness controls what it may do, what it believes, and what it can spend. Browser, terminal, or desktop. Apache 2.0.">
+<meta property="og:description" content="Aielia is a free, open-source AI assistant that does real jobs for you — researching a list, going through your files, writing and sending messages — and always asks before doing anything you can't undo. Use it in your browser, terminal or desktop app.">
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Aielia — hand it real work; the harness keeps it in bounds. The model proposes, the harness decides.">
+<meta property="og:image:alt" content="Aielia — hand it real work. It stays in bounds and asks before it acts.">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Aielia — An AI Agent You Can Hand Real Work, Kept in Bounds by a Harness">
-<meta name="twitter:description" content="Aielia is an open-source AI agent that takes on real, multi-step work — research across a list, working through your files, drafting and sending messages — while a harness controls what it may do, what it believes, and what it can spend. Browser, terminal, or desktop. Apache 2.0.">
+<meta name="twitter:description" content="Aielia is a free, open-source AI assistant that does real jobs for you — researching a list, going through your files, writing and sending messages — and always asks before doing anything you can't undo. Use it in your browser, terminal or desktop app.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
-<meta name="twitter:image:alt" content="Aielia — hand it real work; the harness keeps it in bounds. The model proposes, the harness decides.">
+<meta name="twitter:image:alt" content="Aielia — hand it real work. It stays in bounds and asks before it acts.">
 
 <meta property="og:locale" content="en_US">
 
@@ -113,7 +113,7 @@
       "installUrl": "https://myaielia.com/try",
       "programmingLanguage": ["TypeScript"],
       "license": "https://www.apache.org/licenses/LICENSE-2.0",
-      "description": "Aielia is an open-source AI agent that takes on real, multi-step work — research across a list, working through your files, drafting and sending messages — while a harness controls what it may do, what it believes, and what it can spend. Browser, terminal, or desktop. Apache 2.0.",
+      "description": "Aielia is a free, open-source AI assistant that does real jobs for you — researching a list, going through your files, writing and sending messages — and always asks before doing anything you can't undo. Use it in your browser, terminal or desktop app.",
       "keywords": "controlled AI agent, AI agent harness, reliable AI assistant, open source AI assistant, OpenClaw alternative, Hermes Agent alternative",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "author": { "@id": "https://myaielia.com/#org" },
@@ -1115,17 +1115,18 @@ pre{
       </h1>
 
       <p class="hero-sub">
-        Meet Aielia — an agent that takes on a job and works it through: researching a list,
-        going through your files, drafting and sending the update. A model on its own
-        improvises. Aielia doesn't, because a harness decides what it may do at every step.
+        Meet Aielia — an AI assistant that takes on a whole job and sees it through:
+        researching a list, going through your files, writing and sending the update.
+        Most AI just wings it. Aielia follows safety rules built into its code, so it
+        can't go off-script.
       </p>
 
       <p class="lede">
-        The model <strong>proposes</strong>; the harness <strong>decides</strong>. Eleven layers
-        govern which actions are allowed right now, what Aielia is allowed to believe, whether
-        an answer holds up, and how much work a job may do — and, if you set a ceiling, how much it may spend — every real turn, in code rather than
-        in a prompt. It's open source, and you can
-        <a href="https://buildaharness.com/build" style="color:var(--accent-ink);">build a harness yourself</a>.
+        The AI <strong>suggests</strong>; the safety rules <strong>decide</strong>. We call
+        those rules a <em>harness</em>. They check what Aielia may do, what it can trust,
+        whether its answer holds up, and how much work (and money, if you set a limit) a job can use.
+        Free and open source — and you can
+        <a href="https://buildaharness.com/build" style="color:var(--accent-ink);">build your own harness</a>.
       </p>
 
       <div class="cta-row">
@@ -1242,15 +1243,14 @@ pre{
     </h2>
 
     <p class="section-lede">
-      Aielia isn't only for one-line questions. Hand her a piece of work and she carries it
-      out step by step, using tools — and at every step the harness, not the model's mood,
-      decides what is allowed to happen next.
+      Aielia isn't just for quick questions. Give her a bigger task and she works through it
+      step by step, using tools. At every step, the safety rules decide what she can do next.
     </p>
 
     <div class="flow-grid">
 
       <div class="code-card">
-        <div class="code-bar">a batch job, under control (illustrative)</div>
+        <div class="code-bar">a list job, step by step (example)</div>
         <pre><code>&gt; Find the pricing page for each vendor and
   summarise the plans:
   - Acme
@@ -1259,18 +1259,18 @@ pre{
   - Umbrella
   - Hooli
 
-  budget    calibrated on the first two items, per item
+  effort    sized from the first two vendors
   Acme      found
   Globex    found
-  Initech   not_found — 3 dead ends in a row, moved on
+  Initech   not found — 3 dead ends, moved on
   Umbrella  found
-  Hooli     truncated_while_productive — budget reached
-  reply     built from those outcomes; nothing omitted
+  Hooli     found some, ran out of effort
+  reply     covers every vendor and says which
+            ones are complete
 
 &gt; Email that summary to the team.
-  staged — send_email waits for your approval.
-  The exact action is recorded; nothing else can
-  be swapped in after you say yes.</code></pre>
+  Ready to send — waiting for your OK.
+  What you approve is exactly what gets sent.</code></pre>
       </div>
 
       <div class="feature-box">
@@ -1278,19 +1278,19 @@ pre{
         <div class="feature-list">
           <div class="feature-item">
             <strong>Research across a list</strong>
-            <p>Each item gets its own bounded search, so one dead end can't eat the budget for the rest. Every item ends found, not found, or cut short while still productive — and the reply says which.</p>
+            <p>Every item gets its own search, so one dead end can't use up the effort for the rest. Each one ends as found, not found, or cut short — and the reply tells you which.</p>
           </div>
           <div class="feature-item">
             <strong>Work through your files</strong>
-            <p>Read and reason over a workspace folder you choose. Off by default, and available in the terminal and desktop apps rather than the browser tab. Writes are staged for your approval.</p>
+            <p>Let her read a folder you choose and answer questions about it. It's off until you turn it on, and only works in the terminal and desktop apps (not the browser). Any changes to your files wait for your OK.</p>
           </div>
           <div class="feature-item">
             <strong>Draft and send</strong>
-            <p>Compose the message, then stage the send (email is available in the terminal app today). Email, file writes and shell commands never run on the model's say-so; they wait for your approval.</p>
+            <p>She writes the message, then holds it for your OK before sending (email works in the terminal app today). Sending email, changing files and running commands never happen without your say-so.</p>
           </div>
           <div class="feature-item">
             <strong>Keep track</strong>
-            <p>A reminder list for what's pending (notes for now; it doesn't alert you), a plan for a compound request, a goal graph that keeps each goal as its own thread across turns, and memory of what you've told her — with the source of each fact recorded.</p>
+            <p>A to-do list of what's pending (just notes for now — it won't ping you), a plan for multi-part requests, separate threads for each goal, and a memory of what you've told her, with where each fact came from.</p>
           </div>
         </div>
         <div class="cta-row" style="margin-top:22px;">
@@ -1302,7 +1302,7 @@ pre{
     </div>
 
     <p style="font-size:14px;color:var(--ink-3);margin-top:28px;font-family:'IBM Plex Mono',monospace;text-align:center;">
-      file and shell access are opt-in · web search needs your own key · Apache 2.0
+      files and commands are opt-in · web search needs your own key · free &amp; open source
     </p>
 
   </div>
@@ -1314,47 +1314,47 @@ pre{
   <div class="wrap">
 
     <div class="section-eyebrow">
-      HOW IT'S CONTROLLED
+      HOW IT STAYS SAFE
     </div>
 
     <h2>
-      The model proposes. <em>The harness decides.</em>
+      The AI suggests. <em>The rules decide.</em>
     </h2>
 
     <p class="section-lede">
-      Prompts can be ignored; a harness can't. These controls run as code around every turn,
-      so behaviour stays inside the lines whether the model is having a good day or not.
+      Instructions to an AI can get ignored. Rules built into code can't. These checks run
+      around every turn, so Aielia stays inside the lines even when the AI slips up.
     </p>
 
     <div class="cards cards-3">
       <div class="card">
-        <h3>What she may do, right now</h3>
-        <p>Every tool call is checked against a live control state — normal, cautious, or blocked — before it runs. It tightens after failures, and the answer is a deterministic allow, deny, or require-approval.</p>
+        <h3>What she's allowed to do</h3>
+        <p>Before she uses any tool, the rules check it: go ahead, ask you first, or don't. After mistakes, the rules get stricter.</p>
       </div>
       <div class="card">
-        <h3>What she may believe</h3>
-        <p>What the model merely infers is held to a higher bar: only high-confidence inferences reach lasting memory on their own, and medium ones wait for your confirmation. Each fact keeps its source, contradictions are flagged, and web pages and command output are treated as data the model must never obey.</p>
+        <h3>What she trusts</h3>
+        <p>Guesses are held to a higher standard. She only saves things she's very sure of, and asks you about the rest. Every fact keeps its source, clashing facts get flagged, and text from web pages is treated as information, never as orders.</p>
       </div>
       <div class="card">
-        <h3>Whether the answer holds up</h3>
-        <p>Replies are reviewed, and partly verified (2 of 9 checks return a result in chat), before they reach you, and ones that used tools carry their evidence with a plain status: verified, unverified, contradicted, or no evidence.</p>
+        <h3>Whether the answer is right</h3>
+        <p>Replies are reviewed before they reach you, and partly fact-checked (2 of 9 checks run in chat today). Answers that used tools show their evidence and a clear label: verified, unverified, contradicted, or no evidence.</p>
       </div>
       <div class="card">
-        <h3>What a job may cost</h3>
-        <p>Per-item budgets, dead-end detection, a confirmation step before a big batch, and a hard ceiling on tool calls per turn — so a stuck job stops rather than spirals.</p>
+        <h3>What a job can cost</h3>
+        <p>Each item gets a limit, dead ends are spotted, big jobs ask first, and there's a hard cap on actions per turn — so a stuck job stops instead of running up the bill.</p>
       </div>
       <div class="card">
-        <h3>What happens when it goes wrong</h3>
-        <p>Failures are classified and met with a recovery strategy rather than a blind retry. When a job stalls, a Trajectory Supervisor picks a way out — redirect, reframe, gather evidence, or stop (asking you is available but off by default). The harness checkpoints mid-turn, so a crash resumes the same job instead of restarting it.</p>
+        <h3>If something goes wrong</h3>
+        <p>She works out what failed and picks a fix, rather than just trying again. If a job stalls, a built-in supervisor chooses what to do: change direction, look at it differently, gather more facts, or stop (asking you is possible but off by default). Progress is saved along the way, so a crash picks up where it left off.</p>
       </div>
       <div class="card">
-        <h3>What can't be undone</h3>
-        <p>Writing a file, running a command, and sending an email are staged as an exact action and applied only on your approval, unless you deliberately switch that prompt off. A message that reads as consequential is stopped after one quick classification call, before the harness or any tool runs.</p>
+        <h3>Anything you can't take back</h3>
+        <p>Changing a file, running a command or sending an email is shown to you first and only happens after you approve (unless you deliberately switch that off). A request that sounds serious gets a quick check before anything else runs.</p>
       </div>
     </div>
 
     <p style="font-size:14px;color:var(--ink-3);margin-top:28px;font-family:'IBM Plex Mono',monospace;text-align:center;">
-      11 layers · every real turn (self-contained one-liners skip the loop) · enforced in code, not in the prompt · Apache 2.0
+      11 layers of checks · on every real task (quick one-liners skip them) · built into the code · open source
     </p>
 
   </div>
@@ -1370,21 +1370,21 @@ pre{
     </div>
 
     <h2>
-      Pick the way <em>that fits you.</em>
+      Pick the way <em>that suits you.</em>
     </h2>
 
     <div class="cards cards-3">
       <div class="card">
         <h3>In your browser</h3>
-        <p>Nothing to install. Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste a model key in Settings, and start talking. The browser tab is chat-only; file, shell and email tools live in the terminal and desktop apps.</p>
+        <p>Nothing to install. Open <a href="/try" style="color:var(--accent-ink);">myaielia.com/try</a>, paste your AI key in Settings, and start chatting. The browser version is chat only — file, command and email tools are in the terminal and desktop apps.</p>
       </div>
       <div class="card">
         <h3>In your terminal</h3>
-        <p><code style="font-size:13px">curl -fsSL https://myaielia.com/install.sh | sh</code> installs a single binary — no Node needed. On Windows: <code style="font-size:13px">irm https://myaielia.com/install.ps1 | iex</code>. Already have Node? <code style="font-size:13px">npx @buildaharness/aielia</code> works too. First run walks you through picking a model.</p>
+        <p><code style="font-size:13px">curl -fsSL https://myaielia.com/install.sh | sh</code> installs it in one step. On Windows: <code style="font-size:13px">irm https://myaielia.com/install.ps1 | iex</code>. Already use Node? <code style="font-size:13px">npx @buildaharness/aielia</code> works too. The first time you run it, it helps you pick an AI model.</p>
       </div>
       <div class="card">
         <h3>As a desktop app</h3>
-        <p>The same chat UI in a native window, with a folder picker for file access. Download the installer for <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.3/buildaharness-assistant_0.1.3_universal.dmg" style="color:var(--accent-ink);">macOS</a>, <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.3/buildaharness-assistant_0.1.3_x64-setup.exe" style="color:var(--accent-ink);">Windows</a> or <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.3/buildaharness-assistant_0.1.3_amd64.AppImage" style="color:var(--accent-ink);">Linux</a>, or see <a href="https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.3" style="color:var(--accent-ink);">all downloads</a>. Not code-signed yet, so your OS may warn on first launch.</p>
+        <p>The same chat in its own app window, with a button to pick a folder for file access. Download for <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.3/buildaharness-assistant_0.1.3_universal.dmg" style="color:var(--accent-ink);">macOS</a>, <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.3/buildaharness-assistant_0.1.3_x64-setup.exe" style="color:var(--accent-ink);">Windows</a> or <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.3/buildaharness-assistant_0.1.3_amd64.AppImage" style="color:var(--accent-ink);">Linux</a>, or see <a href="https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.3" style="color:var(--accent-ink);">all downloads</a>. The app isn't code-signed yet, so your computer may show a warning the first time you open it.</p>
       </div>
     </div>
 
@@ -1394,7 +1394,7 @@ pre{
     </div>
 
     <p style="font-size:14px;color:var(--ink-3);margin-top:24px;text-align:center;">
-      Aielia is in public alpha. Found something broken?
+      Aielia is in public alpha, so rough edges are expected. Found a problem?
       <a href="https://github.com/3IVIS/buildaharness/issues/new?template=bug_report.md" style="color:var(--accent-ink);">Tell us on GitHub</a>.
     </p>
 
@@ -1415,15 +1415,15 @@ pre{
     </h2>
 
     <p class="section-lede">
-      Aielia is the reference application for Build A Harness — an open-source visual canvas
-      and runtime for the same control layers. Design your own agent harness, compile it to LangGraph,
-      CrewAI, Mastra, or Microsoft Agent Framework, and follow how we're rebuilding the benchmark that measures which features earn their cost.
+      Aielia is the showcase app for Build A Harness — an open-source tool for designing your own
+      AI safety rules on a visual canvas. Build a harness, export it to LangGraph, CrewAI, Mastra or
+      Microsoft Agent Framework, and follow our work on testing which features are actually worth their cost.
     </p>
 
     <div class="cta-row">
       <a class="btn" href="https://buildaharness.com">Visit Build A Harness →</a>
-      <a class="btn" href="/harness-architecture" style="background:transparent;color:var(--ink);border-color:var(--line);">Inside one turn →</a>
-      <a class="btn" href="/harness-evaluation" style="background:transparent;color:var(--ink);border-color:var(--line);">How we evaluate it →</a>
+      <a class="btn" href="/harness-architecture" style="background:transparent;color:var(--ink);border-color:var(--line);">See how a turn works →</a>
+      <a class="btn" href="/harness-evaluation" style="background:transparent;color:var(--ink);border-color:var(--line);">How we test it →</a>
     </div>
 
   </div>
@@ -1445,27 +1445,27 @@ pre{
     <div style="border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:8px;">
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
         <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What is Aielia?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">An open-source AI agent you can hand real, multi-step work to — research across a list, going through files, drafting and sending messages. Around the model sits an 11-layer harness that controls which actions are allowed, what the agent believes, whether an answer holds up, and how much work a job may do (and, if you set a ceiling, how much it may spend). The model proposes; the harness decides.</p>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">A free AI assistant that can take on bigger jobs — researching a list, going through your files, writing and sending messages. Around the AI sits a set of safety rules (we call it a harness) that controls what it can do, what it trusts, whether its answers hold up, and how much effort or money a job can use. The AI suggests; the rules decide.</p>
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What is a harness, and why does it matter?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">A harness is the control layer around an AI model. Instructions in a prompt can be ignored or talked around; a harness is code that runs every turn, so limits on tools, cost, and trust hold regardless of what the model wants to do. It is the difference between an agent that behaves and one that usually behaves.</p>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What's a harness, and why does it matter?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">It's the safety layer around an AI. Telling an AI “please don't do that” can fail. A harness is code that runs on every turn, so its limits on actions, cost and trust always apply. It's the difference between an assistant that always behaves and one that usually does.</p>
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Does it ever act without my approval?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Yes — that is the point of handing it work. Reading, searching and reasoning proceed on their own, each step gated by the harness's control state. What can't be undone is different: writing a file, running a shell command, and sending an email are staged as an exact action and only applied on your explicit approval (unless you deliberately turn approvals off with an opt-in setting). File and shell access are opt-in, and web search needs your own search key.</p>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Will it act without asking me?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Only for safe things. Reading, searching and thinking happen on their own — that's the point of handing it a job. But changing a file, running a command or sending an email is shown to you first and only happens when you approve (unless you deliberately turn that off). File and command access are opt-in, and web search needs your own search key.</p>
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What if it gets stuck or something fails?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Failures are classified and met with a recovery strategy rather than a blind retry. A job that stops finding anything useful stops itself, per-item and per-turn budgets cap what it can spend, and the harness checkpoints mid-turn, so a crash resumes the interrupted job. This is an early-stage project (v0.3.x) — not an audited security product.</p>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">What if it gets stuck or fails?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">It works out what went wrong and tries a fix instead of blindly repeating itself. A job that stops making progress stops itself, limits cap how much it can use, and progress is saved as it goes, so a crash picks up where it left off. Keep in mind this is an early project (v0.3.x) and hasn't had a professional security audit.</p>
       </div>
       <div style="padding:24px 26px;border-bottom:1px solid var(--line);background:var(--paper);">
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Do I need an account, and where does it run?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">There is no Aielia account. You bring your own model key (Anthropic, OpenAI, OpenRouter). It runs in a browser tab, in a terminal (<code style="font-size:13px">curl -fsSL https://myaielia.com/install.sh | sh</code> installs it, or <code style="font-size:13px">npx @buildaharness/aielia</code> if you already have Node), or as a desktop app — the same assistant and harness in all three.</p>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Do I need an account? Where does it run?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">No account needed. You use your own AI key (Anthropic, OpenAI or OpenRouter). It runs in a browser tab, in a terminal (<code style="font-size:13px">curl -fsSL https://myaielia.com/install.sh | sh</code> installs it, or <code style="font-size:13px">npx @buildaharness/aielia</code> if you already have Node), or as a desktop app — same assistant and same safety rules in all three.</p>
       </div>
       <div style="padding:24px 26px;background:var(--paper);">
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Is it open source, and who makes it?</h3>
-        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Yes — Apache 2.0. Aielia is made by 3IVIS and built on <a href="https://buildaharness.com" style="color:var(--accent-ink);">Build A Harness</a>, the open-source framework for designing and running agent harnesses.</p>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink);">Is it free? Who makes it?</h3>
+        <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.6;">Yes — it's free under the Apache 2.0 license. Aielia is made by 3IVIS and built on <a href="https://buildaharness.com" style="color:var(--accent-ink);">Build A Harness</a>, the open-source toolkit for designing and running AI safety rules.</p>
       </div>
     </div>
 
@@ -1481,32 +1481,32 @@ pre{
     {
       "@type": "Question",
       "name": "What is Aielia?",
-      "acceptedAnswer": { "@type": "Answer", "text": "An open-source AI agent you can hand real, multi-step work to — research across a list, going through files, drafting and sending messages. Around the model sits an 11-layer harness that controls which actions are allowed, what the agent believes, whether an answer holds up, and how much work a job may do (and, if you set a ceiling, how much it may spend). The model proposes; the harness decides." }
+      "acceptedAnswer": { "@type": "Answer", "text": "A free AI assistant that can take on bigger jobs — researching a list, going through your files, writing and sending messages. Around the AI sits a set of safety rules (we call it a harness) that controls what it can do, what it trusts, whether its answers hold up, and how much effort or money a job can use. The AI suggests; the rules decide." }
     },
     {
       "@type": "Question",
-      "name": "What is a harness, and why does it matter?",
-      "acceptedAnswer": { "@type": "Answer", "text": "A harness is the control layer around an AI model. Instructions in a prompt can be ignored or talked around; a harness is code that runs every turn, so limits on tools, cost, and trust hold regardless of what the model wants to do. It is the difference between an agent that behaves and one that usually behaves." }
+      "name": "What's a harness, and why does it matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It's the safety layer around an AI. Telling an AI “please don't do that” can fail. A harness is code that runs on every turn, so its limits on actions, cost and trust always apply. It's the difference between an assistant that always behaves and one that usually does." }
     },
     {
       "@type": "Question",
-      "name": "Does it ever act without my approval?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — that is the point of handing it work. Reading, searching and reasoning proceed on their own, each step gated by the harness's control state. What can't be undone is different: writing a file, running a shell command, and sending an email are staged as an exact action and only applied on your explicit approval (unless you deliberately turn approvals off with an opt-in setting). File and shell access are opt-in, and web search needs your own search key." }
+      "name": "Will it act without asking me?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Only for safe things. Reading, searching and thinking happen on their own — that's the point of handing it a job. But changing a file, running a command or sending an email is shown to you first and only happens when you approve (unless you deliberately turn that off). File and command access are opt-in, and web search needs your own search key." }
     },
     {
       "@type": "Question",
-      "name": "What if it gets stuck or something fails?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Failures are classified and met with a recovery strategy rather than a blind retry. A job that stops finding anything useful stops itself, per-item and per-turn budgets cap what it can spend, and the harness checkpoints mid-turn, so a crash resumes the interrupted job. This is an early-stage project (v0.3.x) — not an audited security product." }
+      "name": "What if it gets stuck or fails?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It works out what went wrong and tries a fix instead of blindly repeating itself. A job that stops making progress stops itself, limits cap how much it can use, and progress is saved as it goes, so a crash picks up where it left off. Keep in mind this is an early project (v0.3.x) and hasn't had a professional security audit." }
     },
     {
       "@type": "Question",
-      "name": "Do I need an account, and where does it run?",
-      "acceptedAnswer": { "@type": "Answer", "text": "There is no Aielia account. You bring your own model key (Anthropic, OpenAI, OpenRouter). It runs in a browser tab, in a terminal (curl -fsSL https://myaielia.com/install.sh | sh installs it, or npx @buildaharness/aielia if you already have Node), or as a desktop app — the same assistant and harness in all three." }
+      "name": "Do I need an account? Where does it run?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No account needed. You use your own AI key (Anthropic, OpenAI or OpenRouter). It runs in a browser tab, in a terminal (curl -fsSL https://myaielia.com/install.sh | sh installs it, or npx @buildaharness/aielia if you already have Node), or as a desktop app — same assistant and same safety rules in all three." }
     },
     {
       "@type": "Question",
-      "name": "Is it open source, and who makes it?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — Apache 2.0. Aielia is made by 3IVIS and built on Build A Harness, the open-source framework for designing and running agent harnesses." }
+      "name": "Is it free? Who makes it?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — it's free under the Apache 2.0 license. Aielia is made by 3IVIS and built on Build A Harness, the open-source toolkit for designing and running AI safety rules." }
     }
   ]
 }
