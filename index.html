@@ -343,6 +343,12 @@ h1 em{
   aspect-ratio:880/1016;
 }
 
+/* stacked layout: a small mark above the headline instead of a large block under the buttons */
+@media(max-width:980px){
+  .logo-pulse{order:-1;justify-content:flex-start}
+  .logo-pulse canvas{max-width:132px}
+}
+
 /* sections */
 
 .section{
