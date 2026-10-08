@@ -343,10 +343,21 @@ h1 em{
   aspect-ratio:880/1016;
 }
 
-/* stacked layout: a small mark above the headline instead of a large block under the buttons */
+/* stacked layout: the mark stays beside the eyebrow and headline instead of dropping below the buttons */
 @media(max-width:980px){
-  .logo-pulse{order:-1;justify-content:flex-start}
-  .logo-pulse canvas{max-width:132px}
+  .hero .hero-grid{
+    grid-template-columns:minmax(0,1fr) clamp(88px,20vw,168px);
+    column-gap:16px;
+    row-gap:0;
+  }
+  .hero-grid > div:first-child{display:contents}
+  .hero-grid .eyebrow{grid-column:1;grid-row:1}
+  .hero-grid h1{grid-column:1;grid-row:2;font-size:clamp(30px,8.4vw,48px)}
+  .hero-grid .logo-pulse{grid-column:2;grid-row:1 / span 2;align-self:start;min-width:0}
+  .hero-grid .logo-pulse canvas{max-width:none}
+  .hero-grid .hero-sub,
+  .hero-grid .lede,
+  .hero-grid .cta-row{grid-column:1 / -1}
 }
 
 /* sections */
