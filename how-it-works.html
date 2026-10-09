@@ -927,17 +927,11 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
     </div>
 
     <p style="margin-top:28px;">
-      <strong>Desktop app — its own window.</strong> The same chat, with a button to pick the folder Aielia can work in. Download an installer from the <a href="https://github.com/3IVIS/buildaharness/releases/tag/desktop-v{{ site.data.versions.desktop }}" style="color:var(--accent-ink);">latest desktop release</a>. Nothing else to install.
+      <strong>Desktop app — its own window.</strong> The same chat, with a button to pick the folder Aielia can work in. Installers for macOS, Windows and Linux are on the <a href="/install#desktop" style="color:var(--accent-ink);">install page</a>, with step-by-step instructions.
     </p>
 
-    <ul>
-      <li><strong>macOS</strong> (universal, Intel and Apple silicon): <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v{{ site.data.versions.desktop }}/buildaharness-assistant_{{ site.data.versions.desktop }}_universal.dmg" style="color:var(--accent-ink);">.dmg</a></li>
-      <li><strong>Windows</strong>: <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v{{ site.data.versions.desktop }}/buildaharness-assistant_{{ site.data.versions.desktop }}_x64-setup.exe" style="color:var(--accent-ink);">setup .exe</a> or <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v{{ site.data.versions.desktop }}/buildaharness-assistant_{{ site.data.versions.desktop }}_x64_en-US.msi" style="color:var(--accent-ink);">.msi</a></li>
-      <li><strong>Linux</strong> (x86_64): <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v{{ site.data.versions.desktop }}/buildaharness-assistant_{{ site.data.versions.desktop }}_amd64.AppImage" style="color:var(--accent-ink);">.AppImage</a>, <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v{{ site.data.versions.desktop }}/buildaharness-assistant_{{ site.data.versions.desktop }}_amd64.deb" style="color:var(--accent-ink);">.deb</a> or <a href="https://github.com/3IVIS/buildaharness/releases/download/desktop-v{{ site.data.versions.desktop }}/buildaharness-assistant-{{ site.data.versions.desktop }}-1.x86_64.rpm" style="color:var(--accent-ink);">.rpm</a></li>
-    </ul>
-
     <p>
-      The installers aren't code-signed yet, so your computer may show a warning the first time. On Mac, right-click the app and choose Open. On Windows, click More info, then Run anyway. Developers: To build it yourself instead, clone the repo; that needs a Rust toolchain (<a href="https://rustup.rs" style="color:var(--accent-ink);">rustup</a>; Tauri 2.11 needs <code style="font-size:13px">rustc &gt;= 1.88</code>):
+      The installers aren't code-signed yet, so your computer may show a warning the first time. The <a href="/install#unsigned" style="color:var(--accent-ink);">install page</a> shows how to get past it on each system. Developers: To build it yourself instead, clone the repo; that needs a Rust toolchain (<a href="https://rustup.rs" style="color:var(--accent-ink);">rustup</a>; Tauri 2.11 needs <code style="font-size:13px">rustc &gt;= 1.88</code>):
     </p>
 
     <div class="quickstart-box">
