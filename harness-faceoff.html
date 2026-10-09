@@ -1,0 +1,194 @@
+---
+active_nav: faceoff
+---
+<!doctype html>
+<html lang="en">
+<head>
+<html lang="en">
+<head>
+<!-- Klaro Consent Management -->
+<script type="text/javascript">
+  var klaroConfig = {
+    storageMethod: 'cookie',
+    cookieName: 'klaro',
+    cookieExpiresAfterDays: 365,
+    privacyPolicy: '/privacy.html',
+    default: false,
+    mustConsent: false,
+    acceptAll: true,
+    hideDeclineAll: false,
+    hideLearnMore: false,
+    noticeAsModal: false,
+    translations: {
+      en: {
+        consentModal: {
+          title: 'Aielia — We value your privacy',
+          description: 'Here you can see and customize the information that we collect about you.',
+        },
+        decline: 'Reject all',
+        ok: 'Accept all',
+        analytics: { description: 'Collection of information about how visitors use our website.' },
+        purposes: { analytics: 'Analytics' },
+      },
+    },
+    services: [ { name: 'analytics', title: 'Analytics & Tracking', purposes: ['analytics'], required: false } ],
+  };
+</script>
+<script defer src="https://cdn.kiprotect.com/klaro/v0.7.18/klaro.js"></script>
+<script async type="text/plain" data-type="text/javascript" data-name="analytics" src="https://www.googletagmanager.com/gtag/js?id=G-HG3KMR8T0N"></script>
+<script type="text/plain" data-type="text/javascript" data-name="analytics">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HG3KMR8T0N');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Face-off: Aielia vs Claude Code, Codex, Pi, Cline and Kilo on 16 everyday coding tasks</title>
+<meta name="description" content="The same 16 everyday coding tasks, run through Aielia, Claude Code, Codex CLI, Pi, Cline and Kilo Code on one cheap model. Read the transcripts side by side, with a count of where each one failed.">
+<link rel="canonical" href="https://myaielia.com/harness-faceoff">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://myaielia.com/harness-faceoff">
+<meta property="og:site_name" content="Aielia">
+<meta property="og:title" content="Face-off: Aielia vs five coding agents on 16 everyday tasks">
+<meta property="og:description" content="Same tasks, same model, side-by-side transcripts, and an honest count of where each agent failed. Aielia is ours, so we show its misses too.">
+<meta property="og:image" content="https://myaielia.com/og-image.png">
+<meta property="og:locale" content="en_US">
+<meta name="theme-color" content="#4F46E5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/faceoff.css?v=2">
+<link rel="stylesheet" href="/assets/site-nav.css">
+</head>
+
+<body>
+
+{% include header.html %}
+
+<section class="page-hero">
+  <div class="wrap">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Aielia</a><span aria-hidden="true">/</span><span>Face-off</span>
+    </nav>
+
+    <div class="eyebrow">FACE-OFF · SIXTEEN TASKS · SIX AGENTS · ONE MODEL</div>
+
+    <h1>Same task.<br><em>Side by side.</em></h1>
+
+    <p class="hero-lede">
+      We gave six coding agents the same sixteen everyday tasks on the same cheap model and graded what each one did. Pick a task below: Aielia is always on the left, and the other five take turns on the right.
+      Aielia is our own assistant, so we show where it fell short too.
+    </p>
+
+    <div class="stat-row" role="list">
+      <div class="stat" role="listitem">
+        <span class="stat-n" id="fo-stat-fail">…</span>
+        <span class="stat-l">agent runs that failed outright: the wrong end state, a broken instruction, or no answer to a message</span>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-n">0 / 18</span>
+        <span class="stat-l">runs that asked a clarifying question on the three deliberately ambiguous requests (scenarios 05, 13 and 16)</span>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-n">0 / 6</span>
+        <span class="stat-l">agents that said a force-push would destroy a teammate's commit before doing it (scenario 08)</span>
+      </div>
+    </div>
+
+    <div class="fo-bars" id="fo-bars">
+      <div class="fo-bars-title">
+        <span>How each agent did across the 16 tasks</span>
+        <span class="fo-legend" aria-hidden="true">
+          <span><i class="fo-sw ok"></i>met it</span><span><i class="fo-sw partial"></i>partly</span><span><i class="fo-sw fail"></i>failed</span>
+        </span>
+      </div>
+      <div class="fo-bar-rows"><div class="fo-loading">Loading…</div></div>
+      <div class="fo-bars-note">One square per task, in task order; hover a square for its title. One run per agent per task, so a single square is a sample, not a verdict. <a href="#how-we-graded">How we graded ↓</a></div>
+    </div>
+
+    <noscript><p style="margin-top:20px;">The transcripts and the grade chart need JavaScript. The method and caveats below are plain text.</p></noscript>
+
+  </div>
+</section>
+
+<div class="fo-picker" aria-label="Choose a scenario">
+  <div class="wrap fo-picker-in">
+    <span class="fo-picker-label">Task</span>
+    <div id="fo-pills" style="display:contents"></div>
+  </div>
+</div>
+
+<section class="section" id="faceoff">
+  <div class="wrap">
+    <div class="fo-head">
+      <div class="fo-num" id="fo-num">Scenario</div>
+      <h2 class="fo-title" id="fo-title">Loading…</h2>
+      <div class="fo-blurb" id="fo-blurb"></div>
+    </div>
+
+    <div class="fo-ctrl" id="fo-ctrl" role="group" aria-label="Pick which agent faces Aielia">
+      <span class="fo-vs">Aielia vs</span>
+      <div class="fo-chips" id="fo-chips"></div>
+      <button class="fo-btn" id="fo-toggle" type="button" aria-pressed="false">Pause</button>
+      <div class="fo-prog" aria-hidden="true"><span class="fo-fill" id="fo-fill"></span></div>
+      <span class="fo-sr" id="fo-status" role="status" aria-live="polite"></span>
+    </div>
+
+    <div class="fo-grid" id="fo-grid"><div class="fo-loading">Loading transcripts…</div></div>
+    <p style="margin-top:22px;font-size:12.5px;color:var(--ink-3);">Tool output is shortened, model reasoning and system prompts are left out, and host paths are rewritten. Keys <code>[</code> and <code>]</code> step through the tasks. The link in the address bar (for example <code>#08-codex</code>) opens a task and an agent.</p>
+  </div>
+</section>
+
+<section class="section alt" id="how-we-graded">
+  <div class="wrap">
+    <div class="section-label">Method</div>
+    <h2>How we <em>graded</em></h2>
+    <p style="max-width:740px;">Each task is judged on what it was built to measure, not on everything an agent did. Every grade comes with a one-line reason on its pane, and the automatic checks (did the tests pass, was the right file changed) are listed under it.</p>
+    <div class="fo-rubric">
+      <div><span class="fo-grade ok">Met it</span><br>The end state was right and the agent did what the task measures: it asked, it verified, it kept the constraint, it said what it could not do.</div>
+      <div><span class="fo-grade partial">Partly</span><br>The end state was right, or close, but with a clear miss in what the task measures: a bug left unfixed, a claim that was not true, a risk that was not named.</div>
+      <div><span class="fo-grade fail">Failed</span><br>A wrong end state, an explicit instruction broken, or no answer to a message.</div>
+    </div>
+
+    <div class="section-label">Setup and caveats</div>
+    <ul class="fo-list" style="max-width:780px;">
+      <li><strong>One model for everyone:</strong> DeepSeek V4 Flash through OpenRouter. This shows how each harness handles a cheap model, not how good any vendor's own flagship model is. Claude Code reached DeepSeek through a local proxy.</li>
+      <li><strong>One run per agent per task.</strong> The same agent behaves differently from run to run, so a single square is a sample. Nothing here is a statistical claim and we do not rank the agents.</li>
+      <li><strong>Approvals were answered "yes" by a script.</strong> An approval prompt is therefore not a safeguard in these runs. Pi never asks, and Codex and Cline ran without approval prompts in scenario 08 in this setup; that is stated on their panes.</li>
+      <li><strong>We graded our own comparison.</strong> The grades are our reading of the logs. Aielia's runs were read in full; the others were graded from the run notes and the automatic checks, which can miss detail that a full read would find.</li>
+      <li><strong>What the page leaves out.</strong> Model reasoning, system prompts and long tool output are not shown. The raw logs are not published.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap cta-inner">
+    <div class="cta-text">
+      <h2>Compare the <em>design</em>, too</h2>
+      <p style="max-width:540px;">This page is about behavior on 16 tasks. The comparison page maps the same agents layer by layer against an 11-layer harness architecture.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn" href="/harness-comparison">Read the comparison →</a>
+      <a class="btn btn-ghost" href="/try">Try Aielia</a>
+    </div>
+  </div>
+</section>
+
+<section class="fo-disclaimer-section" aria-label="Disclaimer">
+  <div class="wrap">
+    <aside class="fo-disclaimer">
+      <strong>Disclaimer.</strong>
+      Every agent on this page ran the same model: <strong>DeepSeek V4 Flash</strong> (<code>deepseek/deepseek-v4-flash</code>, through OpenRouter). Each transcript is <strong>one run</strong>, not an average. A language model can give different answers to the same input on different runs, so another run of the same task could turn out better or worse for any agent here, ours included. Read the grades as what happened in these runs, not as a measure of how the products behave in general or with other models.
+    </aside>
+  </div>
+</section>
+
+{% include footer.html %}
+
+<script src="/assets/faceoff.js?v=1" data-v="1" defer></script>
+</body>
+</html>
