@@ -27,6 +27,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/refresh-aielia-manifest.mjs
+      # Direct download links (desktop installers + CLI binaries) for install.html, from the newest
+      # published desktop-v* / aielia-v* releases. Keeps the previous links if a release is incomplete.
+      - name: Refresh install page download links
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/refresh-downloads.mjs
       # Self-heal: the installers live in 3IVIS/buildaharness (packages/aielia). If anything ever copies an
       # older or broken copy onto the site (it happened once via a release tag), the next daily run restores
       # main's version. Each file must pass a sanity check first, so a bad fetch never replaces a good one.
@@ -41,11 +47,11 @@ jobs:
             || echo "::warning::install.ps1 from main failed its sanity check; left unchanged"
       - name: Commit if changed
         run: |
-          if ! git diff --quiet -- _data/versions.json aielia-latest.json install.sh install.ps1 || [ -n "$(git ls-files --others --exclude-standard _data/versions.json)" ]; then
+          if ! git diff --quiet -- _data/versions.json _data/downloads.json aielia-latest.json install.sh install.ps1 || [ -n "$(git ls-files --others --exclude-standard _data/versions.json _data/downloads.json)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add _data/versions.json aielia-latest.json install.sh install.ps1
-            git commit -m "chore: refresh package versions, install manifest and installers [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+            git add _data/versions.json _data/downloads.json aielia-latest.json install.sh install.ps1
+            git commit -m "chore: refresh package versions, download links, install manifest and installers [$(date -u '+%Y-%m-%d %H:%M UTC')]"
             git pull --rebase origin main
             git push
           fi
