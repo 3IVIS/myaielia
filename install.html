@@ -391,15 +391,55 @@ pre{
   .fe-table{font-size:13px;}
 }
 
-.steps{margin:0 0 18px;padding-left:22px;color:var(--ink-2);font-size:15.5px;line-height:1.7;}
-.steps li{margin-bottom:8px;}
-.note{margin-top:20px;padding:14px 18px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;background:var(--paper);font-size:14.5px;color:var(--ink-2);line-height:1.6;}
-.note strong{color:var(--ink);}
-.os-label{font-family:"IBM Plex Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-ink);margin:32px 0 10px;}
-h3.sub{font-size:20px;font-weight:500;letter-spacing:-.01em;margin:36px 0 10px;color:var(--ink);}
 code{font-family:"IBM Plex Mono",monospace;font-size:13px;}
 a.lnk{color:var(--accent-ink);}
-@media(max-width:760px){.fe-table td:first-child,.fe-table th:first-child{white-space:normal;}}
+/* picker */
+.picker{display:flex;flex-wrap:wrap;gap:28px;margin-bottom:28px;}
+.picker-group{display:flex;flex-direction:column;gap:8px;}
+.picker-label{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--paper);}
+.seg button{font:inherit;font-size:14px;padding:10px 18px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer;}
+.seg button:last-child{border-right:0;}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff;}
+.seg button:focus-visible,.nav-btn:focus-visible,.dot:focus-visible,.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+/* slides */
+.guide-title{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);margin:0 0 14px;}
+.slide{border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:36px 40px;margin-bottom:16px;}
+.slide-n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px;}
+.slide-big{font-size:30px;line-height:1.25;font-weight:400;letter-spacing:-.02em;color:var(--ink);margin:0 0 14px;}
+.slide-small{font-size:15px;line-height:1.65;color:var(--ink-2);margin:0;max-width:640px;}
+.slide-small + .slide-small{margin-top:10px;}
+.slide .quickstart-box{margin:20px 0 0;max-width:680px;position:relative;}
+.slide pre{padding:16px 90px 16px 18px;}
+.copy{position:absolute;top:8px;right:8px;font-family:"IBM Plex Mono",monospace;font-size:11px;padding:5px 10px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink-2);cursor:pointer;}
+.slide.warn{border-left:3px solid var(--accent);}
+.js .slide{display:none;min-height:260px;}
+.js .slide.active{display:block;}
+.slide-nav{display:none;align-items:center;gap:16px;}
+.js .slide-nav{display:flex;}
+.nav-btn{font:inherit;font-family:"IBM Plex Mono",monospace;font-size:13px;padding:10px 20px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;}
+.nav-btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.nav-btn[disabled]{opacity:.35;cursor:default;}
+.dots{display:flex;gap:8px;flex:1;justify-content:center;}
+.dot{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer;}
+.dot.on{background:var(--accent);}
+.guide{margin-bottom:40px;}
+.js .guide{display:none;margin-bottom:0;}
+.js .guide.show{display:block;}
+/* good to know */
+.know details{border:1px solid var(--line);border-radius:6px;background:var(--paper);margin-bottom:10px;}
+.know summary{cursor:pointer;padding:16px 20px;font-size:16px;color:var(--ink);font-weight:500;}
+.know details > div{padding:0 20px 18px;}
+.know details p{font-size:14.5px;}
+.know details pre{border:1px solid var(--line);border-radius:6px;margin:10px 0;}
+@media(max-width:760px){
+  .slide{padding:24px 20px;}
+  .slide-big{font-size:24px;}
+  .seg button{padding:10px 14px;}
+  .slide pre{padding-right:18px;padding-top:44px;}
+  .slide-nav{flex-wrap:wrap;}
+  .dots{order:3;flex-basis:100%;}
+}
 </style>
 <link rel="stylesheet" href="/assets/site-nav.css">
 </head>
@@ -412,231 +452,123 @@ a.lnk{color:var(--accent-ink);}
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Aielia</a><span aria-hidden="true">/</span><span>Install</span>
     </nav>
-    <div class="eyebrow">INSTALL · RUN · VERIFY</div>
-    <h1>Install Aielia<em> on your computer.</em></h1>
-    <p class="hero-lede">
-      Three ways to run it: a one-line terminal install, a desktop app, or a browser tab with nothing to install. The terminal and desktop downloads are <strong>not code-signed yet</strong>, so macOS and Windows will warn you the first time. This page explains why, exactly how to get past the warning, and how to check you got the real thing.
-    </p>
-    <div class="cta-row">
-      <a class="btn" href="#cli">Terminal (CLI)</a>
-      <a class="btn btn-ghost" href="#desktop">Desktop app</a>
-      <a class="btn btn-ghost" href="/try">Browser — no install →</a>
-    </div>
+    <div class="eyebrow">INSTALL · STEP BY STEP</div>
+    <h1>Install Aielia<em> in a few steps.</em></h1>
+    <p class="hero-lede">Pick how you want to run it. We'll walk you through it one step at a time. The terminal and desktop downloads aren't code-signed yet, so macOS and Windows may warn you the first time; the steps below show you what to click.</p>
   </div>
 </section>
 
-<section class="section alt" id="choose">
+<section class="section alt" id="guide">
   <div class="wrap">
-    <div class="section-label">WHICH ONE</div>
-    <h2>Pick the version <em>that fits.</em></h2>
-    <div class="fe-table-wrap">
-      <table class="fe-table">
-        <tr><th>Option</th><th>Best for</th><th>Needs</th><th>Warning on first run?</th></tr>
-        <tr><td>Terminal (CLI)</td><td>Everything, including file, command and email tools</td><td>Nothing (the installer fetches a standalone binary; Node is not required)</td><td>Not usually when installed with the one-liner (see below)</td></tr>
-        <tr><td>Desktop app</td><td>A normal window, a folder picker, and your API key kept in the OS keychain</td><td>Nothing on macOS and Windows; WebKitGTK on Linux</td><td>Yes on macOS and Windows</td></tr>
-        <tr><td>Browser</td><td>Trying it in a minute; chat only</td><td>A modern browser</td><td>No</td></tr>
-      </table>
-    </div>
-    <p style="margin-top:20px;">All three need an AI key from Anthropic, OpenAI or OpenRouter (there is no Aielia account). Releases are published on <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">GitHub Releases</a>; terminal releases are tagged <code>aielia-v…</code> and desktop releases <code>desktop-v…</code>. Pick the newest tag of the kind you want, because that list also holds other release lines from the same repository.</p>
-  </div>
-</section>
-
-<section class="section" id="unsigned">
-  <div class="wrap prose">
-    <div class="section-label">READ THIS FIRST</div>
-    <h2>About the <em>unsigned</em> builds.</h2>
-    <p>Apple and Microsoft each want developers to pay for a signing certificate (and, on macOS, to submit each build for notarization). A signed app tells the operating system who published it and that the file hasn't been altered since. We haven't set that up yet, so for now macOS and Windows treat our downloads as coming from an unknown publisher and show a warning. Linux shows none.</p>
-    <p><strong>What that does and doesn't mean.</strong> The warning is about identity, not about a detected problem: the operating system can't vouch for the file. It is also why you should only bypass it for a file you downloaded from the official places below. Aielia is open source (Apache 2.0), the builds come from a public GitHub Actions workflow, and you can compile it yourself instead (see <a class="lnk" href="#verify">Verify or build it yourself</a>).</p>
-    <div class="note"><strong>Official sources only:</strong> <code>myaielia.com</code> (the install scripts and the release manifest) and <code>github.com/3IVIS/buildaharness/releases</code>. If a file came from anywhere else, don't run it.</div>
-    <div class="note" style="margin-top:18px;"><strong>Windows 11 and Smart App Control:</strong> if Smart App Control is switched <em>On</em> (Settings → Privacy &amp; security → Windows Security → App &amp; browser control → Smart App Control), Windows blocks unsigned programs outright. There is no "Run anyway" button, and the app may simply fail to start without a message. Fresh Windows 11 installs often ship with it on. In that case use the <a class="lnk" href="/try">browser version</a> or <code>npx @buildaharness/aielia</code> (Node's own signed program runs the code), or turn Smart App Control off. Turning it off affects every unsigned program on the PC, and on older Windows 11 builds it can't be turned back on without resetting Windows, so check Microsoft's guidance first.</div>
-    <p style="margin-top:18px;">We plan to sign the builds later; when that happens these steps stop being necessary.</p>
-  </div>
-</section>
-
-<section class="section alt" id="cli">
-  <div class="wrap prose">
-    <div class="section-label">TERMINAL</div>
-    <h2>Install the <em>CLI.</em></h2>
-    <p>The one-liner downloads a standalone binary for your platform, checks its SHA-256 against the release manifest at <code>myaielia.com/aielia-latest.json</code>, and installs it. It uses HTTPS only, won't overwrite an unrelated file, and re-running it upgrades in place.</p>
-
-    <div class="quickstart-box">
-      <div class="quickstart-bar">macOS / Linux</div>
-      <pre>curl -fsSL https://myaielia.com/install.sh | sh</pre>
-    </div>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">Windows (PowerShell)</div>
-      <pre>irm https://myaielia.com/install.ps1 | iex</pre>
+    <div class="picker" id="picker">
+      <div class="picker-group">
+        <div class="picker-label">I want to use</div>
+        <div class="seg" id="seg-path" role="group" aria-label="How to run Aielia">
+          <button type="button" data-path="desktop">Desktop app</button>
+          <button type="button" data-path="cli">Terminal</button>
+          <button type="button" data-path="browser">Browser</button>
+        </div>
+      </div>
+      <div class="picker-group" id="os-group">
+        <div class="picker-label">My computer is</div>
+        <div class="seg" id="seg-os" role="group" aria-label="Operating system">
+          <button type="button" data-os="mac">macOS</button>
+          <button type="button" data-os="win">Windows</button>
+          <button type="button" data-os="linux">Linux</button>
+        </div>
+      </div>
     </div>
 
-    <ul class="steps">
-      <li><strong>macOS / Linux</strong> installs to <code>~/.local/bin/aielia</code> (override with <code>AIELIA_INSTALL_DIR</code>). If your shell says <code>command not found</code>, add that folder to your <code>PATH</code>.</li>
-      <li><strong>Windows</strong> installs to <code>%LOCALAPPDATA%\Aielia\aielia.exe</code> and adds that folder to your <em>user</em> PATH. Open a new terminal window afterwards.</li>
-      <li>Prefer to read it first? Both scripts are plain text: open <a class="lnk" href="/install.sh">install.sh</a> or <a class="lnk" href="/install.ps1">install.ps1</a> in your browser before running them.</li>
-      <li>Supported binaries: macOS (Apple silicon and Intel), Linux x64 on a mainstream glibc distribution, and Windows 10/11 x64 (also runs on Windows ARM through emulation). Not supported: 32-bit systems, Linux ARM, and musl-based distributions such as Alpine. On those, use npm, below.</li>
-      <li>The Linux binary is built on Ubuntu 22.04 and needs glibc 2.35 or newer: Ubuntu 22.04+, Debian 12+, Fedora 36+ and similar. On an older distribution (Ubuntu 20.04, Debian 11, RHEL/Rocky 9) you will see <code>GLIBC_2.xx not found</code>; use npm instead.</li>
-    </ul>
+    <div id="guides">
+<div class="guide" data-guide="cli-mac"><p class="guide-title">Terminal on macOS · 8 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 8</div><h3 class="slide-big">Open the Terminal app.</h3><p class="slide-small">Press ⌘ Space, type “Terminal” and press Enter.</p></li><li class="slide"><div class="slide-n">Step 2 of 8</div><h3 class="slide-big">Paste this line and press Enter.</h3><p class="slide-small">It downloads a standalone Aielia (about 120 MB), checks its SHA-256 against the official release manifest, and installs it to <code>~/.local/bin/aielia</code>. You don't need Node.</p><div class="quickstart-box"><pre>curl -fsSL https://myaielia.com/install.sh | sh</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 3 of 8</div><h3 class="slide-big">Check that it worked.</h3><p class="slide-small">You should see a version number. If you get “command not found”, add the install folder to your PATH with the second line, then close and reopen Terminal.</p><div class="quickstart-box"><pre>aielia --version
+echo &#x27;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#x27; &gt;&gt; ~/.zshrc</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 4 of 8</div><h3 class="slide-big">Start Aielia.</h3><p class="slide-small">Type the command below in Terminal.</p><div class="quickstart-box"><pre>aielia</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 5 of 8</div><h3 class="slide-big">Paste your AI key when asked.</h3><p class="slide-small">The first launch asks which provider you use (Anthropic, OpenAI or OpenRouter) and for its API key. There is no Aielia account.</p><p class="slide-small">Your chats are saved as files in <code>~/.buildaharness/personal-assistant/</code>. File and command access stay off until you turn them on, and anything that changes something waits for your OK.</p></li><li class="slide warn"><div class="slide-n">Step 6 of 8</div><h3 class="slide-big">If macOS ever blocks it, use Open Anyway.</h3><p class="slide-small">Installing this way normally shows no warning. If you downloaded the file by hand instead and macOS refuses it, open System Settings → Privacy &amp; Security, scroll down and click “Open Anyway”.</p></li><li class="slide"><div class="slide-n">Step 7 of 8</div><h3 class="slide-big">You're set. Update any time with one command.</h3><p class="slide-small">Re-running the installer also upgrades in place. To uninstall, delete the <code>aielia</code> program; your chats stay until you delete the folder above.</p><div class="quickstart-box"><pre>aielia update</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 8 of 8</div><h3 class="slide-big">Already have Node.js? You can skip the install.</h3><p class="slide-small">Run Aielia straight from npm instead. This is also the fallback on older Linux systems and anywhere the installer doesn't fit.</p><div class="quickstart-box"><pre>npx @buildaharness/aielia</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li></ol></div>
+<div class="guide" data-guide="cli-linux"><p class="guide-title">Terminal on Linux · 7 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 7</div><h3 class="slide-big">Check your Linux is recent enough.</h3><p class="slide-small">The Linux program needs glibc 2.35 or newer: Ubuntu 22.04+, Debian 12+, Fedora 36+ or similar. Older systems (Ubuntu 20.04, Debian 11, RHEL/Rocky 9) and Alpine can use the npm option at the end instead. 64-bit Intel/AMD only.</p></li><li class="slide"><div class="slide-n">Step 2 of 7</div><h3 class="slide-big">Open a terminal and paste this line.</h3><p class="slide-small">It downloads a standalone Aielia (about 130 MB), checks its SHA-256 against the official release manifest, and installs it to <code>~/.local/bin/aielia</code>. You don't need Node.</p><div class="quickstart-box"><pre>curl -fsSL https://myaielia.com/install.sh | sh</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 3 of 7</div><h3 class="slide-big">Check that it worked.</h3><p class="slide-small">You should see a version number. If you get “command not found”, make sure <code>~/.local/bin</code> is on your PATH, then open a new terminal.</p><div class="quickstart-box"><pre>aielia --version</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 4 of 7</div><h3 class="slide-big">Start Aielia.</h3><p class="slide-small">Type the command below.</p><div class="quickstart-box"><pre>aielia</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 5 of 7</div><h3 class="slide-big">Paste your AI key when asked.</h3><p class="slide-small">The first launch asks which provider you use (Anthropic, OpenAI or OpenRouter) and for its API key. There is no Aielia account.</p><p class="slide-small">Your chats are saved as files in <code>~/.buildaharness/personal-assistant/</code>. File and command access stay off until you turn them on, and anything that changes something waits for your OK.</p></li><li class="slide"><div class="slide-n">Step 6 of 7</div><h3 class="slide-big">You're set. Update any time with one command.</h3><p class="slide-small">Re-running the installer also upgrades in place. To uninstall, delete the <code>aielia</code> program; your chats stay until you delete the folder above.</p><div class="quickstart-box"><pre>aielia update</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 7 of 7</div><h3 class="slide-big">Already have Node.js? You can skip the install.</h3><p class="slide-small">Run Aielia straight from npm instead. This is also the fallback on older Linux systems and anywhere the installer doesn't fit.</p><div class="quickstart-box"><pre>npx @buildaharness/aielia</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li></ol></div>
+<div class="guide" data-guide="cli-win"><p class="guide-title">Terminal on Windows · 8 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 8</div><h3 class="slide-big">Open PowerShell.</h3><p class="slide-small">Press the Windows key, type “PowerShell” and press Enter.</p></li><li class="slide"><div class="slide-n">Step 2 of 8</div><h3 class="slide-big">Paste this line and press Enter.</h3><p class="slide-small">It downloads a standalone Aielia (about 90 MB), checks its SHA-256 against the official release manifest, and installs it to <code>%LOCALAPPDATA%\Aielia</code>, adding that folder to your user PATH. You don't need Node.</p><div class="quickstart-box"><pre>irm https://myaielia.com/install.ps1 | iex</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 3 of 8</div><h3 class="slide-big">Close PowerShell and open a new window.</h3><p class="slide-small">The PATH change only applies to new windows. Then check that it worked:</p><div class="quickstart-box"><pre>aielia --version</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 4 of 8</div><h3 class="slide-big">Start Aielia.</h3><p class="slide-small">Type the command below.</p><div class="quickstart-box"><pre>aielia</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 5 of 8</div><h3 class="slide-big">Paste your AI key when asked.</h3><p class="slide-small">The first launch asks which provider you use (Anthropic, OpenAI or OpenRouter) and for its API key. There is no Aielia account.</p><p class="slide-small">Your chats are saved as files in <code>~/.buildaharness/personal-assistant/</code>. File and command access stay off until you turn them on, and anything that changes something waits for your OK.</p></li><li class="slide warn"><div class="slide-n">Step 6 of 8</div><h3 class="slide-big">If Windows blocks it, it's probably Smart App Control.</h3><p class="slide-small">Smart App Control, on by default on many new Windows 11 PCs, silently blocks unsigned programs, with no “Run anyway” button. Use the browser version or the npm option on the last step, or switch Smart App Control off in Windows Security → App &amp; browser control.</p><p class="slide-small">Switching it off affects every unsigned program, and on older Windows 11 builds it can't be turned back on without resetting Windows.</p></li><li class="slide"><div class="slide-n">Step 7 of 8</div><h3 class="slide-big">You're set. Update any time with one command.</h3><p class="slide-small">Re-running the installer also upgrades in place. To uninstall, delete the <code>aielia</code> program; your chats stay until you delete the folder above.</p><div class="quickstart-box"><pre>aielia update</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 8 of 8</div><h3 class="slide-big">Already have Node.js? You can skip the install.</h3><p class="slide-small">Run Aielia straight from npm instead. This is also the fallback on older Linux systems and anywhere the installer doesn't fit.</p><div class="quickstart-box"><pre>npx @buildaharness/aielia</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li></ol></div>
+<div class="guide" data-guide="desktop-mac"><p class="guide-title">Desktop app on macOS · 6 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 6</div><h3 class="slide-big">Download the .dmg from GitHub Releases.</h3><p class="slide-small">Open the <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">Releases page</a>, find the newest release tagged <code>desktop-v…</code>, and under Assets download the file ending in <code>.dmg</code>. It works on both Intel and Apple silicon Macs.</p></li><li class="slide"><div class="slide-n">Step 2 of 6</div><h3 class="slide-big">Open the .dmg and drag Aielia into Applications.</h3><p class="slide-small">Then eject the disk image.</p></li><li class="slide warn"><div class="slide-n">Step 3 of 6</div><h3 class="slide-big">Open Aielia. macOS will refuse. That's expected.</h3><p class="slide-small">You'll see “unidentified developer” or “can't be opened”. The app is not code-signed yet, and macOS blocks apps it can't verify. Click Done or OK, don't move it to the Trash.</p></li><li class="slide"><div class="slide-n">Step 4 of 6</div><h3 class="slide-big">Open System Settings → Privacy &amp; Security.</h3><p class="slide-small">Scroll down to the message about Aielia and click “Open Anyway”, then confirm with your password. The button only appears after you've tried to open the app once.</p></li><li class="slide"><div class="slide-n">Step 5 of 6</div><h3 class="slide-big">If it says “damaged” and there's no button, run this once.</h3><p class="slide-small">This clears macOS's “downloaded from the internet” mark from this one app. Only do it for a file you downloaded from the official Releases page. Then open Aielia again.</p><div class="quickstart-box"><pre>xattr -dr com.apple.quarantine /Applications/Aielia.app</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 6 of 6</div><h3 class="slide-big">Add your AI key in Settings.</h3><p class="slide-small">Click the gear icon, choose Anthropic, OpenAI or OpenRouter and paste your key. The desktop app stores it in the macOS Keychain, not in a plain file. To pick a folder Aielia may work in, use Settings → Workspace.</p></li></ol></div>
+<div class="guide" data-guide="desktop-win"><p class="guide-title">Desktop app on Windows · 6 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 6</div><h3 class="slide-big">Download the setup .exe from GitHub Releases.</h3><p class="slide-small">Open the <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">Releases page</a>, find the newest release tagged <code>desktop-v…</code>, and under Assets download the file ending in <code>-setup.exe</code> (or the <code>.msi</code> if your IT team prefers it).</p></li><li class="slide"><div class="slide-n">Step 2 of 6</div><h3 class="slide-big">If your browser warns about the download, choose Keep.</h3><p class="slide-small">Edge and Chrome warn about files they don't see often. It's expected for a new, unsigned app.</p></li><li class="slide warn"><div class="slide-n">Step 3 of 6</div><h3 class="slide-big">Double-click the installer. Windows says “Windows protected your PC”.</h3><p class="slide-small">That's SmartScreen. It means Windows doesn't recognise the publisher yet, not that anything was found wrong. Click the small “More info” link.</p></li><li class="slide"><div class="slide-n">Step 4 of 6</div><h3 class="slide-big">Click “Run anyway”, then follow the installer.</h3><p class="slide-small">The app needs Microsoft's WebView2, which is already in Windows 11 and up-to-date Windows 10. If it's missing the installer downloads it, so stay online.</p></li><li class="slide warn"><div class="slide-n">Step 5 of 6</div><h3 class="slide-big">Nothing happened and no warning appeared?</h3><p class="slide-small">Smart App Control is probably blocking it silently. Use the browser version or the terminal install with npm instead, or switch Smart App Control off in Windows Security → App &amp; browser control. Switching it off affects all unsigned programs and may be irreversible on older Windows 11 builds. On a work PC, your IT policy may block unsigned installers.</p></li><li class="slide"><div class="slide-n">Step 6 of 6</div><h3 class="slide-big">Open Aielia from the Start menu and add your AI key.</h3><p class="slide-small">Click the gear icon, choose Anthropic, OpenAI or OpenRouter and paste your key. The desktop app stores it in a Windows-protected file, not in plain text.</p></li></ol></div>
+<div class="guide" data-guide="desktop-linux"><p class="guide-title">Desktop app on Linux · 5 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 5</div><h3 class="slide-big">Check your Linux is recent enough.</h3><p class="slide-small">You need Ubuntu 22.04+, Debian 12+, Fedora or similar (64-bit Intel/AMD) with WebKitGTK 4.1. There's no security warning on Linux, nothing to bypass.</p></li><li class="slide"><div class="slide-n">Step 2 of 5</div><h3 class="slide-big">Download one file from GitHub Releases.</h3><p class="slide-small">Open the <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">Releases page</a>, find the newest release tagged <code>desktop-v…</code>, and under Assets choose <code>.AppImage</code> (any distro), <code>.deb</code> (Ubuntu/Debian) or <code>.rpm</code> (Fedora).</p></li><li class="slide"><div class="slide-n">Step 3 of 5</div><h3 class="slide-big">Install or run it.</h3><p class="slide-small">Use the line that matches your download, from the folder the file is in.</p><div class="quickstart-box"><pre># AppImage: no install needed
+chmod +x Aielia_*.AppImage &amp;&amp; ./Aielia_*.AppImage
 
-    <div class="note"><strong>Why there's usually no warning here:</strong> Gatekeeper and SmartScreen check files that a browser or similar app has marked as "downloaded from the internet". <code>curl</code> and PowerShell's <code>irm</code> typically don't add that mark, so a binary installed this way normally runs without the prompt. If you see one anyway, use the manual steps below. This does not help on Windows with Smart App Control on (see above).</div>
-
-    <h3 class="sub">First run</h3>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre>aielia --version
-aielia</pre>
-    </div>
-    <p>With nothing configured, the first interactive launch asks which provider to use and for its API key (it checks the key with a free read-only call) and saves the choice. Chats, remembered facts and reminders are stored as files in <code>~/.buildaharness/personal-assistant/</code>. File and command access are off until you turn them on, and every write, command and email waits for your approval.</p>
-
-    <h3 class="sub">Already use Node?</h3>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre><span style="color:var(--ink-3)"># run without installing</span>
-npx @buildaharness/aielia
-
-<span style="color:var(--ink-3)"># or install globally</span>
-npm install -g @buildaharness/aielia</pre>
-    </div>
-    <p>npm installs aren't affected by the signing warnings at all.</p>
-
-    <h3 class="sub">Download the binary by hand</h3>
-    <p>If you'd rather not pipe a script into your shell, download the binary from the <code>aielia-v…</code> release on GitHub. Each file has a matching <code>.sha256</code> file.</p>
-
-    <div class="os-label">macOS</div>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre><span style="color:var(--ink-3)"># check the download against the .sha256 file from the same release</span>
-shasum -a 256 aielia-darwin-arm64
-cat aielia-darwin-arm64.sha256
-
-chmod +x aielia-darwin-arm64
-xattr -d com.apple.quarantine aielia-darwin-arm64
-./aielia-darwin-arm64 --version</pre>
-    </div>
-    <p>Use <code>aielia-darwin-x64</code> on an Intel Mac. If you skip the <code>xattr</code> line, macOS blocks the first launch; then open <strong>System Settings → Privacy &amp; Security</strong>, scroll to the message about <code>aielia</code>, and click <strong>Open Anyway</strong>.</p>
-
-    <div class="os-label">Linux</div>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre>sha256sum aielia-linux-x64
-cat aielia-linux-x64.sha256
-chmod +x aielia-linux-x64
-./aielia-linux-x64 --version</pre>
-    </div>
-
-    <div class="os-label">Windows</div>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">PowerShell</div>
-      <pre>Get-FileHash .\aielia-win32-x64.exe -Algorithm SHA256
-Get-Content .\aielia-win32-x64.exe.sha256
-Unblock-File .\aielia-win32-x64.exe
-.\aielia-win32-x64.exe --version</pre>
-    </div>
-    <p><code>Unblock-File</code> removes the "downloaded from the internet" mark. Without it, SmartScreen may say <em>Windows protected your PC</em>: click <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
-
-    <h3 class="sub">Update and uninstall</h3>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre>aielia update                 <span style="color:var(--ink-3)"># standalone binary</span>
-npm update -g @buildaharness/aielia   <span style="color:var(--ink-3)"># if installed from npm</span></pre>
-    </div>
-    <p>To uninstall, delete the <code>aielia</code> binary (and on Windows the <code>%LOCALAPPDATA%\Aielia</code> folder and its PATH entry). Your data stays in <code>~/.buildaharness/personal-assistant/</code> until you delete that folder as well.</p>
-  </div>
-</section>
-
-<section class="section" id="desktop">
-  <div class="wrap prose">
-    <div class="section-label">DESKTOP APP</div>
-    <h2>Install the <em>desktop app.</em></h2>
-    <p>Download an installer from the newest <code>desktop-v…</code> release on <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">GitHub Releases</a>, under <strong>Assets</strong>. It's the same chat UI as the browser version in a native window, with a folder picker for file access and your API key stored in the OS keychain.</p>
-
-    <div class="os-label">macOS — universal .dmg (Intel and Apple silicon)</div>
-    <ol class="steps">
-      <li>Open the <code>.dmg</code> and drag <strong>Aielia</strong> into <strong>Applications</strong>.</li>
-      <li>Open it from Applications. macOS will refuse, saying the app is from an unidentified developer or "is damaged and can't be opened". It isn't damaged; that is how Gatekeeper reports an unsigned download.</li>
-      <li><strong>macOS 15 (Sequoia) and later:</strong> open <strong>System Settings → Privacy &amp; Security</strong>, scroll down to the message about Aielia, click <strong>Open Anyway</strong>, and confirm with your password. (On older macOS versions you can instead right-click the app, choose <strong>Open</strong>, then <strong>Open</strong> again. Don't rely on that on current versions.)</li>
-      <li>If you only see "damaged" and no Open Anyway button, remove the quarantine mark in Terminal and open the app again:</li>
-    </ol>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre>xattr -dr com.apple.quarantine /Applications/Aielia.app</pre>
-    </div>
-    <p>Only run this on an app you downloaded from the official sources above, and only on that one app. You need to do this once per downloaded version.</p>
-
-    <div class="os-label">Windows — setup .exe or .msi</div>
-    <ol class="steps">
-      <li>Run the <code>.exe</code> (or <code>.msi</code>). If Edge or Chrome warns about the download, choose <strong>Keep</strong>.</li>
-      <li>SmartScreen shows <strong>Windows protected your PC</strong>. Click <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
-      <li>Follow the installer, then start Aielia from the Start menu. The app needs Microsoft's WebView2 runtime, which is already part of Windows 11 and up-to-date Windows 10; if it's missing, the installer downloads it, so it needs an internet connection.</li>
-      <li>If the installer or app does nothing and no warning appears, Smart App Control is probably blocking it (see the note near the top of this page).</li>
-    </ol>
-    <p>Prefer the command line? <code>Unblock-File .\&lt;installer&gt;</code> in PowerShell clears the mark before you run it. A managed work PC may block unsigned installers entirely; in that case use the <a class="lnk" href="#cli">CLI</a> or <a class="lnk" href="/try">browser version</a>, or ask your IT team.</p>
-
-    <div class="os-label">Linux — .AppImage, .deb or .rpm (x86_64)</div>
-    <p>No warning and nothing to bypass. You need a distribution that ships WebKitGTK 4.1 (<code>libwebkit2gtk-4.1</code>): Ubuntu 22.04 or newer, Debian 12 or newer, or Fedora. The <code>.deb</code> and <code>.rpm</code> pull it in; the AppImage expects it to be installed already. They are built on Ubuntu 22.04, so they need glibc 2.35 or newer; older systems also lack WebKitGTK 4.1, so use the CLI or browser version there.</p>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre><span style="color:var(--ink-3)"># AppImage — runs anywhere, no install</span>
-chmod +x Aielia_*.AppImage
-./Aielia_*.AppImage
-
-<span style="color:var(--ink-3)"># Debian / Ubuntu</span>
+# Ubuntu / Debian
 sudo apt install ./Aielia_*.deb
 
-<span style="color:var(--ink-3)"># Fedora / RHEL</span>
-sudo dnf install ./Aielia-*.rpm</pre>
+# Fedora
+sudo dnf install ./Aielia-*.rpm</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 4 of 5</div><h3 class="slide-big">AppImage won't start? Install FUSE 2.</h3><p class="slide-small">A <code>libfuse.so.2</code> error means FUSE 2 is missing. On Ubuntu 24.04 and newer the package is <code>libfuse2t64</code>; on older Ubuntu/Debian it's <code>libfuse2</code>; on Fedora, <code>fuse-libs</code>.</p><div class="quickstart-box"><pre>sudo apt install libfuse2t64</pre><button type="button" class="copy" aria-label="Copy command">Copy</button></div></li><li class="slide"><div class="slide-n">Step 5 of 5</div><h3 class="slide-big">Add your AI key in Settings.</h3><p class="slide-small">Click the gear icon, choose Anthropic, OpenAI or OpenRouter and paste your key. It's stored through your keyring (<code>secret-tool</code>); if saving fails, install <code>libsecret-tools</code> and make sure a keyring such as GNOME Keyring is running.</p></li></ol></div>
+<div class="guide" data-guide="browser"><p class="guide-title">In your browser · 3 steps</p><ol class="slides" style="list-style:none;margin:0;padding:0"><li class="slide"><div class="slide-n">Step 1 of 3</div><h3 class="slide-big">Open myaielia.com/try.</h3><p class="slide-small">Any modern browser works. Nothing to download or install: <a class="lnk" href="/try">open the browser version</a>.</p></li><li class="slide"><div class="slide-n">Step 2 of 3</div><h3 class="slide-big">Click the gear icon and paste your AI key.</h3><p class="slide-small">Choose Anthropic, OpenAI or OpenRouter. The key stays in your browser and is stored unencrypted there, so use a browser profile you trust.</p></li><li class="slide"><div class="slide-n">Step 3 of 3</div><h3 class="slide-big">Start chatting.</h3><p class="slide-small">The browser version is chat only: file, command and email tools need the terminal or desktop app.</p></li></ol></div>
     </div>
-    <p>Exact file names carry the version number and may change between releases; use the ones listed under Assets. On Linux the API key is stored with <code>secret-tool</code> (libsecret); install it if the app can't save your key. If the AppImage won't start with a <code>libfuse.so.2</code> error, install FUSE 2: <code>sudo apt install libfuse2t64</code> on Ubuntu 24.04 and newer (<code>libfuse2</code> on older Ubuntu and Debian), or <code>sudo dnf install fuse-libs</code> on Fedora.</p>
 
-    <h3 class="sub">Where your data lives</h3>
-    <ul class="steps">
-      <li>macOS: <code>~/Library/Application Support/com.buildaharness.assistant/</code></li>
-      <li>Linux: <code>~/.local/share/com.buildaharness.assistant/</code></li>
-      <li>Windows: <code>%LOCALAPPDATA%\com.buildaharness.assistant\</code></li>
-    </ul>
-    <p>Uninstalling the app leaves this folder behind; delete it to remove your chats and settings. The desktop app doesn't update itself yet: to upgrade, install the newer release over the old one.</p>
+    <div class="slide-nav" id="slide-nav">
+      <button type="button" class="nav-btn ghost" id="prev">← Back</button>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <button type="button" class="nav-btn" id="next">Next →</button>
+    </div>
   </div>
 </section>
 
-<section class="section alt" id="browser">
+<section class="section know" id="unsigned">
   <div class="wrap prose">
-    <div class="section-label">BROWSER</div>
-    <h2>Or skip <em>installing.</em></h2>
-    <p>Open <a class="lnk" href="/try">myaielia.com/try</a>, paste your AI key in Settings (it stays in your browser), and chat. The browser version is chat only: no file, command or email tools.</p>
-  </div>
-</section>
+    <div class="section-label">GOOD TO KNOW</div>
+    <h2>A few <em>extras.</em></h2>
 
-<section class="section" id="verify">
-  <div class="wrap prose">
-    <div class="section-label">TRUST</div>
-    <h2>Verify, or <em>build it yourself.</em></h2>
-    <p><strong>Checksums.</strong> Every CLI binary has a SHA-256 in the manifest at <a class="lnk" href="/aielia-latest.json">myaielia.com/aielia-latest.json</a> and in a <code>.sha256</code> file on the release. They come from different places, so they should agree with each other and with the file you downloaded. The install scripts do this check for you.</p>
-    <p><strong>Build from source.</strong> The code is at <a class="lnk" href="https://github.com/3IVIS/buildaharness">github.com/3IVIS/buildaharness</a>. The CLI needs Node.js (we build and test on 22); the desktop app also needs a Rust toolchain (<a class="lnk" href="https://rustup.rs">rustup</a>, rustc 1.88 or newer).</p>
-    <div class="quickstart-box">
-      <div class="quickstart-bar">shell</div>
-      <pre>git clone https://github.com/3IVIS/buildaharness
+    <details>
+      <summary>Why is there a security warning?</summary>
+      <div>
+        <p>Apple and Microsoft want developers to buy a signing certificate, so the system can tell who published an app. We haven't yet, so macOS and Windows treat our downloads as coming from an unknown publisher. The warning is about identity, not a detected problem. Only bypass it for files from <code>myaielia.com</code> or <code>github.com/3IVIS/buildaharness/releases</code>. Linux shows no warning. We plan to sign the builds later.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I check my download is genuine?</summary>
+      <div>
+        <p>Terminal releases come with a <code>.sha256</code> file, and the same hashes are in <a class="lnk" href="/aielia-latest.json">aielia-latest.json</a>. The installers check this for you. To check a manual download:</p>
+        <pre>shasum -a 256 aielia-darwin-arm64        # macOS
+sha256sum aielia-linux-x64               # Linux
+Get-FileHash .\aielia-win32-x64.exe      # Windows (PowerShell)</pre>
+        <p>The result must match the <code>.sha256</code> file. Desktop installers don't have published checksums yet.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>I downloaded the terminal program by hand. How do I run it?</summary>
+      <div>
+        <p>Get it from the newest <code>aielia-v…</code> release on <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">GitHub Releases</a>. Then, on macOS and Linux, make it runnable; on macOS also clear the download mark; on Windows, unblock it:</p>
+        <pre>chmod +x aielia-darwin-arm64
+xattr -d com.apple.quarantine aielia-darwin-arm64   # macOS only
+./aielia-darwin-arm64 --version
+
+Unblock-File .\aielia-win32-x64.exe                  # Windows</pre>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where is my data, and how do I uninstall?</summary>
+      <div>
+        <p>Uninstalling never deletes your chats. Delete these folders yourself if you want them gone.</p>
+        <p><strong>Terminal:</strong> <code>~/.buildaharness/personal-assistant/</code>. Uninstall by deleting the <code>aielia</code> program (Windows: the <code>%LOCALAPPDATA%\Aielia</code> folder and its PATH entry).</p>
+        <p><strong>Desktop:</strong> macOS <code>~/Library/Application Support/com.buildaharness.assistant/</code>; Linux <code>~/.local/share/com.buildaharness.assistant/</code>; Windows <code>%LOCALAPPDATA%\com.buildaharness.assistant\</code>. The desktop app doesn't update itself yet: install a newer release over the old one.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I build it myself instead?</summary>
+      <div>
+        <p>Yes, and a build you compile yourself carries no warning. You need Node.js (we use 22) and, for the desktop app, <a class="lnk" href="https://rustup.rs">Rust</a> 1.88 or newer.</p>
+        <pre>git clone https://github.com/3IVIS/buildaharness
 cd buildaharness
 npm ci
 npm run build:harness &amp;&amp; npm run build:runtime &amp;&amp; npm run build:aielia
-npm run dev:desktop      <span style="color:var(--ink-3)"># desktop window</span></pre>
-    </div>
-    <p>A build you compile yourself isn't downloaded from the internet, so it carries no warning.</p>
-  </div>
-</section>
+npm run dev:desktop</pre>
+      </div>
+    </details>
 
-<section class="section alt" id="troubleshooting">
-  <div class="wrap prose">
-    <div class="section-label">TROUBLESHOOTING</div>
-    <h2>If it <em>doesn't start.</em></h2>
-    <div class="faq-list">
-      <div class="faq-item"><h3>macOS says the app is "damaged and can't be opened"</h3><p>It's the unsigned-download message. Run <code>xattr -dr com.apple.quarantine /Applications/Aielia.app</code> and open it again.</p></div>
-      <div class="faq-item"><h3>There is no "Open Anyway" button</h3><p>The button only appears after you've tried to open the app once. Try opening it, dismiss the warning, then go straight to Privacy &amp; Security.</p></div>
-      <div class="faq-item"><h3>Windows shows nothing at all, or the app closes immediately</h3><p>Smart App Control may be blocking unsigned software silently. See the Smart App Control note near the top of this page for the alternatives.</p></div>
-      <div class="faq-item"><h3>Windows hides "Run anyway"</h3><p>Click <strong>More info</strong> first; the button appears underneath. If there is no such link, your PC is managed and the installer is blocked by policy.</p></div>
-      <div class="faq-item"><h3><code>GLIBC_2.xx not found</code> on Linux</h3><p>Your distribution is older than the one our Linux builds were made on. Use <code>npx @buildaharness/aielia</code> (needs Node.js; we build and test on 22) or build from source.</p></div>
-      <div class="faq-item"><h3><code>aielia: command not found</code> after installing</h3><p>Open a new terminal. On macOS/Linux make sure <code>~/.local/bin</code> is on your <code>PATH</code>; on Windows the installer updated the user PATH, which only applies to new windows.</p></div>
-      <div class="faq-item"><h3>The installer refuses to overwrite <code>aielia</code></h3><p>Something else (often an npm-linked <code>aielia</code>) is already there. Remove it, or re-run with <code>--force</code> (<code>curl … | sh -s -- --force</code>; on Windows set <code>$env:AIELIA_FORCE = '1'</code> first).</p></div>
-      <div class="faq-item"><h3>The Linux desktop app can't save my API key</h3><p>Install <code>libsecret-tools</code> (provides <code>secret-tool</code>) and make sure a keyring service such as GNOME Keyring is running.</p></div>
-    </div>
-    <p style="margin-top:24px;">Still stuck? Open an issue on <a class="lnk" href="https://github.com/3IVIS/buildaharness/issues">GitHub</a> with your OS, which download you used and the exact message.</p>
+    <details>
+      <summary>The installer won't overwrite my existing aielia</summary>
+      <div>
+        <p>Something else (often an npm-linked <code>aielia</code>) is already there. Remove it, or re-run with force: <code>curl -fsSL https://myaielia.com/install.sh | sh -s -- --force</code>, or on Windows set <code>$env:AIELIA_FORCE = '1'</code> first.</p>
+      </div>
+    </details>
+
+    <p style="margin-top:24px;">Still stuck? Open an issue on <a class="lnk" href="https://github.com/3IVIS/buildaharness/issues">GitHub</a> with your system, which download you used and the exact message.</p>
   </div>
 </section>
 
@@ -657,6 +589,60 @@ npm run dev:desktop      <span style="color:var(--ink-3)"># desktop window</span
 </section>
 
 {% include footer.html %}
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var state={path:'desktop',os:'mac'};
+  var ua=(navigator.userAgent||'')+' '+(navigator.platform||'');
+  var u=navigator.userAgent||'';if(/Mac OS X|Macintosh/i.test(u))state.os='mac';else if(/Windows/i.test(u))state.os='win';else if(/Linux|X11|CrOS/i.test(u)&&!/Android/i.test(u))state.os='linux';
+  try{var h=location.hash.replace('#','');if(h==='cli'||h==='desktop'||h==='browser')state.path=h;}catch(e){}
+  root.classList.add('js');
+  var guides=[].slice.call(document.querySelectorAll('.guide'));
+  var dots=document.getElementById('dots'),prev=document.getElementById('prev'),next=document.getElementById('next');
+  var pathBtns=[].slice.call(document.querySelectorAll('[data-path]')),osBtns=[].slice.call(document.querySelectorAll('[data-os]'));
+  var osGroup=document.getElementById('os-group');
+  var cur=null,idx=0,slides=[];
+  function key(){return state.path==='browser'?'browser':state.path+'-'+state.os;}
+  function render(){
+    var k=key();
+    pathBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.path===state.path);});
+    osBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.os===state.os);});
+    osGroup.style.display=state.path==='browser'?'none':'';
+    guides.forEach(function(g){g.classList.toggle('show',g.dataset.guide===k);});
+    cur=guides.filter(function(g){return g.dataset.guide===k})[0];
+    slides=[].slice.call(cur.querySelectorAll('.slide'));
+    document.querySelectorAll('.slide.active').forEach(function(x){x.classList.remove('active');});
+    idx=0;show();
+  }
+  function show(){
+    slides.forEach(function(s,i){s.classList.toggle('active',i===idx);});
+    dots.innerHTML='';
+    slides.forEach(function(_,i){
+      var d=document.createElement('button');d.type='button';d.className='dot'+(i===idx?' on':'');
+      d.setAttribute('aria-label','Go to step '+(i+1));d.addEventListener('click',function(){idx=i;show();});
+      dots.appendChild(d);
+    });
+    prev.disabled=idx===0;
+    next.textContent=idx===slides.length-1?'Start over ↺':'Next →';
+  }
+  prev.addEventListener('click',function(){if(idx>0){idx--;show();}});
+  next.addEventListener('click',function(){idx=idx===slides.length-1?0:idx+1;show();});
+  pathBtns.forEach(function(b){b.addEventListener('click',function(){state.path=b.dataset.path;render();});});
+  osBtns.forEach(function(b){b.addEventListener('click',function(){state.os=b.dataset.os;render();});});
+  document.addEventListener('keydown',function(e){
+    if(e.target.closest&&e.target.closest('input,textarea,select'))return;
+    if(e.key==='ArrowRight'&&idx<slides.length-1){idx++;show();}
+    if(e.key==='ArrowLeft'&&idx>0){idx--;show();}
+  });
+  document.getElementById('guides').addEventListener('click',function(e){
+    var b=e.target.closest('.copy');if(!b)return;
+    var t=b.parentNode.querySelector('pre').textContent;
+    if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){var o=b.textContent;b.textContent='Copied ✓';setTimeout(function(){b.textContent=o;},1500);}).catch(function(){});
+  });
+  render();
+})();
+</script>
 <script src="/assets/site-nav.js"></script>
 </body>
 </html>
