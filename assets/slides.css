@@ -1,0 +1,40 @@
+/* Shared step-by-step slides ("stepper") and side-by-side cards ("rail").
+   Relies on each page's own --ink/--ink-2/--ink-3/--paper/--line/--accent custom properties.
+   Without JS (no .js on <html>) every slide is shown stacked, so the content is always readable. */
+.stepper{outline:none;max-width:860px;}
+.stepper:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:8px;}
+.st-slides{list-style:none;margin:0;padding:0;}
+.st-slide{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--paper);padding:34px 38px;margin-bottom:14px;}
+.st-n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px;}
+.st-big{font-size:28px;line-height:1.25;font-weight:400;letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;}
+.st-small{font-size:15px;line-height:1.65;color:var(--ink-2);margin:0;max-width:640px;}
+.st-small + .st-small{margin-top:10px;}
+.st-small a{color:var(--accent-ink);}
+.js .st-slide{display:none;min-height:220px;}
+.js .st-slide.active{display:block;}
+.st-nav{display:none;align-items:center;gap:16px;}
+.js .st-nav{display:flex;}
+.st-btn{font:inherit;font-family:"IBM Plex Mono",monospace;font-size:13px;padding:10px 20px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;}
+.st-btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.st-btn[disabled]{opacity:.35;cursor:default;}
+.st-btn:focus-visible,.st-dot:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.st-dots{display:flex;gap:8px;flex:1;justify-content:center;flex-wrap:wrap;}
+.st-dot{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer;}
+.st-dot.on{background:var(--accent);}
+/* rail: cards side by side; scrolls sideways on narrow screens */
+.rail{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
+.rail-card{border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:8px;background:var(--paper);padding:26px 26px 28px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;}
+a.rail-card:hover{border-color:var(--accent);}
+.rail-n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);}
+.rail-big{font-size:21px;line-height:1.3;font-weight:400;letter-spacing:-.01em;color:var(--ink);margin:0;}
+.rail-small{font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0;}
+.rail-small code{font-size:12.5px;}
+.rail.steps4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:760px){
+  .st-slide{padding:24px 20px;}
+  .st-big{font-size:23px;}
+  .st-nav{flex-wrap:wrap;}
+  .st-dots{order:3;flex-basis:100%;}
+  .rail,.rail.steps4{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:10px;margin-right:-22px;padding-right:22px;}
+  .rail-card{flex:0 0 82%;scroll-snap-align:start;}
+}
