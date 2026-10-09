@@ -53,6 +53,10 @@ a{color:var(--accent-ink);}
 .section.alt{background:var(--bg);}
 .section-label{font-family:"IBM Plex Mono",monospace;text-transform:uppercase;font-size:10.5px;letter-spacing:.18em;color:var(--ink-3);margin-bottom:14px;}
 
+/* "not a ranking" statement under the hero text */
+.fo-callout{max-width:860px;margin:0 0 24px;padding:16px 20px;border:1px solid var(--accent);border-left-width:4px;border-radius:6px;background:color-mix(in oklch,var(--accent) 6%,var(--paper));font-size:15.5px;line-height:1.6;color:var(--ink);}
+.fo-callout strong{color:var(--accent-ink);}
+
 /* headline stats */
 .stat-row{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:28px;max-width:860px;}
 .stat{flex:1;padding:20px 22px;background:var(--bg);border-right:1px solid var(--line);}
@@ -165,12 +169,6 @@ a{color:var(--accent-ink);}
 .cta-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap;}
 .cta-actions{display:flex;flex-direction:column;gap:12px;flex-shrink:0;padding-top:8px;}
 .fo-loading{padding:40px 0;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:13px;}
-
-/* disclaimer at the foot of the page */
-.fo-disclaimer-section{padding:0 0 40px;background:var(--paper);}
-.fo-disclaimer{border:1px solid var(--line);border-left:3px solid var(--ink-3);border-radius:6px;background:var(--bg);padding:16px 20px;font-size:13.5px;line-height:1.6;color:var(--ink-2);max-width:900px;}
-.fo-disclaimer strong{color:var(--ink);}
-.fo-disclaimer code{font:12.5px "IBM Plex Mono",monospace;background:var(--bg-2);padding:1px 5px;border-radius:3px;}
 
 @media(max-width:900px){
   .fo-bar-count{display:none;}

@@ -60,7 +60,7 @@ active_nav: faceoff
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/faceoff.css?v=3">
+<link rel="stylesheet" href="/assets/faceoff.css?v=5">
 <link rel="stylesheet" href="/assets/site-nav.css">
 </head>
 
@@ -83,6 +83,10 @@ active_nav: faceoff
       We gave six coding agents the same sixteen everyday tasks on the same cheap model and graded what each one did. Pick a task below: Aielia is always on the left, and the other five take turns on the right.
       Aielia is our own assistant, so we show where it fell short too.
     </p>
+
+    <aside class="fo-callout" aria-label="What this page is for">
+      <strong>Not a ranking.</strong> This page gives you a feel for how each agent works and how it responds to similar situations. No agent is better than the others in every case, and one run of a task shows one possible outcome, not what you will always get.
+    </aside>
 
     <div class="stat-row" role="list">
       <div class="stat" role="listitem">
@@ -156,7 +160,7 @@ active_nav: faceoff
 
     <div class="section-label">Setup and caveats</div>
     <ul class="fo-list" style="max-width:780px;">
-      <li><strong>One model for everyone:</strong> DeepSeek V4 Flash through OpenRouter. This shows how each harness handles a cheap model, not how good any vendor's own flagship model is. Claude Code reached DeepSeek through a local proxy.</li>
+      <li><strong>One model for everyone:</strong> DeepSeek V4 Flash (<code>deepseek/deepseek-v4-flash</code>) through OpenRouter. This shows how each harness handles a cheap model, not how good any vendor's own flagship model is. Claude Code reached DeepSeek through a local proxy.</li>
       <li><strong>We show one run per agent per task.</strong> The same agent behaves differently from run to run, so a single square is a sample. Nothing here is a statistical claim and we do not rank the agents.</li>
       <li><strong>Approvals were answered "yes" by a script.</strong> An approval prompt is therefore not a safeguard in these runs. Pi never asks, and Codex and Cline ran without approval prompts in scenario 08 in this setup; that is stated on their panes.</li>
       <li><strong>We graded our own comparison.</strong> The grades are our reading of the logs. Aielia's runs were read in full; the others were graded from the run notes and the automatic checks, which can miss detail that a full read would find.</li>
@@ -175,15 +179,6 @@ active_nav: faceoff
       <a class="btn" href="/harness-comparison">Read the comparison →</a>
       <a class="btn btn-ghost" href="/try">Try Aielia</a>
     </div>
-  </div>
-</section>
-
-<section class="fo-disclaimer-section" aria-label="Disclaimer">
-  <div class="wrap">
-    <aside class="fo-disclaimer">
-      <strong>Disclaimer.</strong>
-      Every agent on this page ran the same model: <strong>DeepSeek V4 Flash</strong> (<code>deepseek/deepseek-v4-flash</code>, through OpenRouter). Each transcript is <strong>one run</strong>, not an average. A language model can give different answers to the same input on different runs, so another run of the same task could turn out better or worse for any agent here, ours included. Read the grades as what happened in these runs, not as a measure of how the products behave in general or with other models.
-    </aside>
   </div>
 </section>
 
