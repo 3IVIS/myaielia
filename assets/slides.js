@@ -8,6 +8,9 @@
     var label=root.getAttribute('data-label')||'Step';
     var nav=document.createElement('div');nav.className='st-nav';
     nav.innerHTML='<button type="button" class="st-btn ghost" data-prev>← Back</button><div class="st-dots"></div><button type="button" class="st-btn" data-next>Next →</button>';
+    var auto=root.getAttribute('data-auto')!=='off'&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var playBtn=null;
+    if(auto){playBtn=document.createElement('button');playBtn.type='button';playBtn.className='st-play';playBtn.setAttribute('aria-label','Pause automatic slides');playBtn.textContent='❚❚';nav.insertBefore(playBtn,nav.firstChild);}
     root.appendChild(nav);
     var prev=nav.querySelector('[data-prev]'),next=nav.querySelector('[data-next]'),dots=nav.querySelector('.st-dots');
     slides.forEach(function(s,i){
@@ -35,6 +38,38 @@
       if(Math.abs(dx)<50)return;
       if(dx<0&&idx<slides.length-1){idx++;show();}else if(dx>0&&idx>0){idx--;show();}
     },{passive:true});
+    /* auto-rotate: advances while visible; any click/key/swipe pauses it for 30 s;
+       hover or keyboard focus holds it; the Pause button stops it until pressed again. */
+    var timer=null,userPaused=false,holdUntil=0,visible=false,hovering=false;
+    function delay(){var t=(slides[idx].textContent||'').length;return Math.min(16000,Math.max(7000,5000+t*45));}
+    function clear(){if(timer){clearTimeout(timer);timer=null;}}
+    function schedule(){
+      clear();
+      if(!auto||userPaused||!visible||hovering)return;
+      var wait=Math.max(delay(),holdUntil-Date.now()+500);
+      timer=setTimeout(function(){idx=(idx+1)%slides.length;show();},wait);
+    }
+    function interacted(){holdUntil=Date.now()+30000;schedule();}
+    if(auto){
+      var baseShow=show;
+      show=function(){baseShow();schedule();};
+      root.addEventListener('click',function(e){if(e.target.closest('.st-play'))return;interacted();});
+      root.addEventListener('keydown',interacted);
+      root.addEventListener('touchstart',interacted,{passive:true});
+      root.addEventListener('mouseenter',function(){hovering=true;clear();});
+      root.addEventListener('mouseleave',function(){hovering=false;holdUntil=Math.max(holdUntil,Date.now()+3000);schedule();});
+      playBtn.addEventListener('click',function(){
+        userPaused=!userPaused;
+        playBtn.textContent=userPaused?'▶':'❚❚';
+        playBtn.setAttribute('aria-label',userPaused?'Resume automatic slides':'Pause automatic slides');
+        root.querySelector('.st-slides').setAttribute('aria-live',userPaused?'polite':'off');
+        schedule();
+      });
+      root.querySelector('.st-slides').setAttribute('aria-live','off');
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(es){visible=es[0].isIntersecting;schedule();},{threshold:0.5}).observe(root);
+      }
+    }
     show();
   });
 })();

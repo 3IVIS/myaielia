@@ -244,10 +244,10 @@ header{border-bottom:1px solid var(--line);background:var(--paper);position:rela
 }
 
 /* hero */
-.page-hero{padding:64px 0 72px;background:var(--paper);border-bottom:1px solid var(--line);}
+.page-hero{padding:44px 0 48px;background:var(--paper);border-bottom:1px solid var(--line);}
 
 h1{
-  font-size:56px;line-height:1.05;letter-spacing:-.04em;
+  font-size:46px;line-height:1.05;letter-spacing:-.04em;
   font-weight:300;margin:0 0 24px;max-width:820px;
 }
 h1 em{
@@ -280,11 +280,11 @@ h1 em{
 .cta-row{display:flex;gap:12px;flex-wrap:wrap;}
 
 /* content sections */
-.section{padding:64px 0;background:var(--paper);}
+.section{padding:44px 0;background:var(--paper);}
 .section.alt{background:var(--bg);}
 
 h2{
-  font-size:36px;font-weight:300;letter-spacing:-.03em;
+  font-size:32px;font-weight:300;letter-spacing:-.03em;
   margin:0 0 20px;line-height:1.15;
 }
 h2 em{
@@ -454,6 +454,9 @@ pre{
 }
 .faq-item p{font-size:14.5px;}
 
+.faq-item summary{cursor:pointer;font-size:16.5px;font-weight:500;color:var(--ink);list-style-position:outside;}
+.faq-item[open] summary{margin-bottom:10px;}
+.faq-item{padding:16px 26px;}
 /* cta section */
 .cta-section{
   padding:64px 0;border-top:1px solid var(--line);
@@ -506,21 +509,21 @@ pre{
     </h1>
 
     <p class="hero-lede">
-      Aielia takes on bigger jobs — researching a list, going through your files, writing and sending the update. While it works, a set of safety rules built into its code (we call it a <em>harness</em>) decides what it can do next, what it can trust, and how much a job can use. The AI suggests; the rules decide.
+      Aielia takes on bigger jobs — researching a list, going through your files, writing and sending the update. Safety rules built into its code (a <em>harness</em>) decide what it can do, what it can trust and what a job can cost. The AI suggests; the rules decide.
     </p>
 
     <div class="stat-row" role="list">
       <div class="stat" role="listitem">
         <span class="stat-n">11</span>
-        <span class="stat-l">layers of safety checks run on every real task (quick fact questions skip them)</span>
+        <span class="stat-l">safety layers on every real task</span>
       </div>
       <div class="stat" role="listitem">
         <span class="stat-n">1</span>
-        <span class="stat-l">job per message, by default — it only makes a multi-step plan if you ask for several things</span>
+        <span class="stat-l">job per message, by default</span>
       </div>
       <div class="stat" role="listitem">
         <span class="stat-n">3</span>
-        <span class="stat-l">ways to use it — terminal, browser or desktop app — all the same assistant</span>
+        <span class="stat-l">ways to use it: terminal, browser, desktop</span>
       </div>
     </div>
 
@@ -596,31 +599,7 @@ pre{
       Two more mechanisms run alongside these 11, on every turn that reaches the harness at all: <strong>context compression</strong> (keeps a long conversation inside the model's context window; by default older messages are cut to their first 200 characters, and an opt-in LLM summary, <code style="font-size:13px">AUDIT_SEMANTIC_COMPACTION</code>, keeps the details instead) and the <strong>experience store</strong> (written only when <code style="font-size:13px">AUDIT_EXPERIENCE_LEARNING</code> is switched on, off by default; it then reorders recovery strategies). Neither is among the 11 layers above — <code style="font-size:13px">node-display-names.ts</code>'s own comment calls them "loop scaffolding," deliberately excluded from that count.
     </p></div></details>
 
-    <div class="tool-callout" style="margin-top:28px;background:var(--paper);">
-      <div class="tool-callout-label">How it compares</div>
-      <p>The <a href="/harness-comparison" style="color:var(--accent-ink);">harness comparison</a> compares Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi with Aielia. None of the seven has both a tiered safety-mode system and a built-in answer reviewer. Aielia has both, plus:</p>
-    </div>
-
-    <div class="compare-grid">
-      <div class="compare-card">
-        <h3>Claude Code · Codex · Cline · Hermes · Kilo · OpenClaw · Pi</h3>
-        <ul>
-          <li>Actions run when the AI decides to; where approval exists, it's based on rules, allow-lists or a classifier (Pi has none, by design)</li>
-          <li>No tiered safety modes (normal / cautious / blocked)</li>
-          <li>No built-in answer review before a reply goes out (Claude Code and Codex can be set up with a Stop hook)</li>
-          <li>Risk handling is best-effort; if the risk check fails, nothing defined happens</li>
-        </ul>
-      </div>
-      <div class="compare-card highlight">
-        <h3>Aielia</h3>
-        <ul>
-          <li>Every read-only action is checked before it runs, with a clear answer: allow, deny, or ask you first</li>
-          <li>Answer review — a two-angle check (plus a skeptical one for serious or multi-step tasks) before the reply goes out, and a fact-check before it's called “verified”</li>
-          <li>Fails safe — if the risk check breaks, it asks for approval instead of assuming it's fine</li>
-          <li>Web results and command output are treated as information the AI must never obey</li>
-        </ul>
-      </div>
-    </div>
+    <p class="prose" style="margin-top:28px;">How does this compare with Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi? None of the seven has both a tiered safety-mode system and a built-in answer reviewer. <a href="/harness-comparison" style="color:var(--accent-ink);">See the full comparison →</a></p>
 
   </div>
 </section>
@@ -781,35 +760,17 @@ ASSISTANT_LLM_BACKEND=anthropic ASSISTANT_API_KEY=sk-ant-... \
 
     <div class="faq-list">
 
-      <div class="faq-item">
-        <h3>What is Aielia?</h3>
-        <p>A free AI assistant for everyday use. It handles bigger jobs one message at a time, and 11 layers of built-in safety checks (a “harness”) control what it can do, what it trusts and what a job can cost. Anything you can't undo, like sending an email, waits for your OK.</p>
-      </div>
+      <details class="faq-item"><summary>What is Aielia?</summary><p>A free AI assistant for everyday use. It handles bigger jobs one message at a time, and 11 layers of built-in safety checks (a “harness”) control what it can do, what it trusts and what a job can cost. Anything you can't undo, like sending an email, waits for your OK.</p></details>
 
-      <div class="faq-item">
-        <h3>Does every message go through all the safety checks?</h3>
-        <p>Almost all of them. The only exception is a plain, self-contained fact question like “What's the capital of Mongolia?”, which gets answered straight away because there's nothing to check. Everything else — normal conversation, multi-step requests, anything serious — goes through every layer. Each action the AI suggests is checked first (allow, deny, or ask you), and if several actions fail in a row, the rules can block the next one.</p>
-      </div>
+      <details class="faq-item"><summary>Does every message go through all the safety checks?</summary><p>Almost all of them. The only exception is a plain, self-contained fact question like “What's the capital of Mongolia?”, which gets answered straight away because there's nothing to check. Everything else — normal conversation, multi-step requests, anything serious — goes through every layer. Each action the AI suggests is checked first (allow, deny, or ask you), and if several actions fail in a row, the rules can block the next one.</p></details>
 
-      <div class="faq-item">
-        <h3>How does it decide what needs my approval?</h3>
-        <p>Two separate checks. First, Aielia reads your message for serious intent (sending, deleting, paying, posting) in any language, and asks before doing anything if it finds some. Second, every file write, command and email is held back and shown to you in full. It only runs after you say yes, and exactly as shown.</p>
-      </div>
+      <details class="faq-item"><summary>How does it decide what needs my approval?</summary><p>Two separate checks. First, Aielia reads your message for serious intent (sending, deleting, paying, posting) in any language, and asks before doing anything if it finds some. Second, every file write, command and email is held back and shown to you in full. It only runs after you say yes, and exactly as shown.</p></details>
 
-      <div class="faq-item">
-        <h3>What if it crashes in the middle of a job?</h3>
-        <p>Aielia saves its progress after each step that gets somewhere. If it crashes, it carries on from the last saved step next time instead of starting over. Quick fact questions and requests stopped for approval don't need this, since nothing is in progress.</p>
-      </div>
+      <details class="faq-item"><summary>What if it crashes in the middle of a job?</summary><p>Aielia saves its progress after each step that gets somewhere. If it crashes, it carries on from the last saved step next time instead of starting over. Quick fact questions and requests stopped for approval don't need this, since nothing is in progress.</p></details>
 
-      <div class="faq-item">
-        <h3>Where can I use it?</h3>
-        <p>In a terminal, as a desktop app, or in a browser tab. It's the same assistant with the same safety rules in all three. The terminal and desktop versions save data as files on your computer; the browser version saves it in your browser.</p>
-      </div>
+      <details class="faq-item"><summary>Where can I use it?</summary><p>In a terminal, as a desktop app, or in a browser tab. It's the same assistant with the same safety rules in all three. The terminal and desktop versions save data as files on your computer; the browser version saves it in your browser.</p></details>
 
-      <div class="faq-item">
-        <h3>Is file and command access safe?</h3>
-        <p>Both are off until you turn them on. File access is limited to one folder you choose, with checks that stop it wandering outside. Every command needs your OK, runs with limited settings, a time limit and an output size limit. Anything from the web or a command is labeled untrusted so it can't be mistaken for your instructions. None of this makes commands risk-free, so think carefully before turning them on. This is an early project (v0.3.x) and hasn't had a professional security audit.</p>
-      </div>
+      <details class="faq-item"><summary>Is file and command access safe?</summary><p>Both are off until you turn them on. File access is limited to one folder you choose, with checks that stop it wandering outside. Every command needs your OK, runs with limited settings, a time limit and an output size limit. Anything from the web or a command is labeled untrusted so it can't be mistaken for your instructions. None of this makes commands risk-free, so think carefully before turning them on. This is an early project (v0.3.x) and hasn't had a professional security audit.</p></details>
 
     </div>
 
