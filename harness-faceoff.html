@@ -107,7 +107,7 @@ active_nav: faceoff
         </span>
       </div>
       <div class="fo-bar-rows"><div class="fo-loading">Loading…</div></div>
-      <div class="fo-bars-note">One square per task, in task order; hover a square for its title. One run per agent per task, so a single square is a sample, not a verdict. <a href="#how-we-graded">How we graded ↓</a></div>
+      <div class="fo-bars-note">One square per task, in task order; hover a square for its title. We show one run per agent per task, so a single square is a sample, not a verdict. <a href="#how-we-graded">How we graded ↓</a></div>
     </div>
 
     <noscript><p style="margin-top:20px;">The transcripts and the grade chart need JavaScript. The method and caveats below are plain text.</p></noscript>
@@ -157,7 +157,7 @@ active_nav: faceoff
     <div class="section-label">Setup and caveats</div>
     <ul class="fo-list" style="max-width:780px;">
       <li><strong>One model for everyone:</strong> DeepSeek V4 Flash through OpenRouter. This shows how each harness handles a cheap model, not how good any vendor's own flagship model is. Claude Code reached DeepSeek through a local proxy.</li>
-      <li><strong>One run per agent per task.</strong> The same agent behaves differently from run to run, so a single square is a sample. Nothing here is a statistical claim and we do not rank the agents.</li>
+      <li><strong>We show one run per agent per task.</strong> The same agent behaves differently from run to run, so a single square is a sample. Nothing here is a statistical claim and we do not rank the agents.</li>
       <li><strong>Approvals were answered "yes" by a script.</strong> An approval prompt is therefore not a safeguard in these runs. Pi never asks, and Codex and Cline ran without approval prompts in scenario 08 in this setup; that is stated on their panes.</li>
       <li><strong>We graded our own comparison.</strong> The grades are our reading of the logs. Aielia's runs were read in full; the others were graded from the run notes and the automatic checks, which can miss detail that a full read would find.</li>
       <li><strong>What the page leaves out.</strong> Model reasoning, system prompts and long tool output are not shown. The raw logs are not published.</li>
@@ -189,6 +189,6 @@ active_nav: faceoff
 
 {% include footer.html %}
 
-<script src="/assets/faceoff.js?v=2" data-v="2" defer></script>
+<script src="/assets/faceoff.js?v=3" data-v="3" defer></script>
 </body>
 </html>

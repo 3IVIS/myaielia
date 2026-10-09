@@ -190,7 +190,7 @@
     name.appendChild(el('span', 'fo-grade ' + c.g, GRADE_TXT[c.g]));
     h.appendChild(name);
     var s = c.stats || {};
-    var meta = c.version + ' · run ' + c.date + ' · ' + s.tools + ' tool calls' + (s.approvals ? ' · ' + s.approvals + ' approvals asked' : '');
+    var meta = c.version + ' · ' + s.tools + ' tool calls' + (s.approvals ? ' · ' + s.approvals + ' approvals asked' : '');
     h.appendChild(el('div', 'fo-pane-meta', meta));
     h.appendChild(el('p', 'fo-why', c.w));
     if (c.checks && c.checks.length) {
