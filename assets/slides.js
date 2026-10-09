@@ -8,7 +8,7 @@
     var label=root.getAttribute('data-label')||'Step';
     var nav=document.createElement('div');nav.className='st-nav';
     nav.innerHTML='<button type="button" class="st-btn ghost" data-prev>← Back</button><div class="st-dots"></div><button type="button" class="st-btn" data-next>Next →</button>';
-    var auto=root.getAttribute('data-auto')!=='off'&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var auto=root.getAttribute('data-auto')!=='off';
     var playBtn=null;
     if(auto){playBtn=document.createElement('button');playBtn.type='button';playBtn.className='st-play';playBtn.setAttribute('aria-label','Pause automatic slides');playBtn.textContent='❚❚';nav.insertBefore(playBtn,nav.firstChild);}
     root.appendChild(nav);
@@ -41,7 +41,7 @@
     /* auto-rotate: advances while visible; any click/key/swipe pauses it for 30 s;
        hover or keyboard focus holds it; the Pause button stops it until pressed again. */
     var timer=null,userPaused=false,holdUntil=0,visible=false,hovering=false;
-    function delay(){var t=(slides[idx].textContent||'').length;return Math.min(16000,Math.max(7000,5000+t*45));}
+    function delay(){var t=(slides[idx].textContent||'').length;return Math.min(12000,Math.max(6000,4000+t*30));}
     function clear(){if(timer){clearTimeout(timer);timer=null;}}
     function schedule(){
       clear();
@@ -67,7 +67,7 @@
       });
       root.querySelector('.st-slides').setAttribute('aria-live','off');
       if('IntersectionObserver' in window){
-        new IntersectionObserver(function(es){visible=es[0].isIntersecting;schedule();},{threshold:0.5}).observe(root);
+        new IntersectionObserver(function(es){visible=es[0].isIntersecting;schedule();},{threshold:0.2}).observe(root);
       }
     }
     show();
