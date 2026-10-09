@@ -21,13 +21,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/fetch-versions.mjs
+      # Points aielia-latest.json (what install.sh / install.ps1 / `aielia update` read) at the newest
+      # PUBLISHED aielia-v* release, so the one-liner never names a removed or draft release.
+      - name: Refresh the aielia install manifest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/refresh-aielia-manifest.mjs
       - name: Commit if changed
         run: |
-          if ! git diff --quiet -- _data/versions.json || [ -n "$(git ls-files --others --exclude-standard _data/versions.json)" ]; then
+          if ! git diff --quiet -- _data/versions.json aielia-latest.json || [ -n "$(git ls-files --others --exclude-standard _data/versions.json)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add _data/versions.json
-            git commit -m "chore: refresh package versions [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+            git add _data/versions.json aielia-latest.json
+            git commit -m "chore: refresh package versions and install manifest [$(date -u '+%Y-%m-%d %H:%M UTC')]"
             git pull --rebase origin main
             git push
           fi
