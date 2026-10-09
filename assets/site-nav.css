@@ -126,3 +126,27 @@ footer{
   color:var(--ink-3);
   font-style:italic;
 }
+
+/* "Install" call to action in the header (replaces the black GitHub button).
+   Indigo like the site accent; the fallbacks keep it right on pages that do not define --accent. */
+.hdr-actions .btn.btn-install{
+  background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);
+  border-color:#4F46E5;
+  color:#fff;
+  font-weight:500;
+  box-shadow:0 1px 2px rgba(79,70,229,.35);
+  transition:filter .15s ease,transform .15s ease,box-shadow .15s ease;
+}
+.hdr-actions .btn.btn-install:hover{
+  filter:brightness(1.1);
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(79,70,229,.35);
+}
+.hdr-actions .btn.btn-install:focus-visible{
+  outline:2px solid #4F46E5;
+  outline-offset:2px;
+}
+@media (prefers-reduced-motion:reduce){
+  .hdr-actions .btn.btn-install{transition:none;}
+  .hdr-actions .btn.btn-install:hover{transform:none;}
+}
