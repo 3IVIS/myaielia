@@ -1,4 +1,4 @@
-/* Face-off page: Aielia's transcript on the left, one other agent's on the right, rotating through the others.
+/* Faceoff page: Aielia's transcript on the left, one other agent's on the right, rotating through the others.
 
    Data: /assets/faceoff/index.json (scenarios, blurbs, grades) and /assets/faceoff/NN.json (one scenario's transcripts),
    written by benchmarking/site/export_faceoff.py. Nothing on this page is typed in by hand except the copy in the HTML
@@ -356,7 +356,7 @@
       renderStats(); renderPicker();
       applyHash(false);
     }).catch(function () {
-      root.querySelector('.fo-loading').textContent = 'The face-off data could not be loaded. Reload the page to try again.';
+      root.querySelector('.fo-loading').textContent = 'The faceoff data could not be loaded. Reload the page to try again.';
     });
   }
   function applyHash(user) {

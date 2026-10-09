@@ -1,4 +1,4 @@
-/* Face-off page (harness-faceoff.html). Self-contained: base tokens, header chrome and the page's own components.
+/* Faceoff page (harness-faceoff.html). Self-contained: base tokens, header chrome and the page's own components.
    The shared footer and full-menu button are styled by site-nav.css. */
 :root{
   --bg:oklch(.972 .008 270);
