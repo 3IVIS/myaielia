@@ -12,6 +12,8 @@
 .st-small a{color:var(--accent-ink);}
 .js .st-slide{display:none;min-height:190px;}
 .js .st-slide.active{display:block;}
+.st-slides.st-slide-mode{position:relative;overflow:hidden;padding:2px 0;margin:-2px 0;}
+.js .st-slide.st-leaving{display:block;position:absolute;top:2px;left:0;right:0;margin:0;}
 .st-nav{display:none;align-items:center;gap:16px;}
 .js .st-nav{display:flex;}
 .st-btn{font:inherit;font-family:"IBM Plex Mono",monospace;font-size:13px;padding:10px 20px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;}
