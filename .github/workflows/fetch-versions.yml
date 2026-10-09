@@ -27,13 +27,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/refresh-aielia-manifest.mjs
+      # Self-heal: the installers live in 3IVIS/buildaharness (packages/aielia). If anything ever copies an
+      # older or broken copy onto the site (it happened once via a release tag), the next daily run restores
+      # main's version. Each file must pass a sanity check first, so a bad fetch never replaces a good one.
+      - name: Sync installers from buildaharness main
+        run: |
+          base=https://raw.githubusercontent.com/3IVIS/buildaharness/main/packages/aielia
+          curl -fsSL "$base/install.sh" -o /tmp/install.sh
+          curl -fsSL "$base/install.ps1" -o /tmp/install.ps1
+          sh -n /tmp/install.sh && grep -q "aielia-latest.json" /tmp/install.sh && cp /tmp/install.sh install.sh \
+            || echo "::warning::install.sh from main failed its sanity check; left unchanged"
+          grep -q "Install-Aielia" /tmp/install.ps1 && grep -q "aielia-latest.json" /tmp/install.ps1 && cp /tmp/install.ps1 install.ps1 \
+            || echo "::warning::install.ps1 from main failed its sanity check; left unchanged"
       - name: Commit if changed
         run: |
-          if ! git diff --quiet -- _data/versions.json aielia-latest.json || [ -n "$(git ls-files --others --exclude-standard _data/versions.json)" ]; then
+          if ! git diff --quiet -- _data/versions.json aielia-latest.json install.sh install.ps1 || [ -n "$(git ls-files --others --exclude-standard _data/versions.json)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add _data/versions.json aielia-latest.json
-            git commit -m "chore: refresh package versions and install manifest [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+            git add _data/versions.json aielia-latest.json install.sh install.ps1
+            git commit -m "chore: refresh package versions, install manifest and installers [$(date -u '+%Y-%m-%d %H:%M UTC')]"
             git pull --rebase origin main
             git push
           fi
