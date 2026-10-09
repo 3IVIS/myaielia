@@ -1,0 +1,662 @@
+---
+active_nav: install
+---
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Klaro Consent Management -->
+<script type="text/javascript">
+  var klaroConfig = {
+    storageMethod: 'cookie',
+    cookieName: 'klaro',
+    cookieExpiresAfterDays: 365,
+    privacyPolicy: '/privacy.html',
+    default: false,
+    mustConsent: false,
+    acceptAll: true,
+    hideDeclineAll: false,
+    hideLearnMore: false,
+    noticeAsModal: false,
+    translations: {
+      en: {
+        consentModal: {
+          title: 'Aielia — We value your privacy',
+          description: 'Here you can see and customize the information that we collect about you.',
+        },
+        decline: 'Reject all',
+        ok: 'Accept all',
+        analytics: {
+          description: 'Collection of information about how visitors use our website.',
+        },
+        purposes: {
+          analytics: 'Analytics',
+        },
+      },
+    },
+    services: [
+      {
+        name: 'analytics',
+        title: 'Analytics & Tracking',
+        purposes: ['analytics'],
+        required: false,
+      },
+    ],
+  };
+</script>
+<script defer src="https://cdn.kiprotect.com/klaro/v0.7.18/klaro.js"></script>
+<!-- Google tag (gtag.js) — loaded only after analytics consent via Klaro above -->
+<script async type="text/plain" data-type="text/javascript" data-name="analytics" src="https://www.googletagmanager.com/gtag/js?id=G-HG3KMR8T0N"></script>
+<script type="text/plain" data-type="text/javascript" data-name="analytics">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HG3KMR8T0N');
+</script>
+<script>if(location.protocol==='http:'&&location.hostname==='myaielia.com'){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Aielia — CLI, desktop app and browser</title>
+
+<meta name="description" content="How to install and run Aielia on macOS, Windows and Linux, including how to open the unsigned desktop builds past Gatekeeper and SmartScreen, and how to verify what you downloaded.">
+
+<link rel="canonical" href="https://myaielia.com/install">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://myaielia.com/install">
+<meta property="og:site_name" content="Aielia">
+<meta property="og:title" content="Install Aielia — CLI, desktop app and browser">
+<meta property="og:description" content="How to install and run Aielia on macOS, Windows and Linux, including how to open the unsigned desktop builds past Gatekeeper and SmartScreen, and how to verify what you downloaded.">
+<meta property="og:image" content="https://myaielia.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aielia — hand it real work; the harness keeps it in bounds. The model proposes, the harness decides.">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Install Aielia — CLI, desktop app and browser">
+<meta name="twitter:description" content="How to install and run Aielia on macOS, Windows and Linux, including how to open the unsigned desktop builds past Gatekeeper and SmartScreen, and how to verify what you downloaded.">
+<meta name="twitter:image" content="https://myaielia.com/og-image.png">
+<meta name="twitter:image:alt" content="Aielia — hand it real work; the harness keeps it in bounds. The model proposes, the harness decides.">
+
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="3IVIS">
+<meta name="keywords" content="install Aielia, Aielia download, unsigned app macOS Gatekeeper, Windows SmartScreen run anyway, AppImage, open source AI agent">
+
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#4F46E5">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:oklch(.972 .008 270);
+  --bg-2:oklch(.948 .012 270);
+  --paper:oklch(.985 .008 270);
+  --ink:oklch(.19 .024 270);
+  --ink-2:oklch(.37 .02 270);
+  --ink-3:oklch(.55 .018 270);
+  --line:oklch(.84 .014 270);
+  --accent:oklch(.46 .16 268);
+  --accent-ink:oklch(.36 .16 270);
+  --green:oklch(.38 .12 148);
+  --green-tint:oklch(.93 .04 148);
+}
+
+*{box-sizing:border-box}
+
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+
+body{
+  font-family:"IBM Plex Sans",sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+.prose{max-width:740px;}
+
+/* header */
+header{border-bottom:1px solid var(--line);background:var(--paper);position:relative;}
+.site-inner{display:flex;align-items:center;justify-content:space-between;padding-top:18px;padding-bottom:18px;}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+.brand .name{font-family:"IBM Plex Mono",monospace;font-size:15px;white-space:nowrap;}
+.hdr-actions{display:flex;align-items:center;gap:10px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:6px;text-decoration:none;
+  background:var(--ink);color:white;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  border:1px solid var(--ink);
+}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* breadcrumb */
+.breadcrumb{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  color:var(--ink-3);margin-bottom:32px;
+}
+.breadcrumb a{color:var(--ink-3);text-decoration:none;}
+.breadcrumb a:hover{color:var(--ink-2);}
+.breadcrumb span{margin:0 6px;}
+
+/* eyebrow */
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;text-transform:uppercase;
+  font-size:11px;letter-spacing:.16em;color:var(--accent-ink);
+  margin-bottom:22px;
+}
+
+/* hero */
+.page-hero{padding:64px 0 72px;background:var(--paper);border-bottom:1px solid var(--line);}
+
+h1{
+  font-size:56px;line-height:1.05;letter-spacing:-.04em;
+  font-weight:300;margin:0 0 24px;max-width:820px;
+}
+h1 em{
+  font-family:"Instrument Serif",serif;font-style:italic;
+  color:var(--accent-ink);font-weight:400;
+}
+
+.hero-lede{
+  font-size:19px;font-weight:300;color:var(--ink-2);
+  max-width:660px;margin:0 0 40px;line-height:1.5;
+}
+
+/* stats */
+.stat-row{
+  display:flex;gap:0;border:1px solid var(--line);border-radius:6px;
+  overflow:hidden;margin-bottom:36px;max-width:820px;
+}
+.stat{
+  flex:1;padding:22px 24px;background:var(--bg);
+  border-right:1px solid var(--line);
+}
+.stat:last-child{border-right:none;}
+.stat-n{
+  display:block;font-size:32px;font-weight:300;letter-spacing:-.03em;
+  color:var(--accent-ink);font-family:"IBM Plex Mono",monospace;
+  margin-bottom:6px;
+}
+.stat-l{display:block;font-size:13px;color:var(--ink-3);line-height:1.4;}
+
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* content sections */
+.section{padding:64px 0;background:var(--paper);}
+.section.alt{background:var(--bg);}
+
+h2{
+  font-size:36px;font-weight:300;letter-spacing:-.03em;
+  margin:0 0 20px;line-height:1.15;
+}
+h2 em{
+  font-family:"Instrument Serif",serif;font-style:italic;
+  color:var(--accent-ink);font-weight:400;
+}
+
+.section-label{
+  font-family:"IBM Plex Mono",monospace;text-transform:uppercase;
+  font-size:10.5px;letter-spacing:.18em;color:var(--ink-3);
+  margin-bottom:16px;
+}
+
+p{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0 0 18px;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--ink);font-weight:600;}
+
+/* comparison block */
+.compare-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-top:28px;max-width:820px;
+}
+.compare-card{
+  border:1px solid var(--line);border-radius:6px;
+  background:var(--bg);padding:24px 26px;
+}
+.compare-card.highlight{
+  border-color:oklch(.78 .06 268);
+  background:oklch(.95 .018 268);
+}
+.compare-card h3{
+  font-size:14px;font-weight:600;font-family:"IBM Plex Mono",monospace;
+  text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px;
+  color:var(--ink-3);
+}
+.compare-card.highlight h3{color:var(--accent-ink);}
+.compare-card ul{
+  margin:0;padding:0 0 0 16px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.compare-card li{font-size:14.5px;color:var(--ink-2);line-height:1.5;}
+.compare-card.highlight li{color:var(--ink);}
+
+/* layers */
+.layers-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin-top:28px;
+}
+.layer-card{
+  border:1px solid var(--line);border-radius:6px;
+  background:var(--paper);padding:20px 22px;
+  border-left:3px solid var(--accent);
+  display:flex;flex-direction:column;gap:6px;
+}
+.layer-num{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;
+  color:var(--ink-3);text-transform:uppercase;letter-spacing:.14em;
+}
+.layer-name{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.layer-desc{font-size:14px;color:var(--ink-2);line-height:1.5;}
+.layer-without{
+  font-size:12.5px;color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace;
+  margin-top:4px;
+}
+
+/* process steps */
+.process-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;border:1px solid var(--line);border-radius:6px;
+  overflow:hidden;margin-top:28px;
+}
+.process-step{
+  padding:24px 22px;background:var(--paper);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:10px;
+}
+.process-step:last-child{border-right:none;}
+.process-step-n{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;
+  color:var(--accent-ink);text-transform:uppercase;letter-spacing:.16em;
+}
+.process-step-title{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.process-step-sub{font-size:13.5px;color:var(--ink-2);line-height:1.5;}
+.process-step-detail{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;
+  color:var(--ink-3);line-height:1.6;
+}
+
+/* quickstart */
+.quickstart-box{
+  border:1px solid var(--line);border-radius:6px;
+  overflow:hidden;max-width:640px;
+  margin-top:28px;
+}
+.quickstart-bar{
+  padding:11px 18px;background:var(--bg-2);border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);
+}
+pre{
+  margin:0;padding:20px 18px;
+  font-family:"IBM Plex Mono",monospace;font-size:13px;
+  line-height:1.7;color:var(--ink);background:var(--paper);
+  overflow-x:auto;
+}
+
+/* services list */
+.services{
+  display:flex;flex-direction:column;gap:6px;margin-top:20px;
+}
+.service-row{
+  display:flex;align-items:center;gap:14px;
+  padding:10px 14px;border:1px solid var(--line);
+  border-radius:4px;background:var(--paper);
+}
+.service-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.service-name{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;color:var(--ink);}
+.service-url{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);}
+
+/* tool callout */
+.tool-callout{
+  margin-top:20px;padding:14px 18px;
+  border:1px solid var(--line);border-radius:6px;
+  background:var(--paper);
+  display:flex;align-items:flex-start;gap:16px;
+}
+.tool-callout-label{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:.14em;
+  color:var(--accent-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;
+}
+.tool-callout p{
+  margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5;
+}
+
+/* front-end table */
+.fe-table{
+  width:100%;border-collapse:collapse;margin-top:28px;
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+}
+.fe-table th,.fe-table td{
+  text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);
+  font-size:14px;color:var(--ink-2);vertical-align:top;
+}
+.fe-table tr:last-child td{border-bottom:none;}
+.fe-table th{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--ink-3);background:var(--bg-2);font-weight:500;
+}
+.fe-table td:first-child,.fe-table th:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+.fe-table-wrap{overflow-x:auto;}
+
+/* faq */
+.faq-list{
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  margin-top:24px;
+}
+.faq-item{
+  padding:22px 26px;border-bottom:1px solid var(--line);
+  background:var(--paper);
+}
+.faq-item:last-child{border-bottom:none;}
+.faq-item h3{
+  font-size:17px;font-weight:500;letter-spacing:-.01em;
+  color:var(--ink);margin:0 0 8px;
+}
+.faq-item p{font-size:14.5px;}
+
+/* cta section */
+.cta-section{
+  padding:64px 0;border-top:1px solid var(--line);
+  background:var(--paper);
+}
+.cta-inner{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:40px;flex-wrap:wrap;
+}
+.cta-text h2{margin-bottom:12px;}
+.cta-text p{max-width:540px;}
+.cta-actions{display:flex;flex-direction:column;gap:12px;flex-shrink:0;padding-top:8px;}
+
+@media(max-width:760px){
+  .wrap{padding:0 22px;}
+  h1{font-size:36px;}
+  h2{font-size:28px;}
+  .stat-row{flex-direction:column;}
+  .stat{border-right:none;border-bottom:1px solid var(--line);}
+  .stat:last-child{border-bottom:none;}
+  .compare-grid{grid-template-columns:1fr;}
+  .layers-grid{grid-template-columns:1fr;}
+  .process-steps{grid-template-columns:1fr 1fr;}
+  .cta-inner{flex-direction:column;}
+  .tool-callout{flex-direction:column;gap:8px;}
+  .fe-table{font-size:13px;}
+}
+
+.steps{margin:0 0 18px;padding-left:22px;color:var(--ink-2);font-size:15.5px;line-height:1.7;}
+.steps li{margin-bottom:8px;}
+.note{margin-top:20px;padding:14px 18px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;background:var(--paper);font-size:14.5px;color:var(--ink-2);line-height:1.6;}
+.note strong{color:var(--ink);}
+.os-label{font-family:"IBM Plex Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-ink);margin:32px 0 10px;}
+h3.sub{font-size:20px;font-weight:500;letter-spacing:-.01em;margin:36px 0 10px;color:var(--ink);}
+code{font-family:"IBM Plex Mono",monospace;font-size:13px;}
+a.lnk{color:var(--accent-ink);}
+@media(max-width:760px){.fe-table td:first-child,.fe-table th:first-child{white-space:normal;}}
+</style>
+<link rel="stylesheet" href="/assets/site-nav.css">
+</head>
+<body>
+
+{% include header.html %}
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Aielia</a><span aria-hidden="true">/</span><span>Install</span>
+    </nav>
+    <div class="eyebrow">INSTALL · RUN · VERIFY</div>
+    <h1>Install Aielia<em> on your computer.</em></h1>
+    <p class="hero-lede">
+      Three ways to run it: a one-line terminal install, a desktop app, or a browser tab with nothing to install. The terminal and desktop downloads are <strong>not code-signed yet</strong>, so macOS and Windows will warn you the first time. This page explains why, exactly how to get past the warning, and how to check you got the real thing.
+    </p>
+    <div class="cta-row">
+      <a class="btn" href="#cli">Terminal (CLI)</a>
+      <a class="btn btn-ghost" href="#desktop">Desktop app</a>
+      <a class="btn btn-ghost" href="/try">Browser — no install →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="choose">
+  <div class="wrap">
+    <div class="section-label">WHICH ONE</div>
+    <h2>Pick the version <em>that fits.</em></h2>
+    <div class="fe-table-wrap">
+      <table class="fe-table">
+        <tr><th>Option</th><th>Best for</th><th>Needs</th><th>Warning on first run?</th></tr>
+        <tr><td>Terminal (CLI)</td><td>Everything, including file, command and email tools</td><td>Nothing (the installer fetches a standalone binary; Node is not required)</td><td>Not usually when installed with the one-liner (see below)</td></tr>
+        <tr><td>Desktop app</td><td>A normal window, a folder picker, and your API key kept in the OS keychain</td><td>Nothing on macOS and Windows; WebKitGTK on Linux</td><td>Yes on macOS and Windows</td></tr>
+        <tr><td>Browser</td><td>Trying it in a minute; chat only</td><td>A modern browser</td><td>No</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:20px;">All three need an AI key from Anthropic, OpenAI or OpenRouter (there is no Aielia account). Releases are published on <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">GitHub Releases</a>; terminal releases are tagged <code>aielia-v…</code> and desktop releases <code>desktop-v…</code>. Pick the newest tag of the kind you want, because that list also holds other release lines from the same repository.</p>
+  </div>
+</section>
+
+<section class="section" id="unsigned">
+  <div class="wrap prose">
+    <div class="section-label">READ THIS FIRST</div>
+    <h2>About the <em>unsigned</em> builds.</h2>
+    <p>Apple and Microsoft each want developers to pay for a signing certificate (and, on macOS, to submit each build for notarization). A signed app tells the operating system who published it and that the file hasn't been altered since. We haven't set that up yet, so for now macOS and Windows treat our downloads as coming from an unknown publisher and show a warning. Linux shows none.</p>
+    <p><strong>What that does and doesn't mean.</strong> The warning is about identity, not about a detected problem: the operating system can't vouch for the file. It is also why you should only bypass it for a file you downloaded from the official places below. Aielia is open source (Apache 2.0), the builds come from a public GitHub Actions workflow, and you can compile it yourself instead (see <a class="lnk" href="#verify">Verify or build it yourself</a>).</p>
+    <div class="note"><strong>Official sources only:</strong> <code>myaielia.com</code> (the install scripts and the release manifest) and <code>github.com/3IVIS/buildaharness/releases</code>. If a file came from anywhere else, don't run it.</div>
+    <div class="note" style="margin-top:18px;"><strong>Windows 11 and Smart App Control:</strong> if Smart App Control is switched <em>On</em> (Settings → Privacy &amp; security → Windows Security → App &amp; browser control → Smart App Control), Windows blocks unsigned programs outright. There is no "Run anyway" button, and the app may simply fail to start without a message. Fresh Windows 11 installs often ship with it on. In that case use the <a class="lnk" href="/try">browser version</a> or <code>npx @buildaharness/aielia</code> (Node's own signed program runs the code), or turn Smart App Control off. Turning it off affects every unsigned program on the PC, and on older Windows 11 builds it can't be turned back on without resetting Windows, so check Microsoft's guidance first.</div>
+    <p style="margin-top:18px;">We plan to sign the builds later; when that happens these steps stop being necessary.</p>
+  </div>
+</section>
+
+<section class="section alt" id="cli">
+  <div class="wrap prose">
+    <div class="section-label">TERMINAL</div>
+    <h2>Install the <em>CLI.</em></h2>
+    <p>The one-liner downloads a standalone binary for your platform, checks its SHA-256 against the release manifest at <code>myaielia.com/aielia-latest.json</code>, and installs it. It uses HTTPS only, won't overwrite an unrelated file, and re-running it upgrades in place.</p>
+
+    <div class="quickstart-box">
+      <div class="quickstart-bar">macOS / Linux</div>
+      <pre>curl -fsSL https://myaielia.com/install.sh | sh</pre>
+    </div>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">Windows (PowerShell)</div>
+      <pre>irm https://myaielia.com/install.ps1 | iex</pre>
+    </div>
+
+    <ul class="steps">
+      <li><strong>macOS / Linux</strong> installs to <code>~/.local/bin/aielia</code> (override with <code>AIELIA_INSTALL_DIR</code>). If your shell says <code>command not found</code>, add that folder to your <code>PATH</code>.</li>
+      <li><strong>Windows</strong> installs to <code>%LOCALAPPDATA%\Aielia\aielia.exe</code> and adds that folder to your <em>user</em> PATH. Open a new terminal window afterwards.</li>
+      <li>Prefer to read it first? Both scripts are plain text: open <a class="lnk" href="/install.sh">install.sh</a> or <a class="lnk" href="/install.ps1">install.ps1</a> in your browser before running them.</li>
+      <li>Supported binaries: macOS (Apple silicon and Intel), Linux x64 on a mainstream glibc distribution, and Windows 10/11 x64 (also runs on Windows ARM through emulation). Not supported: 32-bit systems, Linux ARM, and musl-based distributions such as Alpine. On those, use npm, below.</li>
+      <li>The Linux binary is built on Ubuntu 22.04 and needs glibc 2.35 or newer: Ubuntu 22.04+, Debian 12+, Fedora 36+ and similar. On an older distribution (Ubuntu 20.04, Debian 11, RHEL/Rocky 9) you will see <code>GLIBC_2.xx not found</code>; use npm instead.</li>
+    </ul>
+
+    <div class="note"><strong>Why there's usually no warning here:</strong> Gatekeeper and SmartScreen check files that a browser or similar app has marked as "downloaded from the internet". <code>curl</code> and PowerShell's <code>irm</code> typically don't add that mark, so a binary installed this way normally runs without the prompt. If you see one anyway, use the manual steps below. This does not help on Windows with Smart App Control on (see above).</div>
+
+    <h3 class="sub">First run</h3>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre>aielia --version
+aielia</pre>
+    </div>
+    <p>With nothing configured, the first interactive launch asks which provider to use and for its API key (it checks the key with a free read-only call) and saves the choice. Chats, remembered facts and reminders are stored as files in <code>~/.buildaharness/personal-assistant/</code>. File and command access are off until you turn them on, and every write, command and email waits for your approval.</p>
+
+    <h3 class="sub">Already use Node?</h3>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre><span style="color:var(--ink-3)"># run without installing</span>
+npx @buildaharness/aielia
+
+<span style="color:var(--ink-3)"># or install globally</span>
+npm install -g @buildaharness/aielia</pre>
+    </div>
+    <p>npm installs aren't affected by the signing warnings at all.</p>
+
+    <h3 class="sub">Download the binary by hand</h3>
+    <p>If you'd rather not pipe a script into your shell, download the binary from the <code>aielia-v…</code> release on GitHub. Each file has a matching <code>.sha256</code> file.</p>
+
+    <div class="os-label">macOS</div>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre><span style="color:var(--ink-3)"># check the download against the .sha256 file from the same release</span>
+shasum -a 256 aielia-darwin-arm64
+cat aielia-darwin-arm64.sha256
+
+chmod +x aielia-darwin-arm64
+xattr -d com.apple.quarantine aielia-darwin-arm64
+./aielia-darwin-arm64 --version</pre>
+    </div>
+    <p>Use <code>aielia-darwin-x64</code> on an Intel Mac. If you skip the <code>xattr</code> line, macOS blocks the first launch; then open <strong>System Settings → Privacy &amp; Security</strong>, scroll to the message about <code>aielia</code>, and click <strong>Open Anyway</strong>.</p>
+
+    <div class="os-label">Linux</div>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre>sha256sum aielia-linux-x64
+cat aielia-linux-x64.sha256
+chmod +x aielia-linux-x64
+./aielia-linux-x64 --version</pre>
+    </div>
+
+    <div class="os-label">Windows</div>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">PowerShell</div>
+      <pre>Get-FileHash .\aielia-win32-x64.exe -Algorithm SHA256
+Get-Content .\aielia-win32-x64.exe.sha256
+Unblock-File .\aielia-win32-x64.exe
+.\aielia-win32-x64.exe --version</pre>
+    </div>
+    <p><code>Unblock-File</code> removes the "downloaded from the internet" mark. Without it, SmartScreen may say <em>Windows protected your PC</em>: click <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
+
+    <h3 class="sub">Update and uninstall</h3>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre>aielia update                 <span style="color:var(--ink-3)"># standalone binary</span>
+npm update -g @buildaharness/aielia   <span style="color:var(--ink-3)"># if installed from npm</span></pre>
+    </div>
+    <p>To uninstall, delete the <code>aielia</code> binary (and on Windows the <code>%LOCALAPPDATA%\Aielia</code> folder and its PATH entry). Your data stays in <code>~/.buildaharness/personal-assistant/</code> until you delete that folder as well.</p>
+  </div>
+</section>
+
+<section class="section" id="desktop">
+  <div class="wrap prose">
+    <div class="section-label">DESKTOP APP</div>
+    <h2>Install the <em>desktop app.</em></h2>
+    <p>Download an installer from the newest <code>desktop-v…</code> release on <a class="lnk" href="https://github.com/3IVIS/buildaharness/releases">GitHub Releases</a>, under <strong>Assets</strong>. It's the same chat UI as the browser version in a native window, with a folder picker for file access and your API key stored in the OS keychain.</p>
+
+    <div class="os-label">macOS — universal .dmg (Intel and Apple silicon)</div>
+    <ol class="steps">
+      <li>Open the <code>.dmg</code> and drag <strong>Aielia</strong> into <strong>Applications</strong>.</li>
+      <li>Open it from Applications. macOS will refuse, saying the app is from an unidentified developer or "is damaged and can't be opened". It isn't damaged; that is how Gatekeeper reports an unsigned download.</li>
+      <li><strong>macOS 15 (Sequoia) and later:</strong> open <strong>System Settings → Privacy &amp; Security</strong>, scroll down to the message about Aielia, click <strong>Open Anyway</strong>, and confirm with your password. (On older macOS versions you can instead right-click the app, choose <strong>Open</strong>, then <strong>Open</strong> again. Don't rely on that on current versions.)</li>
+      <li>If you only see "damaged" and no Open Anyway button, remove the quarantine mark in Terminal and open the app again:</li>
+    </ol>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre>xattr -dr com.apple.quarantine /Applications/Aielia.app</pre>
+    </div>
+    <p>Only run this on an app you downloaded from the official sources above, and only on that one app. You need to do this once per downloaded version.</p>
+
+    <div class="os-label">Windows — setup .exe or .msi</div>
+    <ol class="steps">
+      <li>Run the <code>.exe</code> (or <code>.msi</code>). If Edge or Chrome warns about the download, choose <strong>Keep</strong>.</li>
+      <li>SmartScreen shows <strong>Windows protected your PC</strong>. Click <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
+      <li>Follow the installer, then start Aielia from the Start menu. The app needs Microsoft's WebView2 runtime, which is already part of Windows 11 and up-to-date Windows 10; if it's missing, the installer downloads it, so it needs an internet connection.</li>
+      <li>If the installer or app does nothing and no warning appears, Smart App Control is probably blocking it (see the note near the top of this page).</li>
+    </ol>
+    <p>Prefer the command line? <code>Unblock-File .\&lt;installer&gt;</code> in PowerShell clears the mark before you run it. A managed work PC may block unsigned installers entirely; in that case use the <a class="lnk" href="#cli">CLI</a> or <a class="lnk" href="/try">browser version</a>, or ask your IT team.</p>
+
+    <div class="os-label">Linux — .AppImage, .deb or .rpm (x86_64)</div>
+    <p>No warning and nothing to bypass. You need a distribution that ships WebKitGTK 4.1 (<code>libwebkit2gtk-4.1</code>): Ubuntu 22.04 or newer, Debian 12 or newer, or Fedora. The <code>.deb</code> and <code>.rpm</code> pull it in; the AppImage expects it to be installed already. They are built on Ubuntu 22.04, so they need glibc 2.35 or newer; older systems also lack WebKitGTK 4.1, so use the CLI or browser version there.</p>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre><span style="color:var(--ink-3)"># AppImage — runs anywhere, no install</span>
+chmod +x Aielia_*.AppImage
+./Aielia_*.AppImage
+
+<span style="color:var(--ink-3)"># Debian / Ubuntu</span>
+sudo apt install ./Aielia_*.deb
+
+<span style="color:var(--ink-3)"># Fedora / RHEL</span>
+sudo dnf install ./Aielia-*.rpm</pre>
+    </div>
+    <p>Exact file names carry the version number and may change between releases; use the ones listed under Assets. On Linux the API key is stored with <code>secret-tool</code> (libsecret); install it if the app can't save your key. If the AppImage won't start with a <code>libfuse.so.2</code> error, install FUSE 2: <code>sudo apt install libfuse2t64</code> on Ubuntu 24.04 and newer (<code>libfuse2</code> on older Ubuntu and Debian), or <code>sudo dnf install fuse-libs</code> on Fedora.</p>
+
+    <h3 class="sub">Where your data lives</h3>
+    <ul class="steps">
+      <li>macOS: <code>~/Library/Application Support/com.buildaharness.assistant/</code></li>
+      <li>Linux: <code>~/.local/share/com.buildaharness.assistant/</code></li>
+      <li>Windows: <code>%LOCALAPPDATA%\com.buildaharness.assistant\</code></li>
+    </ul>
+    <p>Uninstalling the app leaves this folder behind; delete it to remove your chats and settings. The desktop app doesn't update itself yet: to upgrade, install the newer release over the old one.</p>
+  </div>
+</section>
+
+<section class="section alt" id="browser">
+  <div class="wrap prose">
+    <div class="section-label">BROWSER</div>
+    <h2>Or skip <em>installing.</em></h2>
+    <p>Open <a class="lnk" href="/try">myaielia.com/try</a>, paste your AI key in Settings (it stays in your browser), and chat. The browser version is chat only: no file, command or email tools.</p>
+  </div>
+</section>
+
+<section class="section" id="verify">
+  <div class="wrap prose">
+    <div class="section-label">TRUST</div>
+    <h2>Verify, or <em>build it yourself.</em></h2>
+    <p><strong>Checksums.</strong> Every CLI binary has a SHA-256 in the manifest at <a class="lnk" href="/aielia-latest.json">myaielia.com/aielia-latest.json</a> and in a <code>.sha256</code> file on the release. They come from different places, so they should agree with each other and with the file you downloaded. The install scripts do this check for you.</p>
+    <p><strong>Build from source.</strong> The code is at <a class="lnk" href="https://github.com/3IVIS/buildaharness">github.com/3IVIS/buildaharness</a>. The CLI needs Node.js (we build and test on 22); the desktop app also needs a Rust toolchain (<a class="lnk" href="https://rustup.rs">rustup</a>, rustc 1.88 or newer).</p>
+    <div class="quickstart-box">
+      <div class="quickstart-bar">shell</div>
+      <pre>git clone https://github.com/3IVIS/buildaharness
+cd buildaharness
+npm ci
+npm run build:harness &amp;&amp; npm run build:runtime &amp;&amp; npm run build:aielia
+npm run dev:desktop      <span style="color:var(--ink-3)"># desktop window</span></pre>
+    </div>
+    <p>A build you compile yourself isn't downloaded from the internet, so it carries no warning.</p>
+  </div>
+</section>
+
+<section class="section alt" id="troubleshooting">
+  <div class="wrap prose">
+    <div class="section-label">TROUBLESHOOTING</div>
+    <h2>If it <em>doesn't start.</em></h2>
+    <div class="faq-list">
+      <div class="faq-item"><h3>macOS says the app is "damaged and can't be opened"</h3><p>It's the unsigned-download message. Run <code>xattr -dr com.apple.quarantine /Applications/Aielia.app</code> and open it again.</p></div>
+      <div class="faq-item"><h3>There is no "Open Anyway" button</h3><p>The button only appears after you've tried to open the app once. Try opening it, dismiss the warning, then go straight to Privacy &amp; Security.</p></div>
+      <div class="faq-item"><h3>Windows shows nothing at all, or the app closes immediately</h3><p>Smart App Control may be blocking unsigned software silently. See the Smart App Control note near the top of this page for the alternatives.</p></div>
+      <div class="faq-item"><h3>Windows hides "Run anyway"</h3><p>Click <strong>More info</strong> first; the button appears underneath. If there is no such link, your PC is managed and the installer is blocked by policy.</p></div>
+      <div class="faq-item"><h3><code>GLIBC_2.xx not found</code> on Linux</h3><p>Your distribution is older than the one our Linux builds were made on. Use <code>npx @buildaharness/aielia</code> (needs Node.js; we build and test on 22) or build from source.</p></div>
+      <div class="faq-item"><h3><code>aielia: command not found</code> after installing</h3><p>Open a new terminal. On macOS/Linux make sure <code>~/.local/bin</code> is on your <code>PATH</code>; on Windows the installer updated the user PATH, which only applies to new windows.</p></div>
+      <div class="faq-item"><h3>The installer refuses to overwrite <code>aielia</code></h3><p>Something else (often an npm-linked <code>aielia</code>) is already there. Remove it, or re-run with <code>--force</code> (<code>curl … | sh -s -- --force</code>; on Windows set <code>$env:AIELIA_FORCE = '1'</code> first).</p></div>
+      <div class="faq-item"><h3>The Linux desktop app can't save my API key</h3><p>Install <code>libsecret-tools</code> (provides <code>secret-tool</code>) and make sure a keyring service such as GNOME Keyring is running.</p></div>
+    </div>
+    <p style="margin-top:24px;">Still stuck? Open an issue on <a class="lnk" href="https://github.com/3IVIS/buildaharness/issues">GitHub</a> with your OS, which download you used and the exact message.</p>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <div class="section-label">AIELIA</div>
+        <h2>Installed? <em>Start here.</em></h2>
+        <p>Begin with a simple question, then ask for something serious like sending an email, and watch Aielia stop and ask first. This is an early alpha; read <a class="lnk" href="/how-it-works#quickstart">how it works</a> before turning on file or command access.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn" href="/how-it-works">How it works →</a>
+        <a class="btn btn-ghost" href="/try">Try in your browser →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include footer.html %}
+<script src="/assets/site-nav.js"></script>
+</body>
+</html>
