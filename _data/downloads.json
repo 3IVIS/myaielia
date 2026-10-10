@@ -1,75 +1,75 @@
 {
   "desktop": {
-    "tag": "desktop-v0.1.5",
-    "version": "0.1.5",
-    "releaseUrl": "https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.5",
+    "tag": "desktop-v0.1.6",
+    "version": "0.1.6",
+    "releaseUrl": "https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.6",
     "files": {
       "appimage": {
-        "name": "Aielia_0.1.5_amd64.AppImage",
+        "name": "Aielia_0.1.6_amd64.AppImage",
         "sizeMB": 81,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.5/Aielia_0.1.5_amd64.AppImage",
-        "size": 84457976
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_amd64.AppImage",
+        "size": 84449784
       },
       "deb": {
-        "name": "Aielia_0.1.5_amd64.deb",
+        "name": "Aielia_0.1.6_amd64.deb",
         "sizeMB": 6,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.5/Aielia_0.1.5_amd64.deb",
-        "size": 6652214
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_amd64.deb",
+        "size": 6651302
       },
       "dmg": {
-        "name": "Aielia_0.1.5_universal.dmg",
+        "name": "Aielia_0.1.6_universal.dmg",
         "sizeMB": 13,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.5/Aielia_0.1.5_universal.dmg",
-        "size": 13201950
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_universal.dmg",
+        "size": 13204810
       },
       "exe": {
-        "name": "Aielia_0.1.5_x64-setup.exe",
+        "name": "Aielia_0.1.6_x64-setup.exe",
         "sizeMB": 4,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.5/Aielia_0.1.5_x64-setup.exe",
-        "size": 4414364
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_x64-setup.exe",
+        "size": 4419072
       },
       "msi": {
-        "name": "Aielia_0.1.5_x64_en-US.msi",
+        "name": "Aielia_0.1.6_x64_en-US.msi",
         "sizeMB": 6,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.5/Aielia_0.1.5_x64_en-US.msi",
-        "size": 6254592
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_x64_en-US.msi",
+        "size": 6258688
       },
       "rpm": {
-        "name": "Aielia-0.1.5-1.x86_64.rpm",
+        "name": "Aielia-0.1.6-1.x86_64.rpm",
         "sizeMB": 6,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.5/Aielia-0.1.5-1.x86_64.rpm",
-        "size": 6652960
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia-0.1.6-1.x86_64.rpm",
+        "size": 6651771
       }
     }
   },
   "cli": {
-    "tag": "aielia-v0.3.6",
-    "version": "0.3.6",
-    "releaseUrl": "https://github.com/3IVIS/buildaharness/releases/tag/aielia-v0.3.6",
+    "tag": "aielia-v0.3.7",
+    "version": "0.3.7",
+    "releaseUrl": "https://github.com/3IVIS/buildaharness/releases/tag/aielia-v0.3.7",
     "files": {
       "darwin_arm64": {
         "name": "aielia-darwin-arm64",
         "sizeMB": 111,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.6/aielia-darwin-arm64",
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.7/aielia-darwin-arm64",
         "size": 116643424
       },
       "darwin_x64": {
         "name": "aielia-darwin-x64",
         "sizeMB": 114,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.6/aielia-darwin-x64",
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.7/aielia-darwin-x64",
         "size": 119819664
       },
       "linux_x64": {
         "name": "aielia-linux-x64",
         "sizeMB": 124,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.6/aielia-linux-x64",
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.7/aielia-linux-x64",
         "size": 129502400
       },
       "win32_x64": {
         "name": "aielia-win32-x64.exe",
         "sizeMB": 87,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.6/aielia-win32-x64.exe",
-        "size": 91687936
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/aielia-v0.3.7/aielia-win32-x64.exe",
+        "size": 91688448
       }
     }
   }
