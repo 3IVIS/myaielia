@@ -1,44 +1,44 @@
 {
   "desktop": {
-    "tag": "desktop-v0.1.6",
-    "version": "0.1.6",
-    "releaseUrl": "https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.6",
+    "tag": "desktop-v0.1.7",
+    "version": "0.1.7",
+    "releaseUrl": "https://github.com/3IVIS/buildaharness/releases/tag/desktop-v0.1.7",
     "files": {
       "appimage": {
-        "name": "Aielia_0.1.6_amd64.AppImage",
+        "name": "Aielia_0.1.7_amd64.AppImage",
         "sizeMB": 81,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_amd64.AppImage",
-        "size": 84449784
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.7/Aielia_0.1.7_amd64.AppImage",
+        "size": 84462072
       },
       "deb": {
-        "name": "Aielia_0.1.6_amd64.deb",
+        "name": "Aielia_0.1.7_amd64.deb",
         "sizeMB": 6,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_amd64.deb",
-        "size": 6651302
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.7/Aielia_0.1.7_amd64.deb",
+        "size": 6659874
       },
       "dmg": {
-        "name": "Aielia_0.1.6_universal.dmg",
+        "name": "Aielia_0.1.7_universal.dmg",
         "sizeMB": 13,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_universal.dmg",
-        "size": 13204810
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.7/Aielia_0.1.7_universal.dmg",
+        "size": 13204682
       },
       "exe": {
-        "name": "Aielia_0.1.6_x64-setup.exe",
+        "name": "Aielia_0.1.7_x64-setup.exe",
         "sizeMB": 4,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_x64-setup.exe",
-        "size": 4419072
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.7/Aielia_0.1.7_x64-setup.exe",
+        "size": 4421355
       },
       "msi": {
-        "name": "Aielia_0.1.6_x64_en-US.msi",
+        "name": "Aielia_0.1.7_x64_en-US.msi",
         "sizeMB": 6,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia_0.1.6_x64_en-US.msi",
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.7/Aielia_0.1.7_x64_en-US.msi",
         "size": 6258688
       },
       "rpm": {
-        "name": "Aielia-0.1.6-1.x86_64.rpm",
+        "name": "Aielia-0.1.7-1.x86_64.rpm",
         "sizeMB": 6,
-        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.6/Aielia-0.1.6-1.x86_64.rpm",
-        "size": 6651771
+        "url": "https://github.com/3IVIS/buildaharness/releases/download/desktop-v0.1.7/Aielia-0.1.7-1.x86_64.rpm",
+        "size": 6661103
       }
     }
   },
