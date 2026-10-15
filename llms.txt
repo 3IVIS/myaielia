@@ -6,7 +6,7 @@ Aielia (`@buildaharness/aielia` on npm) is a general-purpose, everyday-use AI ag
 
 ## What the harness controls
 
-The harness is code that runs around the model on every real turn, so limits hold whatever the model wants to do — they are not instructions in a prompt.
+The harness is the process every model call goes through on every real turn, so limits hold whatever the model wants to do — they are not instructions in a prompt.
 
 - **What it may do, right now.** Every read-only tool call is checked against a live control state (normal / cautious / blocked; a deterministic ALLOW / DENY / REQUIRE_APPROVAL) before it runs. The state tightens as tool failures accumulate.
 - **What it may believe.** Only high-confidence model inferences reach durable memory on their own (medium ones wait for user confirmation, low ones stay session-only); each remembered fact keeps its source (user-asserted, model-inferred, observed, externally verified); contradictions are flagged. Content fetched from the web or a shell command is wrapped as untrusted data before it re-enters the conversation.
