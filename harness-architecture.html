@@ -56,7 +56,7 @@ active_nav: architecture
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Harness Architecture — Inside the 11-Layer Control Loop | Aielia</title>
 
-<meta name="description" content="An interactive, code-accurate map of Build A Harness's 11-layer control loop — World Model through Reviewer Pass — and the three mechanisms around it: mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph. Click any layer to open its flowchart.">
+<meta name="description" content="An interactive, code-accurate map of Aielia's 11-layer control loop — World Model through Reviewer Pass — and the three mechanisms around it: mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph. Click any layer to open its flowchart.">
 
 <link rel="canonical" href="https://myaielia.com/harness-architecture">
 
@@ -64,18 +64,18 @@ active_nav: architecture
 <meta property="og:url" content="https://myaielia.com/harness-architecture">
 <meta property="og:site_name" content="Aielia">
 <meta property="og:title" content="Harness Architecture — Inside the 11-Layer Control Loop">
-<meta property="og:description" content="An interactive, code-accurate map of Build A Harness's 11-layer control loop — World Model through Reviewer Pass — and the three mechanisms around it: mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph. Click any layer to open its flowchart.">
+<meta property="og:description" content="An interactive, code-accurate map of Aielia's 11-layer control loop — World Model through Reviewer Pass — and the three mechanisms around it: mid-turn steering, the Trajectory Supervisor and the hierarchical goal graph. Click any layer to open its flowchart.">
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Build A Harness — the 11-layer harness control loop.">
+<meta property="og:image:alt" content="Aielia — the 11-layer harness control loop.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Harness Architecture — Inside the 11-Layer Control Loop">
-<meta name="twitter:description" content="An interactive, code-accurate map of Build A Harness's 11-layer control loop and the steering, supervisor and goal-graph mechanisms around it.">
+<meta name="twitter:description" content="An interactive, code-accurate map of Aielia's 11-layer control loop and the steering, supervisor and goal-graph mechanisms around it.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
-<meta name="twitter:image:alt" content="Build A Harness — the 11-layer harness control loop.">
+<meta name="twitter:image:alt" content="Aielia — the 11-layer harness control loop.">
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
@@ -100,7 +100,7 @@ active_nav: architecture
       "@id": "https://myaielia.com/harness-architecture#webpage",
       "url": "https://myaielia.com/harness-architecture",
       "name": "Harness Architecture — Inside the 11-Layer Control Loop",
-      "description": "An interactive, code-accurate map of Build A Harness's 11-layer control loop and the steering, supervisor and goal-graph mechanisms around it.",
+      "description": "An interactive, code-accurate map of Aielia's 11-layer control loop and the steering, supervisor and goal-graph mechanisms around it.",
       "datePublished": "2026-07-28",
       "dateModified": "2026-09-23",
       "publisher": { "@id": "https://myaielia.com/#org" },
@@ -560,12 +560,12 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <a href="/">Aielia</a><span aria-hidden="true">/</span><span>Harness Architecture</span>
     </nav>
 
-    <div class="eyebrow">BUILD A HARNESS · SYSTEM ANATOMY</div>
+    <div class="eyebrow">AIELIA · SYSTEM ANATOMY</div>
 
     <h1>Inside the <em>harness.</em></h1>
 
     <p class="hero-lede">
-      A <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">harness</a> is a governance and reliability control plane around an autonomous agent: the agent has intelligence, the harness has authority. The agent proposes; the harness decides what's allowed to happen next; evidence decides whether the result is accepted. Every non-trivial turn walks the same eleven layers of it, in the same order, whether it's <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">Aielia</a> (Build A Harness's own reference chat agent) or a flow drawn on <a href="/" style="color:var(--accent-ink);">the canvas</a>. This is that loop — <code style="font-size:14px">World Model</code> through <code style="font-size:14px">Reviewer Pass</code> — read out of the harness source (<code style="font-size:14px">packages/harness</code>, with its Python twin in <code style="font-size:14px">adapter/harness/</code>). Click any layer below to open its internal flowchart.
+      A <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">harness</a> is a governance and reliability control plane around an autonomous agent: the agent has intelligence, the harness has authority. The agent proposes; the harness decides what's allowed to happen next; evidence decides whether the result is accepted. Every non-trivial turn walks the same eleven layers of it, in the same order, in <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">Aielia</a>. This is that loop — <code style="font-size:14px">World Model</code> through <code style="font-size:14px">Reviewer Pass</code> — read out of the harness source (<code style="font-size:14px">packages/harness</code>, with its Python twin in <code style="font-size:14px">adapter/harness/</code>). Click any layer below to open its internal flowchart.
     </p>
 
     <div class="stat-row">
@@ -1607,22 +1607,6 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   </div>
 </dialog>
 
-<section class="cta-section">
-  <div class="wrap">
-    <div class="cta-inner">
-      <div class="cta-text">
-        <div class="section-label">BUILD A HARNESS · PUBLIC ALPHA</div>
-        <h2>Draw it once. <em>Ship it anywhere.</em></h2>
-        <p>All eleven layers above are drawable, composable node types on the canvas — tested, with architectural invariants permanently enforced as CI gates. Apache 2.0, runs locally via Docker.</p>
-      </div>
-      <div class="cta-actions">
-        <a class="btn" href="https://github.com/3IVIS/buildaharness">Star on GitHub</a>
-        <a class="btn btn-ghost" href="https://buildaharness.com/harness-engineering">Read the harness engineering primer →</a>
-        <a class="btn btn-ghost" href="/">Explore Build A Harness →</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 {% include footer.html %}
