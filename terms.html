@@ -143,16 +143,24 @@ footer {
   h1 { font-size: 32px; }
   .content { margin: 40px auto; }
 }
+
+/* header chrome shared with the other pages (see _includes/header.html) */
+.brand{display:flex;align-items:center;gap:12px;}
+.brand .name{font-family:"IBM Plex Mono",monospace;font-size:15px;white-space:nowrap;}
+.hdr-actions{display:flex;align-items:center;gap:10px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:6px;text-decoration:none;
+  background:var(--ink);color:white;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  border:1px solid var(--ink);
+}
 </style>
 <link rel="stylesheet" href="/assets/site-nav.css">
 </head>
 <body>
 
-<header>
-  <div class="wrap site-inner">
-    <a class="brand" href="/">Aielia</a>
-  </div>
-</header>
+{% include header.html %}
 
 <div class="content">
   <p class="eyebrow">Legal</p>
@@ -215,6 +223,8 @@ footer {
 </div>
 
 {% include footer.html %}
+
+<script src="/assets/site-nav.js"></script>
 
 </body>
 </html>
