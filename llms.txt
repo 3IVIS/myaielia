@@ -15,7 +15,7 @@ The harness is code that runs around the model on every real turn, so limits hol
 - **What happens when it goes wrong.** Failures are classified and met with a recovery strategy; the harness checkpoints mid-turn, so a crash resumes the interrupted turn instead of restarting it.
 - **What can't be undone.** `write_file`, `run_shell_command`, and `send_email` stage the exact action as a pending proposal and apply only on explicit approval with the matching pending-action ID (an opt-in `dangerouslySkipPermissions` setting, off by default, removes the prompt). One classification call every turn also flags consequential messages (send, delete, pay, post) in any language before the harness or any tool runs (one short classification call is spent); a classifier error resolves to "requires approval", never to low-risk.
 
-File and shell access are opt-in and off by default, and exist only in the CLI and desktop app; email sending exists only in the CLI. The browser build is chat-only. Web search needs your own search key.
+Shell access is opt-in and off by default; file tools are limited to one workspace folder with every change approved. Both exist only in the CLI and desktop app; email sending exists only in the CLI. The browser build is chat-only. Web search needs your own search key.
 
 ## Pages
 
