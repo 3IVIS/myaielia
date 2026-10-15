@@ -18,8 +18,38 @@
       if(n&&!n.getAttribute('data-keep'))n.textContent=n.textContent?n.textContent+' · '+(i+1)+' of '+slides.length:label+' '+(i+1)+' of '+slides.length;
     });
     root.setAttribute('tabindex','0');root.setAttribute('role','group');root.setAttribute('aria-roledescription','carousel');
+    /* Optional per-stepper settings: data-effect="slide" slides the cards sideways; data-interval="5000" turns them
+       every N ms whatever the text length. Without them nothing changes. */
+    var slideMode=root.getAttribute('data-effect')==='slide'&&!!document.documentElement.animate;
+    var fixed=parseInt(root.getAttribute('data-interval'),10)||0;
+    var reduced=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var box=root.querySelector('.st-slides'),shown=-1,moving=null;
+    if(slideMode)box.classList.add('st-slide-mode');
+    function endMove(){
+      if(!moving)return;
+      var m=moving;moving=null;
+      m.anims.forEach(function(a){try{a.cancel();}catch(e){}});
+      m.out.classList.remove('active','st-leaving');m.out.setAttribute('aria-hidden','true');
+      box.style.transition='';box.style.height='';
+    }
+    function slideTo(from,to){
+      endMove();
+      var dir=(to>from||(from===slides.length-1&&to===0))?1:-1,out=slides[from],inn=slides[to];
+      var h0=box.offsetHeight;
+      slides.forEach(function(s,i){if(i!==from&&i!==to){s.classList.remove('active','st-leaving');s.setAttribute('aria-hidden','true');}});
+      out.classList.add('st-leaving');inn.classList.add('active');inn.setAttribute('aria-hidden','false');
+      box.style.height='';var h1=box.offsetHeight;box.style.height=h0+'px';void box.offsetHeight;
+      var o={duration:520,easing:'cubic-bezier(.4,0,.2,1)',fill:'both'};
+      var a1=inn.animate([{transform:'translateX('+(dir*100)+'%)',opacity:.2},{transform:'translateX(0)',opacity:1}],o);
+      var a2=out.animate([{transform:'translateX(0)',opacity:1},{transform:'translateX('+(-dir*100)+'%)',opacity:.2}],o);
+      box.style.transition='height .35s ease';box.style.height=h1+'px';
+      moving={out:out,anims:[a1,a2]};
+      a2.onfinish=function(){if(moving&&moving.out===out)endMove();};
+    }
     function show(){
-      slides.forEach(function(s,i){s.classList.toggle('active',i===idx);s.setAttribute('aria-hidden',i===idx?'false':'true');});
+      var from=shown;shown=idx;
+      if(slideMode&&!reduced&&from>=0&&from!==idx){slideTo(from,idx);}
+      else{endMove();slides.forEach(function(s,i){s.classList.toggle('active',i===idx);s.setAttribute('aria-hidden',i===idx?'false':'true');});}
       dots.innerHTML='';
       slides.forEach(function(_,i){var d=document.createElement('button');d.type='button';d.className='st-dot'+(i===idx?' on':'');d.setAttribute('aria-label','Go to '+label.toLowerCase()+' '+(i+1));d.addEventListener('click',function(){idx=i;show();});dots.appendChild(d);});
       prev.disabled=idx===0;next.textContent=idx===slides.length-1?'Start over ↺':'Next →';
@@ -41,7 +71,7 @@
     /* auto-rotate: advances while visible; any click/key/swipe pauses it for 30 s;
        hover or keyboard focus holds it; the Pause button stops it until pressed again. */
     var timer=null,userPaused=false,holdUntil=0,visible=false,hovering=false;
-    function delay(){var t=(slides[idx].textContent||'').length;return Math.min(12000,Math.max(6000,4000+t*30));}
+    function delay(){if(fixed)return fixed;var t=(slides[idx].textContent||'').length;return Math.min(12000,Math.max(6000,4000+t*30));}
     function clear(){if(timer){clearTimeout(timer);timer=null;}}
     function schedule(){
       clear();
@@ -56,8 +86,8 @@
       root.addEventListener('click',function(e){if(e.target.closest('.st-play'))return;interacted();});
       root.addEventListener('keydown',interacted);
       root.addEventListener('touchstart',interacted,{passive:true});
-      root.addEventListener('mouseenter',function(){hovering=true;clear();});
-      root.addEventListener('mouseleave',function(){hovering=false;holdUntil=Math.max(holdUntil,Date.now()+3000);schedule();});
+      root.addEventListener('pointerenter',function(e){if(e.pointerType&&e.pointerType!=='mouse')return;hovering=true;clear();});
+      root.addEventListener('pointerleave',function(e){if(e.pointerType&&e.pointerType!=='mouse')return;hovering=false;holdUntil=Math.max(holdUntil,Date.now()+3000);schedule();});
       playBtn.addEventListener('click',function(){
         userPaused=!userPaused;
         playBtn.textContent=userPaused?'▶':'❚❚';
