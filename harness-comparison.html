@@ -56,14 +56,14 @@ active_nav: comparison
 <meta property="og:image" content="https://myaielia.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Build A Harness — comparing the harness architecture of Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi.">
+<meta property="og:image:alt" content="Aielia — comparing the harness architecture of Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Claude Code vs Codex vs Cline vs Kilo Code vs Hermes vs OpenClaw vs Pi — and the Harness Alternative (Aielia)">
 <meta name="twitter:description" content="Seven of the most-used AI agents mapped against the 11-layer harness architecture — plus Aielia, the runnable alternative.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
-<meta name="twitter:image:alt" content="Build A Harness — comparing the harness architecture of Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi.">
+<meta name="twitter:image:alt" content="Aielia — comparing the harness architecture of Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi.">
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="3IVIS">
@@ -125,7 +125,7 @@ active_nav: comparison
         {
           "@type": "Question",
           "name": "What is the 11-layer harness architecture?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The canonical architecture used across Build A Harness: Caller State, World Model, Reasoning, Control State, Planning, Execution, Verification, Recovery, Memory, Learning, and Output & Reviewer Pass. See buildaharness.com/harness-engineering for the full definition of each layer." }
+          "acceptedAnswer": { "@type": "Answer", "text": "The canonical architecture used by Aielia: Caller State, World Model, Reasoning, Control State, Planning, Execution, Verification, Recovery, Memory, Learning, and Output & Reviewer Pass. See buildaharness.com/harness-engineering for the full definition of each layer." }
         }
       ]
     }
@@ -477,7 +477,7 @@ strong{color:var(--ink);font-weight:600;}
     <div class="section-label">THE HARNESS</div>
     <h2>Mapped against <em>the eleven-layer harness.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      Each agent's documented behavior mapped against the same <a href="https://buildaharness.com/harness-engineering#layers" style="color:var(--accent-ink);">eleven canonical layers</a> used across Build A Harness — not an ad hoc feature list.
+      Each agent's documented behavior mapped against the same <a href="https://buildaharness.com/harness-engineering#layers" style="color:var(--accent-ink);">eleven canonical layers</a> used by Aielia — not an ad hoc feature list.
     </p>
 
     <div class="coverage-legend">
@@ -629,7 +629,7 @@ strong{color:var(--ink);font-weight:600;}
     </div>
 
     <div class="matrix-callout">
-      <p><strong>Reading the pattern:</strong> Across the seven agents, Execution, Memory, and Learning are the only layers where any reaches full coverage — checkpoints for Kilo, Claude Code and Cline on Execution, and Hermes's persistent memory and self-improving skills. Pi reaches full coverage on none, deliberately; so does Codex CLI, whose main strength, an OS-enforced sandbox, lands in the Control State and Execution cells as partial. Reasoning gets zero coverage from all seven. Output &amp; Reviewer Pass has no built-in gate in any of them; Claude Code and Codex let you configure a Stop hook that approximates one, so both rate partial. Of the remaining layers, none is built out to full coverage by any of the seven — they're a patchwork of static substitutes, partial mechanisms, and outright gaps, with World Model and Recovery the only two where all seven have at least something, thin as it is. Which is a fair description of where most production agents are today, popular or not. The <span style="border-bottom:2px solid var(--series-aielia);">Aielia</span> column is the reference point — Build A Harness's own assistant, included to show what the thin layers look like when something actually ships them (Control State at full coverage; Reasoning and the Reviewer Pass partial, since hypothesis generation and revising findings are opt-in and off by default; Verification is partial — only three of its nine checks run in a chat turn); it is the newest and least battle-tested of the eight.</p>
+      <p><strong>Reading the pattern:</strong> Across the seven agents, Execution, Memory, and Learning are the only layers where any reaches full coverage — checkpoints for Kilo, Claude Code and Cline on Execution, and Hermes's persistent memory and self-improving skills. Pi reaches full coverage on none, deliberately; so does Codex CLI, whose main strength, an OS-enforced sandbox, lands in the Control State and Execution cells as partial. Reasoning gets zero coverage from all seven. Output &amp; Reviewer Pass has no built-in gate in any of them; Claude Code and Codex let you configure a Stop hook that approximates one, so both rate partial. Of the remaining layers, none is built out to full coverage by any of the seven — they're a patchwork of static substitutes, partial mechanisms, and outright gaps, with World Model and Recovery the only two where all seven have at least something, thin as it is. Which is a fair description of where most production agents are today, popular or not. The <span style="border-bottom:2px solid var(--series-aielia);">Aielia</span> column is the reference point, included to show what the thin layers look like when something actually ships them (Control State at full coverage; Reasoning and the Reviewer Pass partial, since hypothesis generation and revising findings are opt-in and off by default; Verification is partial — only three of its nine checks run in a chat turn); it is the newest and least battle-tested of the eight.</p>
     </div>
 
     <h2 style="margin-top:48px;">What it's actually like <em>to run one.</em></h2>
@@ -701,8 +701,8 @@ strong{color:var(--ink);font-weight:600;}
     </div>
 
     <div class="tool-callout" style="margin-top:24px;padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg);display:flex;gap:16px;align-items:flex-start;">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;">In Build A Harness</div>
-      <p style="margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5;">All 11 layers ship as drawable, composable canvas nodes — Reasoning, a tiered Control State, Verification, and a formal Output &amp; Reviewer Pass included, the layers thinnest across all seven agents above. <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">See the full architecture →</a></p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;">In Aielia</div>
+      <p style="margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5;">Aielia implements all 11 layers — Reasoning, a tiered Control State, Verification, and a formal Output &amp; Reviewer Pass included, the layers thinnest across all seven agents above. <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">See the full architecture →</a></p>
     </div>
 
     <h2 style="margin-top:48px;">Pi is minimal <em>on purpose.</em></h2>
@@ -955,11 +955,11 @@ strong{color:var(--ink);font-weight:600;}
       </div>
       <div class="faq-item">
         <h3>What is the 11-layer harness architecture?</h3>
-        <p>The canonical architecture used across Build A Harness: Caller State, World Model, Reasoning, Control State, Planning, Execution, Verification, Recovery, Memory, Learning, and Output &amp; Reviewer Pass. <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">Full definition →</a></p>
+        <p>The canonical architecture used by Aielia: Caller State, World Model, Reasoning, Control State, Planning, Execution, Verification, Recovery, Memory, Learning, and Output &amp; Reviewer Pass. <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">Full definition →</a></p>
       </div>
       <div class="faq-item">
-        <h3>Where does Build A Harness fit in?</h3>
-        <p>Build A Harness implements all 11 layers as drawable, composable canvas nodes — so you can build the layers these seven agents leave thin (Reasoning, a tiered Control State, Verification, Output &amp; Reviewer Pass) without writing that infrastructure yourself.</p>
+        <h3>Where does Aielia fit in?</h3>
+        <p>Aielia implements all 11 layers, including the ones these seven agents leave thin (Reasoning, a tiered Control State, Verification, Output &amp; Reviewer Pass).</p>
       </div>
     </div>
   </div>
@@ -1066,7 +1066,7 @@ strong{color:var(--ink);font-weight:600;}
         </ul>
       </div>
     </div>
-    <p style="margin-top:16px;font-size:12px;color:var(--ink-3);">The layer-by-layer coverage mapping above is our own reading of each project's public documentation against Build A Harness's canonical taxonomy, not an official audit or a claim endorsed by any of the seven projects.</p>
+    <p style="margin-top:16px;font-size:12px;color:var(--ink-3);">The layer-by-layer coverage mapping above is our own reading of each project's public documentation against Aielia's 11-layer taxonomy, not an official audit or a claim endorsed by any of the seven projects.</p>
   </div>
 </section>
 
@@ -1074,9 +1074,9 @@ strong{color:var(--ink);font-weight:600;}
 <section class="section" id="the-alternative">
   <div class="wrap prose">
     <div class="section-label">THE RUNNABLE ALTERNATIVE</div>
-    <h2>Build A Harness — <em>Aielia.</em></h2>
+    <h2>The runnable alternative — <em>Aielia.</em></h2>
 
-    <p>The mapping above is a taxonomy exercise unless something actually ships those layers. <strong>Aielia</strong> — Build A Harness's own assistant — wires the 11-layer harness into every non-trivial turn (Hypothesis, Diagnostics and experience learning are dormant or opt-in by default), and is the same class of tool as the seven above: an everyday chat/coding assistant you install and talk to.</p>
+    <p>The mapping above is a taxonomy exercise unless something actually ships those layers. <strong>Aielia</strong> — wires the 11-layer harness into every non-trivial turn (Hypothesis, Diagnostics and experience learning are dormant or opt-in by default), and is the same class of tool as the seven above: an everyday chat/coding assistant you install and talk to.</p>
 
     <ul>
       <li><strong>Control State — full, not partial.</strong> Every read-only tool call is checked against a per-turn control state (built from that turn's tool outcomes) <em>before</em> it runs: deterministic ALLOW / DENY / REQUIRE_APPROVAL, not an advisory hint. A send / delete / pay / post request is classified as needing approval and pauses before the action runs; a classifier failure also resolves to approval-required.</li>
@@ -1103,14 +1103,13 @@ strong{color:var(--ink);font-weight:600;}
   <div class="wrap">
     <div class="cta-inner">
       <div class="cta-text">
-        <div class="section-label">BUILD A HARNESS · PUBLIC ALPHA · APACHE 2.0</div>
-        <h2>Build the layers<br>these seven <em>leave thin.</em></h2>
-        <p>Reasoning (hypothesis generation opt-in), a tiered Control State, Verification (2 of 9 checks return a result in chat), and a formal Output &amp; Reviewer Pass — the layers where these agents are thinnest — ship in Aielia today, and as drawable canvas nodes if you want to build your own. Apache 2.0.</p>
+        <div class="section-label">AIELIA · PUBLIC ALPHA · APACHE 2.0</div>
+        <h2>Use the layers<br>these seven <em>leave thin.</em></h2>
+        <p>Reasoning (hypothesis generation opt-in), a tiered Control State, Verification (2 of 9 checks return a result in chat), and a formal Output &amp; Reviewer Pass — the layers where these agents are thinnest — ship in Aielia today. Apache 2.0.</p>
       </div>
       <div class="cta-actions">
         <a class="btn" href="https://myaielia.com/try">Try Aielia →</a>
-        <a class="btn btn-ghost" href="/">Explore Build A Harness →</a>
-        <a class="btn btn-ghost" href="https://github.com/3IVIS/buildaharness">Star on GitHub</a>
+        <a class="btn btn-ghost" href="/how-it-works">How it works →</a>
       </div>
     </div>
   </div>
