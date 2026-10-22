@@ -449,6 +449,14 @@ Get-FileHash .\aielia-win32-x64.exe      # Windows (PowerShell)</pre>
     </details>
 
     <details>
+      <summary>Does the terminal program check for updates by itself?</summary>
+      <div>
+        <p>Yes, when you open it in an interactive terminal, at most once a day. It fetches <a class="lnk" href="/aielia-latest.json">aielia-latest.json</a> from myaielia.com (and, if that fails, the release list on GitHub) and tells you if a newer version exists. It sends nothing about you or your chats, and it never installs anything on its own. To update, run <code>aielia update</code>.</p>
+        <p>To turn the check off, set <code>ASSISTANT_UPDATE_CHECK=disabled</code> or type <code>/config set updateCheck disabled</code> in Aielia. <code>aielia update</code> still works when the check is off.</p>
+      </div>
+    </details>
+
+    <details>
       <summary>I downloaded the terminal program by hand. How do I run it?</summary>
       <div>
         <p>Get the file for your system (Aielia {{ site.data.downloads.cli.version }}): <a class="lnk" href="{{ site.data.downloads.cli.files.darwin_arm64.url }}">macOS Apple silicon</a>, <a class="lnk" href="{{ site.data.downloads.cli.files.darwin_x64.url }}">macOS Intel</a>, <a class="lnk" href="{{ site.data.downloads.cli.files.linux_x64.url }}">Linux x64</a> or <a class="lnk" href="{{ site.data.downloads.cli.files.win32_x64.url }}">Windows x64</a>. Other files are on the <a class="lnk" href="{{ site.data.downloads.cli.releaseUrl }}">release page</a>. Then, on macOS and Linux, make it runnable; on macOS also clear the download mark; on Windows, unblock it:</p>
