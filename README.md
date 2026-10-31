@@ -16,7 +16,6 @@ Static site for **Aielia**, the open-source AI agent you can hand real work to �
 | `harness-comparison.html`, `harnesses/` | `/harness-comparison` — Claude Code, Codex CLI, Cline, Hermes Agent, Kilo Code, OpenClaw and Pi compared layer by layer; `harnesses/*.md` are the per-harness notes |
 | `harness-evaluation.html`, `harness-evaluation/` | `/harness-evaluation` — measured results and per-run transcript pages. **Generated** from the private eval tree (`eval/audit/`) — see below |
 | `install.sh`, `install.ps1`, `aielia-latest.json` | Installers and the product-scoped update manifest (produced by `scripts/generate-aielia-manifest.mjs` in the product repo) |
-| `write/` | `/write` — Aielia Write, the hosted article-writing page. **Generated** (the `packages/chat-ui` write build, deployed by hand with `deploy-write.yml` in the product repo); don't edit by hand |
 | `_includes/` | Shared header and footer templates |
 | `try/` | `/try` — the hosted browser build of Aielia. **Generated** — see below |
 | `privacy.html`, `impressum.html` | Legal pages (same controller as buildaharness.com) |
