@@ -17,13 +17,14 @@ Static site for **Aielia**, the open-source AI agent you can hand real work to �
 | `harness-evaluation.html`, `harness-evaluation/` | `/harness-evaluation` — measured results and per-run transcript pages. **Generated** from the private eval tree (`eval/audit/`) — see below |
 | `install.sh`, `install.ps1`, `aielia-latest.json` | Installers and the product-scoped update manifest (produced by `scripts/generate-aielia-manifest.mjs` in the product repo) |
 | `_includes/` | Shared header and footer templates |
-| `try/` | `/try` — the hosted browser build of Aielia. **Generated** — see below |
+| `try/` | `/try` — a short page that lets a visitor choose Aielia Chat (`/chat`) or Aielia Write (`/write`). Hand-written |
+| `chat/` | `/chat` — the hosted browser build of the chat. **Generated** — see below |
 | `privacy.html`, `impressum.html` | Legal pages (same controller as buildaharness.com) |
 | `llms.txt`, `sitemap.xml`, `robots.txt` | Crawler / LLM discovery |
 
-## `/try` is a build artifact
+## `/chat` is a build artifact
 
-Don't edit `try/` by hand. It is the `packages/chat-ui` build from the product repo,
+Don't edit `chat/` by hand. It is the `packages/chat-ui` build from the product repo,
 pushed here by that repo's `.github/workflows/deploy-chat-ui.yml`.
 
 ## `harness-evaluation/` is generated
