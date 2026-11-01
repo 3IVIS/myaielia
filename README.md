@@ -19,13 +19,15 @@ Static site for **Aielia**, the open-source AI agent you can hand real work to �
 | `_includes/` | Shared header and footer templates |
 | `try/` | `/try` — a short page that lets a visitor choose Aielia Chat (`/chat`) or Aielia Write (`/write`). Hand-written |
 | `chat/` | `/chat` — the hosted browser build of the chat. **Generated** — see below |
+| `write/` | `/write` — the hosted browser build of Aielia Write (alpha). **Generated**, deployed by hand — see below |
 | `privacy.html`, `impressum.html` | Legal pages (same controller as buildaharness.com) |
 | `llms.txt`, `sitemap.xml`, `robots.txt` | Crawler / LLM discovery |
 
-## `/chat` is a build artifact
+## `/chat` and `/write` are build artifacts
 
 Don't edit `chat/` by hand. It is the `packages/chat-ui` build from the product repo,
-pushed here by that repo's `.github/workflows/deploy-chat-ui.yml`.
+pushed here by that repo's `.github/workflows/deploy-chat-ui.yml`. `write/` is the Aielia Write
+build of the same package, pushed by `deploy-write.yml`, which runs only when started by hand.
 
 ## `harness-evaluation/` is generated
 
