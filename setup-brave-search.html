@@ -1,0 +1,446 @@
+---
+active_nav: setup
+---
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Klaro Consent Management -->
+<script type="text/javascript">
+  var klaroConfig = {
+    storageMethod: 'cookie',
+    cookieName: 'klaro',
+    cookieExpiresAfterDays: 365,
+    privacyPolicy: '/privacy.html',
+    default: false,
+    mustConsent: false,
+    acceptAll: true,
+    hideDeclineAll: false,
+    hideLearnMore: false,
+    noticeAsModal: false,
+    translations: {
+      en: {
+        consentModal: {
+          title: 'Aielia — We value your privacy',
+          description: 'Here you can see and customize the information that we collect about you.',
+        },
+        decline: 'Reject all',
+        ok: 'Accept all',
+        analytics: {
+          description: 'Collection of information about how visitors use our website.',
+        },
+        purposes: {
+          analytics: 'Analytics',
+        },
+      },
+    },
+    services: [
+      {
+        name: 'analytics',
+        title: 'Analytics & Tracking',
+        purposes: ['analytics'],
+        required: false,
+      },
+    ],
+  };
+</script>
+<script defer src="https://cdn.kiprotect.com/klaro/v0.7.18/klaro.js"></script>
+<!-- Google tag (gtag.js) — loaded only after analytics consent via Klaro above -->
+<script async type="text/plain" data-type="text/javascript" data-name="analytics" src="https://www.googletagmanager.com/gtag/js?id=G-HG3KMR8T0N"></script>
+<script type="text/plain" data-type="text/javascript" data-name="analytics">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HG3KMR8T0N');
+</script>
+<script>if(location.protocol==='http:'&&location.hostname==='myaielia.com'){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set up Brave Search for Aielia — Step by Step</title>
+
+<meta name="description" content="Get a Brave Search API key, set a monthly spending limit, and paste it into Aielia so it can find sources online. Seven short steps.">
+
+<link rel="canonical" href="https://myaielia.com/setup-brave-search">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://myaielia.com/setup-brave-search">
+<meta property="og:site_name" content="Aielia">
+<meta property="og:title" content="Set up Brave Search for Aielia — Step by Step">
+<meta property="og:description" content="Get a Brave Search API key, set a monthly spending limit, and paste it into Aielia so it can find sources online. Seven short steps.">
+<meta property="og:image" content="https://myaielia.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aielia — hand it real work; the harness keeps it in bounds. The model proposes, the harness decides.">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Set up Brave Search for Aielia — Step by Step">
+<meta name="twitter:description" content="Get a Brave Search API key, set a monthly spending limit, and paste it into Aielia so it can find sources online. Seven short steps.">
+<meta name="twitter:image" content="https://myaielia.com/og-image.png">
+<meta name="twitter:image:alt" content="Aielia — hand it real work; the harness keeps it in bounds. The model proposes, the harness decides.">
+
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="3IVIS">
+<meta name="keywords" content="controlled AI agent, agent harness, AI agent guardrails, reliable AI assistant, tool permissions, agent budget, LangGraph, CrewAI, Mastra, FlowSpec, open source, apache 2.0">
+
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — structured summary for LLMs">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#4F46E5">
+
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+
+<style>
+:root{
+  --bg:oklch(.972 .008 270);
+  --bg-2:oklch(.948 .012 270);
+  --paper:oklch(.985 .008 270);
+  --ink:oklch(.19 .024 270);
+  --ink-2:oklch(.37 .02 270);
+  --ink-3:oklch(.55 .018 270);
+  --line:oklch(.84 .014 270);
+  --accent:oklch(.46 .16 268);
+  --accent-ink:oklch(.36 .16 270);
+  --green:oklch(.38 .12 148);
+  --green-tint:oklch(.93 .04 148);
+}
+
+*{box-sizing:border-box}
+
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+
+body{
+  font-family:"IBM Plex Sans",sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+.prose{max-width:740px;}
+
+/* header */
+header{border-bottom:1px solid var(--line);background:var(--paper);position:relative;}
+.site-inner{display:flex;align-items:center;justify-content:space-between;padding-top:18px;padding-bottom:18px;}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+.brand .name{font-family:"IBM Plex Mono",monospace;font-size:15px;white-space:nowrap;}
+.hdr-actions{display:flex;align-items:center;gap:10px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:6px;text-decoration:none;
+  background:var(--ink);color:white;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  border:1px solid var(--ink);
+}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* breadcrumb */
+.breadcrumb{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  color:var(--ink-3);margin-bottom:32px;
+}
+.breadcrumb a{color:var(--ink-3);text-decoration:none;}
+.breadcrumb a:hover{color:var(--ink-2);}
+.breadcrumb span{margin:0 6px;}
+
+/* eyebrow */
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;text-transform:uppercase;
+  font-size:11px;letter-spacing:.16em;color:var(--accent-ink);
+  margin-bottom:22px;
+}
+
+/* hero */
+.page-hero{padding:44px 0 48px;background:var(--paper);border-bottom:1px solid var(--line);}
+
+h1{
+  font-size:46px;line-height:1.05;letter-spacing:-.04em;
+  font-weight:300;margin:0 0 24px;max-width:820px;
+}
+h1 em{
+  font-family:"Instrument Serif",serif;font-style:italic;
+  color:var(--accent-ink);font-weight:400;
+}
+
+.hero-lede{
+  font-size:19px;font-weight:300;color:var(--ink-2);
+  max-width:660px;margin:0 0 40px;line-height:1.5;
+}
+
+/* stats */
+.stat-row{
+  display:flex;gap:0;border:1px solid var(--line);border-radius:6px;
+  overflow:hidden;margin-bottom:36px;max-width:820px;
+}
+.stat{
+  flex:1;padding:22px 24px;background:var(--bg);
+  border-right:1px solid var(--line);
+}
+.stat:last-child{border-right:none;}
+.stat-n{
+  display:block;font-size:32px;font-weight:300;letter-spacing:-.03em;
+  color:var(--accent-ink);font-family:"IBM Plex Mono",monospace;
+  margin-bottom:6px;
+}
+.stat-l{display:block;font-size:13px;color:var(--ink-3);line-height:1.4;}
+
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* content sections */
+.section{padding:44px 0;background:var(--paper);}
+.section.alt{background:var(--bg);}
+
+h2{
+  font-size:32px;font-weight:300;letter-spacing:-.03em;
+  margin:0 0 20px;line-height:1.15;
+}
+h2 em{
+  font-family:"Instrument Serif",serif;font-style:italic;
+  color:var(--accent-ink);font-weight:400;
+}
+
+.section-label{
+  font-family:"IBM Plex Mono",monospace;text-transform:uppercase;
+  font-size:10.5px;letter-spacing:.18em;color:var(--ink-3);
+  margin-bottom:16px;
+}
+
+p{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0 0 18px;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--ink);font-weight:600;}
+
+/* comparison block */
+.compare-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-top:28px;max-width:820px;
+}
+.compare-card{
+  border:1px solid var(--line);border-radius:6px;
+  background:var(--bg);padding:24px 26px;
+}
+.compare-card.highlight{
+  border-color:oklch(.78 .06 268);
+  background:oklch(.95 .018 268);
+}
+.compare-card h3{
+  font-size:14px;font-weight:600;font-family:"IBM Plex Mono",monospace;
+  text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px;
+  color:var(--ink-3);
+}
+.compare-card.highlight h3{color:var(--accent-ink);}
+.compare-card ul{
+  margin:0;padding:0 0 0 16px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.compare-card li{font-size:14.5px;color:var(--ink-2);line-height:1.5;}
+.compare-card.highlight li{color:var(--ink);}
+
+/* layers */
+.layers-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin-top:28px;
+}
+.layer-card{
+  border:1px solid var(--line);border-radius:6px;
+  background:var(--paper);padding:20px 22px;
+  border-left:3px solid var(--accent);
+  display:flex;flex-direction:column;gap:6px;
+}
+.layer-num{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;
+  color:var(--ink-3);text-transform:uppercase;letter-spacing:.14em;
+}
+.layer-name{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.layer-desc{font-size:14px;color:var(--ink-2);line-height:1.5;}
+.layer-without{
+  font-size:12.5px;color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace;
+  margin-top:4px;
+}
+
+/* process steps */
+.process-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;border:1px solid var(--line);border-radius:6px;
+  overflow:hidden;margin-top:28px;
+}
+.process-step{
+  padding:24px 22px;background:var(--paper);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:10px;
+}
+.process-step:last-child{border-right:none;}
+.process-step-n{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;
+  color:var(--accent-ink);text-transform:uppercase;letter-spacing:.16em;
+}
+.process-step-title{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.process-step-sub{font-size:13.5px;color:var(--ink-2);line-height:1.5;}
+.process-step-detail{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;
+  color:var(--ink-3);line-height:1.6;
+}
+
+/* quickstart */
+.quickstart-box{
+  border:1px solid var(--line);border-radius:6px;
+  overflow:hidden;max-width:640px;
+  margin-top:28px;
+}
+.quickstart-bar{
+  padding:11px 18px;background:var(--bg-2);border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);
+}
+pre{
+  margin:0;padding:20px 18px;
+  font-family:"IBM Plex Mono",monospace;font-size:13px;
+  line-height:1.7;color:var(--ink);background:var(--paper);
+  overflow-x:auto;
+}
+
+/* services list */
+.services{
+  display:flex;flex-direction:column;gap:6px;margin-top:20px;
+}
+.service-row{
+  display:flex;align-items:center;gap:14px;
+  padding:10px 14px;border:1px solid var(--line);
+  border-radius:4px;background:var(--paper);
+}
+.service-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.service-name{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;color:var(--ink);}
+.service-url{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);}
+
+/* tool callout */
+.tool-callout{
+  margin-top:20px;padding:14px 18px;
+  border:1px solid var(--line);border-radius:6px;
+  background:var(--paper);
+  display:flex;align-items:flex-start;gap:16px;
+}
+.tool-callout-label{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:.14em;
+  color:var(--accent-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;
+}
+.tool-callout p{
+  margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5;
+}
+
+/* front-end table */
+.fe-table{
+  width:100%;border-collapse:collapse;margin-top:28px;
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+}
+.fe-table th,.fe-table td{
+  text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);
+  font-size:14px;color:var(--ink-2);vertical-align:top;
+}
+.fe-table tr:last-child td{border-bottom:none;}
+.fe-table th{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--ink-3);background:var(--bg-2);font-weight:500;
+}
+.fe-table td:first-child,.fe-table th:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+.fe-table-wrap{overflow-x:auto;}
+
+/* faq */
+.faq-list{
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  margin-top:24px;
+}
+.faq-item{
+  padding:22px 26px;border-bottom:1px solid var(--line);
+  background:var(--paper);
+}
+.faq-item:last-child{border-bottom:none;}
+.faq-item h3{
+  font-size:17px;font-weight:500;letter-spacing:-.01em;
+  color:var(--ink);margin:0 0 8px;
+}
+.faq-item p{font-size:14.5px;}
+
+.faq-item summary{cursor:pointer;font-size:16.5px;font-weight:500;color:var(--ink);list-style-position:outside;}
+.faq-item[open] summary{margin-bottom:10px;}
+.faq-item{padding:16px 26px;}
+/* cta section */
+.cta-section{
+  padding:64px 0;border-top:1px solid var(--line);
+  background:var(--paper);
+}
+.cta-inner{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:40px;flex-wrap:wrap;
+}
+.cta-text h2{margin-bottom:12px;}
+.cta-text p{max-width:540px;}
+.cta-actions{display:flex;flex-direction:column;gap:12px;flex-shrink:0;padding-top:8px;}
+
+@media(max-width:760px){
+  .wrap{padding:0 22px;}
+  h1{font-size:36px;}
+  h2{font-size:28px;}
+  .stat-row{flex-direction:column;}
+  .stat{border-right:none;border-bottom:1px solid var(--line);}
+  .stat:last-child{border-bottom:none;}
+  .compare-grid{grid-template-columns:1fr;}
+  .layers-grid{grid-template-columns:1fr;}
+  .process-steps{grid-template-columns:1fr 1fr;}
+  .cta-inner{flex-direction:column;}
+  .tool-callout{flex-direction:column;gap:8px;}
+  .fe-table{font-size:13px;}
+}
+</style>
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/slides.css?v=3">
+
+<style>
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;max-width:760px;display:flex;flex-direction:column;gap:16px;}
+.steps>li{counter-increment:s;position:relative;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:22px 24px 20px 84px;}
+.steps>li::before{content:counter(s);position:absolute;left:24px;top:22px;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-size:16px;}
+.steps>li.guard{border-left:3px solid var(--accent);}
+.steps h3{font-size:20px;line-height:1.3;font-weight:500;letter-spacing:-.01em;margin:0 0 6px;color:var(--ink);}
+.steps p{font-size:16px;line-height:1.6;color:var(--ink-2);margin:0 0 6px;}
+.steps p:last-child{margin-bottom:0;}
+.steps a{color:var(--accent-ink);}
+.steps .tip{background:rgba(0,0,0,.03);border-radius:6px;padding:8px 12px;margin-top:10px;font-size:14.5px;}
+.steps .guard>h3::after,.steps li.guard h3::after{content:"Spending limit";margin-left:10px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--accent-ink);border-radius:99px;color:var(--accent-ink);vertical-align:middle;white-space:nowrap;}
+.guide-note{max-width:760px;font-size:14px;color:var(--ink-3);margin:20px 0 0;}
+.guide-other{max-width:760px;margin-top:16px;font-size:15px;}
+@media(max-width:760px){.steps>li{padding:18px 16px 16px 16px;}.steps>li::before{position:static;margin-bottom:10px;}.steps h3{font-size:18px;}}
+</style>
+</head>
+
+<body>
+
+{% include header.html %}
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Set up <em>Brave Search</em></h1>
+    <p class="hero-lede">This lets Aielia search the web to find sources for your claims. Seven steps, about five minutes, with a spending limit so there are no surprise bills.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <ol class="steps">
+      <li><h3>Create your account</h3><p>Go to <a href="https://api-dashboard.search.brave.com" target="_blank" rel="noopener">api-dashboard.search.brave.com</a> and sign up or sign in.</p></li>
+      <li><h3>Choose the Search plan</h3><p>In the left menu open <strong>Available plans</strong>. On the <strong>Search</strong> plan ($5.00 per 1,000 requests) click <strong>Get started</strong>. It includes $5 of free credit every month.</p><p>Brave asks for a card to stop abuse. At signup you can set your prepay amount to <strong>$0</strong>.</p></li>
+      <li><h3>Create an API key</h3><p>Open <strong>API keys</strong> in the left menu and click <strong>+ Add API key</strong>. Name it, then use the copy icon to copy the key and keep it private.</p></li>
+      <li class="guard"><h3>Set a monthly usage limit</h3><p>Open <strong>Usage limits</strong> and click <strong>Edit</strong> on the Search row. Tick <strong>Override monthly usage limit</strong>. Under <strong>New monthly spend</strong> choose <strong>Free</strong>, or <strong>$10.00</strong>, <strong>$25.00</strong>, <strong>$100.00</strong> or <strong>Custom</strong>, then save.</p><p class="tip"><strong>Free</strong> says "$5.00/mo in free credits — you won’t be charged". If your plan already shows <strong>Free credits only</strong>, you are set.</p></li>
+      <li class="guard"><h3>Keep auto-reload off, or capped</h3><p>Open <strong>Credits balance</strong>. Auto-reload is optional. If you turn it on, also set its monthly cap.</p><p class="tip">Without a cap, auto-reload keeps topping up every time your balance falls below the trigger. If your balance runs out with it off, Brave simply pauses the service.</p></li>
+      <li><h3>Turn on a usage alert</h3><p>Open <strong>Usage alerts</strong> and set an email warning, so you hear about it before anything stops.</p></li>
+      <li><h3>Paste the key into Aielia</h3><p>In <strong>Aielia Write</strong> open <strong>Settings</strong>, then <strong>Web pages and sources</strong>, and paste the key into <strong>Search key</strong>. Leave <strong>Page proxy</strong> as it is. In the chat app the field is called <strong>Brave API key</strong>.</p><p>Then in the chat pane choose <strong>Search the web for sources and verify the claims</strong>.</p><p class="tip">Aielia keeps the key in your browser and sends it with each search. It is not stored on the proxy.</p></li>
+    </ol>
+    <p class="guide-note">Checked in the Brave Search API dashboard in November 2026. Prices, free credit and button names can change, so confirm them on Brave’s plans page.</p>
+    <p class="guide-other">Need a model key too? <a href="/setup-openrouter">Set up OpenRouter →</a></p>
+  </div>
+</section>
+
+{% include footer.html %}
+
+<script src="/assets/site-nav.js"></script>
+</body>
+</html>
