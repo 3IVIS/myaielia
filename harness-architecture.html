@@ -73,7 +73,7 @@ active_nav: architecture
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Harness Architecture — Inside the 11-Layer Control Loop">
-<meta name="twitter:description" content="An interactive, code-accurate map of Aielia's 11-layer control loop and the steering, supervisor and goal-graph mechanisms around it.">
+<meta name="twitter:description" content="A map of Aielia's 11-layer control loop, which layers are on or off by default, and the steering, supervisor, goal-graph and memory mechanisms around it.">
 <meta name="twitter:image" content="https://myaielia.com/og-image.png">
 <meta name="twitter:image:alt" content="Aielia — the 11-layer harness control loop.">
 
@@ -98,7 +98,7 @@ active_nav: architecture
       "@id": "https://myaielia.com/harness-architecture#webpage",
       "url": "https://myaielia.com/harness-architecture",
       "name": "Harness Architecture — Inside the 11-Layer Control Loop",
-      "description": "An interactive, code-accurate map of Aielia's 11-layer control loop and the steering, supervisor and goal-graph mechanisms around it.",
+      "description": "A map of Aielia's 11-layer control loop, which layers are on or off by default, and the steering, supervisor, goal-graph and memory mechanisms around it.",
       "datePublished": "2026-07-28",
       "dateModified": "2026-11-22",
       "publisher": { "@id": "https://myaielia.com/#org" },
@@ -496,7 +496,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 .layer-diagram svg{min-width:980px;}
 .diagram-key i.off{border:1.5px dashed var(--ink-3);background:var(--bg-2);}
 .ext-card.static{cursor:default;}
-.ext-grid.mem3{grid-template-columns:repeat(3,1fr);}
+.ext-grid.mem3{grid-template-columns:repeat(2,1fr);}
 @media(max-width:860px){.ext-grid.mem3{grid-template-columns:1fr;}}
 .ext-card.static:hover{border-color:var(--line);box-shadow:none;}
 .turn-diagram.mem svg{min-width:980px;}
@@ -576,29 +576,45 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <h1>Inside the <em>harness.</em></h1>
 
     <p class="hero-lede">
-      A <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">harness</a> is a governance and reliability control plane around an autonomous agent: the agent has intelligence, the harness has authority. The agent proposes; the harness decides what's allowed to happen next; evidence decides whether the result is accepted. Every non-trivial turn walks the same eleven layers of it, in the same order, in <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">Aielia</a>. This is that loop — <code style="font-size:14px">World Model</code> through <code style="font-size:14px">Reviewer Pass</code> — read out of the harness source (<code style="font-size:14px">packages/harness</code>, with its Python twin in <code style="font-size:14px">adapter/harness/</code>). Click any layer below to open its internal flowchart.
+      A <a href="https://buildaharness.com/harness-engineering" style="color:var(--accent-ink);">harness</a> is a control plane around an autonomous agent: the agent proposes, the harness decides what may happen next, and evidence decides whether the result is accepted. This page maps Aielia's harness, read out of the source (<code style="font-size:14px">packages/harness</code>, with a Python twin in <code style="font-size:14px">adapter/harness/</code>). Every non-trivial turn walks eleven core layers in order. Click any layer for its flowchart.
     </p>
-    <p class="hero-lede" style="font-size:15.5px;margin-top:-18px;">The eleven layers are the full design. Many of the optional checks <em>around</em> them are now <strong>off by default</strong>: Aielia started with many more, and when we re-tested them against the latest models most no longer changed the outcome. You can switch any of them on. <a href="#layer-defaults" style="color:var(--accent-ink);">See what is on and off →</a></p>
+    <p class="hero-lede" style="font-size:15.5px;margin-top:-18px;">Aielia started with many more layers. We re-tested them against the latest models and most of the optional ones no longer changed the outcome, so they are now off by default, and you can switch any of them on.</p>
 
     <div class="stat-row">
-      <div class="stat"><span class="stat-n">11</span><span class="stat-l">control layers walked every non-trivial turn</span></div>
-      <div class="stat"><span class="stat-n">9</span><span class="stat-l">verification checks defined — in a chat turn only 2 normally return a result, the rest report SKIPPED</span></div>
-      <div class="stat"><span class="stat-n">6</span><span class="stat-l">named recovery strategies, fixed escalating order</span></div>
-      <div class="stat"><span class="stat-n">10</span><span class="stat-l">diagnostic health dimensions feeding Control State</span></div>
+      <a class="stat" href="#loop" style="text-decoration:none;"><span class="stat-n">11</span><span class="stat-l">core layers, walked every non-trivial turn</span></a>
+      <a class="stat" href="#layer-defaults" style="text-decoration:none;"><span class="stat-n">21</span><span class="stat-l">further checks and features, on by default</span></a>
+      <a class="stat" href="#layer-defaults" style="text-decoration:none;"><span class="stat-n">16</span><span class="stat-l">off by default, each switchable</span></a>
     </div>
 
   </div>
 </section>
 
 
-<section class="section">
+<section class="section alt" id="status">
+  <div class="wrap">
+
+    <div class="section-label" id="layer-defaults">LAYER STATUS</div>
+    <h2 id="layers-off-table">What is on, <em>and what is off.</em></h2>
+    <p class="prose">The safety floor is always on. Of the rest, we kept on what still earns its cost with the latest models and turned off the optional layers that no longer changed the outcome. Every layer is still built in: switch any on with <code>/layers settings</code> in the terminal or in Settings → Reasoning layers. Results are small samples, not benchmarks.</p>
+    <div class="off-table-wrap"><table class="off-table">
+<tbody><tr class="grp"><th colspan="3">Always on <span class="grp-note">The safety floor. Approval is locked on; the others show a caution before you turn them off.</span></th></tr><tr><td><b>Approval staging</b></td><td>Holds every file write, command and email until you approve it. Locked on.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Control state</b></td><td>Tightens or blocks the harness as failures pile up.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Tool-call gate</b></td><td>Denies read-only tool calls once failures pile up.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Mandatory verification</b></td><td>Checks figures and tool results before they are reported.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Diagnostics</b></td><td>Scores how the run is going; the scores feed the control state.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Hypothesis bookkeeping</b></td><td>Keeps notes on possible explanations; they feed the control state.</td><td><span class="st-pill st-on">Always on</span></td></tr></tbody>
+<tbody><tr class="grp"><th colspan="3">On by default</th></tr><tr><td><b>One-loop proposer</b></td><td>The harness drives each tool call, one iteration at a time.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Trajectory supervisor</b></td><td>When a turn stalls, one call picks a way out: gather evidence, change strategy or ask you.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Semantic contradiction check</b></td><td>Notices when two things you said conflict by meaning, not wording.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Failure matching</b></td><td>Recognises a known kind of tool failure and picks the recovery for it.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Criterion coverage</b></td><td>Checks a reply against the “done when” criteria you stated.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Change review</b></td><td>Flags a later change that breaks an earlier constraint.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Injection detection</b></td><td>Asks a model whether tool output hides instructions.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Model-inferred facts</b></td><td>Remembers facts you implied but never stated outright.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Adversarial reviewer</b></td><td>A three-lens review of the draft reply.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Constraint check</b></td><td>Checks the finished answer against your rules and re-asks once on a violation.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Semantic grounding</b></td><td>Compares a reply with the raw tool text before it is labelled verified.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Reply audit</b></td><td>Checks the streamed reply against what the turn actually did.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Retry on system errors</b></td><td>Retries a task once after a transient model or tool error.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Plan-step prompt</b></td><td>Tells each plan step which step it is and carries earlier answers forward.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Answer once</b></td><td>A multi-part turn answers once and later subtasks reuse that answer.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Stuck-plan resume</b></td><td>A stuck plan is retried only by a message that continues it.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Budgeted memory</b></td><td>Fits remembered facts into a size budget and replaces older values of the same fact.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Semantic compaction</b></td><td>Summarises long transcripts by meaning instead of truncating them.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Episodic digest</b></td><td>Summarises a session when it ends so the next one can pick up.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Mid-turn steering and goal graph</b></td><td>A message sent during a turn is absorbed into it; goals persist across turns.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Next-step options</b></td><td>Offers up to three next steps after a real task.</td><td><span class="st-pill st-on">On</span></td></tr></tbody>
+<tbody><tr class="grp"><th colspan="3">Off by default <span class="grp-note">In our tests with the latest models these did not change the outcome enough to justify their cost, so they stay off. Each can be switched on.</span></th></tr><tr><td><b>Plan reframing</b></td><td>Splits a multi-part request into tracked deliverables; no setting where it paid off.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Semantic hypotheses</b></td><td>Weighs 2–4 competing explanations before answering; suggestive, not significant.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Source reliability</b></td><td>Weighs how trustworthy each file or page is; the model already does this unaided.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Reviewer revision</b></td><td>Lets reviewer findings revise the reply; fires, but no change in outcome.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Experience learning</b></td><td>Learns which recovery strategies worked before; no outcome we could show.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Task-completion check</b></td><td>A plan step counts as done only if its output did the task; shown on one conversation.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Contradiction severity</b></td><td>Grades how serious a contradiction is; works on synthetic pairs only.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Code plan templates</b></td><td>Offers plan templates for code work; the model passed unaided.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Retry every failed task</b></td><td>Retries any failed task after a strategy switch; changes how runaway loops end.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory write gate</b></td><td>Screens memory writes for secrets and instructions; the model resisted unaided.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory audit log</b></td><td>Logs every memory change so it can be undone; undo tested in units only.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Recall tool</b></td><td>A read-only tool to look up past session digests; measured with the digest.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory consolidation</b></td><td>Merges duplicate memories and proposes archives; not measured as an outcome.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory reviewer</b></td><td>Reviews recent turns for facts worth remembering; small samples.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Ask mode</b></td><td>Lets the supervisor put a structured question to you; the benchmark was never run.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Adaptive layer policy</b></td><td>Picks the layers each turn needs; the fixed policy stays the default.</td><td><span class="st-pill st-off">Off</span></td></tr></tbody>
+    </table></div>
+
+  </div>
+</section>
+
+
+<section class="section" id="loop">
   <div class="wrap">
 
     <div class="section-label">THE LOOP</div>
     <h2>Eleven layers, <em>in the order they run.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      The chart follows one non-trivial turn in the order the harness actually executes it. Before the loop the assistant's <b>adaptive layer control</b> decides how much of the harness the turn needs, and the harness initializes its state. Then every iteration <b>thinks</b> (contradiction check, hypotheses, diagnostics, control state, planning), <b>acts</b> (the execution gate, the tool call, then the evidence and world model are updated from what came back) and <b>checks</b> (diagnostics and control state re-scored, verification, and recovery if the task failed), and repeats until every task is complete. The reviewer pass runs once after the loop, and again if it reopens a task; then the answer is validated. Layers keep the numbers used in the code and docs, drawn in execution order. Click any layer, or any 🤖 hook, for its own flowchart.
+      One non-trivial turn, in execution order. Before the loop, one call classifies the turn and the harness initialises its state. Each iteration <b>thinks</b> (contradiction check, hypotheses, diagnostics, control state, planning), <b>acts</b> (the execution gate, the tool call, then evidence and world model updated from the result) and <b>checks</b> (re-score, verification, and recovery if the task failed), until every task is complete. The reviewer pass runs once after the loop, then the answer is validated. Layer numbers match the code. Click any layer, or any 🤖 hook, for its flowchart.
     </p>
+
 
     <div class="legend">
       <span class="legend-item"><span class="legend-swatch harness"></span>Harness core — generic, adapter/harness/ · packages/harness</span>
@@ -699,7 +715,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
 
     <div class="tool-callout" style="margin-top:28px;">
       <div class="tool-callout-label">Skipped on trivial turns</div>
-      <p>A single consolidated call up front (adaptive layer control) (risk, triviality, decomposition, plan-abandonment, plan-template matching) flags a genuinely self-contained factual one-liner as trivial — that reply returns directly and none of the eleven layers above run. Everything else walks the full loop. See <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">Aielia</a> for how this applies turn by turn in the reference chat agent.</p>
+      <p>The up-front classification call flags a self-contained factual one-liner as trivial. That reply returns directly and none of the eleven layers run. Everything else walks the full loop. See <a href="https://myaielia.com/how-it-works" style="color:var(--accent-ink);">how it works</a> for the turn-by-turn view.</p>
     </div>
 
   </div>
@@ -710,10 +726,9 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
   <div class="wrap">
 
     <div class="section-label">AROUND THE LOOP</div>
-    <h2>One turn, <em>everything on.</em></h2>
+    <h2>Around <em>the loop.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      The eleven layers above run inside a single proposer loop (<code>ASSISTANT_ONE_LOOP</code>, on by default): the harness drives one tool-calling iteration at a time instead of reviewing a finished reply. Four mechanisms wrap that loop. The diagram shows one turn with all of them enabled: the goal graph decides which thread has focus, the steering channel is polled at the start of every iteration, the Supervisor is consulted only if an iteration stalls, and once the reply is out, up to three next-step options appear under it. Click any card, or any 🤖 hook in the chain above, for its flow.
-    </p>
+      The eleven layers run inside one proposer loop (<code>ASSISTANT_ONE_LOOP</code>): the harness drives one tool-calling iteration at a time instead of reviewing a finished reply. Four features wrap it, all on by default. The goal graph decides which thread has focus, the steering channel is polled at the start of every iteration, the Supervisor is consulted only when an iteration stalls, and up to three next-step options appear under the reply. Click a card for its flow.</p>
 
     <div class="turn-diagram">
       <svg viewBox="0 0 1100 500" role="img" aria-labelledby="td-title td-desc">
@@ -798,42 +813,34 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <button class="ext-card" style="--nc:var(--assist-ink)" data-target="xmodal-steering">
         <span class="ext-pill">on by default</span>
         <span class="ext-name">Mid-turn steering</span>
-        <span class="ext-desc">A message you send while a turn is running is absorbed into it. Corrections and urgent additions change the answer being written; anything that can wait, a new goal or a cancel runs as its own turn. Nothing is dropped.</span>
+        <span class="ext-desc">A message sent while a turn is running is absorbed into it: corrections change the answer being written, anything else runs as its own turn. Nothing is dropped.</span>
         <span class="ext-path">goalGraphMode · ASSISTANT_GOAL_GRAPH</span>
         <span class="flow-open">view flow →</span>
       </button>
       <button class="ext-card" style="--nc:oklch(.5 .17 25)" data-target="xmodal-supervisor">
         <span class="ext-pill">on by default</span>
         <span class="ext-name">Trajectory Supervisor</span>
-        <span class="ext-desc">When the loop cannot make progress, one bounded LLM call picks a way out — redirect, reframe, gather evidence, stop, or ask you one question (resumable in place when ask mode is on, which is off by default). Never runs on a healthy iteration.</span>
+        <span class="ext-desc">When the loop cannot make progress, one bounded call picks a way out: redirect, reframe, gather evidence, stop or ask you. Never runs on a healthy iteration.</span>
         <span class="ext-path">HARNESS_TRAJECTORY_SUPERVISOR</span>
         <span class="flow-open">view flow →</span>
       </button>
       <button class="ext-card" style="--nc:oklch(.42 .12 175)" data-target="xmodal-nextsteps">
         <span class="ext-pill">on by default</span>
         <span class="ext-name">Next-step options</span>
-        <span class="ext-desc">After every full turn, up to three concrete next steps appear under the reply. Pick one to edit and send — or just type your own message.</span>
+        <span class="ext-desc">After a full turn, up to three concrete next steps appear under the reply. Pick one to edit and send, or type your own.</span>
         <span class="ext-path">goalGraphSuggestMode · ASSISTANT_GOAL_GRAPH_SUGGEST</span>
         <span class="flow-open">view flow →</span>
       </button>
       <button class="ext-card" style="--nc:oklch(.46 .16 240)" data-target="xmodal-goalgraph">
         <span class="ext-pill">on by default</span>
         <span class="ext-name">Hierarchical goal graph</span>
-        <span class="ext-desc">Every goal is a thread that persists across turns — a follow-up returns to the thread it continues, a new topic starts its own — with one in focus at a time. Finished threads keep their suggested next steps, and /goals shows the whole graph.</span>
+        <span class="ext-desc">Every goal is a thread that persists across turns, with one in focus at a time. A follow-up returns to its thread, a new topic starts its own, and <code>/goals</code> shows the graph.</span>
         <span class="ext-path">goalGraphMode · goalGraphSuggestMode</span>
         <span class="flow-open">view flow →</span>
       </button>
     </div>
 
-    <div class="section-label" id="layer-defaults" style="margin-top:28px;">LAYER STATUS</div>
-    <h3 style="font-size:24px;font-weight:300;letter-spacing:-.02em;margin:0 0 12px;" id="layers-off-table">What is on, and what is off</h3>
-    <p class="prose">Aielia started with many more layers running by default. We re-tested them against the latest models, and most of the optional ones no longer changed the outcome, so they are now off. Every layer is still built in: switch any of them on with <code>/layers settings</code> in the terminal or in Settings → Reasoning layers. Results are small samples, not benchmarks.</p>
-    <div class="off-table-wrap"><table class="off-table">
-<tbody><tr class="grp"><th colspan="3">Always on <span class="grp-note">The safety floor. These cannot be turned off by accident.</span></th></tr><tr><td><b>Approval staging</b></td><td>Holds every file write, command and email until you approve it. Locked on.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Control state</b></td><td>Tightens or blocks the harness as failures pile up.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Tool-call gate</b></td><td>Denies read-only tool calls once failures pile up.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Mandatory verification</b></td><td>Checks figures and tool results before they are reported.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Diagnostics</b></td><td>Scores how the run is going; the scores feed the control state.</td><td><span class="st-pill st-on">Always on</span></td></tr><tr><td><b>Hypothesis bookkeeping</b></td><td>Keeps notes on possible explanations; they feed the control state.</td><td><span class="st-pill st-on">Always on</span></td></tr></tbody>
-<tbody><tr class="grp"><th colspan="3">On by default</th></tr><tr><td><b>One-loop proposer</b></td><td>The harness drives each tool call, one iteration at a time.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Trajectory supervisor</b></td><td>When a turn stalls, one call picks a way out: gather evidence, change strategy or ask you.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Semantic contradiction check</b></td><td>Notices when two things you said conflict by meaning, not wording.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Failure matching</b></td><td>Recognises a known kind of tool failure and picks the recovery for it.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Criterion coverage</b></td><td>Checks a reply against the “done when” criteria you stated.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Change review</b></td><td>Flags a later change that breaks an earlier constraint.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Injection detection</b></td><td>Asks a model whether tool output hides instructions.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Model-inferred facts</b></td><td>Remembers facts you implied but never stated outright.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Adversarial reviewer</b></td><td>A three-lens review of the draft reply.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Constraint check</b></td><td>Checks the finished answer against your rules and re-asks once on a violation.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Semantic grounding</b></td><td>Compares a reply with the raw tool text before it is labelled verified.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Reply audit</b></td><td>Checks the streamed reply against what the turn actually did.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Retry on system errors</b></td><td>Retries a task once after a transient model or tool error.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Plan-step prompt</b></td><td>Tells each plan step which step it is and carries earlier answers forward.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Answer once</b></td><td>A multi-part turn answers once and later subtasks reuse that answer.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Stuck-plan resume</b></td><td>A stuck plan is retried only by a message that continues it.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Budgeted memory</b></td><td>Fits remembered facts into a size budget and replaces older values of the same fact.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Semantic compaction</b></td><td>Summarises long transcripts by meaning instead of truncating them.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Episodic digest</b></td><td>Summarises a session when it ends so the next one can pick up.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Mid-turn steering and goal graph</b></td><td>A message sent during a turn is absorbed into it; goals persist across turns.</td><td><span class="st-pill st-on">On</span></td></tr><tr><td><b>Next-step options</b></td><td>Offers up to three next steps after a real task.</td><td><span class="st-pill st-on">On</span></td></tr></tbody>
-<tbody><tr class="grp"><th colspan="3">Off by default <span class="grp-note">In our tests with the latest models these did not change the outcome enough to justify their cost, so they stay off. Each can be switched on.</span></th></tr><tr><td><b>Plan reframing</b></td><td>Splits a multi-part request into tracked deliverables; no setting where it paid off.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Semantic hypotheses</b></td><td>Weighs 2–4 competing explanations before answering; suggestive, not significant.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Source reliability</b></td><td>Weighs how trustworthy each file or page is; the model already does this unaided.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Reviewer revision</b></td><td>Lets reviewer findings revise the reply; fires, but no change in outcome.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Experience learning</b></td><td>Learns which recovery strategies worked before; no outcome we could show.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Task-completion check</b></td><td>A plan step counts as done only if its output did the task; shown on one conversation.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Contradiction severity</b></td><td>Grades how serious a contradiction is; works on synthetic pairs only.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Code plan templates</b></td><td>Offers plan templates for code work; the model passed unaided.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Retry every failed task</b></td><td>Retries any failed task after a strategy switch; changes how runaway loops end.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory write gate</b></td><td>Screens memory writes for secrets and instructions; the model resisted unaided.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory audit log</b></td><td>Logs every memory change so it can be undone; undo tested in units only.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Recall tool</b></td><td>A read-only tool to look up past session digests; measured with the digest.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory consolidation</b></td><td>Merges duplicate memories and proposes archives; not measured as an outcome.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Memory reviewer</b></td><td>Reviews recent turns for facts worth remembering; small samples.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Ask mode</b></td><td>Lets the supervisor put a structured question to you; the benchmark was never run.</td><td><span class="st-pill st-off">Off</span></td></tr><tr><td><b>Adaptive layer policy</b></td><td>Picks the layers each turn needs; the fixed policy stays the default.</td><td><span class="st-pill st-off">Off</span></td></tr></tbody>
-    </table></div>
-
+    
   </div>
 </section>
 
@@ -849,8 +856,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <div class="section-label">MEMORY</div>
     <h2>What it remembers, <em>and who may write it.</em></h2>
     <p class="prose" style="margin-bottom:0;">
-      Memory is separate from the World Model, which is rebuilt empty every turn. Everything that reaches it goes through one service, so no writer can choose its own route: where a candidate lands depends on where it came from, how confident it is, and the configured write mode. By default the budgeted facts block with keyed corrections and the episodic digest are on; the write gate, audit log, memory reviewer, consolidation and recall tool are opt-in and grayed below. Click any box for its details.
-    </p>
+      Memory is separate from the World Model, which is rebuilt empty every turn. Everything that reaches it goes through one service, and where a candidate lands depends on its source, its confidence and the write mode. On by default: the budgeted facts block with corrections, and the episodic digest. The rest is opt-in and grayed below. Click any box for details.</p>
 
 
     <div class="turn-diagram mem">
@@ -862,11 +868,11 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
 
-    <div class="ext-grid mem3"><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">on by default</span><span class="ext-name">Who gets in</span><span class="ext-desc">A fact you state yourself is kept if it is durable. A model-inferred fact is kept only at high confidence, waits in the pending queue at medium (<code>/memory confirm</code>), and stays session-only at low. With <code>memoryWriteMode=user_only</code> even a high-confidence inference waits for you.</span><span class="ext-path">memoryWriteMode · AUDIT_MODEL_INFERRED_FACTS</span></div><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">on by default</span><span class="ext-name">What the model reads</span><span class="ext-desc">Each turn the facts are rendered into the system prompt by kind (identity and preference first, then the rest), newest first, until a 4,000-character budget is spent. Facts that do not fit are left out of that turn and counted, not deleted.</span><span class="ext-path">AUDIT_MEMORY_BUDGETED_RENDER · memoryBudgetChars</span></div><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">on by default</span><span class="ext-name">Corrections</span><span class="ext-desc">A fact carries a key for the attribute it describes; a new fact with the same key replaces the old one, which moves to a retired store. Shown on one corrections scenario (3 of 3 seeds, control failed). The classifier chooses the keys and they are not stable, so a replacement can be missed.</span><span class="ext-path">AUDIT_MEMORY_BUDGETED_RENDER</span></div><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">partly opt-in</span><span class="ext-name">Safety rails</span><span class="ext-desc"><code>/memory off</code> stops all memory writes. Cross-turn writers are staged for your approval by default and nothing is deleted automatically. The write gate redacts secrets and flags instruction-like text, failing closed when its check cannot run; it is off by default and showed no outcome gain, because the base model already resisted.</span><span class="ext-path">memoryWriteMode · AUDIT_MEMORY_WRITE_GATE</span></div><div class="ext-card static" style="--nc:var(--ink-3)"><span class="ext-pill">partly opt-in</span><span class="ext-name">Cross-turn writers</span><span class="ext-desc">Three writers add what one turn cannot see: a <b>reviewer</b> that proposes memories from repeated behaviour (opt-in), an <b>episodic digest</b> written at the session edge (on by default), and <b>consolidation</b> that proposes merges and archives, applied only when you accept (opt-in). In auto mode the reviewer passed 2 of 2 seeds; the digest, 2 seeds on one scenario; consolidation is unmeasured as an outcome.</span><span class="ext-path">AUDIT_MEMORY_REVIEWER · AUDIT_EPISODIC_DIGEST · AUDIT_MEMORY_CONSOLIDATION</span></div><div class="ext-card static" style="--nc:var(--ink-3)"><span class="ext-pill">opt-in, off by default</span><span class="ext-name">Recalling past sessions</span><span class="ext-desc">Digests are never put into the prompt. With the recall tool on, the model can list or open one through the read-only <code>recall_memory</code> tool, and the result is wrapped as untrusted data. Digests are kept 90 days by default.</span><span class="ext-path">AUDIT_RECALL_TOOL · AUDIT_EPISODIC_RETENTION_DAYS</span></div></div>
+    <div class="ext-grid mem3"><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">on by default</span><span class="ext-name">Who gets in</span><span class="ext-desc">A fact you state is kept if it is durable. A model-inferred fact is kept only at high confidence, waits for <code>/memory confirm</code> at medium, and stays session-only at low.</span></div><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">on by default</span><span class="ext-name">What the model reads</span><span class="ext-desc">Facts fill a 4,000-character budget, identity and preferences first. Facts that do not fit are left out of that turn, not deleted.</span></div><div class="ext-card static" style="--nc:var(--assist-ink)"><span class="ext-pill">on by default</span><span class="ext-name">Corrections</span><span class="ext-desc">A fact with the same key as an older one replaces it. This worked on one test scenario; keys are not stable, so a replacement can be missed.</span></div><div class="ext-card static" style="--nc:var(--ink-3)"><span class="ext-pill">off by default</span><span class="ext-name">Safety rails and writers</span><span class="ext-desc">The write gate, audit log, reviewer, consolidation and recall tool are opt-in. Cross-turn writers stage their changes for your approval, <code>/memory off</code> stops all writes, and nothing is deleted automatically.</span></div></div>
 
     <div class="tool-callout" style="margin-top:28px;">
-      <div class="tool-callout-label">What is and is not shown</div>
-      <p>The corrections behaviour is the only memory change with a demonstrated outcome difference. The write gate, audit log, digest and recall, reviewer and consolidation are mechanisms that work in testing (the digest is on by default, the rest are opt-in); their value on real use is unmeasured or small-sample, and a plain-language forget request is only staged for your approval (a known gap).</p>
+      <div class="tool-callout-label">How well it is tested</div>
+      <p>Only the corrections behaviour has a demonstrated outcome difference. The other memory mechanisms work in testing, and their value on real use is unmeasured or small-sample.</p>
     </div>
 
   </div>
@@ -881,7 +887,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Fresh, typed beliefs formed for this turn — what the message says and the memory facts carried in. The World Model is scratch state, rebuilt empty every turn.</p>
+    <p class="fm-desc">Fresh, typed beliefs for this turn: what the message says plus the memory facts carried in. Rebuilt empty every turn.</p>
     <div class="fm-files"><b>Files:</b> world_model.py · world_model_ops.py · staleness.py · generation-id.ts · update-world-model.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -892,8 +898,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>pinned generation_id still current</b> the downstream read proceeds normally</div>
-      <div class="fm-branch"><b>world model has advanced past the pinned generation_id</b> the gate re-resolves Control State once and raises StalenessError only if it is still stale (both twins), instead of silently returning an outdated belief. The Python twin can run the same check on Plan, Execution and Verification objects; the TypeScript twin Aielia runs pins only Control State</div>
+      <div class="fm-branch"><b>pinned generation_id still current</b><span> the read proceeds.</span></div>
+      <div class="fm-branch"><b>world model has moved on</b><span> Control State is re-resolved once; a <code>StalenessError</code> is raised only if it is still stale, instead of silently returning an outdated belief.</span></div>
     </div>
   </div>
 </dialog>
@@ -905,7 +911,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">The evidence store backing the reply. Each result's reliability is capped at the ceiling set for the tool that produced it.</p>
+    <p class="fm-desc">The evidence store behind the reply. Each result's reliability is capped by the tool that produced it.</p>
     <div class="fm-files"><b>Files:</b> evidence.py · tool_reliability.py · tool_manifest.py · gather-evidence.ts · apply-tool-reliability.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -916,8 +922,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>tool available</b> (tool_manifest) — call proceeds as planned</div>
-      <div class="fm-branch"><b>tool unavailable</b><span> no evidence is collected and a warning is logged. The Python manifest can name a fallback tool; in Aielia every enabled tool is registered with no fallback. This is an availability check, not the security allowlist (that one guards <code>fn_ref</code> values at /compile, /flows and /run)</span></div>
+      <div class="fm-branch"><b>tool available</b><span> the call proceeds as planned.</span></div>
+      <div class="fm-branch"><b>tool unavailable</b><span> no evidence is collected and a warning is logged. This is an availability check, not the security allowlist.</span></div>
     </div>
   </div>
 </dialog>
@@ -929,8 +935,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-dormant"><b>Grayed in Aielia</b> by default this layer is bookkeeping: nothing reads its output while the reply is written, and the opt-in version showed no measurable benefit at about 4× the cost (see Evaluation below).</p>
-    <p class="fm-desc">Candidate explanations kept alongside the beliefs, seeded from four sources, regenerated until the sources are diverse, then pruned by confidence. By default in Aielia this layer is bookkeeping: the seeds are fixed templates with no predicted observations, and nothing reads them while the reply is written (Control State reads only their source diversity, through Diagnostics).</p>
+    <p class="fm-dormant"><b>Grayed in Aielia</b> by default this layer is bookkeeping: nothing reads its output while the reply is written.</p>
+    <p class="fm-desc">Candidate explanations kept beside the beliefs, seeded from four sources and pruned by confidence. Control State reads only their source diversity, through Diagnostics.</p>
     <div class="fm-files"><b>Files:</b> hypothesis.py · generate-update-hypotheses.ts · semantic-hypotheses.ts</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -941,10 +947,10 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>default</b><span> template seeds only; their empty <code>predicted_observations</code> mean the review gate's <code>hypothesis_compatibility</code> check has nothing to compare against</span></div>
-      <div class="fm-branch"><b>opt-in</b><span> <code>AUDIT_SEMANTIC_HYPOTHESES=1</code>: for an underdetermined request, one LLM call proposes 2–4 competing explanations with a separating check, the model sees them while drafting, and one call per execution rules out the ones new evidence contradicts</span></div>
+      <div class="fm-branch"><b>default</b><span> fixed template seeds only.</span></div>
+      <div class="fm-branch"><b>off by default</b><span> <code>AUDIT_SEMANTIC_HYPOTHESES=1</code>: for an underdetermined request, one call proposes 2–4 competing explanations and the model sees them while drafting.</span></div>
     </div>
-    <p class="fm-verdict"><b>Evaluation:</b> suggestive, not proven — 9/10 vs 8/10 on a matched 10-seed run, at about 4× the cost. It stays off.</p>
+    <p class="fm-verdict"><b>Why it is off:</b> suggestive in testing (9/10 vs 8/10 on a matched run), at about 4× the cost.</p>
   </div>
 </dialog>
 
@@ -955,7 +961,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Checks a new belief against ones already on record — "the build is passing" against a "failing" belief from three turns ago.</p>
+    <p class="fm-desc">Checks a new belief against the ones on record — “the build is passing” against a “failing” belief from three turns ago.</p>
     <div class="fm-files"><b>Files:</b> contradiction.py · belief_graph.py · detect-contradictions.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -964,9 +970,9 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>no conflict</b> belief added, nothing else happens</div>
-      <div class="fm-branch"><b>conflict found</b> logged. LOW or MEDIUM severity cuts the affected beliefs' confidence by 10% or 25%; HIGH puts them on the invalidation frontier instead, and Verification and the Reviewer count it as unresolved. The keyword detector grades a pair HIGH when both beliefs are at least 0.8 confident and MEDIUM otherwise (a pair with both under 0.5 is ignored); LOW comes only from the advisory granularity check. In Aielia that detector is off by default, so conflicts come from the semantic backstop (below), which records them as MEDIUM</div>
-      <div class="fm-branch"><b>severity = SYSTEM_BREAKING</b> a HIGH conflict whose belief pair an active hypothesis predicted as a conflict. Control State Tier 1 then forces BLOCKED on the next resolve. Only the keyword detector's HIGH pairs can be upgraded, so in Aielia by default (detector off, and the default hypothesis seeds predict nothing) this does not occur</div>
+      <div class="fm-branch"><b>no conflict</b><span> the belief is added.</span></div>
+      <div class="fm-branch"><b>conflict found</b><span> logged. LOW or MEDIUM cuts the affected beliefs' confidence by 10% or 25%; HIGH puts them on the invalidation frontier, and Verification and the Reviewer count it as unresolved.</span></div>
+      <div class="fm-branch"><b>SYSTEM_BREAKING</b><span> a HIGH conflict that an active hypothesis predicted forces BLOCKED on the next Control State resolve. Only the keyword detector can raise it, and that detector is off by default in Aielia.</span></div>
     </div>
   </div>
 </dialog>
@@ -978,8 +984,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-dormant"><b>Grayed in Aielia</b> the ratio dimensions (<code>progress_rate</code>, <code>oscillation_score</code>) stay neutral until 3 tasks have been attempted, and Aielia's ordinary turns end at two or fewer attempted tasks (per the eval notes; a long multi-step plan can reach three), so on most turns this layer produces no signal that changes a decision. It is the input to the harness-level Control State resolver, which is redundant here for the same reason (Layer 6).</p>
-    <p class="fm-desc">Ten health dimensions, each normalised to 0–1, computed from the turn so far and fed straight into Control State.</p>
+    <p class="fm-dormant"><b>Grayed in Aielia</b> the ratio dimensions stay neutral until 3 tasks have been attempted, and most Aielia turns end at two or fewer, so this layer rarely changes a decision.</p>
+    <p class="fm-desc">Ten health dimensions, each normalised to 0–1, computed from the turn so far and fed into Control State.</p>
     <div class="fm-files"><b>Files:</b> diagnostics.py · update-diagnostics.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-grid">
@@ -1010,8 +1016,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-dormant"><b>Where it bites in Aielia</b> the harness-level resolver is shown to work at the harness level (4 or fewer executions against 43 without it), but in the assistant its ratio inputs need 3 or more attempted tasks, which the eval notes say Aielia's graphs do not reach. Its effect is delivered instead by a turn-local copy behind the tool-policy gate (a retry loop is blocked once 8 failures are counted, so the 9th attempt is refused) and by the stall rule and Trajectory Supervisor for executor failures.</p>
-    <p class="fm-desc">The sole control input for action selection (INV-06) — <code>resolve_control_state()</code> is the only function allowed to write it. Five tiers run in strict order; the first one that fires wins.</p>
+    <p class="fm-dormant"><b>Where it bites in Aielia</b> the resolver works at the harness level, but in the assistant its inputs rarely reach 3 attempted tasks. Its effect comes from a turn-local copy behind the tool-call gate (a retry loop is refused on the 9th attempt, after 8 failures) and from the stall rule and the Trajectory Supervisor.</p>
+    <p class="fm-desc">The sole control input for action selection (INV-06). Five tiers run in strict order; the first one that fires wins.</p>
     <div class="fm-files"><b>Files:</b> control_state.py · resolve-control-state.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-cascade">
@@ -1056,9 +1062,9 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">A task graph with six task states (PENDING, RUNNING, COMPLETE, FAILED, BLOCKED, HUMAN_REQUIRED) and dependency tracking. Ready tasks are picked highest-risk first. Two ready tasks run side by side when neither is HIGH risk and their write domains do not overlap (or overlap with a recorded conflict probability of 0.5 or less). Aielia's tasks declare no write domains, so any two independent ready non-HIGH tasks may run in parallel; a dependency chain or a HIGH-risk task runs serially.</p>
+    <p class="fm-desc">A task graph with six states (PENDING, RUNNING, COMPLETE, FAILED, BLOCKED, HUMAN_REQUIRED) and dependency tracking. Ready tasks are picked highest-risk first; independent non-HIGH tasks may run side by side, while a dependency chain or a HIGH-risk task runs serially.</p>
     <div class="fm-files"><b>Files:</b> task_graph.py · parallel_merge.py · task-graph.ts · select-task.ts (TS twin)</div>
-    <p class="fm-dormant"><b>Live part</b> task states, dependency order, cycle detection, the risk rating and two-at-once dispatch of independent non-HIGH tasks. <b>Inert in Aielia</b> the write-domain conflict-probability check, since its tasks declare no write domains.</p>
+    <p class="fm-dormant"><b>Live</b> task states, dependency order, cycle detection, risk rating and parallel dispatch of independent non-HIGH tasks. <b>Inert</b> the write-domain conflict check, since Aielia's tasks declare no write domains.</p>
     <div class="fm-diagram">
       <div class="fm-chain">
         <div class="fm-box">PENDING</div><div class="fm-arrow">→</div>
@@ -1067,8 +1073,8 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>off-ramp</b> a task can instead move to FAILED (set only by Execution; Recovery may re-queue it to PENDING), BLOCKED (a caller scope change or a cancelled goal) or HUMAN_REQUIRED (declared, not set by current code); COMPLETE is terminal</div>
-      <div class="fm-branch"><b>risk rating</b> each task also carries LOW / MEDIUM / HIGH, read by Execution's review gate before it runs</div>
+      <div class="fm-branch"><b>off-ramp</b><span> a task can move to FAILED (set only by Execution; Recovery may re-queue it), BLOCKED (scope change or cancelled goal) or HUMAN_REQUIRED. COMPLETE is terminal.</span></div>
+      <div class="fm-branch"><b>risk rating</b><span> each task carries LOW / MEDIUM / HIGH, read by Execution's review gate before it runs.</span></div>
     </div>
   </div>
 </dialog>
@@ -1109,7 +1115,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Nine independent checks the draft has to clear before it's trusted — not passed on the model's word.</p>
+    <p class="fm-desc">Nine independent checks the draft has to clear before it is trusted — not passed on the model's word.</p>
     <div class="fm-files"><b>Files:</b> verification.py · verify.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-box" style="max-width:none;margin-bottom:8px;">Draft output</div>
@@ -1128,10 +1134,10 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <div class="fm-agg">has_critical_failure?</div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>no</b> draft trusted, turn continues</div>
-      <div class="fm-branch"><b>yes</b> sent to Recovery (Layer 10)</div>
-      <div class="fm-branch"><b>in a chat turn</b> only evidence_sufficiency and output_contract_partial normally return a pass or fail. consistency is SKIPPED because the runtime marks its checker unavailable (contradictions are handled by Layer 4); requirements and assumptions can only fail on an empty output; syntax, unit, integration and goal_correctness are SKIPPED</div>
-      <div class="fm-branch"><b>grounding check (Aielia)</b><span> separate from the nine checks and run after the reply: before a tool-backed reply is labelled <i>verified</i>, one LLM call compares it against the raw tool output (<code>AUDIT_SEMANTIC_GROUNDING</code>, on by default). An ungrounded verdict, an unchecked reply (no tool text, or the call errored) or no passing layer means <i>unverified</i>, never verified</span></div>
+      <div class="fm-branch"><b>no</b><span> the draft is trusted and the turn continues.</span></div>
+      <div class="fm-branch"><b>yes</b><span> the failure goes to Recovery (Layer 10).</span></div>
+      <div class="fm-branch"><b>in a chat turn</b><span> only <code>evidence_sufficiency</code> and <code>output_contract_partial</code> normally return a pass or fail; the rest report SKIPPED, never a fake pass.</span></div>
+      <div class="fm-branch"><b>grounding check (Aielia)</b><span> separate from the nine, run after the reply: before a tool-backed reply is labelled verified, one call compares it with the raw tool output. On by default.</span></div>
     </div>
     <p class="fm-caption">Grayed checks report SKIPPED in a chat turn (no linter, test runner or integration runner to call). Click any check for what it specifically catches.</p>
   </div>
@@ -1144,7 +1150,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Six named strategies in a fixed, escalating order — a rollback-and-replan path instead of the run crashing out. In Aielia the strategy picked is mostly bookkeeping (a one-sentence hint reaches the model); what changes the outcome is whether a failed task is retried at all.</p>
+    <p class="fm-desc">Six named strategies in a fixed, escalating order, so a failure triggers a rollback-and-replan instead of a crash. In Aielia the chosen strategy is mostly bookkeeping; what changes the outcome is whether a failed task is retried at all.</p>
     <div class="fm-files"><b>Files:</b> recovery.py · replanning.py · memory.py</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -1158,10 +1164,10 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     </div>
     <p class="fm-caption">Past experience can bias which strategy is tried first, but only when experience learning is switched on (<code>AUDIT_EXPERIENCE_LEARNING=1</code>, off by default). Otherwise nothing writes the strategy weights and this fixed order is always used, as it is whenever the experience store is unavailable (<code>INV-10</code>). A confident (0.7 or higher) failure-mode match that names a preferred strategy jumps straight to it. It ranks below the Supervisor's redirect and, when experience learning is on, below the learned ranking.</p>
     <div class="fm-branches">
-      <div class="fm-branch"><b>system-error retry</b><span> <code>AUDIT_RETRY_SYSTEM_ERRORS</code>, on by default. Each failed execution is tagged <code>system_error</code> (the executor threw, or the tool or model call broke) or <code>exhausted</code> (it ran out of its own iteration budget). After the ladder switches strategy, a <code>system_error</code> task is re-queued once. Exhausted loops, rejected completion checks and failed verification are never retried, and the once-per-task cap means a persistent outage still ends in the honest "could not complete" reply. Demonstrated: with the matcher off, a synthetic 503 passes with the rule and fails without it.</span></div>
-      <div class="fm-branch"><b>retry every failed task</b><span> <code>AUDIT_RETRY_FAILED_TASK</code>, off: flipping it changed 8 existing tests (runaway loops end escalated, rejected plan steps get retried).</span></div>
-      <div class="fm-branch"><b>learned ranking</b><span> <code>AUDIT_EXPERIENCE_LEARNING</code>, off. Wired and unit-tested, but not demonstrable as an outcome benefit in Aielia — the chosen strategy does not change what the model sees.</span></div>
-      <div class="fm-branch"><b>stall rule</b> a run that stalls (completion velocity, a strategy loop, a recurring failure or risk oscillation) gets a global rebuild of the task graph, otherwise a local replan. The Trajectory Supervisor, if enabled, is consulted only at that stall.</div>
+      <div class="fm-branch"><b>system-error retry</b><span> on by default: a task that failed because a tool or model call broke is retried once after the ladder switches strategy.</span></div>
+      <div class="fm-branch"><b>retry every failed task</b><span> off: turning it on changes how runaway loops end.</span></div>
+      <div class="fm-branch"><b>learned ranking</b><span> off: wired and tested, but not demonstrable as an outcome.</span></div>
+      <div class="fm-branch"><b>stall rule</b><span> a stalled run gets a global rebuild of the task graph, otherwise a local replan. The Trajectory Supervisor is consulted only at that stall.</span></div>
     </div>
   </div>
 </dialog>
@@ -1173,7 +1179,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">A final pass reviews the run before the answer leaves the harness. Its verdict feeds the next Control State resolve; in a narrow case it sends a finished task back through the loop.</p>
+    <p class="fm-desc">A final pass reviews the run before the answer leaves the harness. Its verdict feeds the next Control State resolve, and in a narrow case it sends a finished task back through the loop.</p>
     <div class="fm-files"><b>Files:</b> reviewer.py · reviewer-pass.ts (TS twin)</div>
     <div class="fm-diagram">
       <div class="fm-grid" style="grid-template-columns:repeat(3,1fr);max-width:460px;">
@@ -1187,9 +1193,9 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       <div class="fm-agg">reviewer-lens finding names a finished task?</div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>no</b> output released; the verdict is stored in the checkpoint and only used if a task is later reopened (the second pass's Control State resolve)</div>
-      <div class="fm-branch"><b>yes</b> reopens that COMPLETE task → loop back to Planning (never writes control_state directly — INV-06). Implementer findings quote a success criterion and never reopen a task; the generic "respond helpfully" default criterion is never checked, on every turn.</div>
-      <div class="fm-branch"><b>opt-in</b><span> <code>AUDIT_REVIEWER_REVISION=1</code>: at the end of a run, a HIGH verdict (or a MEDIUM implementer finding that a real success criterion is uncovered) sends the last answer back once, with the finding, to be answered again (only when every task is complete and nothing else was reopened). It fires and acts on a real model but showed no outcome difference (a matched re-run passes with or without it), so it stays off.</span></div>
+      <div class="fm-branch"><b>no</b><span> the output is released; the verdict is kept and used only if a task is later reopened.</span></div>
+      <div class="fm-branch"><b>yes</b><span> a reviewer finding that names a finished task reopens it and loops back to Planning (never writing control state directly, INV-06).</span></div>
+      <div class="fm-branch"><b>off by default</b><span> <code>AUDIT_REVIEWER_REVISION=1</code>: a HIGH verdict sends the last answer back once, with the finding, to be answered again.</span></div>
     </div>
   </div>
 </dialog>
@@ -1204,20 +1210,15 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">One consolidated LLM call, made before the harness runs, that classifies the turn (in the code, the turn-intent classifier). Its judgments decide whether the harness runs at all, how the turn is planned, whether it needs approval, and whether the Reviewer Pass's adversarial lens runs. A greeting needs none of it; a risky multi-step request needs all of it.</p>
+    <p class="fm-desc">One LLM call before the harness runs that classifies the turn. Its judgments decide whether the harness runs at all, how the turn is planned, whether it needs approval and whether the adversarial review runs. A greeting needs none of it; a risky multi-step request needs all of it.</p>
     <div class="fm-files"><b>Files:</b> turn-intent-classifier.ts · turn-policy.ts · turn-interpreter.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>riskLevel</b> LOW / MEDIUM / HIGH, or UNKNOWN when the classifier call fails or can't be parsed (treated as HIGH and requires approval), with a stated riskReason. Drives the approval gate and Control State, and the depth of the Reviewer Pass: its adversarial lens only runs on a non-LOW-risk turn or one with three or more tasks.</div>
-      <div class="fm-branch"><b>isTrivial</b> only meaningful when riskLevel is LOW — true turns every harness layer off: the reply goes straight back and HarnessRuntime.run() never runs (and no next-step options are proposed).</div>
-      <div class="fm-branch"><b>decomposedTasks</b> a multi-step request broken into an ordered task list, or null. Shapes Planning (Layer 7): one task per node instead of a single task.</div>
-      <div class="fm-branch"><b>plan flags</b> isAbandonRequest, matchedPlanTemplate and needsMultiStepPlan: abandon judgment is only honoured when a plan is already active; template matching and the durable-plan check only when none is. Together they decide whether the turn runs under a tracked, user-approved plan.</div>
-      <div class="fm-branch"><b>isBulkReminderRequest</b> (only true when isReminderRequest is too, i.e. more than one reminder in a turn) forces approval, like HIGH or UNKNOWN risk. isReminderRequest alone does not.</div>
-      <div class="fm-branch"><b>isPlanQuestion</b> a question about an active plan's state is answered from the recorded plan instead of re-running it (by default, only while a step has failed)</div>
-      <div class="fm-branch"><b>continuesPlan</b><span> with a plan active, whether the message tells the assistant to carry on (a go-ahead, "retry", details for a failed step). Only an explicit false sets a stuck plan aside (<code>AUDIT_STUCK_PLAN_RESUME</code>).</span></div>
-      <div class="fm-branch"><b>facts and constraints</b> statesDurableFacts (each with a confidence and a durable bit) feed user-fact memory; statedConstraints, lastingConstraints and liftedConstraints feed the constraint judge.</div>
-      <div class="fm-branch"><b>isUnderdetermined</b> read only when the opt-in semantic hypotheses are on (Layer 3)</div>
-      <div class="fm-branch"><b>layer-policy signals</b> needsGrounding, ambiguity, userPosture, pushbackOnPriorTurn and statesConstraint ride the same call and are read only by the layer policy (pushbackOnPriorTurn also tags the previous turn's telemetry row).</div>
-      <div class="fm-branch"><b>layer policy</b><span> <code>layerPolicyMode</code> is <code>static</code>: every layer runs as configured. An adaptive mode exists that would switch layers off per turn, but all eight of its rules are still unproven hypotheses, so it stays off; shadow telemetry records what it would have done, with the real LLM calls and tokens the four escalation hooks spend.</span></div>
+      <div class="fm-branch"><b>riskLevel</b><span> LOW / MEDIUM / HIGH, or UNKNOWN when the call fails (treated as HIGH, approval required). Drives the approval gate and Control State.</span></div>
+      <div class="fm-branch"><b>isTrivial</b><span> only meaningful at LOW risk. A trivial turn skips every harness layer and is answered directly, with no next-step options.</span></div>
+      <div class="fm-branch"><b>decomposedTasks</b><span> a multi-step request broken into an ordered task list, which shapes Planning.</span></div>
+      <div class="fm-branch"><b>plan flags</b><span> abandon, template match, multi-step plan and plan-question judgments, used only when they apply to the active plan state.</span></div>
+      <div class="fm-branch"><b>facts and constraints</b><span> durable facts feed memory; stated, lasting and lifted constraints feed the constraint check.</span></div>
+      <div class="fm-branch"><b>layer policy</b><span> static by default, so every layer runs as configured. The adaptive mode is off.</span></div>
     </div>
   </div>
 </dialog>
@@ -1229,14 +1230,13 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Untrusted content is wrapped before it ever has a chance to become a belief in World Model (Layer 1).</p>
+    <p class="fm-desc">Untrusted content is wrapped before it can become a belief in the World Model.</p>
     <div class="fm-files"><b>Files:</b> trust-tagging.ts · recall-tool.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>web_search / fetch_url results</b> wrapped in an untrusted_external_content tag; the system prompt tells the model that tag is data, never instructions</div>
-      <div class="fm-branch"><b>read_file / list_directory results</b> left untouched — file content is user-owned, not adversarial-by-default</div>
-      <div class="fm-branch"><b>detectInjectionLikelyWithLLM()</b><span> an LLM check on tool output for content that looks like it's trying to issue instructions. Since the lexical checks were switched off by default (2026-09-28) it is the only check in the assistant itself, and it runs on every web result and approved shell output, not only long ones (<code>AUDIT_LLM_INJECTION_DETECT=0</code> removes it); read_file, list_directory and reminder results are not checked.</span></div>
-      <div class="fm-branch"><b>recall_memory digests</b><span> (opt-in, <code>AUDIT_RECALL_TOOL</code>) are wrapped in the same tag</span></div>
-      <div class="fm-branch"><b>run_shell_command output</b> gets the same injection check and tag when an approved command runs; the tag is kept in the saved transcript, not shown in the chat bubble</div>
+      <div class="fm-branch"><b>web results</b><span> <code>web_search</code> and <code>fetch_url</code> output is wrapped as untrusted data; the system prompt says that tag is never instructions.</span></div>
+      <div class="fm-branch"><b>file reads</b><span> <code>read_file</code> and <code>list_directory</code> output is left untouched: file content is user-owned.</span></div>
+      <div class="fm-branch"><b>injection check</b><span> an LLM check on tool output, and on approved shell output, for text that tries to issue instructions. On by default.</span></div>
+      <div class="fm-branch"><b>recall digests</b><span> wrapped in the same tag when the recall tool is on.</span></div>
     </div>
   </div>
 </dialog>
@@ -1248,14 +1248,14 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">An LLM check that compares new beliefs against the ones already on record, by meaning rather than wording. Since 2026-09-28 it is the contradiction detector Aielia uses by default: the harness's lexical negation-pair detector is switched off in the CLI and desktop app.</p>
+    <p class="fm-desc">An LLM check that compares new beliefs against the record by meaning rather than wording. It is the contradiction detector Aielia uses by default; the keyword detector is off.</p>
     <div class="fm-files"><b>Files:</b> contradiction-checker.ts · lexical/lexical-mode.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>semantic pass (default)</b><span> an LLM call when new check-worthy beliefs are added, in the harness and again on memory facts (<code>AUDIT_SEMANTIC_CONTRADICTION=0</code> turns it off); task-completion trail beliefs are never checked</span></div>
-      <div class="fm-branch"><b>lexical pass (opt back in)</b><span> <code>ASSISTANT_LEXICAL_MODE=enabled</code> restores the keyword detector (build passed/failed, file exists/missing…) and the skip that avoids the LLM call when every new belief is already lexically structured</span></div>
-      <div class="fm-branch"><b>severity</b><span> a found contradiction is recorded as MEDIUM; with <code>AUDIT_SEMANTIC_CONTRADICTION_SEVERITY=1</code> (off) the same call can grade it HIGH</span></div>
+      <div class="fm-branch"><b>semantic pass (default)</b><span> runs when new check-worthy beliefs are added, in the harness and on memory facts.</span></div>
+      <div class="fm-branch"><b>keyword pass (opt back in)</b><span> <code>ASSISTANT_LEXICAL_MODE=enabled</code> restores it.</span></div>
+      <div class="fm-branch"><b>severity</b><span> a found contradiction is recorded as MEDIUM; the optional severity grading (off) can mark it HIGH.</span></div>
     </div>
-    <p class="fm-verdict"><b>Evaluation:</b> verified — on its layer conversation the turn passes with the check on and fails with it off, in 3 of 3 runs, and the check's own LLM call appears only in the ON arm.</p>
+    <p class="fm-verdict"><b>Result:</b> on its test conversation the turn passes with the check on and fails with it off, in 3 of 3 runs.</p>
   </div>
 </dialog>
 
@@ -1290,7 +1290,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">A deterministic, harness-state-informed check before each read-only tool call runs — not just advisory classification checked after the fact. Complements pending-action approval above, which already gates write_file/run_shell_command unconditionally regardless of this check.</p>
+    <p class="fm-desc">A deterministic check before each read-only tool call, built from the outcomes of every earlier call that turn. File writes, shell commands and email are gated separately by approval.</p>
     <div class="fm-files"><b>Files:</b> tool-policy.ts · tool-control-plane.ts</div>
     <div class="fm-diagram">
       <div class="fm-chain">
@@ -1300,10 +1300,9 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
       </div>
     </div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>ControlState</b> built fresh each turn and updated after every tool-call outcome (success or failure) via gatherEvidence → applyToolReliability → updateWorldModel from the harness core, then only failure_recurrence is recomputed before resolveControlState (the full diagnostics pass is skipped; a missing-file answer is not a failure, only real errors and the third-plus repeat of an identical empty call count) — so a developing failure pattern within one turn can trip a real DENY, not just get logged after the fact</div>
-      <div class="fm-branch"><b>ALLOW</b> the default — ControlState permits, or nothing's gone wrong yet this turn</div>
-      <div class="fm-branch"><b>DENY</b> the call is blocked outright, reported back to the model as a tool result</div>
-      <div class="fm-branch"><b>REQUIRE_APPROVAL</b> also given for an UNKNOWN risk classification and, if a control state carries a HUMAN_REQUIRED or SYSTEM_BREAKING escalation without DENY, for that too (the resolver normally sets DENY alongside them, and DENY is checked first); surfaced as an escalation — a read-only call has no concrete pending mutation to stage the way write/shell do</div>
+      <div class="fm-branch"><b>ALLOW</b><span> the default: nothing has gone wrong yet this turn.</span></div>
+      <div class="fm-branch"><b>DENY</b><span> the call is blocked and reported back to the model as a tool result. A retry loop is denied after 8 failures.</span></div>
+      <div class="fm-branch"><b>REQUIRE_APPROVAL</b><span> used for an UNKNOWN risk classification or an escalation that needs a human.</span></div>
     </div>
   </div>
 </dialog>
@@ -1315,10 +1314,10 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Matches observed symptoms against the curated failure-pattern library by meaning, not exact wording — e.g. "the request took too long and timed out" matches a curated "request timed out" symptom.</p>
+    <p class="fm-desc">Matches observed symptoms against the curated failure-pattern library by meaning, not wording — “the request took too long and timed out” matches a “request timed out” symptom.</p>
     <div class="fm-files"><b>Files:</b> failure-mode-matcher.ts</div>
     <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Layered on Recovery (Layer 10)'s pattern library — one LLM call, asked about a task only after it has failed, and not again once it has produced a match for that task (it sees the task's first failure). By default it is the only matcher: the exact-substring match is switched off with the other lexical checks (<code>ASSISTANT_LEXICAL_MODE=enabled</code> restores it). A match with confidence 0.7 or higher and a curated preferred strategy re-queues the failed task. Its escalation hook is now gated per call, so an adaptive layer policy can turn it on mid-turn rather than only at the start.</p>
-    <p class="fm-verdict"><b>Evaluation:</b> demonstrated on every backend for one pattern — a transient model-call error (a synthetic 503) becomes a failed task, the match re-queues it, and the turn passes where the control fails. One seed each. The other three curated patterns have no demonstrated trigger.</p>
+    <p class="fm-verdict"><b>Result:</b> demonstrated for one pattern (a synthetic 503 becomes a failed task, the match re-queues it, and the turn passes where the control fails). The other three patterns have no demonstrated trigger.</p>
   </div>
 </dialog>
 
@@ -1329,10 +1328,10 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Checks whether a proposed action genuinely conflicts with a high-confidence belief or an active hypothesis's predicted observation — a real logical conflict, not just topical overlap.</p>
+    <p class="fm-desc">Checks whether a proposed action really conflicts with a high-confidence belief or an active hypothesis's prediction — a logical conflict, not topical overlap.</p>
     <div class="fm-files"><b>Files:</b> review-checker.ts</div>
     <p class="layer-more" style="font-size:13px;color:var(--ink-2);margin:0;">Runs in Execution (Layer 8)'s review gate after the lexical dimensions pass (those are off by default in Aielia), and checks against high-confidence beliefs, known facts and hypothesis predictions. Advisory: a conflict is surfaced as a heads-up, not a block. <code>AUDIT_SEMANTIC_CHANGE_REVIEW</code>, on by default.</p>
-    <p class="fm-verdict"><b>Evaluation:</b> fires and is wired end to end, but no benefit shown — across six pilots the model caught the conflict without it.</p>
+    <p class="fm-verdict"><b>Result:</b> it fires and is wired end to end, but the model caught the conflict without it in six pilots.</p>
   </div>
 </dialog>
 
@@ -1370,17 +1369,14 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Facts stated in one conversation are extracted and carried into future ones. Each turn the model is shown a block of facts that fits a character budget (<code>memoryBudgetChars</code>, default 4000), most important first, instead of only the 20 most recent. This budgeted render is on by default (<code>AUDIT_MEMORY_BUDGETED_RENDER=0</code> restores the old path). Everything marked opt-in below is off by default.</p>
+    <p class="fm-desc">Facts stated in one conversation are extracted and carried into later ones. Each turn the model sees the facts that fit a character budget (4,000 by default), most important first, instead of only the 20 most recent.</p>
     <div class="fm-files"><b>Files:</b> fact-extraction.ts · memory-service.ts · memory-governance.ts · episodic-digest.ts · memory-reviewer.ts · memory-consolidation.ts · recall-tool.ts</div>
     <div class="fm-branches">
-      <div class="fm-branch"><b>confidence</b><span> a fact you assert directly is kept if durable. A model-inferred one is kept only at high confidence, queued for <code>/memory confirm</code> at medium, and session-only at low (shown as unconfirmed).</span></div>
-      <div class="fm-branch"><b>corrections (default)</b> a fact with a key replaces the earlier fact for the same attribute, and the old one goes to a retired store. Shown on one corrections scenario, 3 of 3 seeds. Not measured: key stability, so a changed attribute can be stored under a different key and miss the replacement.</div>
-      <div class="fm-branch"><b>controls (default)</b><span> <code>/memory status</code> shows store size against budget; <code>/memory forget</code> removes a fact; <code>/memory off</code> stops all memory writes and leaves existing facts readable. A forget request made in plain language is only staged for your approval.</span></div>
-      <div class="fm-branch"><b>write gate</b><span> <code>AUDIT_MEMORY_WRITE_GATE</code>, opt-in. A model check redacts secrets and flags instruction-like text before a fact is stored, and refuses to store when the check cannot run. The base model already resisted in the one scenario run, so no outcome gain is shown.</span></div>
-      <div class="fm-branch"><b>audit log</b><span> <code>AUDIT_MEMORY_AUDIT_LOG</code>, opt-in. Enables <code>/memory history</code> and <code>/memory undo</code>. Undo exactness is unit-tested only.</span></div>
-      <div class="fm-branch"><b>episodic digest and recall</b><span> <code>AUDIT_EPISODIC_DIGEST</code> (on by default) and <code>AUDIT_RECALL_TOOL</code> (opt-in). A handoff digest is written at the session edge, and, with the recall tool on, the model can read digests through a read-only <code>recall_memory</code> tool. Shown on one scenario, 2 seeds. Adds a model call per session edge.</span></div>
-      <div class="fm-branch"><b>reviewer</b><span> <code>AUDIT_MEMORY_REVIEWER</code>, opt-in. A post-turn pass proposes cross-turn memories. Its writes are staged for <code>/memory confirm</code> unless <code>memoryWriteMode</code> is <code>auto</code>. In auto mode it passed 2 of 2 seeds; the default staged mode failed both arms in its first gate and was then fixed.</span></div>
-      <div class="fm-branch"><b>consolidation</b><span> <code>AUDIT_MEMORY_CONSOLIDATION</code>, opt-in; needs the audit log. It proposes merges and archives, applied only on <code>/memory consolidate accept</code>. Not measured as an outcome; one all-flags run cost about 10-40% more.</span></div>
+      <div class="fm-branch"><b>confidence</b><span> a fact you state is kept if durable. A model-inferred one is kept only at high confidence, queued for <code>/memory confirm</code> at medium, and session-only at low.</span></div>
+      <div class="fm-branch"><b>corrections</b><span> a fact with a key replaces the earlier fact for the same attribute; the old one moves to a retired store. Keys are not stable, so a replacement can be missed.</span></div>
+      <div class="fm-branch"><b>controls</b><span> <code>/memory status</code>, <code>/memory forget</code>, <code>/memory off</code>.</span></div>
+      <div class="fm-branch"><b>episodic digest</b><span> on by default: a handoff summary is written when a session ends.</span></div>
+      <div class="fm-branch"><b>off by default</b><span> the write gate, audit log (<code>/memory history</code>, <code>/memory undo</code>), recall tool, reviewer and consolidation.</span></div>
     </div>
   </div>
 </dialog>
@@ -1392,7 +1388,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">checkSpendCap() runs once per new turn, before any LLM call, and refuses it once the session's cumulative cost (<code>sessionCostLimitUsd</code>) or its count of recorded turns and background memory calls (<code>sessionCallLimit</code>) reaches the ceiling. The ledger persists per session across /new and restarts. Neither limit is set by default, and a running turn and an approval resume are never interrupted. A model with no known price counts as $0. No harness-core equivalent — the harness itself doesn't track cost.</p>
+    <p class="fm-desc"><code>checkSpendCap()</code> runs once per new turn, before any LLM call, and refuses it once the session's cumulative cost or call count reaches its ceiling. Neither limit is set by default, and a running turn is never interrupted.</p>
     <div class="fm-files"><b>Files:</b> spend-cap.ts · model-pricing.ts</div>
   </div>
 </dialog>
@@ -1404,7 +1400,7 @@ dialog.flow-modal::backdrop{background:oklch(.15 .01 270 / .6);}
     <button class="fm-close" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
   </div>
   <div class="fm-body">
-    <p class="fm-desc">Every applied file write or shell command is recorded (the newest 20 are kept), so it can be reverted. A write over a binary file, or a shell run in a workspace too large to snapshot (over 2,000 files), is marked not undoable with the reason. Files skipped (binary, over 1 MB, ignored directories) are listed as unsnapshottable and the revert is flagged incomplete. Emails are not logged. A revert is staged for your approval via /undo-action.</p>
+    <p class="fm-desc">Every applied file write or shell command is recorded (the newest 20), so it can be reverted with <code>/undo-action</code>, which asks for your approval first. Binary files, very large workspaces and emails cannot be reverted.</p>
     <div class="fm-files"><b>Files:</b> action-snapshot.ts</div>
   </div>
 </dialog>
